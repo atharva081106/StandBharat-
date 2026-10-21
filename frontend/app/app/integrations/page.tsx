@@ -369,10 +369,70 @@ export default function Integrations() {
                    />
                    <div className="flex justify-end gap-2 pt-2">
                      <Button variant="outline" size="sm" onClick={cancelConnect} className="border-[#373333] text-[#E5E7EB]">Cancel</Button>
-                     <Button variant="default" size="sm" onClick={() => handleConnect(integration.id)} className="bg-[#F5F3F1] text-[#171515]">Submit</Button>
-                   </div>
-                 </div>
-               )}
+                      <Button variant="default" size="sm" onClick={() => handleConnect(integration.id)} className="bg-[#F5F3F1] text-[#171515]">Submit</Button>
+                    </div>
+                  </div>
+                )}
+
+                {connecting === integration.id && integration.id === 'instagram' && (
+                  <div className="mt-4 pt-4 border-t border-[#373333] space-y-3">
+                    {igError && <div className="text-[#EF4444] text-xs">{igError}</div>}
+                    <p className="text-xs text-[#E5E7EB]">Connect Instagram Professional or Creator account via Graph API:</p>
+                    <Input 
+                      placeholder="Instagram Username (e.g. @your_brand)" 
+                      value={igForm.username}
+                      onChange={e => setIgForm({...igForm, username: e.target.value})}
+                      className="bg-[#242222] border-[#373333] text-sm text-white"
+                    />
+                    <Input 
+                      placeholder="Instagram Business Account ID (default: 178414001928374)" 
+                      value={igForm.instagram_account_id}
+                      onChange={e => setIgForm({...igForm, instagram_account_id: e.target.value})}
+                      className="bg-[#242222] border-[#373333] text-sm text-white"
+                    />
+                    <Input 
+                      placeholder="Access Token (leave blank for sandbox mock)" 
+                      type="password"
+                      value={igForm.access_token}
+                      onChange={e => setIgForm({...igForm, access_token: e.target.value})}
+                      className="bg-[#242222] border-[#373333] text-sm text-white"
+                    />
+                    <div className="flex justify-end gap-2 pt-2">
+                      <Button variant="outline" size="sm" onClick={cancelConnect} className="border-[#373333] text-[#E5E7EB]">Cancel</Button>
+                      <Button variant="default" size="sm" onClick={() => handleConnect(integration.id)} className="bg-[#8F0028] hover:bg-[#A3002D] text-white">Connect Instagram</Button>
+                    </div>
+                  </div>
+                )}
+
+                {connecting === integration.id && integration.id === 'meta_ads' && (
+                  <div className="mt-4 pt-4 border-t border-[#373333] space-y-3">
+                    {metaError && <div className="text-[#EF4444] text-xs">{metaError}</div>}
+                    <p className="text-xs text-[#E5E7EB]">Connect Meta Ads Manager & Pixel for campaign intelligence:</p>
+                    <Input 
+                      placeholder="Ad Account ID (default: act_8947219412)" 
+                      value={metaForm.ad_account_id}
+                      onChange={e => setMetaForm({...metaForm, ad_account_id: e.target.value})}
+                      className="bg-[#242222] border-[#373333] text-sm text-white"
+                    />
+                    <Input 
+                      placeholder="Meta Pixel ID (default: 9876543210)" 
+                      value={metaForm.pixel_id}
+                      onChange={e => setMetaForm({...metaForm, pixel_id: e.target.value})}
+                      className="bg-[#242222] border-[#373333] text-sm text-white"
+                    />
+                    <Input 
+                      placeholder="Access Token (leave blank for sandbox mock)" 
+                      type="password"
+                      value={metaForm.access_token}
+                      onChange={e => setMetaForm({...metaForm, access_token: e.target.value})}
+                      className="bg-[#242222] border-[#373333] text-sm text-white"
+                    />
+                    <div className="flex justify-end gap-2 pt-2">
+                      <Button variant="outline" size="sm" onClick={cancelConnect} className="border-[#373333] text-[#E5E7EB]">Cancel</Button>
+                      <Button variant="default" size="sm" onClick={() => handleConnect(integration.id)} className="bg-[#8F0028] hover:bg-[#A3002D] text-white">Connect Meta Ads</Button>
+                    </div>
+                  </div>
+                )}
 
                {(integration.last_sync_at || integration.last_error) && integration.status !== 'NOT_CONNECTED' && integration.status !== 'COMING_SOON' && (
                  <div className="mt-2 text-xs text-[#E5E7EB]">
