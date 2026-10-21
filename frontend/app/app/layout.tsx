@@ -298,7 +298,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </nav>
 
       {/* Main Workspace Area (The 4 columns go here) */}
-      <main className="flex-1 flex overflow-hidden bg-[#171515]">
+      <main className="flex-1 flex min-h-0 overflow-hidden bg-[#171515]">
         {children}
       </main>
 

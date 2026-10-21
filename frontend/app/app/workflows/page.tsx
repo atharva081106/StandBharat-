@@ -2,7 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default function Workflows() {
   return (
-    <div className="space-y-6">
+    <div className="flex-1 h-full min-h-0 overflow-y-auto w-full custom-scrollbar">
+      <div className="p-8 max-w-6xl mx-auto space-y-6 pb-32">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Workflows</h1>
         <p className="text-[#525252]">Multi-agent sequences and marketing funnels.</p>
@@ -25,6 +26,7 @@ export default function Workflows() {
              </div>
           </CardContent>
         </Card>
+        </div>
       </div>
     </div>
   )

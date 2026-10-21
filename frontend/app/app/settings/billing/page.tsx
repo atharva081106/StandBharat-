@@ -234,7 +234,8 @@ export default function BillingSettings() {
   const subState = overview?.subscription
 
   return (
-    <div className="space-y-8 max-w-5xl mx-auto pb-20 text-white">
+    <div className="flex-1 h-full min-h-0 overflow-y-auto w-full custom-scrollbar">
+      <div className="space-y-8 max-w-5xl mx-auto p-8 pb-32 text-white">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#373333] pb-6">
         <div>
@@ -990,6 +991,7 @@ export default function BillingSettings() {
           </div>
         </div>
       )}
+      </div>
     </div>
   )
 }
