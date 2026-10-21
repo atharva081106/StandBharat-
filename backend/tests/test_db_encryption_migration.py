@@ -205,6 +205,11 @@ def test_migration_dry_run_and_execution(db_session, setup_models, tmp_path):
     ws = setup_models["workspace"]
     b = setup_models["brand"]
 
+    # Clean existing integration/publisher records for isolation
+    db_session.query(Integration).delete()
+    db_session.query(PublisherConnection).delete()
+    db_session.commit()
+
     # 1. Setup legacy records
     legacy_engine = get_encryption_engine(db_key=None, secret_key=TEST_SECRET_KEY, allow_fallback=True)
     plain_1 = json.dumps({"token": "integ_token_123"})

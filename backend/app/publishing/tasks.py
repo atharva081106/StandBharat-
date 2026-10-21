@@ -8,6 +8,7 @@ from app.models.all_models import ContentDraft
 from app.core.security import sanitize_error_message
 from app.core.encryption import EncryptionError
 import datetime
+import uuid
 
 @celery_app.task(bind=True, max_retries=3)
 def execute_publishing_task(self, publication_id_str: str):
@@ -15,7 +16,8 @@ def execute_publishing_task(self, publication_id_str: str):
     try:
         service = PublishingService(db)
         
-        publication = db.query(Publication).filter(Publication.id == publication_id_str).first()
+        pub_uuid = uuid.UUID(str(publication_id_str)) if publication_id_str else None
+        publication = db.query(Publication).filter(Publication.id == pub_uuid).first()
         if not publication:
             return
             

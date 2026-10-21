@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.endpoints import auth, workspaces, brands, agents, integrations, opportunities, dashboard, ai, brand_brain, agent_runs, orchestrator, content, approvals, publishing, performance, website_analysis, notifications, search, campaigns, onboarding, backup
+from app.api.endpoints import auth, workspaces, brands, agents, integrations, opportunities, dashboard, ai, brand_brain, agent_runs, orchestrator, content, approvals, publishing, performance, website_analysis, notifications, search, campaigns, onboarding, backup, pagespeed, billing
 
 api_router = APIRouter()
 api_router.include_router(auth.router, prefix="/auth", tags=["auth"])
@@ -7,6 +7,7 @@ api_router.include_router(workspaces.router, prefix="/workspaces", tags=["worksp
 api_router.include_router(brands.router, prefix="/brands", tags=["brands"])
 api_router.include_router(onboarding.router, prefix="/onboarding", tags=["onboarding"])
 api_router.include_router(website_analysis.router, prefix="/brands", tags=["website-analysis"])
+api_router.include_router(pagespeed.router, prefix="/pagespeed", tags=["pagespeed"])
 api_router.include_router(agents.router, prefix="/agents", tags=["agents"])
 api_router.include_router(integrations.router, prefix="/integrations", tags=["integrations"])
 api_router.include_router(opportunities.router, prefix="/opportunities", tags=["opportunities"])
@@ -23,3 +24,5 @@ api_router.include_router(notifications.router, prefix="/notifications", tags=["
 api_router.include_router(search.router, prefix="/search", tags=["search"])
 api_router.include_router(campaigns.router, prefix="/campaigns", tags=["campaigns"])
 api_router.include_router(backup.router, prefix="/backup", tags=["backup"])
+api_router.include_router(billing.router, prefix="/billing", tags=["billing"])
+

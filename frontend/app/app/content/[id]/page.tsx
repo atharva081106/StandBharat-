@@ -365,7 +365,7 @@ export default function ContentDetailPage({ params }: { params: Promise<{ id: st
   }
 
   return (
-    <div className="space-y-8 max-w-6xl mx-auto pb-16">
+    <div className="flex-1 overflow-y-auto p-6 lg:p-8 max-w-6xl mx-auto w-full space-y-8 bg-[#171515] text-white pb-16">
       {/* Top Navigation */}
       <div className="flex items-center justify-between">
         <Link
@@ -398,7 +398,7 @@ export default function ContentDetailPage({ params }: { params: Promise<{ id: st
         <div
           className={`p-4 rounded-xl border flex items-center justify-between text-sm ${
             feedback.type === 'success'
-              ? 'bg-emerald-50/80 border-emerald-200 text-emerald-800 dark:bg-emerald-950/40 dark:border-emerald-800 dark:text-emerald-300'
+              ? 'bg-emerald-50/80 border-emerald-200 text-emerald-800 dark:bg-emerald-950/40 dark:border-emerald-800 dark:text-white'
               : 'bg-red-50/80 border-red-200 text-red-800 dark:bg-red-950/40 dark:border-red-800 dark:text-red-300'
           }`}
         >
@@ -619,19 +619,19 @@ export default function ContentDetailPage({ params }: { params: Promise<{ id: st
                   {/* Status specific notices */}
                   {publication.status === 'PUBLISHED' && (
                     <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 space-y-2">
-                      <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-300 font-semibold text-sm">
+                      <div className="flex items-center gap-2 text-emerald-800 dark:text-white font-semibold text-sm">
                         <Check className="w-4 h-4" /> Published Confirmed
                       </div>
-                      <p className="text-xs text-emerald-700 dark:text-emerald-400">
+                      <p className="text-xs text-emerald-700 dark:text-white">
                         Platform: <span className="font-semibold uppercase">{publication.platform}</span>
                       </p>
                       {publication.external_post_id && (
-                        <p className="text-xs text-emerald-700 dark:text-emerald-400 font-mono break-all">
+                        <p className="text-xs text-emerald-700 dark:text-white font-mono break-all">
                           ID: {publication.external_post_id}
                         </p>
                       )}
                       {publication.published_at && (
-                        <p className="text-xs text-emerald-600 dark:text-emerald-500">
+                        <p className="text-xs text-emerald-600 dark:text-white">
                           {new Date(publication.published_at).toLocaleString()}
                         </p>
                       )}
@@ -640,10 +640,10 @@ export default function ContentDetailPage({ params }: { params: Promise<{ id: st
 
                   {publication.status === 'PUBLISHING' && (
                     <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 space-y-1">
-                      <div className="flex items-center gap-2 text-blue-800 dark:text-blue-300 font-semibold text-sm">
+                      <div className="flex items-center gap-2 text-blue-800 dark:text-white font-semibold text-sm">
                         <RefreshCw className="w-4 h-4 animate-spin" /> In Flight
                       </div>
-                      <p className="text-xs text-blue-700 dark:text-blue-400">
+                      <p className="text-xs text-blue-700 dark:text-white">
                         Publishing worker is currently executing dispatch to {publication.platform}.
                       </p>
                     </div>
@@ -654,7 +654,7 @@ export default function ContentDetailPage({ params }: { params: Promise<{ id: st
                       <div className="flex items-center gap-2 text-amber-800 dark:text-amber-300 font-semibold text-sm">
                         <Clock className="w-4 h-4" /> Queued for Worker
                       </div>
-                      <p className="text-xs text-amber-700 dark:text-amber-400">
+                      <p className="text-xs text-amber-700 dark:text-white">
                         Waiting in queue for Celery publishing worker pick-up.
                       </p>
                     </div>
@@ -689,7 +689,7 @@ export default function ContentDetailPage({ params }: { params: Promise<{ id: st
                   {/* RECONCILIATION_REQUIRED Safety State */}
                   {publication.status === 'RECONCILIATION_REQUIRED' && (
                     <div className="p-5 rounded-xl bg-amber-500/10 border-2 border-amber-500/40 space-y-3">
-                      <div className="flex items-center gap-2 text-amber-700 dark:text-amber-400 font-semibold text-sm">
+                      <div className="flex items-center gap-2 text-amber-700 dark:text-white font-semibold text-sm">
                         <ShieldAlert className="w-5 h-5" /> Uncertain Outcome
                       </div>
                       <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
@@ -710,7 +710,7 @@ export default function ContentDetailPage({ params }: { params: Promise<{ id: st
                 <div className="space-y-4">
                   {isApproved ? (
                     <div className="space-y-4">
-                      <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-lg text-xs text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
+                      <div className="p-3 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-lg text-xs text-emerald-800 dark:text-white flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4 shrink-0" />
                         <span>Approval verified. Draft is ready for publication.</span>
                       </div>
@@ -850,7 +850,7 @@ export default function ContentDetailPage({ params }: { params: Promise<{ id: st
                     onClick={() => setReconcileResolution('PUBLISHED')}
                     className={`p-2.5 rounded-lg border text-xs font-medium text-center ${
                       reconcileResolution === 'PUBLISHED'
-                        ? 'border-emerald-500 bg-emerald-50 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300'
+                        ? 'border-emerald-500 bg-emerald-50 text-emerald-800 dark:bg-emerald-950/40 dark:text-white'
                         : 'border-[var(--color-border-primary)] text-[var(--color-text-secondary)]'
                     }`}
                   >
@@ -872,7 +872,7 @@ export default function ContentDetailPage({ params }: { params: Promise<{ id: st
                     onClick={() => setReconcileResolution('RETRY')}
                     className={`p-2.5 rounded-lg border text-xs font-medium text-center ${
                       reconcileResolution === 'RETRY'
-                        ? 'border-blue-500 bg-blue-50 text-blue-800 dark:bg-blue-950/40 dark:text-blue-300'
+                        ? 'border-blue-500 bg-blue-50 text-blue-800 dark:bg-blue-950/40 dark:text-white'
                         : 'border-[var(--color-border-primary)] text-[var(--color-text-secondary)]'
                     }`}
                   >

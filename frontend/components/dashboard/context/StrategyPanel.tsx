@@ -73,7 +73,7 @@ export function StrategyPanel() {
   if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center">
-        <Loader2 className="w-6 h-6 text-[#A9A4A0] animate-spin" />
+        <Loader2 className="w-6 h-6 text-[#E5E7EB] animate-spin" />
       </div>
     )
   }
@@ -91,11 +91,11 @@ export function StrategyPanel() {
         
         {/* Header */}
         <div>
-          <h2 className="text-[18px] font-bold text-[#F5F3F1] flex items-center gap-2">
+          <h2 className="text-[18px] font-bold text-white flex items-center gap-2">
             <FileText className="w-5 h-5 text-[#8F0028]" />
             Core Strategy
           </h2>
-          <p className="text-[13px] text-[#A9A4A0] mt-1">
+          <p className="text-[13px] text-[#E5E7EB] mt-1">
             The synthesized strategic direction that all AI CMO agents will use to coordinate activities.
           </p>
         </div>
@@ -133,81 +133,81 @@ export function StrategyPanel() {
         )}
         
         {(!formData.business_strategy) && (
-          <div className="p-3 bg-[#242222] border border-[#373333] rounded-lg text-[#A9A4A0] text-[13px]">
+          <div className="p-3 bg-[#242222] border border-[#373333] rounded-lg text-[#E5E7EB] text-[13px]">
             No strategy available yet.
           </div>
         )}
 
         <div className="space-y-6">
           <div className="space-y-2">
-            <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Business Strategy</label>
+            <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Business Strategy</label>
             <textarea 
               name="business_strategy"
               value={isNoStrategy ? '' : formData.business_strategy}
               onChange={handleChange}
               placeholder="Core business strategy..."
               rows={4}
-              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
+              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Marketing Strategy</label>
+            <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Marketing Strategy</label>
             <textarea 
               name="marketing_strategy"
               value={formData.marketing_strategy}
               onChange={handleChange}
               placeholder="Overall marketing strategy..."
               rows={4}
-              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
+              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Content Strategy</label>
+            <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Content Strategy</label>
             <textarea 
               name="content_strategy"
               value={formData.content_strategy}
               onChange={handleChange}
               placeholder="Content generation strategy..."
               rows={4}
-              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
+              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
             />
           </div>
           
           <div className="space-y-2">
-            <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Channel Strategy</label>
+            <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Channel Strategy</label>
             <textarea 
               name="channel_strategy"
               value={formData.channel_strategy}
               onChange={handleChange}
               placeholder="Where should content be published..."
               rows={4}
-              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
+              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Growth Strategy</label>
+            <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Growth Strategy</label>
             <textarea 
               name="growth_strategy"
               value={formData.growth_strategy}
               onChange={handleChange}
               placeholder="Tactics for scaling..."
               rows={4}
-              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
+              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Campaign Strategy</label>
+            <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Campaign Strategy</label>
             <textarea 
               name="campaign_strategy"
               value={formData.campaign_strategy}
               onChange={handleChange}
               placeholder="Short-to-mid term campaign ideas..."
               rows={4}
-              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
+              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
             />
           </div>
         </div>
@@ -215,7 +215,7 @@ export function StrategyPanel() {
         {/* Footer Actions */}
         <div className="pt-6 border-t border-[#373333] flex items-center justify-between sticky bottom-0 bg-[#1C1A1A] z-10 py-4">
           <div>
-            {success && <span className="text-[#00A650] text-[13px] font-bold">✓ Saved successfully</span>}
+            {success && <span className="text-white text-[13px] font-bold">✓ Saved successfully</span>}
           </div>
           <button 
             onClick={handleSave}

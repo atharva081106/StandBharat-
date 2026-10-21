@@ -69,13 +69,32 @@ class AIGateway:
         # Here we could implement retries and timeouts
         # For this foundation, we just pass through to the provider
         
-        return provider_impl.generate(
-            messages=messages,
-            model=model,
-            temperature=temperature,
-            max_tokens=max_tokens,
-            tools=tools,
-            metadata=metadata
-        )
+        try:
+            return provider_impl.generate(
+                messages=messages,
+                model=model,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                tools=tools,
+                metadata=metadata
+            )
+        except Exception as e:
+            # Resilient fallback to local domain-specific synthesis provider
+            # Ensures platform and all agents work smoothly even if cloud API keys are expired, invalid, or rate limited
+            if "local" in self.providers and provider_impl != self.providers["local"]:
+                import logging
+                logging.getLogger(__name__).warning(
+                    f"External AI provider '{getattr(provider_impl, 'provider_name', 'cloud')}' failed ({e}). "
+                    f"Falling back to LocalSynthesisProvider."
+                )
+                return self.providers["local"].generate(
+                    messages=messages,
+                    model="standbharat-synthesis-v1",
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                    tools=tools,
+                    metadata=metadata
+                )
+            raise e
 
 ai_gateway = AIGateway()

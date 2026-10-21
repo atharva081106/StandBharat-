@@ -76,7 +76,7 @@ export function InteractiveDashboardMockup() {
           <div className="w-48 bg-[#111111] text-white flex flex-col shrink-0">
             <div className="h-14 flex items-center px-5 border-b border-white/10">
               <div className="flex gap-2 items-center">
-                <Image src="/logo.jpg" alt="StandBharat Logo" width={18} height={18} className="rounded object-contain brightness-90 contrast-125" />
+                <Image src="/logo-icon.png" alt="StandBharat Logo" width={20} height={20} className="object-contain" />
                 <span className="font-bold text-sm tracking-tight">StandBharat</span>
               </div>
             </div>
@@ -102,7 +102,7 @@ export function InteractiveDashboardMockup() {
           {/* Main Content */}
           <div className="flex-1 bg-[#FAF8F3] dark:bg-[#171515] flex flex-col overflow-hidden relative">
             <div className="h-14 bg-white dark:bg-[#1C1A1A] border-b border-[#E8E4DC] dark:border-[#373333] flex items-center justify-between px-6 shrink-0 shadow-sm z-10">
-              <span className="font-semibold text-sm text-[#111111] dark:text-[#F5F3F1]">app.standbharat.ai/dashboard</span>
+              <span className="font-semibold text-sm text-[#111111] dark:text-white">app.standbharat.ai/dashboard</span>
               <div className="flex items-center gap-3">
                  <div className="w-6 h-6 rounded-md bg-[#E8E4DC]"></div>
                  <div className="w-6 h-6 rounded-full bg-[#111111]"></div>
@@ -112,17 +112,17 @@ export function InteractiveDashboardMockup() {
             <div className="p-8 overflow-y-auto space-y-6">
               
               <div>
-                 <h2 className="text-2xl font-bold text-[#111111] dark:text-[#F5F3F1] mb-1">Brand Command Center</h2>
-                 <p className="text-sm text-[#5A5A5A] dark:text-[#A9A4A0] font-medium max-w-xs">Real-time intelligence and autonomous agents.</p>
+                 <h2 className="text-2xl font-bold text-[#111111] dark:text-white mb-1">Brand Command Center</h2>
+                 <p className="text-sm text-[#5A5A5A] dark:text-[#E5E7EB] font-medium max-w-xs">Real-time intelligence and autonomous agents.</p>
               </div>
 
               {/* Metric Cards */}
               <div className="grid grid-cols-2 gap-4 max-w-sm">
                 <div className="bg-white dark:bg-[#1C1A1A] border border-[#E8E4DC] dark:border-[#373333] rounded-[16px] p-5 shadow-sm">
-                  <div className="text-xs font-bold text-[#858585] dark:text-[#A9A4A0] mb-2">Brand Visibility</div>
-                  <div className="text-3xl font-extrabold text-[#111111] dark:text-[#F5F3F1] mb-2">78</div>
+                  <div className="text-xs font-bold text-[#E5E7EB] dark:text-[#E5E7EB] mb-2">Brand Visibility</div>
+                  <div className="text-3xl font-extrabold text-[#111111] dark:text-white mb-2">78</div>
                   <div className="flex justify-between items-end">
-                    <div className="text-[10px] font-bold text-[#168A5B] leading-tight">+12%<br/>this<br/>week</div>
+                    <div className="text-[10px] font-bold text-white leading-tight">+12%<br/>this<br/>week</div>
                     {/* Tiny line chart */}
                     <svg width="40" height="16" viewBox="0 0 40 16" fill="none">
                       <path d="M2 14C6 14 8 8 12 8C16 8 18 12 22 12C26 12 30 4 38 4" stroke="#800020" strokeWidth="2" strokeLinecap="round"/>
@@ -130,10 +130,10 @@ export function InteractiveDashboardMockup() {
                   </div>
                 </div>
                 <div className="bg-white dark:bg-[#1C1A1A] border border-[#E8E4DC] dark:border-[#373333] rounded-[16px] p-5 shadow-sm">
-                  <div className="text-xs font-bold text-[#858585] dark:text-[#A9A4A0] mb-2">Audience Sentiment</div>
-                  <div className="text-3xl font-extrabold text-[#111111] dark:text-[#F5F3F1] mb-2">92%</div>
+                  <div className="text-xs font-bold text-[#E5E7EB] dark:text-[#E5E7EB] mb-2">Audience Sentiment</div>
+                  <div className="text-3xl font-extrabold text-[#111111] dark:text-white mb-2">92%</div>
                   <div className="flex justify-between items-end">
-                    <div className="text-[10px] font-bold text-[#168A5B] leading-tight">+8%<br/>vs<br/>last mo</div>
+                    <div className="text-[10px] font-bold text-white leading-tight">+8%<br/>vs<br/>last mo</div>
                     {/* Tiny line chart */}
                     <svg width="40" height="16" viewBox="0 0 40 16" fill="none">
                       <path d="M2 12C8 12 10 4 16 4C22 4 26 10 32 10C36 10 38 2 38 2" stroke="#168A5B" strokeWidth="2" strokeLinecap="round"/>
@@ -143,7 +143,7 @@ export function InteractiveDashboardMockup() {
               </div>
               
               <div className="bg-white dark:bg-[#1C1A1A] border border-[#E8E4DC] dark:border-[#373333] rounded-[16px] p-5 shadow-sm max-w-sm">
-                 <div className="text-sm font-bold text-[#111111] dark:text-[#F5F3F1] mb-1">Active AI Agents</div>
+                 <div className="text-sm font-bold text-[#111111] dark:text-white mb-1">Active AI Agents</div>
                  <div className="h-4 w-full bg-[#FAF8F3] dark:bg-[#171515] rounded mt-4"></div>
                  <div className="h-4 w-5/6 bg-[#FAF8F3] dark:bg-[#171515] rounded mt-2"></div>
               </div>
@@ -160,12 +160,12 @@ export function InteractiveDashboardMockup() {
           }}
         >
           <div className="flex gap-2 items-center mb-4">
-            <div className="w-6 h-6 rounded-full bg-[#168A5B]/10 flex items-center justify-center text-[#168A5B]">
+            <div className="w-6 h-6 rounded-full bg-[#168A5B]/10 flex items-center justify-center text-white">
                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             </div>
-            <div className="text-xs font-bold text-[#111111] dark:text-[#F5F3F1]">Growth Opportunity</div>
+            <div className="text-xs font-bold text-[#111111] dark:text-white">Growth Opportunity</div>
           </div>
-          <div className="text-4xl font-extrabold text-[#111111] dark:text-[#F5F3F1] tracking-tight mb-4">+42%</div>
+          <div className="text-4xl font-extrabold text-[#111111] dark:text-white tracking-tight mb-4">+42%</div>
           <div className="flex items-end gap-1.5 h-16 w-full">
             <div className="w-1/6 bg-[#E8E4DC] rounded-t-md h-[30%]"></div>
             <div className="w-1/6 bg-[#E8E4DC] rounded-t-md h-[40%]"></div>
@@ -183,10 +183,10 @@ export function InteractiveDashboardMockup() {
             transform: isHovered ? 'translateZ(130px) translateX(15px) translateY(5px)' : 'translateZ(100px)',
           }}
         >
-          <div className="text-[10px] font-bold text-[#858585] dark:text-[#A9A4A0] uppercase tracking-wider mb-1">BRAND SENTIMENT</div>
+          <div className="text-[10px] font-bold text-[#E5E7EB] dark:text-[#E5E7EB] uppercase tracking-wider mb-1">BRAND SENTIMENT</div>
           <div className="flex items-end gap-3 mb-2">
-            <div className="text-3xl font-extrabold text-[#111111] dark:text-[#F5F3F1] leading-none">92%</div>
-            <div className="text-[10px] font-bold text-[#168A5B] bg-[#168A5B]/10 px-1.5 py-0.5 rounded flex items-center mb-1">↑ 8%</div>
+            <div className="text-3xl font-extrabold text-[#111111] dark:text-white leading-none">92%</div>
+            <div className="text-[10px] font-bold text-white bg-[#168A5B]/10 px-1.5 py-0.5 rounded flex items-center mb-1">↑ 8%</div>
           </div>
           <svg className="w-full h-12" viewBox="0 0 100 30" fill="none">
              <path d="M0 25C20 25 30 15 50 15C70 15 80 5 100 5" stroke="#800020" strokeWidth="3" strokeLinecap="round"/>
@@ -206,15 +206,15 @@ export function InteractiveDashboardMockup() {
           </div>
           <div className="space-y-3">
              <div className="bg-white dark:bg-[#1C1A1A]/5 border border-white/10 rounded-xl p-3 flex items-center gap-3">
-                <div className="text-[#168A5B]"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                <div className="text-white"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
                 <div className="text-xs text-white/90 font-medium">Analyzing market trends...</div>
              </div>
              <div className="bg-white dark:bg-[#1C1A1A]/5 border border-white/10 rounded-xl p-3 flex items-center gap-3">
-                <div className="text-[#168A5B]"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                <div className="text-white"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
                 <div className="text-xs text-white/90 font-medium">Processing competitor data...</div>
              </div>
              <div className="bg-white dark:bg-[#1C1A1A]/5 border border-white/10 rounded-xl p-3 flex items-center gap-3 opacity-70">
-                <div className="text-[#168A5B]"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                <div className="text-white"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
                 <div className="text-xs text-white/90 font-medium">Generating content drafts...</div>
              </div>
           </div>
@@ -363,7 +363,7 @@ export function CapabilityStrip() {
             {[...Array(2)].map((_, i) => (
               <div key={i} className="flex-1 flex justify-around items-center px-4">
                 {bottomItems.map((item, j) => (
-                  <div key={j} className="flex items-center gap-8 text-[#858585] font-medium text-[10px] lg:text-xs uppercase tracking-wider whitespace-nowrap px-8">
+                  <div key={j} className="flex items-center gap-8 text-[#E5E7EB] font-medium text-[10px] lg:text-xs uppercase tracking-wider whitespace-nowrap px-8">
                     <span>{item}</span>
                     <span className="text-[#E8E4DC]">|</span>
                   </div>

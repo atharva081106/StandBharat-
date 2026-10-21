@@ -31,8 +31,17 @@ async def lifespan(_app: FastAPI):
         logger.info("LinkedIn OAuth configuration is present.")
 
     try:
-        from app.db.session import SessionLocal
+        from app.db.base_class import Base
+        from app.db.session import engine, SessionLocal
         from app.db.seed import ensure_demo_user
+        from sqlalchemy import text
+        Base.metadata.create_all(bind=engine)
+        with engine.connect() as conn:
+            try:
+                conn.execute(text("ALTER TABLE opportunity ADD COLUMN opportunity_type VARCHAR"))
+                conn.commit()
+            except Exception:
+                pass
         db = SessionLocal()
         ensure_demo_user(db)
         db.close()
@@ -75,7 +84,10 @@ def health_db():
     from sqlalchemy import text
     try:
         with engine.connect() as conn:
-            version = conn.execute(text("SELECT version();")).scalar()
+            if engine.dialect.name == "sqlite":
+                version = f"SQLite {conn.execute(text('SELECT sqlite_version();')).scalar()}"
+            else:
+                version = str(conn.execute(text("SELECT version();")).scalar())
             return {"status": "ok", "version": version}
     except Exception as e:
         logger.error(f"Health DB check failed: {e}")

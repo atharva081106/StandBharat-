@@ -68,7 +68,7 @@ export function ProblemSection() {
     <section className="py-28 px-6 lg:px-8 bg-transparent border-t border-[#E8E4DC]" id="problem">
       <div className="max-w-[1400px] mx-auto">
         <div>
-          <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#858585] mb-8">
+          <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#E5E7EB] mb-8">
             THE PROBLEM
           </div>
         </div>
@@ -88,18 +88,18 @@ export function ProblemSection() {
               <div className="grid grid-cols-3 gap-6 pt-8 border-t border-[#E8E4DC]">
                 <div>
                   <div className="text-[36px] font-extrabold text-[#111111] leading-none mb-2">10+</div>
-                  <div className="text-xs font-bold text-[#858585] uppercase tracking-wider">Tools to manage</div>
+                  <div className="text-xs font-bold text-[#E5E7EB] uppercase tracking-wider">Tools to manage</div>
                 </div>
                 <div>
                   <div className="text-[36px] font-extrabold text-[#111111] leading-none mb-2">60%</div>
-                  <div className="text-xs font-bold text-[#858585] uppercase tracking-wider">Time on coordination</div>
+                  <div className="text-xs font-bold text-[#E5E7EB] uppercase tracking-wider">Time on coordination</div>
                 </div>
                 <div>
                   <div className="text-[36px] font-extrabold text-[#800020] leading-none mb-2">LOWER</div>
-                  <div className="text-xs font-bold text-[#858585] uppercase tracking-wider">Marketing impact</div>
+                  <div className="text-xs font-bold text-[#E5E7EB] uppercase tracking-wider">Marketing impact</div>
                 </div>
               </div>
-              <p className="text-[10px] text-[#B0AB9E] uppercase tracking-widest font-bold mt-10">
+              <p className="text-[10px] text-[#E5E7EB] uppercase tracking-widest font-bold mt-10">
                 * Typical marketing workflow
               </p>
             </div>
@@ -138,7 +138,7 @@ export function MarketingLoop() {
       <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
         <div className="w-full lg:w-[40%] space-y-8">
           <div>
-            <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#858585]">
+            <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#E5E7EB]">
               THE SOLUTION
             </div>
           </div>
@@ -162,7 +162,7 @@ export function MarketingLoop() {
                   className={`flex items-center gap-3 rounded-xl px-4 py-2.5 cursor-default transition-all duration-200 ${active === i ? 'bg-[#FAF8F3] border border-[#E8E4DC]' : 'border border-transparent'}`}
                 >
                   <div className={`w-2 h-2 rounded-full shrink-0 transition-colors duration-200 ${active === i ? 'bg-[#800020]' : 'bg-[#D0CCC3]'}`}></div>
-                  <span className={`text-sm font-semibold transition-colors duration-200 ${active === i ? 'text-[#111111]' : 'text-[#858585]'}`}>
+                  <span className={`text-sm font-semibold transition-colors duration-200 ${active === i ? 'text-[#111111]' : 'text-[#E5E7EB]'}`}>
                     {step.label.replace('\n', ' ')}
                   </span>
                 </div>
@@ -203,9 +203,9 @@ export function MarketingLoop() {
                 )
               })}
               <div className="relative z-20 w-32 h-32 rounded-full bg-white border-2 border-[#800020] shadow-xl shadow-[#800020]/10 flex flex-col items-center justify-center text-center gap-1 hover:scale-105 transition-transform duration-300 cursor-default">
-                <Image src="/logo.jpg" alt="StandBharat Logo" width={24} height={24} className="rounded object-contain border border-black/5" />
+                <Image src="/logo-icon.png" alt="StandBharat Logo" width={28} height={28} className="object-contain" />
                 <span className="text-xs font-extrabold text-[#111111] tracking-tight leading-tight">StandBharat</span>
-                <span className="text-[9px] text-[#858585] font-semibold uppercase tracking-wider">AI CMO</span>
+                <span className="text-[9px] text-[#E5E7EB] font-semibold uppercase tracking-wider">AI CMO</span>
               </div>
             </div>
           </div>
@@ -263,7 +263,7 @@ export function DifferentiationSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div className="space-y-4 max-w-xl">
             <div>
-              <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#858585]">
+              <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#E5E7EB]">
                 WHY STANDBHARAT
               </div>
             </div>
@@ -274,7 +274,7 @@ export function DifferentiationSection() {
             </div>
           </div>
           <div>
-            <p className="text-[#858585] text-lg font-medium max-w-sm leading-relaxed">
+            <p className="text-[#E5E7EB] text-lg font-medium max-w-sm leading-relaxed">
               An AI-native system that thinks, acts, and learns — so your team can focus on what matters.
             </p>
           </div>
@@ -287,7 +287,7 @@ export function DifferentiationSection() {
                   {card.icon}
                 </div>
                 <h3 className="text-base font-bold mb-3 text-white">{card.title}</h3>
-                <p className="text-sm text-[#858585] leading-relaxed font-medium">{card.desc}</p>
+                <p className="text-sm text-[#E5E7EB] leading-relaxed font-medium">{card.desc}</p>
               </div>
             </div>
           ))}

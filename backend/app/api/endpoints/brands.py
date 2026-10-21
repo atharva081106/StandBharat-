@@ -7,6 +7,7 @@ import uuid
 
 router = APIRouter()
 
+@router.post("", response_model=BrandResponse)
 @router.post("/", response_model=BrandResponse)
 def create_brand(
     brand_in: BrandCreate,
@@ -22,6 +23,7 @@ def create_brand(
     db.refresh(brand)
     return brand
 
+@router.get("", response_model=list[BrandResponse])
 @router.get("/", response_model=list[BrandResponse])
 def get_brands(
     db: Session = Depends(deps.get_db),

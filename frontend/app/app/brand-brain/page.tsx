@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import { useAppProvider } from '@/lib/providers'
 import { ApiClient } from '@/lib/api/client'
 import { RefreshCw, Sparkles, Plus, Edit2, Upload, FileText } from 'lucide-react'
+import { BrandKnowledgeIngestion } from '@/components/brand-brain/BrandKnowledgeIngestion'
 
 export default function BrandBrain() {
   const { brandBrain, auth } = useAppProvider()
@@ -75,7 +76,7 @@ export default function BrandBrain() {
 
   if (loading && !context) {
     return (
-      <div className="h-full flex items-center justify-center text-[#A9A4A0]">
+      <div className="h-full flex items-center justify-center text-[#E5E7EB]">
         <div className="flex flex-col items-center gap-3">
           <div className="h-8 w-8 rounded-full border-4 border-[#242222] border-t-[#8F0028] animate-spin"></div>
           <p className="text-sm font-medium">Loading Brand Brain...</p>
@@ -95,16 +96,16 @@ export default function BrandBrain() {
   const documents = context?.documents || []
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto p-6 w-full text-[#F5F3F1]">
+    <div className="space-y-8 max-w-7xl mx-auto p-6 w-full text-white">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#373333] pb-6">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight text-[#F5F3F1]">Brand Brain</h1>
-            <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#00A650] text-xs">
+            <h1 className="text-2xl font-bold tracking-tight text-white">Brand Brain</h1>
+            <Badge variant="outline" className="bg-[#242222] border-[#373333] text-white text-xs">
               Live & Synced
             </Badge>
           </div>
-          <p className="text-[#A9A4A0] text-sm mt-1">
+          <p className="text-[#E5E7EB] text-sm mt-1">
             The central intelligence layer your AI marketing agents use to understand your voice, positioning, and products.
           </p>
         </div>
@@ -113,19 +114,22 @@ export default function BrandBrain() {
           size="sm" 
           onClick={fetchContext} 
           disabled={loading}
-          className="border-[#373333] text-[#A9A4A0] hover:text-[#F5F3F1] hover:bg-[#242222]"
+          className="border-[#373333] text-[#E5E7EB] hover:text-white hover:bg-[#242222]"
         >
           <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${loading ? 'animate-spin' : ''}`} />
           Refresh Context
         </Button>
       </div>
       
+      {/* Brand Brain Document & Knowledge Ingestion Hub (RAG) */}
+      <BrandKnowledgeIngestion brandName={context?.brand?.name || activeBrand?.name || 'StandBharat'} />
+
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         
         {/* Brand Overview */}
         <Card className="flex flex-col bg-[#1C1A1A] border-[#373333]">
           <CardHeader className="flex flex-row items-center justify-between pb-3 border-b border-[#373333]">
-            <CardTitle className="text-base text-[#F5F3F1]">Business Overview</CardTitle>
+            <CardTitle className="text-base text-white">Business Overview</CardTitle>
             <Button 
               variant="ghost" 
               size="sm" 
@@ -147,8 +151,8 @@ export default function BrandBrain() {
                 ['Tagline', b.tagline]
               ].map(([key, value]) => (
                 <div key={key as string} className="text-xs">
-                  <span className="font-semibold text-[#A9A4A0]">{key}: </span> 
-                  <span className={value ? "text-[#F5F3F1]" : "text-[#737373] italic"}>
+                  <span className="font-semibold text-[#E5E7EB]">{key}: </span> 
+                  <span className={value ? "text-white" : "text-[#E5E7EB] italic"}>
                     {value || "Not defined"}
                   </span>
                 </div>
@@ -160,7 +164,7 @@ export default function BrandBrain() {
         {/* Brand Voice */}
         <Card className="flex flex-col bg-[#1C1A1A] border-[#373333]">
           <CardHeader className="flex flex-row items-center justify-between pb-3 border-b border-[#373333]">
-            <CardTitle className="text-base text-[#F5F3F1]">Brand Voice</CardTitle>
+            <CardTitle className="text-base text-white">Brand Voice</CardTitle>
             <Button 
               variant="ghost" 
               size="sm" 
@@ -173,19 +177,19 @@ export default function BrandBrain() {
           <CardContent className="space-y-4 text-sm flex-1 flex flex-col pt-4">
             <div className="flex-1 space-y-4">
               <div className="flex gap-2 flex-wrap">
-                {voice.tone ? <Badge className="bg-[#242222] border-[#373333] text-[#F5F3F1]">{voice.tone}</Badge> : <Badge variant="outline" className="text-[#737373]">No tone specified</Badge>}
-                {voice.personality && <Badge className="bg-[#242222] border-[#373333] text-[#00A650]">{voice.personality}</Badge>}
+                {voice.tone ? <Badge className="bg-[#242222] border-[#373333] text-white">{voice.tone}</Badge> : <Badge variant="outline" className="text-[#E5E7EB]">No tone specified</Badge>}
+                {voice.personality && <Badge className="bg-[#242222] border-[#373333] text-white">{voice.personality}</Badge>}
               </div>
               <div className="space-y-2 text-xs">
                 <div>
-                  <span className="font-semibold text-[#A9A4A0]">Writing Style: </span> 
-                  <span className={voice.writing_style ? "text-[#F5F3F1]" : "text-[#737373] italic"}>
+                  <span className="font-semibold text-[#E5E7EB]">Writing Style: </span> 
+                  <span className={voice.writing_style ? "text-white" : "text-[#E5E7EB] italic"}>
                     {voice.writing_style || "Not defined"}
                   </span>
                 </div>
                 <div>
-                  <span className="font-semibold text-[#A9A4A0]">Formality: </span> 
-                  <span className={voice.formality ? "text-[#F5F3F1]" : "text-[#737373] italic"}>
+                  <span className="font-semibold text-[#E5E7EB]">Formality: </span> 
+                  <span className={voice.formality ? "text-white" : "text-[#E5E7EB] italic"}>
                     {voice.formality || "Not defined"}
                   </span>
                 </div>
@@ -197,7 +201,7 @@ export default function BrandBrain() {
         {/* Positioning */}
         <Card className="flex flex-col bg-[#1C1A1A] border-[#373333]">
           <CardHeader className="flex flex-row items-center justify-between pb-3 border-b border-[#373333]">
-            <CardTitle className="text-base text-[#F5F3F1]">Positioning & UVP</CardTitle>
+            <CardTitle className="text-base text-white">Positioning & UVP</CardTitle>
             <Button 
               variant="ghost" 
               size="sm" 
@@ -210,14 +214,14 @@ export default function BrandBrain() {
           <CardContent className="space-y-4 text-xs flex-1 flex flex-col pt-4">
             <div className="flex-1 space-y-3">
               <div>
-                <span className="font-semibold text-[#A9A4A0] block mb-1">Positioning Statement</span> 
-                <span className={positioning.positioning_statement ? "text-[#F5F3F1] leading-relaxed" : "text-[#737373] italic"}>
+                <span className="font-semibold text-[#E5E7EB] block mb-1">Positioning Statement</span> 
+                <span className={positioning.positioning_statement ? "text-white leading-relaxed" : "text-[#E5E7EB] italic"}>
                   {positioning.positioning_statement || "Not defined yet."}
                 </span>
               </div>
               <div>
-                <span className="font-semibold text-[#A9A4A0] block mb-1">Unique Value Proposition (UVP)</span> 
-                <span className={positioning.unique_value_proposition ? "text-[#F5F3F1] leading-relaxed" : "text-[#737373] italic"}>
+                <span className="font-semibold text-[#E5E7EB] block mb-1">Unique Value Proposition (UVP)</span> 
+                <span className={positioning.unique_value_proposition ? "text-white leading-relaxed" : "text-[#E5E7EB] italic"}>
                   {positioning.unique_value_proposition || "Not defined yet."}
                 </span>
               </div>
@@ -229,8 +233,8 @@ export default function BrandBrain() {
         <Card className="flex flex-col bg-[#1C1A1A] border-[#373333]">
           <CardHeader className="flex flex-row items-center justify-between pb-3 border-b border-[#373333]">
             <div className="flex items-center gap-2">
-              <CardTitle className="text-base text-[#F5F3F1]">Audiences</CardTitle>
-              <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#A9A4A0] text-[10px]">{audiences.length}</Badge>
+              <CardTitle className="text-base text-white">Audiences</CardTitle>
+              <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#E5E7EB] text-[10px]">{audiences.length}</Badge>
             </div>
             <Button 
               variant="ghost" 
@@ -245,11 +249,11 @@ export default function BrandBrain() {
             <div className="flex-1 space-y-2.5">
               {audiences.length > 0 ? audiences.map((aud: any) => (
                 <div key={aud.id} className="p-3 border border-[#373333] rounded-lg bg-[#242222]">
-                  <div className="font-semibold text-[#F5F3F1]">{aud.name}</div>
-                  <div className="text-[#A9A4A0] mt-1 text-[11px] leading-relaxed">{aud.description}</div>
+                  <div className="font-semibold text-white">{aud.name}</div>
+                  <div className="text-[#E5E7EB] mt-1 text-[11px] leading-relaxed">{aud.description}</div>
                 </div>
               )) : (
-                <div className="flex flex-col items-center justify-center h-full py-6 text-center text-[#737373] border border-dashed border-[#373333] rounded-lg">
+                <div className="flex flex-col items-center justify-center h-full py-6 text-center text-[#E5E7EB] border border-dashed border-[#373333] rounded-lg">
                   <span className="italic">No audiences defined</span>
                 </div>
               )}
@@ -261,8 +265,8 @@ export default function BrandBrain() {
         <Card className="flex flex-col bg-[#1C1A1A] border-[#373333]">
           <CardHeader className="flex flex-row items-center justify-between pb-3 border-b border-[#373333]">
             <div className="flex items-center gap-2">
-              <CardTitle className="text-base text-[#F5F3F1]">Products / Services</CardTitle>
-              <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#A9A4A0] text-[10px]">{products.length}</Badge>
+              <CardTitle className="text-base text-white">Products / Services</CardTitle>
+              <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#E5E7EB] text-[10px]">{products.length}</Badge>
             </div>
             <Button 
               variant="ghost" 
@@ -278,13 +282,13 @@ export default function BrandBrain() {
               {products.length > 0 ? products.map((prod: any) => (
                 <div key={prod.id} className="p-3 border border-[#373333] rounded-lg bg-[#242222]">
                   <div className="flex items-start justify-between gap-2">
-                    <div className="font-semibold text-[#F5F3F1]">{prod.name}</div>
-                    {prod.price && <span className="text-[10px] font-semibold text-[#00A650] bg-[#00A650]/10 px-2 py-0.5 rounded">{prod.price}</span>}
+                    <div className="font-semibold text-white">{prod.name}</div>
+                    {prod.price && <span className="text-[10px] font-semibold text-white bg-[#00A650]/10 px-2 py-0.5 rounded">{prod.price}</span>}
                   </div>
-                  <div className="text-[#A9A4A0] mt-1 text-[11px] leading-relaxed">{prod.description}</div>
+                  <div className="text-[#E5E7EB] mt-1 text-[11px] leading-relaxed">{prod.description}</div>
                 </div>
               )) : (
-                <div className="flex flex-col items-center justify-center h-full py-6 text-center text-[#737373] border border-dashed border-[#373333] rounded-lg">
+                <div className="flex flex-col items-center justify-center h-full py-6 text-center text-[#E5E7EB] border border-dashed border-[#373333] rounded-lg">
                   <span className="italic">No products defined</span>
                 </div>
               )}
@@ -296,8 +300,8 @@ export default function BrandBrain() {
         <Card className="flex flex-col bg-[#1C1A1A] border-[#373333]">
           <CardHeader className="flex flex-row items-center justify-between pb-3 border-b border-[#373333]">
             <div className="flex items-center gap-2">
-              <CardTitle className="text-base text-[#F5F3F1]">Competitors</CardTitle>
-              <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#A9A4A0] text-[10px]">{competitors.length}</Badge>
+              <CardTitle className="text-base text-white">Competitors</CardTitle>
+              <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#E5E7EB] text-[10px]">{competitors.length}</Badge>
             </div>
             <Button 
               variant="ghost" 
@@ -312,13 +316,13 @@ export default function BrandBrain() {
             <div className="flex-1 space-y-2.5">
               {competitors.length > 0 ? competitors.map((comp: any) => (
                 <div key={comp.id} className="p-3 border border-[#373333] rounded-lg bg-[#242222]">
-                  <div className="font-semibold text-[#F5F3F1]">{comp.name}</div>
-                  <div className="text-[#A9A4A0] mt-1 text-[11px] leading-relaxed line-clamp-2">
+                  <div className="font-semibold text-white">{comp.name}</div>
+                  <div className="text-[#E5E7EB] mt-1 text-[11px] leading-relaxed line-clamp-2">
                     <span className="font-medium text-red-400">Weakness: </span>{comp.weaknesses || "None recorded"}
                   </div>
                 </div>
               )) : (
-                <div className="flex flex-col items-center justify-center h-full py-6 text-center text-[#737373] border border-dashed border-[#373333] rounded-lg px-4">
+                <div className="flex flex-col items-center justify-center h-full py-6 text-center text-[#E5E7EB] border border-dashed border-[#373333] rounded-lg px-4">
                   <span className="italic">No competitors added</span>
                 </div>
               )}
@@ -330,8 +334,8 @@ export default function BrandBrain() {
         <Card className="flex flex-col bg-[#1C1A1A] border-[#373333]">
           <CardHeader className="flex flex-row items-center justify-between pb-3 border-b border-[#373333]">
             <div className="flex items-center gap-2">
-              <CardTitle className="text-base text-[#F5F3F1]">Goals</CardTitle>
-              <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#A9A4A0] text-[10px]">{goals.length}</Badge>
+              <CardTitle className="text-base text-white">Goals</CardTitle>
+              <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#E5E7EB] text-[10px]">{goals.length}</Badge>
             </div>
             <Button 
               variant="ghost" 
@@ -347,15 +351,15 @@ export default function BrandBrain() {
               {goals.length > 0 ? goals.map((goal: any) => (
                 <div key={goal.id} className="p-3 border border-[#373333] rounded-lg bg-[#242222] flex justify-between items-center gap-2">
                   <div className="min-w-0">
-                    <div className="font-semibold text-[#F5F3F1] truncate">{goal.goal}</div>
-                    <div className="text-[#A9A4A0] text-[11px] mt-0.5">Target: {goal.target_value}</div>
+                    <div className="font-semibold text-white truncate">{goal.goal}</div>
+                    <div className="text-[#E5E7EB] text-[11px] mt-0.5">Target: {goal.target_value}</div>
                   </div>
-                  <Badge variant="outline" className="border-[#373333] text-[#A9A4A0] text-[10px] shrink-0">
+                  <Badge variant="outline" className="border-[#373333] text-[#E5E7EB] text-[10px] shrink-0">
                     {goal.current_value || 'Active'}
                   </Badge>
                 </div>
               )) : (
-                <div className="flex flex-col items-center justify-center h-full py-6 text-center text-[#737373] border border-dashed border-[#373333] rounded-lg">
+                <div className="flex flex-col items-center justify-center h-full py-6 text-center text-[#E5E7EB] border border-dashed border-[#373333] rounded-lg">
                   <span className="italic">No goals defined</span>
                 </div>
               )}
@@ -370,17 +374,17 @@ export default function BrandBrain() {
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-[#1C1A1A] border border-[#373333] rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl">
             <div className="flex justify-between items-center border-b border-[#373333] pb-3">
-              <h2 className="text-lg font-bold text-[#F5F3F1] capitalize">
+              <h2 className="text-lg font-bold text-white capitalize">
                 {activeModal.startsWith('edit') ? activeModal : `Add ${activeModal}`}
               </h2>
-              <button onClick={closeModal} className="text-[#A9A4A0] hover:text-[#F5F3F1]">✕</button>
+              <button onClick={closeModal} className="text-[#E5E7EB] hover:text-white">✕</button>
             </div>
             
             <form onSubmit={handleSave} className="space-y-4">
               {activeModal === 'overview' && (
                 <>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Brand Name</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Brand Name</label>
                     <Input 
                       value={formData.name || ''} 
                       onChange={e => setFormData({ ...formData, name: e.target.value })}
@@ -388,7 +392,7 @@ export default function BrandBrain() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Industry</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Industry</label>
                     <Input 
                       value={formData.industry || ''} 
                       onChange={e => setFormData({ ...formData, industry: e.target.value })}
@@ -396,7 +400,7 @@ export default function BrandBrain() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Tagline</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Tagline</label>
                     <Input 
                       value={formData.tagline || ''} 
                       onChange={e => setFormData({ ...formData, tagline: e.target.value })}
@@ -409,7 +413,7 @@ export default function BrandBrain() {
               {activeModal === 'voice' && (
                 <>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Tone</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Tone</label>
                     <Input 
                       placeholder="e.g. Authoritative, direct, encouraging"
                       value={formData.tone || ''} 
@@ -418,7 +422,7 @@ export default function BrandBrain() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Writing Style</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Writing Style</label>
                     <Input 
                       placeholder="e.g. Data-driven, concise, narrative"
                       value={formData.writing_style || ''} 
@@ -432,21 +436,21 @@ export default function BrandBrain() {
               {activeModal === 'positioning' && (
                 <>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Positioning Statement</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Positioning Statement</label>
                     <textarea 
                       rows={3}
                       value={formData.positioning_statement || ''} 
                       onChange={e => setFormData({ ...formData, positioning_statement: e.target.value })}
-                      className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-xs text-[#F5F3F1] focus:outline-none"
+                      className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-xs text-white focus:outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Unique Value Proposition</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Unique Value Proposition</label>
                     <textarea 
                       rows={2}
                       value={formData.unique_value_proposition || ''} 
                       onChange={e => setFormData({ ...formData, unique_value_proposition: e.target.value })}
-                      className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-xs text-[#F5F3F1] focus:outline-none"
+                      className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-xs text-white focus:outline-none"
                     />
                   </div>
                 </>
@@ -455,7 +459,7 @@ export default function BrandBrain() {
               {activeModal === 'audience' && (
                 <>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Audience Name *</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Audience Name *</label>
                     <Input 
                       required
                       placeholder="e.g. SMB Founders"
@@ -465,13 +469,13 @@ export default function BrandBrain() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Description & Pain Points</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Description & Pain Points</label>
                     <textarea 
                       rows={3}
                       placeholder="Demographics, key challenges, motivations..."
                       value={formData.description || ''} 
                       onChange={e => setFormData({ ...formData, description: e.target.value })}
-                      className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-xs text-[#F5F3F1] focus:outline-none"
+                      className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-xs text-white focus:outline-none"
                     />
                   </div>
                 </>
@@ -480,7 +484,7 @@ export default function BrandBrain() {
               {activeModal === 'product' && (
                 <>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Product / Service Name *</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Product / Service Name *</label>
                     <Input 
                       required
                       placeholder="e.g. Enterprise SEO Audit"
@@ -490,7 +494,7 @@ export default function BrandBrain() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Pricing (Optional)</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Pricing (Optional)</label>
                     <Input 
                       placeholder="e.g. ₹49,000 / month"
                       value={formData.price || ''} 
@@ -499,13 +503,13 @@ export default function BrandBrain() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Description</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Description</label>
                     <textarea 
                       rows={2}
                       placeholder="Key benefits and target customer..."
                       value={formData.description || ''} 
                       onChange={e => setFormData({ ...formData, description: e.target.value })}
-                      className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-xs text-[#F5F3F1] focus:outline-none"
+                      className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-xs text-white focus:outline-none"
                     />
                   </div>
                 </>
@@ -514,7 +518,7 @@ export default function BrandBrain() {
               {activeModal === 'competitor' && (
                 <>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Competitor Name *</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Competitor Name *</label>
                     <Input 
                       required
                       placeholder="e.g. Market Rival Ltd"
@@ -524,7 +528,7 @@ export default function BrandBrain() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Known Weakness / Gap</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Known Weakness / Gap</label>
                     <Input 
                       placeholder="e.g. Slow delivery, weak technical content"
                       value={formData.weaknesses || ''} 
@@ -538,7 +542,7 @@ export default function BrandBrain() {
               {activeModal === 'goal' && (
                 <>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Marketing Goal *</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Marketing Goal *</label>
                     <Input 
                       required
                       placeholder="e.g. Reach ₹50L Annual Recurring Revenue"
@@ -548,7 +552,7 @@ export default function BrandBrain() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Target Metric / Value</label>
+                    <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Target Metric / Value</label>
                     <Input 
                       placeholder="e.g. ₹5,000,000"
                       value={formData.target_value || ''} 
@@ -560,7 +564,7 @@ export default function BrandBrain() {
               )}
 
               <div className="flex justify-end gap-3 pt-3 border-t border-[#373333]">
-                <Button type="button" variant="outline" onClick={closeModal} className="border-[#373333] text-[#A9A4A0]">
+                <Button type="button" variant="outline" onClick={closeModal} className="border-[#373333] text-[#E5E7EB]">
                   Cancel
                 </Button>
                 <Button type="submit" disabled={saving} className="bg-[#8F0028] hover:bg-[#A8002F] text-white">

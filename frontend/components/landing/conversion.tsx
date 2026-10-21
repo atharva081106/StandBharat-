@@ -22,7 +22,7 @@ export function UseCasesSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div>
             <div className="p-8 border border-[#E8E4DC] rounded-[24px] bg-[#FAF8F3]/80 hover:bg-white hover:shadow-xl hover:shadow-[#800020]/5 transition-all duration-300 h-full flex flex-col group relative overflow-hidden backdrop-blur-sm">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#800020]/10 to-transparent rounded-full blur-2xl -mr-10 -mt-10 transition-opacity group-hover:opacity-100 opacity-0" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#800020]/5 rounded-full blur-2xl -mr-10 -mt-10 transition-opacity group-hover:opacity-100 opacity-0" />
               <div className="h-14 mb-6 flex items-center">
                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:scale-110 transition-transform duration-300">
                     <rect width="40" height="40" rx="8" fill="white" stroke="#E8E4DC" />
@@ -36,7 +36,7 @@ export function UseCasesSection() {
           </div>
           <div>
             <div className="p-8 border border-[#E8E4DC] rounded-[24px] bg-[#FAF8F3]/80 hover:bg-white hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 h-full flex flex-col group relative overflow-hidden backdrop-blur-sm">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-full blur-2xl -mr-10 -mt-10 transition-opacity group-hover:opacity-100 opacity-0" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl -mr-10 -mt-10 transition-opacity group-hover:opacity-100 opacity-0" />
               <div className="h-14 mb-6 flex items-center relative">
                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:scale-110 transition-transform duration-300">
                     <rect width="40" height="40" rx="8" fill="white" stroke="#E8E4DC" />
@@ -54,7 +54,7 @@ export function UseCasesSection() {
           </div>
           <div>
             <div className="p-8 border border-[#E8E4DC] rounded-[24px] bg-[#FAF8F3]/80 hover:bg-white hover:shadow-xl hover:shadow-green-900/5 transition-all duration-300 h-full flex flex-col group relative overflow-hidden backdrop-blur-sm">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-green-500/10 to-transparent rounded-full blur-2xl -mr-10 -mt-10 transition-opacity group-hover:opacity-100 opacity-0" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-green-500/5 rounded-full blur-2xl -mr-10 -mt-10 transition-opacity group-hover:opacity-100 opacity-0" />
               <div className="h-14 mb-6 flex items-center relative">
                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:scale-110 transition-transform duration-300">
                     <rect width="40" height="40" rx="8" fill="white" stroke="#E8E4DC" />
@@ -70,7 +70,7 @@ export function UseCasesSection() {
           </div>
           <div>
             <div className="p-8 border border-[#E8E4DC] rounded-[24px] bg-[#FAF8F3]/80 hover:bg-white hover:shadow-xl hover:shadow-orange-900/5 transition-all duration-300 h-full flex flex-col group relative overflow-hidden backdrop-blur-sm">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-orange-500/10 to-transparent rounded-full blur-2xl -mr-10 -mt-10 transition-opacity group-hover:opacity-100 opacity-0" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/5 rounded-full blur-2xl -mr-10 -mt-10 transition-opacity group-hover:opacity-100 opacity-0" />
               <div className="h-14 mb-6 flex items-center">
                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="group-hover:scale-110 transition-transform duration-300">
                     <rect width="40" height="40" rx="8" fill="white" stroke="#E8E4DC" />
@@ -90,7 +90,7 @@ export function UseCasesSection() {
 
 export function PricingSection() {
   return (
-    <section className="py-12 md:py-16 px-6 lg:px-8 relative overflow-hidden bg-gradient-to-br from-[#FFF5F6] via-[#FAF8F3] to-[#FFF0F2]" id="pricing">
+    <section className="py-12 md:py-16 px-6 lg:px-8 relative overflow-hidden bg-[#FAF8F3]" id="pricing">
       
       {/* Background Graphic Elements */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
@@ -111,19 +111,19 @@ export function PricingSection() {
       {/* Side Typography - Left */}
       <div className="hidden xl:flex flex-col absolute left-8 top-1/3 space-y-2 z-10">
         <div className="w-4 h-[2px] bg-[#800020] mb-2"></div>
-        <div className="text-[9px] font-bold tracking-[0.25em] text-[#858585]">STRATEGY</div>
-        <div className="text-[9px] font-bold tracking-[0.25em] text-[#858585]">CONTENT</div>
-        <div className="text-[9px] font-bold tracking-[0.25em] text-[#858585]">EXECUTION</div>
-        <div className="text-[9px] font-bold tracking-[0.25em] text-[#858585]">PERFORMANCE</div>
+        <div className="text-[9px] font-bold tracking-[0.25em] text-[#E5E7EB]">STRATEGY</div>
+        <div className="text-[9px] font-bold tracking-[0.25em] text-[#E5E7EB]">CONTENT</div>
+        <div className="text-[9px] font-bold tracking-[0.25em] text-[#E5E7EB]">EXECUTION</div>
+        <div className="text-[9px] font-bold tracking-[0.25em] text-[#E5E7EB]">PERFORMANCE</div>
       </div>
 
       {/* Side Typography - Right */}
       <div className="hidden xl:flex flex-col absolute right-8 bottom-1/4 space-y-2 z-10">
         <div className="w-4 h-[2px] bg-[#800020] mb-2"></div>
-        <div className="text-[9px] font-bold tracking-[0.25em] text-[#858585]">BUILT FOR</div>
-        <div className="text-[9px] font-bold tracking-[0.25em] text-[#858585]">MODERN</div>
-        <div className="text-[9px] font-bold tracking-[0.25em] text-[#858585]">MARKETING</div>
-        <div className="text-[9px] font-bold tracking-[0.25em] text-[#858585]">TEAMS</div>
+        <div className="text-[9px] font-bold tracking-[0.25em] text-[#E5E7EB]">BUILT FOR</div>
+        <div className="text-[9px] font-bold tracking-[0.25em] text-[#E5E7EB]">MODERN</div>
+        <div className="text-[9px] font-bold tracking-[0.25em] text-[#E5E7EB]">MARKETING</div>
+        <div className="text-[9px] font-bold tracking-[0.25em] text-[#E5E7EB]">TEAMS</div>
       </div>
 
       <div className="max-w-[1100px] mx-auto text-center relative z-20">
@@ -145,7 +145,7 @@ export function PricingSection() {
           <div className="inline-flex items-center gap-1 bg-white border border-[#E8E4DC] p-1.5 rounded-full shadow-sm">
              <button className="px-6 py-2 bg-[#800020] text-white text-sm font-bold rounded-full shadow-md transition-all">Monthly</button>
              <button className="px-6 py-2 text-[#111111] bg-transparent hover:bg-gray-50 text-sm font-bold rounded-full flex items-center gap-1.5 transition-all">
-               Yearly <span className="text-[10px] text-[#168A5B] font-extrabold uppercase tracking-wide">Save 20%</span>
+               Yearly <span className="text-[10px] text-white font-extrabold uppercase tracking-wide">Save 20%</span>
              </button>
           </div>
         </div>
@@ -159,7 +159,7 @@ export function PricingSection() {
             </div>
             <h3 className="text-[22px] font-bold text-[#111111] mb-1">Free</h3>
             <p className="text-[13px] text-[#5A5A5A] font-medium mb-4">For individuals exploring AI marketing.</p>
-            <div className="text-[40px] font-bold text-[#111111] mb-5 leading-none tracking-tight">₹0<span className="text-sm text-[#858585] font-normal">/mo</span></div>
+            <div className="text-[40px] font-bold text-[#111111] mb-5 leading-none tracking-tight">₹0<span className="text-sm text-[#E5E7EB] font-normal">/mo</span></div>
             <Button className="w-full h-10 bg-transparent border border-[#111111] text-[#111111] hover:bg-[#111111] hover:text-white font-bold rounded-xl shadow-sm transition-colors text-sm" onClick={() => window.dispatchEvent(new Event('open-auth-signup'))}>
               Get Started &rarr;
             </Button>
@@ -182,7 +182,7 @@ export function PricingSection() {
             </div>
             <h3 className="text-[22px] font-bold text-[#111111] mb-1">Pro</h3>
             <p className="text-[13px] text-[#5A5A5A] font-medium mb-4 pr-16">For marketing teams scaling operations.</p>
-            <div className="text-[40px] font-bold text-[#111111] mb-5 leading-none tracking-tight">₹1999<span className="text-sm text-[#858585] font-normal">/mo</span></div>
+            <div className="text-[40px] font-bold text-[#111111] mb-5 leading-none tracking-tight">₹1999<span className="text-sm text-[#E5E7EB] font-normal">/mo</span></div>
             <Button className="w-full h-10 bg-[#800020] hover:bg-[#5C0017] text-white font-bold rounded-xl shadow-md border-none text-sm transition-colors" onClick={() => window.dispatchEvent(new Event('open-auth-signup'))}>
               Get Pro &rarr;
             </Button>
@@ -362,7 +362,7 @@ export function FinalCTA() {
         
         {/* Badge */}
         <div className="flex justify-center mb-8">
-           <div className="inline-flex items-center px-5 py-1.5 rounded-full border border-[#800020]/30 bg-[#800020]/10 text-[#FF7A85] text-[10px] font-bold tracking-[0.2em] uppercase">
+           <div className="inline-flex items-center px-5 py-1.5 rounded-full border border-[#800020]/30 bg-[#800020]/10 text-white text-[10px] font-bold tracking-[0.2em] uppercase">
               All-in-one AI Marketing OS
            </div>
         </div>
@@ -371,14 +371,14 @@ export function FinalCTA() {
         <div className="mb-6">
           <h2 className="text-[48px] md:text-[64px] font-extrabold tracking-tight text-white leading-[1.05]">
             Build a marketing system<br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF7A85] to-[#B3002D]">that gets smarter</span><br/>
+            <span className="text-white">that gets smarter</span><br/>
             with every cycle.
           </h2>
         </div>
         
         {/* Subtitle */}
         <div className="mb-10">
-          <p className="text-lg md:text-xl text-[#A9A4A0] font-medium max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-[#E5E7EB] font-medium max-w-2xl mx-auto leading-relaxed">
             Bring your brand, strategy, AI agents, execution and learning into one connected system — built to help you grow continuously.
           </p>
         </div>
@@ -397,42 +397,42 @@ export function FinalCTA() {
           
           <div className="flex-1 flex flex-col items-center text-center px-4 md:border-r border-white/5 relative">
             <div className="w-12 h-12 rounded-2xl bg-[#800020]/20 flex items-center justify-center mb-4">
-              <Brain className="w-5 h-5 text-[#FF7A85]" />
+              <Brain className="w-5 h-5 text-white" />
             </div>
             <h4 className="text-white text-[13px] font-bold mb-1.5">Understand</h4>
-            <p className="text-[#858585] text-xs font-medium leading-relaxed max-w-[160px]">Uses your brand, data and real-time insights.</p>
+            <p className="text-[#E5E7EB] text-xs font-medium leading-relaxed max-w-[160px]">Uses your brand, data and real-time insights.</p>
           </div>
           
           <div className="flex-1 flex flex-col items-center text-center px-4 md:border-r border-white/5 relative">
             <div className="w-12 h-12 rounded-2xl bg-[#800020]/20 flex items-center justify-center mb-4">
-              <Target className="w-5 h-5 text-[#FF7A85]" />
+              <Target className="w-5 h-5 text-white" />
             </div>
             <h4 className="text-white text-[13px] font-bold mb-1.5">Find Opportunities</h4>
-            <p className="text-[#858585] text-xs font-medium leading-relaxed max-w-[160px]">Identifies what matters across all channels.</p>
+            <p className="text-[#E5E7EB] text-xs font-medium leading-relaxed max-w-[160px]">Identifies what matters across all channels.</p>
           </div>
 
           <div className="flex-1 flex flex-col items-center text-center px-4 md:border-r border-white/5 relative">
             <div className="w-12 h-12 rounded-2xl bg-[#800020]/20 flex items-center justify-center mb-4">
-              <Zap className="w-5 h-5 text-[#FF7A85]" />
+              <Zap className="w-5 h-5 text-white" />
             </div>
             <h4 className="text-white text-[13px] font-bold mb-1.5">Execute with AI Agents</h4>
-            <p className="text-[#858585] text-xs font-medium leading-relaxed max-w-[160px]">Creates content, campaigns and actions for you.</p>
+            <p className="text-[#E5E7EB] text-xs font-medium leading-relaxed max-w-[160px]">Creates content, campaigns and actions for you.</p>
           </div>
 
           <div className="flex-1 flex flex-col items-center text-center px-4 md:border-r border-white/5 relative">
             <div className="w-12 h-12 rounded-2xl bg-[#800020]/20 flex items-center justify-center mb-4">
-              <BarChart2 className="w-5 h-5 text-[#FF7A85]" />
+              <BarChart2 className="w-5 h-5 text-white" />
             </div>
             <h4 className="text-white text-[13px] font-bold mb-1.5">Measure & Learn</h4>
-            <p className="text-[#858585] text-xs font-medium leading-relaxed max-w-[160px]">Tracks performance and gets smarter over time.</p>
+            <p className="text-[#E5E7EB] text-xs font-medium leading-relaxed max-w-[160px]">Tracks performance and gets smarter over time.</p>
           </div>
 
           <div className="flex-1 flex flex-col items-center text-center px-4 relative">
             <div className="w-12 h-12 rounded-2xl bg-[#800020]/20 flex items-center justify-center mb-4">
-              <TrendingUp className="w-5 h-5 text-[#FF7A85]" />
+              <TrendingUp className="w-5 h-5 text-white" />
             </div>
             <h4 className="text-white text-[13px] font-bold mb-1.5">Grow Continuously</h4>
-            <p className="text-[#858585] text-xs font-medium leading-relaxed max-w-[160px]">Turns insights into compounding results.</p>
+            <p className="text-[#E5E7EB] text-xs font-medium leading-relaxed max-w-[160px]">Turns insights into compounding results.</p>
           </div>
 
         </div>

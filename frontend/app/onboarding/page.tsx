@@ -118,7 +118,7 @@ export default function Onboarding() {
         </div>
         <div className="w-1/3 flex justify-center">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo.jpg" alt="StandBharat Logo" width={28} height={28} className="rounded-lg object-contain shadow-sm border border-black/5" />
+            <Image src="/logo-icon.png" alt="StandBharat Logo" width={28} height={28} className="object-contain" />
             <span className="font-bold text-lg tracking-tight text-[#111111] hidden sm:block">StandBharat</span>
           </Link>
         </div>
@@ -174,7 +174,7 @@ export default function Onboarding() {
                 {stepIdx === 5 && <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>}
                 {stepIdx === 6 && <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>}
               </div>
-              <div className="text-[11px] font-bold text-[#858585] tracking-wider mb-2 uppercase">Step {stepIdx + 1} of {steps.length}</div>
+              <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">Step {stepIdx + 1} of {steps.length}</div>
               <h3 className="text-[28px] font-bold text-[#111111] tracking-tight mb-3">
                 {stepIdx === 0 && "Business Profile"}
                 {stepIdx === 1 && "Brand Voice"}
@@ -246,7 +246,7 @@ export default function Onboarding() {
                        <div className="h-2 w-1/2 bg-[#E8E4DC] rounded-full" />
                     </div>
                     <div className="mt-4 pt-4 border-t border-[#E8E4DC]">
-                       <div className="text-[9px] font-bold text-[#858585] mb-2 uppercase tracking-wider">Brand Voice</div>
+                       <div className="text-[9px] font-bold text-[#E5E7EB] mb-2 uppercase tracking-wider">Brand Voice</div>
                        <div className="flex flex-wrap gap-1.5">
                           <div className="px-2 py-1 bg-[#FAF8F3] rounded text-[9px] text-[#5A5A5A] font-medium border border-[#E8E4DC]">Professional</div>
                           <div className="px-2 py-1 bg-[#FAF8F3] rounded text-[9px] text-[#5A5A5A] font-medium border border-[#E8E4DC]">Friendly</div>
@@ -347,7 +347,7 @@ export default function Onboarding() {
               <div className="absolute -bottom-8 -right-8 w-full h-[300px] flex items-center justify-center pointer-events-none">
                  <div className="absolute w-[400px] h-[400px] bg-[#008A2E]/5 rounded-full blur-3xl mix-blend-multiply" />
                  <div className="relative w-32 h-32 bg-white rounded-full shadow-xl border border-[#008A2E]/20 flex items-center justify-center animate-in zoom-in duration-700">
-                    <svg className="w-12 h-12 text-[#008A2E]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                    <svg className="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                  </div>
@@ -361,7 +361,7 @@ export default function Onboarding() {
               
               {stepIdx === 0 && (
                 <div className="animate-in fade-in duration-500 slide-in-from-right-4">
-                  <div className="text-[11px] font-bold text-[#858585] tracking-wider mb-2 uppercase">Let's Get Started</div>
+                  <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">Let's Get Started</div>
                   <h2 className="text-[32px] font-bold text-[#111111] mb-2 tracking-tight">Tell us about your business</h2>
                   <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">We'll use this information to build your AI marketing engine.</p>
                   
@@ -369,7 +369,7 @@ export default function Onboarding() {
                     <div>
                       <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Business name <span className="text-red-500">*</span></label>
                       <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#858585]">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#E5E7EB]">
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                         </div>
                         <Input 
@@ -377,47 +377,47 @@ export default function Onboarding() {
                           value={businessName} 
                           onChange={e => setBusinessName(e.target.value)} 
                           required 
-                          className="h-11 pl-10 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#858585] rounded-xl shadow-sm"
+                          className="h-11 pl-10 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
                         />
                       </div>
-                      <p className="text-[11px] text-[#858585] mt-1.5">Enter your official business or brand name.</p>
+                      <p className="text-[11px] text-[#E5E7EB] mt-1.5">Enter your official business or brand name.</p>
                     </div>
 
                     <div>
                       <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Website URL</label>
                       <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#858585]">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#E5E7EB]">
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
                         </div>
                         <Input 
                           placeholder="https://acme.com" 
                           value={website} 
                           onChange={e => setWebsite(e.target.value)} 
-                          className="h-11 pl-10 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#858585] rounded-xl shadow-sm"
+                          className="h-11 pl-10 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
                         />
                       </div>
-                      <p className="text-[11px] text-[#858585] mt-1.5">Your website helps us understand your business, industry and positioning.</p>
+                      <p className="text-[11px] text-[#E5E7EB] mt-1.5">Your website helps us understand your business, industry and positioning.</p>
                     </div>
 
                     <div>
                       <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Business description <span className="text-red-500">*</span></label>
                       <div className="relative">
-                        <div className="absolute top-3 left-3 text-[#858585] pointer-events-none">
+                        <div className="absolute top-3 left-3 text-[#E5E7EB] pointer-events-none">
                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
                         </div>
                         <textarea 
-                          className="w-full rounded-xl bg-white border border-[#E8E4DC] pl-10 pr-3 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#800020] placeholder:text-[#858585] transition-all resize-none shadow-sm" 
+                          className="w-full rounded-xl bg-white border border-[#E8E4DC] pl-10 pr-3 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#800020] placeholder:text-[#E5E7EB] transition-all resize-none shadow-sm" 
                           rows={3}
                           placeholder="What does your business do? Who are your customers?"
                           value={description}
                           maxLength={500}
                           onChange={e => setDescription(e.target.value)}
                         ></textarea>
-                        <div className="absolute bottom-3 right-3 text-[10px] font-bold text-[#858585]">
+                        <div className="absolute bottom-3 right-3 text-[10px] font-bold text-[#E5E7EB]">
                           {description.length}/500
                         </div>
                       </div>
-                      <p className="text-[11px] text-[#858585] mt-1.5">Share a brief overview of your business, what you do, and who your customers are.</p>
+                      <p className="text-[11px] text-[#E5E7EB] mt-1.5">Share a brief overview of your business, what you do, and who your customers are.</p>
                     </div>
                   </div>
                 </div>
@@ -425,7 +425,7 @@ export default function Onboarding() {
 
               {stepIdx === 1 && (
                 <div className="animate-in fade-in duration-500 slide-in-from-right-4">
-                  <div className="text-[11px] font-bold text-[#858585] tracking-wider mb-2 uppercase">Let's Define Your Brand</div>
+                  <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">Let's Define Your Brand</div>
                   <h2 className="text-[32px] font-bold text-[#111111] mb-2 tracking-tight">Build your Brand Brain</h2>
                   <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">This helps agents write and act exactly like your brand.</p>
                   
@@ -440,10 +440,10 @@ export default function Onboarding() {
                           placeholder="What makes you unique?" 
                           value={valueProposition}
                           onChange={e => setValueProposition(e.target.value)}
-                          className="h-11 pl-10 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#858585] rounded-xl shadow-sm"
+                          className="h-11 pl-10 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
                         />
                       </div>
-                      <p className="text-[11px] text-[#858585] mt-1.5">Your one-line reason customers choose you.</p>
+                      <p className="text-[11px] text-[#E5E7EB] mt-1.5">Your one-line reason customers choose you.</p>
                     </div>
 
                     <div>
@@ -476,7 +476,7 @@ export default function Onboarding() {
               )}
               {stepIdx === 2 && (
                 <div className="animate-in fade-in duration-500 slide-in-from-right-4">
-                  <div className="text-[11px] font-bold text-[#858585] tracking-wider mb-2 uppercase">Let's Define Your Audience</div>
+                  <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">Let's Define Your Audience</div>
                   <h2 className="text-[32px] font-bold text-[#111111] mb-2 tracking-tight">Target Audience</h2>
                   <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">Identify who you want to reach and where they spend their time.</p>
                   
@@ -487,13 +487,13 @@ export default function Onboarding() {
                         placeholder="e.g. B2B SaaS Founders, 25-45" 
                         value={targetDemographic}
                         onChange={e => setTargetDemographic(e.target.value)}
-                        className="h-11 px-4 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#858585] rounded-xl shadow-sm"
+                        className="h-11 px-4 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
                       />
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Customer Pain Points</label>
                       <textarea 
-                        className="w-full rounded-xl bg-white border border-[#E8E4DC] px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#800020] placeholder:text-[#858585] transition-all resize-none shadow-sm" 
+                        className="w-full rounded-xl bg-white border border-[#E8E4DC] px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#800020] placeholder:text-[#E5E7EB] transition-all resize-none shadow-sm" 
                         rows={3}
                         value={customerPainPoints}
                         onChange={e => setCustomerPainPoints(e.target.value)}
@@ -506,7 +506,7 @@ export default function Onboarding() {
 
               {stepIdx === 3 && (
                 <div className="animate-in fade-in duration-500 slide-in-from-right-4">
-                  <div className="text-[11px] font-bold text-[#858585] tracking-wider mb-2 uppercase">Let's Define Your Goals</div>
+                  <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">Let's Define Your Goals</div>
                   <h2 className="text-[32px] font-bold text-[#111111] mb-2 tracking-tight">Marketing Goals</h2>
                   <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">Set the objectives for your AI marketing engine.</p>
                   
@@ -537,7 +537,7 @@ export default function Onboarding() {
                           placeholder="10,000" 
                           value={targetRevenue}
                           onChange={e => setTargetRevenue(e.target.value)}
-                          className="h-11 pl-8 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#858585] rounded-xl shadow-sm"
+                          className="h-11 pl-8 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
                         />
                       </div>
                     </div>
@@ -547,7 +547,7 @@ export default function Onboarding() {
 
               {stepIdx === 4 && (
                 <div className="animate-in fade-in duration-500 slide-in-from-right-4">
-                  <div className="text-[11px] font-bold text-[#858585] tracking-wider mb-2 uppercase">Let's Identify Competitors</div>
+                  <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">Let's Identify Competitors</div>
                   <h2 className="text-[32px] font-bold text-[#111111] mb-2 tracking-tight">Competitors</h2>
                   <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">Tell us who you're up against so we can find gaps in their strategy.</p>
                   
@@ -563,7 +563,7 @@ export default function Onboarding() {
                             newComps[idx] = e.target.value;
                             setCompetitors(newComps);
                           }}
-                          className="h-11 px-4 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#858585] rounded-xl shadow-sm"
+                          className="h-11 px-4 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
                         />
                       </div>
                     ))}
@@ -573,7 +573,7 @@ export default function Onboarding() {
               
               {stepIdx === 5 && (
                 <div className="animate-in fade-in duration-500 slide-in-from-right-4">
-                  <div className="text-[11px] font-bold text-[#858585] tracking-wider mb-2 uppercase">System Provisioning</div>
+                  <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">System Provisioning</div>
                   <h2 className="text-[32px] font-bold text-[#111111] mb-2 tracking-tight">Assembling your AI Team</h2>
                   <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">Provisioning specialized agents for your workspace.</p>
                   
@@ -592,7 +592,7 @@ export default function Onboarding() {
                           </div>
                           <span className="font-bold text-[#111111] text-[13px]">{agent.name}</span>
                         </div>
-                        <span className="flex items-center gap-1 text-[#008A2E] text-[10px] font-bold uppercase tracking-wider">
+                        <span className="flex items-center gap-1 text-white text-[10px] font-bold uppercase tracking-wider">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#008A2E] animate-pulse" />
                           Ready
                         </span>
@@ -604,7 +604,7 @@ export default function Onboarding() {
 
               {stepIdx === 6 && (
                 <div className="animate-in fade-in duration-500 text-center py-6 slide-in-from-bottom-4 flex flex-col items-center justify-center h-full">
-                  <div className="text-[11px] font-bold text-[#858585] tracking-wider mb-6 uppercase">System Ready</div>
+                  <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-6 uppercase">System Ready</div>
                   <div className="w-24 h-24 bg-[#800020] rounded-[28px] flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-[#800020]/30 rotate-3">
                     <svg className="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />

@@ -18,7 +18,10 @@ class AICMOAgent(BaseAgent):
             agent_id="ai_cmo",
             name="AI CMO Orchestrator",
             description="Executive strategic orchestrator for brand positioning, campaign prioritization, and autonomous multi-agent delegation.",
-            capabilities=["strategic_planning", "growth_prioritization", "cross_agent_orchestration", "market_intelligence"]
+            capabilities=["strategic_planning", "growth_prioritization", "cross_agent_orchestration", "market_intelligence"],
+            tier="FREE",
+            resource_profile="LIGHTWEIGHT",
+            credit_cost=750
         )
         self.definition = AgentDefinition(
             id="ai_cmo",
@@ -232,7 +235,7 @@ class AICMOAgent(BaseAgent):
                 db.close()
 
         return AgentResult(
-            status="COMPLETED",
+            status="SUCCESS",
             output_data={
                 "summary": strategy_output.get("executive_summary", "Strategic review completed."),
                 "strategic_pillars": strategy_output.get("strategic_pillars", []),

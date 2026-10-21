@@ -146,25 +146,25 @@ export default function CalendarPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'PUBLISHED':
-        return 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+        return 'bg-emerald-500/20 text-white border-emerald-500/30'
       case 'SCHEDULED':
-        return 'bg-blue-500/20 text-blue-400 border-blue-500/30'
+        return 'bg-blue-500/20 text-white border-blue-500/30'
       case 'FAILED':
         return 'bg-red-500/20 text-red-400 border-red-500/30'
       default:
-        return 'bg-amber-500/20 text-amber-400 border-amber-500/30'
+        return 'bg-amber-500/20 text-white border-amber-500/30'
     }
   }
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#171515] text-[#F5F3F1]">
+    <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#171515] text-white">
       {/* Top Header */}
       <div className="h-[60px] border-b border-[#373333] px-6 flex items-center justify-between shrink-0 bg-[#1C1A1A]">
         <div className="flex items-center gap-3">
           <CalendarIcon className="w-5 h-5 text-[#8F0028]" />
           <div>
-            <h1 className="text-[17px] font-semibold text-[#F5F3F1] leading-none">Content & Publishing Calendar</h1>
-            <p className="text-[12px] text-[#A9A4A0] mt-1 leading-none">
+            <h1 className="text-[17px] font-semibold text-white leading-none">Content & Publishing Calendar</h1>
+            <p className="text-[12px] text-[#E5E7EB] mt-1 leading-none">
               Orchestrate multi-channel marketing campaigns and scheduled releases
             </p>
           </div>
@@ -175,7 +175,7 @@ export default function CalendarPage() {
             <button
               onClick={() => setSelectedPlatform('ALL')}
               className={`px-2.5 py-1 text-[11px] font-medium rounded ${
-                selectedPlatform === 'ALL' ? 'bg-[#8F0028] text-white' : 'text-[#A9A4A0] hover:text-[#F5F3F1]'
+                selectedPlatform === 'ALL' ? 'bg-[#8F0028] text-white' : 'text-[#E5E7EB] hover:text-white'
               }`}
             >
               All
@@ -185,7 +185,7 @@ export default function CalendarPage() {
                 key={plat}
                 onClick={() => setSelectedPlatform(plat)}
                 className={`px-2.5 py-1 text-[11px] font-medium rounded ${
-                  selectedPlatform === plat ? 'bg-[#8F0028] text-white' : 'text-[#A9A4A0] hover:text-[#F5F3F1]'
+                  selectedPlatform === plat ? 'bg-[#8F0028] text-white' : 'text-[#E5E7EB] hover:text-white'
                 }`}
               >
                 {plat}
@@ -198,7 +198,7 @@ export default function CalendarPage() {
             size="sm"
             onClick={fetchCalendarData}
             disabled={loading}
-            className="border-[#373333] bg-[#242222] text-[#F5F3F1] hover:bg-[#2A2828] text-[12px]"
+            className="border-[#373333] bg-[#242222] text-white hover:bg-[#2A2828] text-[12px]"
           >
             <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${loading ? 'animate-spin' : ''}`} />
             Refresh
@@ -222,26 +222,26 @@ export default function CalendarPage() {
           {/* Month Navigation & Stats Header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <h2 className="text-[18px] font-bold text-[#F5F3F1]">
+              <h2 className="text-[18px] font-bold text-white">
                 {monthNames[month]} {year}
               </h2>
               <div className="flex items-center gap-1">
                 <button
                   onClick={handlePrevMonth}
-                  className="p-1 rounded hover:bg-[#242222] text-[#A9A4A0] hover:text-[#F5F3F1] transition-colors"
+                  className="p-1 rounded hover:bg-[#242222] text-[#E5E7EB] hover:text-white transition-colors"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
                 <button
                   onClick={handleNextMonth}
-                  className="p-1 rounded hover:bg-[#242222] text-[#A9A4A0] hover:text-[#F5F3F1] transition-colors"
+                  className="p-1 rounded hover:bg-[#242222] text-[#E5E7EB] hover:text-white transition-colors"
                 >
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 text-[12px] text-[#A9A4A0]">
+            <div className="flex items-center gap-4 text-[12px] text-[#E5E7EB]">
               <span className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Scheduled: {events.filter(e => e.status === 'SCHEDULED').length}
               </span>
@@ -259,7 +259,7 @@ export default function CalendarPage() {
             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, i) => (
               <div
                 key={day}
-                className={`text-center text-[11px] font-semibold uppercase tracking-wider py-1 text-[#A9A4A0] ${
+                className={`text-center text-[11px] font-semibold uppercase tracking-wider py-1 text-[#E5E7EB] ${
                   i === 0 || i === 6 ? 'opacity-60' : ''
                 }`}
               >
@@ -294,13 +294,13 @@ export default function CalendarPage() {
                   <div className="flex items-center justify-between mb-1.5">
                     <span
                       className={`text-[12px] font-semibold w-5 h-5 flex items-center justify-center rounded-full ${
-                        isToday ? 'bg-[#8F0028] text-white' : 'text-[#A9A4A0]'
+                        isToday ? 'bg-[#8F0028] text-white' : 'text-[#E5E7EB]'
                       }`}
                     >
                       {day}
                     </span>
                     {dayEvents.length > 0 && (
-                      <span className="text-[10px] bg-[#242222] text-[#A9A4A0] px-1.5 py-0.5 rounded font-mono">
+                      <span className="text-[10px] bg-[#242222] text-[#E5E7EB] px-1.5 py-0.5 rounded font-mono">
                         {dayEvents.length}
                       </span>
                     )}
@@ -335,17 +335,17 @@ export default function CalendarPage() {
           <div className="w-80 border-l border-[#373333] bg-[#1C1A1A] p-5 flex flex-col justify-between shrink-0">
             <div className="space-y-4">
               <div className="flex items-center justify-between border-b border-[#373333] pb-3">
-                <span className="text-[13px] font-semibold text-[#F5F3F1]">Publication Details</span>
+                <span className="text-[13px] font-semibold text-white">Publication Details</span>
                 <button
                   onClick={() => setSelectedEvent(null)}
-                  className="p-1 text-[#A9A4A0] hover:text-[#F5F3F1] rounded"
+                  className="p-1 text-[#E5E7EB] hover:text-white rounded"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
 
               <div>
-                <h3 className="text-[15px] font-semibold text-[#F5F3F1] leading-tight">
+                <h3 className="text-[15px] font-semibold text-white leading-tight">
                   {selectedEvent.title}
                 </h3>
                 <div className="flex items-center gap-2 mt-2">
@@ -364,22 +364,22 @@ export default function CalendarPage() {
 
               <div className="space-y-2.5 text-[12px] bg-[#242222] p-3 rounded-xl border border-[#373333]">
                 <div className="flex justify-between">
-                  <span className="text-[#A9A4A0]">Scheduled Time:</span>
-                  <span className="text-[#F5F3F1]">
+                  <span className="text-[#E5E7EB]">Scheduled Time:</span>
+                  <span className="text-white">
                     {new Date(selectedEvent.scheduled_for).toLocaleString()}
                   </span>
                 </div>
                 {selectedEvent.published_at && (
                   <div className="flex justify-between">
-                    <span className="text-[#A9A4A0]">Published Time:</span>
-                    <span className="text-[#F5F3F1]">
+                    <span className="text-[#E5E7EB]">Published Time:</span>
+                    <span className="text-white">
                       {new Date(selectedEvent.published_at).toLocaleString()}
                     </span>
                   </div>
                 )}
                 <div className="flex justify-between">
-                  <span className="text-[#A9A4A0]">Draft ID:</span>
-                  <span className="text-[#F5F3F1] font-mono truncate max-w-[140px]">
+                  <span className="text-[#E5E7EB]">Draft ID:</span>
+                  <span className="text-white font-mono truncate max-w-[140px]">
                     {selectedEvent.content_draft_id}
                   </span>
                 </div>
@@ -395,7 +395,7 @@ export default function CalendarPage() {
 
             <div className="pt-4 border-t border-[#373333] space-y-2">
               <Link href={`/app/content/${selectedEvent.content_draft_id}`} className="block">
-                <Button variant="outline" className="w-full text-[12px] border-[#373333] bg-[#242222] hover:bg-[#2A2828] text-[#F5F3F1] flex items-center justify-center gap-1.5">
+                <Button variant="outline" className="w-full text-[12px] border-[#373333] bg-[#242222] hover:bg-[#2A2828] text-white flex items-center justify-center gap-1.5">
                   <ExternalLink className="w-3.5 h-3.5" />
                   View in Content Studio
                 </Button>
@@ -410,10 +410,10 @@ export default function CalendarPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
           <div className="w-full max-w-md bg-[#1C1A1A] border border-[#373333] rounded-2xl p-6 shadow-2xl">
             <div className="flex items-center justify-between border-b border-[#373333] pb-3 mb-4">
-              <h3 className="text-[16px] font-semibold text-[#F5F3F1]">Schedule Publication</h3>
+              <h3 className="text-[16px] font-semibold text-white">Schedule Publication</h3>
               <button
                 onClick={() => setShowScheduleModal(false)}
-                className="text-[#A9A4A0] hover:text-[#F5F3F1]"
+                className="text-[#E5E7EB] hover:text-white"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -421,12 +421,12 @@ export default function CalendarPage() {
 
             <form onSubmit={handleScheduleSubmit} className="space-y-4 text-[13px]">
               <div>
-                <label className="block text-[#A9A4A0] mb-1 font-medium">Select Content Draft</label>
+                <label className="block text-[#E5E7EB] mb-1 font-medium">Select Content Draft</label>
                 <select
                   required
                   value={modalDraftId}
                   onChange={e => setModalDraftId(e.target.value)}
-                  className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[#F5F3F1] focus:outline-none focus:border-[#8F0028]"
+                  className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#8F0028]"
                 >
                   <option value="">-- Choose a draft --</option>
                   {drafts.map(d => (
@@ -436,18 +436,18 @@ export default function CalendarPage() {
                   ))}
                 </select>
                 {drafts.length === 0 && (
-                  <p className="text-[11px] text-amber-400 mt-1">
+                  <p className="text-[11px] text-white mt-1">
                     No drafts found. Create one in Content Studio first.
                   </p>
                 )}
               </div>
 
               <div>
-                <label className="block text-[#A9A4A0] mb-1 font-medium">Publishing Platform</label>
+                <label className="block text-[#E5E7EB] mb-1 font-medium">Publishing Platform</label>
                 <select
                   value={modalPlatform}
                   onChange={e => setModalPlatform(e.target.value)}
-                  className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[#F5F3F1] focus:outline-none focus:border-[#8F0028]"
+                  className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#8F0028]"
                 >
                   <option value="linkedin">LinkedIn</option>
                   <option value="twitter">Twitter / X</option>
@@ -459,23 +459,23 @@ export default function CalendarPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[#A9A4A0] mb-1 font-medium">Publish Date</label>
+                  <label className="block text-[#E5E7EB] mb-1 font-medium">Publish Date</label>
                   <input
                     type="date"
                     required
                     value={modalDate}
                     onChange={e => setModalDate(e.target.value)}
-                    className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[#F5F3F1] focus:outline-none focus:border-[#8F0028]"
+                    className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#8F0028]"
                   />
                 </div>
                 <div>
-                  <label className="block text-[#A9A4A0] mb-1 font-medium">Publish Time</label>
+                  <label className="block text-[#E5E7EB] mb-1 font-medium">Publish Time</label>
                   <input
                     type="time"
                     required
                     value={modalTime}
                     onChange={e => setModalTime(e.target.value)}
-                    className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[#F5F3F1] focus:outline-none focus:border-[#8F0028]"
+                    className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-white focus:outline-none focus:border-[#8F0028]"
                   />
                 </div>
               </div>
@@ -485,7 +485,7 @@ export default function CalendarPage() {
                   type="button"
                   variant="outline"
                   onClick={() => setShowScheduleModal(false)}
-                  className="border-[#373333] bg-[#242222] text-[#F5F3F1] hover:bg-[#2A2828]"
+                  className="border-[#373333] bg-[#242222] text-white hover:bg-[#2A2828]"
                 >
                   Cancel
                 </Button>

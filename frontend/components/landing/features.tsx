@@ -33,13 +33,13 @@ export function AiCmoSection() {
               AI CMO
             </div>
             <h2 className="text-[40px] md:text-[56px] font-extrabold tracking-tight text-white leading-[1.05]">
-              Meet your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF7A85] to-[#B3002D]">AI CMO.</span>
+              Meet your <span className="text-white">AI CMO.</span>
             </h2>
-            <p className="text-[22px] md:text-[24px] text-[#F5F3F1] font-bold leading-tight">
+            <p className="text-[22px] md:text-[24px] text-white font-bold leading-tight">
               Strategic. Contextual. Actionable.<br/>
               Always on your side.
             </p>
-            <p className="text-[#858585] text-base md:text-lg max-w-lg font-medium leading-relaxed">
+            <p className="text-[#E5E7EB] text-base md:text-lg max-w-lg font-medium leading-relaxed">
               Your AI marketing strategist that understands your business, finds opportunities, creates content, and helps you grow — all from one connected brain.
             </p>
           </div>
@@ -52,7 +52,7 @@ export function AiCmoSection() {
                </div>
                <div>
                  <h4 className="text-white font-bold text-sm mb-1">Understands<br/>your business</h4>
-                 <p className="text-[#858585] text-xs leading-relaxed">Uses your Brand Brain, data and real-time insights.</p>
+                 <p className="text-[#E5E7EB] text-xs leading-relaxed">Uses your Brand Brain, data and real-time insights.</p>
                </div>
              </div>
              
@@ -63,7 +63,7 @@ export function AiCmoSection() {
                </div>
                <div>
                  <h4 className="text-white font-bold text-sm mb-1">Finds<br/>what matters</h4>
-                 <p className="text-[#858585] text-xs leading-relaxed">Identifies the highest-value opportunities across channels.</p>
+                 <p className="text-[#E5E7EB] text-xs leading-relaxed">Identifies the highest-value opportunities across channels.</p>
                </div>
              </div>
              
@@ -74,7 +74,7 @@ export function AiCmoSection() {
                </div>
                <div>
                  <h4 className="text-white font-bold text-sm mb-1">Coordinates<br/>execution</h4>
-                 <p className="text-[#858585] text-xs leading-relaxed">Works with specialized agents to get things done.</p>
+                 <p className="text-[#E5E7EB] text-xs leading-relaxed">Works with specialized agents to get things done.</p>
                </div>
              </div>
           </div>
@@ -94,7 +94,7 @@ export function AiCmoSection() {
                  <div className="w-8 h-8 rounded-full border-2 border-[#111111] bg-gray-400 overflow-hidden"><img src="https://i.pravatar.cc/100?img=32" alt="Avatar"/></div>
                  <div className="w-8 h-8 rounded-full border-2 border-[#111111] bg-gray-500 overflow-hidden"><img src="https://i.pravatar.cc/100?img=12" alt="Avatar"/></div>
                </div>
-               <span className="text-[#858585] text-xs font-medium tracking-wide">Trusted by growing businesses</span>
+               <span className="text-[#E5E7EB] text-xs font-medium tracking-wide">Trusted by growing businesses</span>
              </div>
           </div>
         </div>
@@ -111,16 +111,16 @@ export function AiCmoSection() {
                   </div>
                   <div>
                     <h3 className="font-bold text-white text-base leading-tight">AI CMO</h3>
-                    <p className="text-[#858585] text-xs font-medium">Your always-on marketing strategist</p>
+                    <p className="text-[#E5E7EB] text-xs font-medium">Your always-on marketing strategist</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center gap-4">
                   <div className="bg-[#111111] border border-white/5 rounded-full px-3 py-1.5 flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#168A5B]"></div>
-                    <span className="text-[#F5F3F1] text-xs font-semibold">Online</span>
+                    <span className="text-white text-xs font-semibold">Online</span>
                   </div>
-                  <button className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/5 text-[#858585] hover:text-white transition-colors border border-white/5">
+                  <button className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-white/5 text-[#E5E7EB] hover:text-white transition-colors border border-white/5">
                     <Settings className="w-4 h-4" />
                   </button>
                 </div>
@@ -132,7 +132,7 @@ export function AiCmoSection() {
                   <button 
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-5 py-4 text-sm font-semibold border-b-2 transition-colors ${activeTab === tab ? 'text-white border-[#800020]' : 'text-[#858585] border-transparent hover:text-white'}`}
+                    className={`px-5 py-4 text-sm font-semibold border-b-2 transition-colors ${activeTab === tab ? 'text-white border-[#800020]' : 'text-[#E5E7EB] border-transparent hover:text-white'}`}
                   >
                     {tab}
                   </button>
@@ -162,7 +162,7 @@ export function AiCmoSection() {
                        <Sparkles className="w-4 h-4 text-white" />
                      </div>
                      <div className="bg-[#222222] border border-white/5 p-5 rounded-2xl rounded-tl-sm w-full shadow-sm">
-                       <p className="text-[#F5F3F1] text-sm mb-3 font-medium leading-relaxed">
+                       <p className="text-white text-sm mb-3 font-medium leading-relaxed">
                          Based on your brand, audience and recent performance, I've identified 3 high-impact opportunities.
                        </p>
                        
@@ -173,12 +173,12 @@ export function AiCmoSection() {
                              <div className="flex items-center gap-4">
                                <div className="w-7 h-7 rounded-full bg-[#800020] text-white flex items-center justify-center text-xs font-bold shrink-0">1</div>
                                <div>
-                                 <h5 className="text-white text-sm font-semibold mb-1 group-hover:text-[#FF7A85] transition-colors leading-tight">Improve positioning around AI-powered marketing systems</h5>
-                                 <p className="text-[#858585] text-xs font-medium">Target high-intent keywords and refine messaging.</p>
+                                 <h5 className="text-white text-sm font-semibold mb-1 group-hover:text-white transition-colors leading-tight">Improve positioning around AI-powered marketing systems</h5>
+                                 <p className="text-[#E5E7EB] text-xs font-medium">Target high-intent keywords and refine messaging.</p>
                                </div>
                              </div>
                              <div className="flex items-center gap-3 shrink-0 ml-4">
-                               <span className="text-[10px] uppercase font-bold text-[#858585] bg-[#222222] px-2 py-1 rounded">SEO</span>
+                               <span className="text-[10px] uppercase font-bold text-[#E5E7EB] bg-[#222222] px-2 py-1 rounded">SEO</span>
                                <ChevronRight className="w-4 h-4 text-[#555] group-hover:text-white transition-colors" />
                              </div>
                           </div>
@@ -188,12 +188,12 @@ export function AiCmoSection() {
                              <div className="flex items-center gap-4">
                                <div className="w-7 h-7 rounded-full bg-[#800020] text-white flex items-center justify-center text-xs font-bold shrink-0">2</div>
                                <div>
-                                 <h5 className="text-white text-sm font-semibold mb-1 group-hover:text-[#FF7A85] transition-colors leading-tight">Launch a thought-leadership content series</h5>
-                                 <p className="text-[#858585] text-xs font-medium">Establish authority and drive organic growth.</p>
+                                 <h5 className="text-white text-sm font-semibold mb-1 group-hover:text-white transition-colors leading-tight">Launch a thought-leadership content series</h5>
+                                 <p className="text-[#E5E7EB] text-xs font-medium">Establish authority and drive organic growth.</p>
                                </div>
                              </div>
                              <div className="flex items-center gap-3 shrink-0 ml-4">
-                               <span className="text-[10px] uppercase font-bold text-[#858585] bg-[#222222] px-2 py-1 rounded">Content</span>
+                               <span className="text-[10px] uppercase font-bold text-[#E5E7EB] bg-[#222222] px-2 py-1 rounded">Content</span>
                                <ChevronRight className="w-4 h-4 text-[#555] group-hover:text-white transition-colors" />
                              </div>
                           </div>
@@ -203,12 +203,12 @@ export function AiCmoSection() {
                              <div className="flex items-center gap-4">
                                <div className="w-7 h-7 rounded-full bg-[#800020] text-white flex items-center justify-center text-xs font-bold shrink-0">3</div>
                                <div>
-                                 <h5 className="text-white text-sm font-semibold mb-1 group-hover:text-[#FF7A85] transition-colors leading-tight">Re-engage inactive audience segment</h5>
-                                 <p className="text-[#858585] text-xs font-medium">Create a targeted campaign to bring them back.</p>
+                                 <h5 className="text-white text-sm font-semibold mb-1 group-hover:text-white transition-colors leading-tight">Re-engage inactive audience segment</h5>
+                                 <p className="text-[#E5E7EB] text-xs font-medium">Create a targeted campaign to bring them back.</p>
                                </div>
                              </div>
                              <div className="flex items-center gap-3 shrink-0 ml-4">
-                               <span className="text-[10px] uppercase font-bold text-[#858585] bg-[#222222] px-2 py-1 rounded">Growth</span>
+                               <span className="text-[10px] uppercase font-bold text-[#E5E7EB] bg-[#222222] px-2 py-1 rounded">Growth</span>
                                <ChevronRight className="w-4 h-4 text-[#555] group-hover:text-white transition-colors" />
                              </div>
                           </div>
@@ -224,11 +224,11 @@ export function AiCmoSection() {
                            {buttonState === 'creating' ? 'Creating...' : 'Create Strategy'}
                          </button>
                          <button className="px-4 py-2.5 bg-transparent border border-white/10 text-white text-xs font-semibold rounded-lg hover:bg-white/5 flex items-center gap-2 transition-all">
-                           <FileText className="w-3.5 h-3.5 text-[#858585]" />
+                           <FileText className="w-3.5 h-3.5 text-[#E5E7EB]" />
                            Create Content
                          </button>
                          <button className="px-4 py-2.5 bg-transparent border border-white/10 text-white text-xs font-semibold rounded-lg hover:bg-white/5 flex items-center gap-2 transition-all">
-                           <List className="w-3.5 h-3.5 text-[#858585]" />
+                           <List className="w-3.5 h-3.5 text-[#E5E7EB]" />
                            View Opportunities
                          </button>
                        </div>
@@ -244,24 +244,24 @@ export function AiCmoSection() {
                     <div className="bg-[#222222] border border-white/5 p-4 rounded-xl shadow-sm">
                       <div className="flex items-center gap-2 mb-4">
                         <div className="w-8 h-8 rounded-lg bg-[#800020]/20 flex items-center justify-center">
-                          <Search className="w-4 h-4 text-[#FF7A85]" />
+                          <Search className="w-4 h-4 text-white" />
                         </div>
                         <h4 className="text-white text-sm font-bold">Latest Market Insights</h4>
                       </div>
                       <div className="space-y-3">
                         <div className="bg-[#1A1A1A] p-4 rounded-lg border border-white/5 hover:border-white/20 transition-colors cursor-pointer group">
                           <div className="flex justify-between items-start mb-2">
-                            <h5 className="text-[#F5F3F1] text-sm font-semibold group-hover:text-[#FF7A85] transition-colors">Competitor X launched new feature</h5>
-                            <span className="text-[10px] uppercase font-bold text-[#858585] bg-[#222222] px-2 py-1 rounded">2h ago</span>
+                            <h5 className="text-white text-sm font-semibold group-hover:text-white transition-colors">Competitor X launched new feature</h5>
+                            <span className="text-[10px] uppercase font-bold text-[#E5E7EB] bg-[#222222] px-2 py-1 rounded">2h ago</span>
                           </div>
-                          <p className="text-[#858585] text-xs">They are aggressively targeting the SMB segment with a 20% discount campaign. We should highlight our ROI.</p>
+                          <p className="text-[#E5E7EB] text-xs">They are aggressively targeting the SMB segment with a 20% discount campaign. We should highlight our ROI.</p>
                         </div>
                         <div className="bg-[#1A1A1A] p-4 rounded-lg border border-white/5 hover:border-white/20 transition-colors cursor-pointer group">
                           <div className="flex justify-between items-start mb-2">
-                            <h5 className="text-[#F5F3F1] text-sm font-semibold group-hover:text-[#FF7A85] transition-colors">Trending Keyword: "AI Marketing"</h5>
-                            <span className="text-[10px] uppercase font-bold text-[#858585] bg-[#222222] px-2 py-1 rounded">Trending</span>
+                            <h5 className="text-white text-sm font-semibold group-hover:text-white transition-colors">Trending Keyword: "AI Marketing"</h5>
+                            <span className="text-[10px] uppercase font-bold text-[#E5E7EB] bg-[#222222] px-2 py-1 rounded">Trending</span>
                           </div>
-                          <p className="text-[#858585] text-xs">Search volume increased by 45% this week. Low keyword difficulty. Opportunity to capture early traffic.</p>
+                          <p className="text-[#E5E7EB] text-xs">Search volume increased by 45% this week. Low keyword difficulty. Opportunity to capture early traffic.</p>
                         </div>
                       </div>
                     </div>
@@ -273,7 +273,7 @@ export function AiCmoSection() {
                     <div className="bg-[#222222] border border-white/5 p-4 rounded-xl shadow-sm">
                       <div className="flex items-center gap-2 mb-4">
                         <div className="w-8 h-8 rounded-lg bg-[#800020]/20 flex items-center justify-center">
-                          <Target className="w-4 h-4 text-[#FF7A85]" />
+                          <Target className="w-4 h-4 text-white" />
                         </div>
                         <h4 className="text-white text-sm font-bold">Q4 Growth Strategy</h4>
                       </div>
@@ -284,11 +284,11 @@ export function AiCmoSection() {
                               <span className="w-2 h-2 rounded-full bg-[#168A5B]"></span>
                             </div>
                             <div>
-                              <h5 className="text-[#F5F3F1] text-sm font-semibold group-hover:text-white transition-colors">SEO Domination Play</h5>
-                              <p className="text-[#858585] text-xs mt-0.5">Publish 10 pillar pages on AI Marketing.</p>
+                              <h5 className="text-white text-sm font-semibold group-hover:text-white transition-colors">SEO Domination Play</h5>
+                              <p className="text-[#E5E7EB] text-xs mt-0.5">Publish 10 pillar pages on AI Marketing.</p>
                             </div>
                           </div>
-                          <span className="px-2 py-1 bg-[#168A5B]/20 text-[#168A5B] rounded text-[10px] font-bold">ACTIVE</span>
+                          <span className="px-2 py-1 bg-[#168A5B]/20 text-white rounded text-[10px] font-bold">ACTIVE</span>
                         </div>
                         <div className="flex items-center justify-between bg-[#1A1A1A] p-4 rounded-lg border border-white/5 group hover:border-white/20 transition-colors">
                           <div className="flex items-center gap-3">
@@ -296,11 +296,11 @@ export function AiCmoSection() {
                               <span className="w-2 h-2 rounded-full bg-[#858585]"></span>
                             </div>
                             <div>
-                              <h5 className="text-[#F5F3F1] text-sm font-semibold group-hover:text-white transition-colors">LinkedIn Social Selling</h5>
-                              <p className="text-[#858585] text-xs mt-0.5">Automated thought leadership posts 3x/week.</p>
+                              <h5 className="text-white text-sm font-semibold group-hover:text-white transition-colors">LinkedIn Social Selling</h5>
+                              <p className="text-[#E5E7EB] text-xs mt-0.5">Automated thought leadership posts 3x/week.</p>
                             </div>
                           </div>
-                          <span className="px-2 py-1 bg-[#222222] text-[#858585] rounded text-[10px] font-bold border border-white/10">DRAFT</span>
+                          <span className="px-2 py-1 bg-[#222222] text-[#E5E7EB] rounded text-[10px] font-bold border border-white/10">DRAFT</span>
                         </div>
                       </div>
                     </div>
@@ -313,19 +313,19 @@ export function AiCmoSection() {
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
                           <div className="w-8 h-8 rounded-lg bg-[#800020]/20 flex items-center justify-center">
-                            <List className="w-4 h-4 text-[#FF7A85]" />
+                            <List className="w-4 h-4 text-white" />
                           </div>
                           <h4 className="text-white text-sm font-bold">Active Agent Tasks</h4>
                         </div>
-                        <span className="text-[10px] bg-[#168A5B]/20 text-[#168A5B] font-bold px-2 py-0.5 rounded-full">2 Running</span>
+                        <span className="text-[10px] bg-[#168A5B]/20 text-white font-bold px-2 py-0.5 rounded-full">2 Running</span>
                       </div>
                       <div className="space-y-3">
                         <div className="bg-[#1A1A1A] p-4 rounded-lg border border-white/5">
                           <div className="flex items-center gap-2 mb-2">
                             <div className="w-6 h-6 rounded bg-white/5 flex items-center justify-center">
-                              <PenTool className="w-3 h-3 text-[#FBBC04]" />
+                              <PenTool className="w-3 h-3 text-white" />
                             </div>
-                            <h5 className="text-[#F5F3F1] text-xs font-bold uppercase tracking-wider">Writer Agent</h5>
+                            <h5 className="text-white text-xs font-bold uppercase tracking-wider">Writer Agent</h5>
                           </div>
                           <p className="text-white text-sm font-medium mb-3">Drafting "How to automate marketing" blog post.</p>
                           <div className="flex items-center gap-3">
@@ -334,7 +334,7 @@ export function AiCmoSection() {
                                 <div className="absolute inset-0 bg-white/20 w-full animate-[shimmer_2s_infinite]"></div>
                               </div>
                             </div>
-                            <span className="text-[#858585] text-[10px] font-bold">65%</span>
+                            <span className="text-[#E5E7EB] text-[10px] font-bold">65%</span>
                           </div>
                         </div>
                         <div className="bg-[#1A1A1A] p-4 rounded-lg border border-white/5">
@@ -342,7 +342,7 @@ export function AiCmoSection() {
                             <div className="w-6 h-6 rounded bg-white/5 flex items-center justify-center">
                               <BarChart2 className="w-3 h-3 text-[#4285F4]" />
                             </div>
-                            <h5 className="text-[#F5F3F1] text-xs font-bold uppercase tracking-wider">Analytics Agent</h5>
+                            <h5 className="text-white text-xs font-bold uppercase tracking-wider">Analytics Agent</h5>
                           </div>
                           <p className="text-white text-sm font-medium mb-3">Compiling weekly traffic and conversion report.</p>
                           <div className="flex items-center gap-3">
@@ -351,7 +351,7 @@ export function AiCmoSection() {
                                 <div className="absolute inset-0 bg-white/20 w-full animate-[shimmer_2s_infinite]"></div>
                               </div>
                             </div>
-                            <span className="text-[#858585] text-[10px] font-bold">90%</span>
+                            <span className="text-[#E5E7EB] text-[10px] font-bold">90%</span>
                           </div>
                         </div>
                       </div>
@@ -460,14 +460,14 @@ export function FeaturesThreeColumns() {
                  <div className="p-3 border border-[#E8E4DC] bg-[#FAF8F3] rounded-lg">
                    <div className="flex justify-between items-center mb-1">
                      <span className="text-sm font-bold text-[#111111]">Analytics Agent</span>
-                     <span className="text-[10px] uppercase font-bold text-[#168A5B]">Idle</span>
+                     <span className="text-[10px] uppercase font-bold text-white">Idle</span>
                    </div>
                    <div className="w-full bg-[#E8E4DC] h-1 rounded-full overflow-hidden"></div>
                  </div>
                  <div className="p-3 border border-[#E8E4DC] bg-[#FAF8F3] rounded-lg">
                    <div className="flex justify-between items-center mb-1">
                      <span className="text-sm font-bold text-[#111111]">Competitor Agent</span>
-                     <span className="text-[10px] uppercase font-bold text-[#168A5B]">Idle</span>
+                     <span className="text-[10px] uppercase font-bold text-white">Idle</span>
                    </div>
                    <div className="w-full bg-[#E8E4DC] h-1 rounded-full overflow-hidden"></div>
                  </div>
@@ -512,7 +512,7 @@ export function FeaturesThreeColumns() {
                  <div className="p-4 border border-[#E8E4DC] rounded-lg shadow-sm">
                    <h4 className="text-sm font-bold text-[#111111] mb-2">Turn high-performing content into a series</h4>
                    <div className="flex gap-3 text-[10px] font-bold uppercase tracking-wider">
-                      <span className="text-[#168A5B]">High Impact</span>
+                      <span className="text-white">High Impact</span>
                       <span className="text-[#5A5A5A]">92% Conf</span>
                       <span className="text-[#5A5A5A]">Low Effort</span>
                    </div>
@@ -624,19 +624,19 @@ export function ExecutionSection() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
                  <div>
                     <div className="text-2xl font-bold text-[#111111]">12.4K</div>
-                    <div className="text-xs font-semibold text-[#858585]">Impressions</div>
+                    <div className="text-xs font-semibold text-[#E5E7EB]">Impressions</div>
                  </div>
                  <div>
                     <div className="text-2xl font-bold text-[#111111]">8.2%</div>
-                    <div className="text-xs font-semibold text-[#858585]">Engagement</div>
+                    <div className="text-xs font-semibold text-[#E5E7EB]">Engagement</div>
                  </div>
                  <div>
                     <div className="text-2xl font-bold text-[#111111]">245</div>
-                    <div className="text-xs font-semibold text-[#858585]">Clicks</div>
+                    <div className="text-xs font-semibold text-[#E5E7EB]">Clicks</div>
                  </div>
                  <div>
-                    <div className="text-2xl font-bold text-[#168A5B]">12</div>
-                    <div className="text-xs font-semibold text-[#858585]">Conversions</div>
+                    <div className="text-2xl font-bold text-white">12</div>
+                    <div className="text-xs font-semibold text-[#E5E7EB]">Conversions</div>
                  </div>
               </div>
               

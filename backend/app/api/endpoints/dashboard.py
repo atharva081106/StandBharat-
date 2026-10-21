@@ -3,13 +3,16 @@ from sqlalchemy.orm import Session
 from app.api import deps
 from app.schemas.dashboard import DashboardResponse, KPI, ActivityEventResponse, WebsiteAnalyticsResponse
 from app.schemas.opportunity import OpportunityResponse
-from app.models.all_models import Brand, Opportunity, ActivityEvent, Integration, TrafficMetrics, SearchMetrics
+from app.models.all_models import Brand, Opportunity, ActivityEvent, Integration, TrafficMetrics, SearchMetrics, Workspace
 from sqlalchemy import func
 from typing import List
 
 router = APIRouter()
 
+@router.get("", response_model=DashboardResponse)
+@router.get("/", response_model=DashboardResponse)
 @router.get("/command-center", response_model=DashboardResponse)
+@router.get("/stats", response_model=DashboardResponse)
 def get_command_center(
     db: Session = Depends(deps.get_db),
     brand: Brand = Depends(deps.get_current_brand)
@@ -31,7 +34,7 @@ def get_command_center(
         Integration.provider == "ga4"
     ).first()
     
-    ga4_configured = ga4_integration and ga4_integration.status == "CONNECTED"
+    ga4_configured = bool(ga4_integration and ga4_integration.status == "CONNECTED")
     
     traffic_summary = db.query(
         func.sum(TrafficMetrics.conversions).label('total_conversions'),
@@ -41,27 +44,29 @@ def get_command_center(
         TrafficMetrics.workspace_id == brand.workspace_id
     ).first()
     
-    total_conversions = traffic_summary.total_conversions
-    total_sessions = traffic_summary.total_sessions
+    total_conversions = traffic_summary.total_conversions if traffic_summary else None
+    total_sessions = traffic_summary.total_sessions if traffic_summary else None
+
+    # Calculate real AI Spend from workspace credit usage (1,000 credits = $1.00 standard rate)
+    ws = db.query(Workspace).filter(Workspace.id == brand.workspace_id).first()
+    used_credits = ws.used_credits_this_month if ws and ws.used_credits_this_month else 0
+    spend_val = f"${(used_credits / 1000):.2f}"
+    spend_change = f"{used_credits:,} credits"
 
     if total_conversions is None and not ga4_configured:
         leads_val = "NOT_CONFIGURED"
         conv_val = "NOT_CONFIGURED"
         revenue_val = "NOT_CONFIGURED"
-        spend_val = "NOT_CONFIGURED"
-        leads_change = "0"
+        leads_change = "Connect GA4"
+        conv_change = "Connect GA4"
+        rev_change = "Connect GA4"
+    elif total_conversions is None or total_conversions == 0:
+        leads_val = "0"
+        conv_val = "0.0%"
+        revenue_val = "₹0"
+        leads_change = "0%"
         conv_change = "0%"
         rev_change = "0%"
-        spend_change = "0%"
-    elif total_conversions is None:
-        leads_val = "NO_DATA"
-        conv_val = "NO_DATA"
-        revenue_val = "NO_DATA"
-        spend_val = "NO_DATA"
-        leads_change = "0"
-        conv_change = "0%"
-        rev_change = "0%"
-        spend_change = "0%"
     else:
         leads_val = str(total_conversions)
         leads_change = "+12%"
@@ -74,15 +79,12 @@ def get_command_center(
         est_rev = total_conversions * 3850
         revenue_val = f"₹{est_rev:,.0f}"
         rev_change = "+18.4%"
-        est_spend = max(15.0, round(total_conversions * 0.88, 2))
-        spend_val = f"${est_spend:.2f}"
-        spend_change = "-4.2%"
 
     kpis = [
         KPI(label="Revenue (AI Attributed)", value=revenue_val, change=rev_change, trend="up"),
         KPI(label="Leads Generated", value=leads_val, change=leads_change, trend="up"),
         KPI(label="Avg Conversion Rate", value=conv_val, change=conv_change, trend="up"),
-        KPI(label="AI Spend (Est)", value=spend_val, change=spend_change, trend="down")
+        KPI(label="AI Spend (Est)", value=spend_val, change=spend_change, trend="down" if used_credits == 0 else "up")
     ]
     
     return DashboardResponse(

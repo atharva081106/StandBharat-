@@ -18,4 +18,10 @@ export class ApiAgentProvider implements AgentProvider {
   async getAgentRuns(agentId?: string): Promise<any[]> {
     return agentsApi.getAgentRuns(agentId);
   }
+  async getAgentConfig(agentId: string): Promise<any> {
+    return agentsApi.getAgentConfig(agentId);
+  }
+  async saveAgentConfig(agentId: string, payload: any): Promise<any> {
+    return agentsApi.saveAgentConfig(agentId, payload);
+  }
 }

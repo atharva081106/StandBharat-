@@ -1,9 +1,8 @@
-from sqlalchemy import Column, String, ForeignKey, Enum, JSON, Integer, Text, Float, Boolean, DateTime, UniqueConstraint, func
-from sqlalchemy import Uuid as UUID
+from sqlalchemy import Column, String, ForeignKey, Enum, JSON, Integer, Text, Float, Boolean, DateTime, UniqueConstraint, func, Index
 from sqlalchemy.orm import relationship
 import uuid
 from datetime import datetime
-from app.db.base_class import Base
+from app.db.base_class import Base, GUID as UUID
 import enum
 
 class UserRole(str, enum.Enum):
@@ -24,6 +23,11 @@ class Workspace(Base):
     name = Column(String, nullable=False)
     slug = Column(String, unique=True, index=True, nullable=False)
     owner_id = Column(UUID(as_uuid=True), ForeignKey('user.id'))
+    plan_tier = Column(String, default="FREE", nullable=False) # FREE, PRO, ENTERPRISE
+    monthly_credit_quota = Column(Integer, default=50000, nullable=False) # 50K Free, 1M Pro
+    used_credits_this_month = Column(Integer, default=0, nullable=False)
+    subscription_status = Column(String, default="active", nullable=False)
+    quota_reset_at = Column(DateTime(timezone=True), default=datetime.utcnow)
     members = relationship("WorkspaceMember", back_populates="workspace")
     brands = relationship("Brand", back_populates="workspace")
 
@@ -94,6 +98,11 @@ class AgentRun(Base):
     completed_at = Column(DateTime(timezone=True), nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
 
+    __table_args__ = (
+        Index('ix_agent_run_brand_created', 'brand_id', 'created_at'),
+        Index('ix_agent_run_workspace_brand', 'workspace_id', 'brand_id'),
+    )
+
 class Approval(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     workspace_id = Column(UUID(as_uuid=True), ForeignKey('workspace.id'), index=True)
@@ -137,6 +146,7 @@ class Opportunity(Base):
     brand_id = Column(UUID(as_uuid=True), ForeignKey('brand.id'), index=True)
     title = Column(String, nullable=False)
     description = Column(Text)
+    opportunity_type = Column(String, nullable=True)
     impact = Column(String)
     confidence = Column(String)
     effort = Column(String)
@@ -145,6 +155,11 @@ class Opportunity(Base):
     source = Column(String)
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
     updated_at = Column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        Index('ix_opportunity_brand_status_priority', 'brand_id', 'status', 'priority'),
+        Index('ix_opportunity_workspace_brand', 'workspace_id', 'brand_id'),
+    )
 
 class MetricSnapshot(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -155,6 +170,11 @@ class MetricSnapshot(Base):
     currency = Column(String)
     recorded_at = Column(DateTime(timezone=True), default=datetime.utcnow)
 
+    __table_args__ = (
+        Index('ix_metric_snapshot_brand_metric_time', 'brand_id', 'metric_name', 'recorded_at'),
+        Index('ix_metric_snapshot_brand_time', 'brand_id', 'recorded_at'),
+    )
+
 class ActivityEvent(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     workspace_id = Column(UUID(as_uuid=True), ForeignKey('workspace.id'), index=True)
@@ -163,6 +183,10 @@ class ActivityEvent(Base):
     description = Column(Text)
     metadata_json = Column(JSON)
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
+
+    __table_args__ = (
+        Index('ix_activity_event_brand_created', 'brand_id', 'created_at'),
+    )
 
 class AIUsageEvent(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -413,6 +437,11 @@ class ContentDraft(Base):
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
     updated_at = Column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    __table_args__ = (
+        Index('ix_content_draft_brand_updated', 'brand_id', 'updated_at'),
+        Index('ix_content_draft_project_status', 'content_project_id', 'status'),
+    )
+
 class ContentVersion(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     content_draft_id = Column(UUID(as_uuid=True), ForeignKey('contentdraft.id'), index=True)
@@ -435,6 +464,11 @@ class ContentApproval(Base):
     review_comment = Column(Text)
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
     reviewed_at = Column(DateTime(timezone=True), nullable=True)
+
+    __table_args__ = (
+        Index('ix_content_approval_brand_status', 'brand_id', 'status'),
+        Index('ix_content_approval_project_draft', 'content_project_id', 'content_draft_id'),
+    )
 
 from app.publishing.models import PublisherConnection, Publication, PublicationAttempt
 
@@ -506,3 +540,52 @@ class SearchMetrics(Base):
     __table_args__ = (
         UniqueConstraint('brand_id', 'date', 'query', 'page', name='uq_search_metrics'),
     )
+
+class Subscription(Base):
+    __tablename__ = 'subscriptions'
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    workspace_id = Column(UUID(as_uuid=True), ForeignKey('workspace.id'), unique=True, index=True, nullable=False)
+    plan_tier = Column(String, default="FREE", nullable=False) # FREE, PRO, ENTERPRISE
+    status = Column(String, default="ACTIVE", nullable=False) # ACTIVE, PAST_DUE, CANCELED
+    billing_cycle = Column(String, default="MONTHLY", nullable=False) # MONTHLY, ANNUAL
+    amount = Column(Float, default=0.0, nullable=False)
+    currency = Column(String, default="INR", nullable=False)
+    current_period_start = Column(DateTime(timezone=True), default=datetime.utcnow)
+    current_period_end = Column(DateTime(timezone=True), nullable=True)
+    cancel_at_period_end = Column(Boolean, default=False)
+    provider = Column(String, default="mock", nullable=False) # stripe, razorpay, mock
+    provider_subscription_id = Column(String, nullable=True, index=True)
+    provider_customer_id = Column(String, nullable=True, index=True)
+    created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
+    updated_at = Column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow)
+
+class PaymentTransaction(Base):
+    __tablename__ = 'payment_transactions'
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    workspace_id = Column(UUID(as_uuid=True), ForeignKey('workspace.id'), index=True, nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey('user.id'), index=True, nullable=False)
+    amount = Column(Float, nullable=False)
+    currency = Column(String, default="INR", nullable=False)
+    status = Column(String, default="PENDING", nullable=False) # PENDING, SUCCESS, FAILED, REFUNDED
+    plan_tier = Column(String, nullable=False)
+    billing_cycle = Column(String, default="MONTHLY", nullable=False)
+    provider = Column(String, default="mock", nullable=False)
+    provider_payment_id = Column(String, nullable=True, index=True)
+    provider_order_id = Column(String, nullable=True, index=True)
+    receipt_url = Column(String, nullable=True)
+    created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
+
+class Invoice(Base):
+    __tablename__ = 'invoices'
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    workspace_id = Column(UUID(as_uuid=True), ForeignKey('workspace.id'), index=True, nullable=False)
+    invoice_number = Column(String, unique=True, index=True, nullable=False)
+    amount_paid = Column(Float, nullable=False)
+    currency = Column(String, default="INR", nullable=False)
+    status = Column(String, default="PAID", nullable=False)
+    description = Column(String, nullable=False)
+    invoice_pdf_url = Column(String, nullable=True)
+    period_start = Column(DateTime(timezone=True), default=datetime.utcnow)
+    period_end = Column(DateTime(timezone=True), nullable=True)
+    created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
+

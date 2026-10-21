@@ -11,7 +11,10 @@ class GEOAgent(BaseAgent):
             agent_id="geo_agent",
             name="GEO Agent",
             description="Analyzes AI search visibility across Generative Engines.",
-            capabilities=["ai_search_visibility", "citation_opportunities", "prompt_monitoring"]
+            capabilities=["ai_search_visibility", "citation_opportunities", "prompt_monitoring"],
+            tier="PRO",
+            resource_profile="HEAVY",
+            credit_cost=3000
         )
         self.definition = AgentDefinition(
             id=self.agent_id,
@@ -19,7 +22,7 @@ class GEOAgent(BaseAgent):
             description=self.description,
             category="SEARCH",
             capabilities=self.capabilities,
-            required_integrations=["perplexity"], # Example requirement
+            required_integrations=[],  # Runs standalone with multi-engine synthesis
             input_schema={"type": "object", "properties": {"focus_area": {"type": "string"}}},
             output_schema={"type": "object"},
             approval_policy="NEVER_REQUIRE"

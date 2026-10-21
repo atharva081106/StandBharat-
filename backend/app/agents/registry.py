@@ -10,9 +10,62 @@ class AgentRegistry:
         self._agents[agent.agent_id] = agent
 
     def get_agent(self, agent_id: str) -> BaseAgent:
-        if agent_id not in self._agents:
-            raise AgentNotFoundException(f"Agent {agent_id} not found")
-        return self._agents[agent_id]
+        if agent_id in self._agents:
+            return self._agents[agent_id]
+        
+        # Normalize dashes to underscores
+        norm_id = agent_id.replace("-", "_").lower()
+        if norm_id in self._agents:
+            return self._agents[norm_id]
+
+        ALIAS_MAP = {
+            "writer": "content_writer",
+            "writer_agent": "content_writer",
+            "content_writer": "content_writer",
+            "copywriter": "content_writer",
+            "content": "content_strategy",
+            "content_strategy": "content_strategy",
+            "strategy": "content_strategy",
+            "seo": "seo_agent",
+            "seo_agent": "seo_agent",
+            "geo": "geo_agent",
+            "geo_agent": "geo_agent",
+            "cmo": "ai_cmo",
+            "ai_cmo": "ai_cmo",
+            "ai_cmo_agent": "ai_cmo",
+            "linkedin": "linkedin_agent",
+            "linkedin_agent": "linkedin_agent",
+            "x": "x_agent",
+            "x_agent": "x_agent",
+            "twitter": "x_agent",
+            "twitter_agent": "x_agent",
+            "twitter_x": "x_agent",
+            "reddit": "reddit_agent",
+            "reddit_agent": "reddit_agent",
+            "coding": "coding_agent",
+            "coding_agent": "coding_agent",
+            "influencer": "influencer_agent",
+            "influencer_agent": "influencer_agent",
+            "ugc": "ugc_agent",
+            "ugc_agent": "ugc_agent",
+            "attribution": "analytics",
+            "analytics": "analytics",
+            "growth": "growth",
+            "competitor": "competitor",
+            "performance": "performance"
+        }
+
+        if norm_id in ALIAS_MAP and ALIAS_MAP[norm_id] in self._agents:
+            return self._agents[ALIAS_MAP[norm_id]]
+
+        # Resolve aliases: e.g. 'seo' -> 'seo_agent', 'reddit' -> 'reddit_agent'
+        if not norm_id.endswith("_agent") and f"{norm_id}_agent" in self._agents:
+            return self._agents[f"{norm_id}_agent"]
+        if norm_id.endswith("_agent"):
+            stripped = norm_id[:-6]
+            if stripped in self._agents:
+                return self._agents[stripped]
+        raise AgentNotFoundException(f"Agent {agent_id} not found")
 
     def list_agents(self) -> List[BaseAgent]:
         return list(self._agents.values())

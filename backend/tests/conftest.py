@@ -1,6 +1,8 @@
 import pytest
 from app.models.all_models import Base
-from app.db.session import engine
+from app.db.session import engine, SessionLocal
+from fastapi.testclient import TestClient
+from app.main import app
 
 @pytest.fixture(scope="session", autouse=True)
 def setup_database():
@@ -19,3 +21,15 @@ def flush_redis():
         r.flushdb()
     except Exception:
         pass
+
+@pytest.fixture
+def db():
+    session = SessionLocal()
+    try:
+        yield session
+    finally:
+        session.close()
+
+@pytest.fixture
+def client():
+    return TestClient(app)

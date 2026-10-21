@@ -123,24 +123,24 @@ export default function OpportunitiesPage() {
       case 'HIGH':
         return 'text-red-400 bg-red-950/40 border-red-800'
       case 'MEDIUM':
-        return 'text-amber-400 bg-amber-950/40 border-amber-800'
+        return 'text-white bg-amber-950/40 border-amber-800'
       default:
-        return 'text-blue-400 bg-blue-950/40 border-blue-800'
+        return 'text-white bg-blue-950/40 border-blue-800'
     }
   }
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 max-w-7xl mx-auto w-full space-y-6 text-[#F5F3F1]">
+    <div className="flex-1 overflow-y-auto p-6 max-w-7xl mx-auto w-full space-y-6 text-white">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#373333] pb-6">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight text-[#F5F3F1]">Growth Opportunities</h1>
-            <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#A9A4A0] text-xs">
+            <h1 className="text-2xl font-bold tracking-tight text-white">Growth Opportunities</h1>
+            <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#E5E7EB] text-xs">
               {opportunities.length} Active
             </Badge>
           </div>
-          <p className="text-[#A9A4A0] text-sm mt-1">
+          <p className="text-[#E5E7EB] text-sm mt-1">
             Prioritized strategic marketing actions identified by AI CMO & competitor intelligence.
           </p>
         </div>
@@ -150,7 +150,7 @@ export default function OpportunitiesPage() {
             size="sm" 
             onClick={fetchOpportunities} 
             disabled={loading}
-            className="border-[#373333] text-[#A9A4A0] hover:text-[#F5F3F1] hover:bg-[#242222]"
+            className="border-[#373333] text-[#E5E7EB] hover:text-white hover:bg-[#242222]"
           >
             <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${loading ? 'animate-spin' : ''}`} />
             Refresh
@@ -181,7 +181,7 @@ export default function OpportunitiesPage() {
 
       {/* Loading state */}
       {loading && (
-        <div className="p-16 text-center text-[#A9A4A0] space-y-3">
+        <div className="p-16 text-center text-[#E5E7EB] space-y-3">
           <div className="w-8 h-8 rounded-full border-2 border-[#8F0028] border-t-transparent animate-spin mx-auto"></div>
           <p className="text-sm">Loading verified opportunities from database...</p>
         </div>
@@ -194,8 +194,8 @@ export default function OpportunitiesPage() {
             <Sparkles className="w-6 h-6" />
           </div>
           <div className="max-w-md mx-auto">
-            <h3 className="text-lg font-semibold text-[#F5F3F1]">No Opportunities Logged Yet</h3>
-            <p className="text-xs text-[#A9A4A0] mt-1">
+            <h3 className="text-lg font-semibold text-white">No Opportunities Logged Yet</h3>
+            <p className="text-xs text-[#E5E7EB] mt-1">
               Run the AI CMO or Competitor Agent to automatically uncover search and messaging opportunities, or create your first opportunity manually.
             </p>
           </div>
@@ -216,40 +216,40 @@ export default function OpportunitiesPage() {
               <CardContent className="p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                 <div className="space-y-2 flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-3">
-                    <h3 className="font-semibold text-lg text-[#F5F3F1] truncate">{opp.title}</h3>
+                    <h3 className="font-semibold text-lg text-white truncate">{opp.title}</h3>
                     <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded border uppercase tracking-wider ${getImpactColor(opp.impact)}`}>
                       {opp.impact} Impact
                     </span>
                     {opp.opportunity_type && (
-                      <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#A9A4A0] text-[10px] font-mono uppercase">
+                      <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#E5E7EB] text-[10px] font-mono uppercase">
                         {opp.opportunity_type}
                       </Badge>
                     )}
                     {opp.status === 'IN_PROGRESS' && (
-                      <Badge className="bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 text-[10px] uppercase">
+                      <Badge className="bg-yellow-500/20 text-white border border-yellow-500/30 text-[10px] uppercase">
                         In Progress
                       </Badge>
                     )}
                   </div>
 
                   {opp.description && (
-                    <p className="text-sm text-[#A9A4A0] line-clamp-2 leading-relaxed">
+                    <p className="text-sm text-[#E5E7EB] line-clamp-2 leading-relaxed">
                       {opp.description}
                     </p>
                   )}
 
-                  <div className="flex flex-wrap items-center gap-4 text-xs text-[#A9A4A0] pt-1 font-medium">
+                  <div className="flex flex-wrap items-center gap-4 text-xs text-[#E5E7EB] pt-1 font-medium">
                     <span className="flex items-center gap-1">
-                      <Target className="w-3.5 h-3.5 text-[#00A650]" />
-                      Confidence: <span className="text-[#F5F3F1]">{opp.confidence}%</span>
+                      <Target className="w-3.5 h-3.5 text-white" />
+                      Confidence: <span className="text-white">{opp.confidence}%</span>
                     </span>
                     <span className="flex items-center gap-1">
                       <TrendingUp className="w-3.5 h-3.5 text-[#8F0028]" />
-                      Priority Score: <span className="text-[#F5F3F1] font-bold">{opp.priority}/100</span>
+                      Priority Score: <span className="text-white font-bold">{opp.priority}/100</span>
                     </span>
                     {opp.effort && (
-                      <span className="text-[#A9A4A0]">
-                        Effort: <span className="text-[#F5F3F1] capitalize">{opp.effort}</span>
+                      <span className="text-[#E5E7EB]">
+                        Effort: <span className="text-white capitalize">{opp.effort}</span>
                       </span>
                     )}
                   </div>
@@ -261,7 +261,7 @@ export default function OpportunitiesPage() {
                     size="sm"
                     disabled={actionLoading === opp.id}
                     onClick={() => handleDismiss(opp.id)}
-                    className="border-[#373333] text-[#A9A4A0] hover:text-red-400 hover:border-red-800 hover:bg-red-950/20 text-xs flex items-center gap-1"
+                    className="border-[#373333] text-[#E5E7EB] hover:text-red-400 hover:border-red-800 hover:bg-red-950/20 text-xs flex items-center gap-1"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                     Dismiss
@@ -287,40 +287,40 @@ export default function OpportunitiesPage() {
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-[#1C1A1A] border border-[#373333] rounded-2xl max-w-lg w-full p-6 space-y-5 shadow-2xl">
             <div className="flex justify-between items-center border-b border-[#373333] pb-3">
-              <h2 className="text-lg font-bold text-[#F5F3F1]">Add Growth Opportunity</h2>
-              <button onClick={() => setShowCreateModal(false)} className="text-[#A9A4A0] hover:text-[#F5F3F1]">✕</button>
+              <h2 className="text-lg font-bold text-white">Add Growth Opportunity</h2>
+              <button onClick={() => setShowCreateModal(false)} className="text-[#E5E7EB] hover:text-white">✕</button>
             </div>
             
             <form onSubmit={handleCreate} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Title</label>
+                <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Title</label>
                 <Input 
                   required
                   placeholder="e.g. Target 'Enterprise AI Marketing Guide' organic gap"
                   value={newOpp.title}
                   onChange={e => setNewOpp({ ...newOpp, title: e.target.value })}
-                  className="bg-[#242222] border-[#373333] text-[#F5F3F1] text-sm"
+                  className="bg-[#242222] border-[#373333] text-white text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Description</label>
+                <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Description</label>
                 <textarea 
                   rows={3}
                   placeholder="Details on why this opportunity matters and recommended execution plan..."
                   value={newOpp.description}
                   onChange={e => setNewOpp({ ...newOpp, description: e.target.value })}
-                  className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-sm text-[#F5F3F1] placeholder:text-[#A9A4A0] focus:outline-none focus:border-[#8F0028]"
+                  className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-sm text-white placeholder:text-[#E5E7EB] focus:outline-none focus:border-[#8F0028]"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Impact</label>
+                  <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Impact</label>
                   <select 
                     value={newOpp.impact}
                     onChange={e => setNewOpp({ ...newOpp, impact: e.target.value })}
-                    className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2 text-sm text-[#F5F3F1] focus:outline-none"
+                    className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2 text-sm text-white focus:outline-none"
                   >
                     <option value="HIGH">HIGH</option>
                     <option value="MEDIUM">MEDIUM</option>
@@ -329,11 +329,11 @@ export default function OpportunitiesPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Category</label>
+                  <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Category</label>
                   <select 
                     value={newOpp.opportunity_type}
                     onChange={e => setNewOpp({ ...newOpp, opportunity_type: e.target.value })}
-                    className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2 text-sm text-[#F5F3F1] focus:outline-none"
+                    className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2 text-sm text-white focus:outline-none"
                   >
                     <option value="SEO">SEO</option>
                     <option value="CONTENT">CONTENT</option>
@@ -346,32 +346,32 @@ export default function OpportunitiesPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Confidence (%)</label>
+                  <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Confidence (%)</label>
                   <Input 
                     type="number"
                     min="1"
                     max="100"
                     value={newOpp.confidence}
                     onChange={e => setNewOpp({ ...newOpp, confidence: parseInt(e.target.value) || 0 })}
-                    className="bg-[#242222] border-[#373333] text-[#F5F3F1] text-sm"
+                    className="bg-[#242222] border-[#373333] text-white text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Priority (0-100)</label>
+                  <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Priority (0-100)</label>
                   <Input 
                     type="number"
                     min="1"
                     max="100"
                     value={newOpp.priority}
                     onChange={e => setNewOpp({ ...newOpp, priority: parseInt(e.target.value) || 0 })}
-                    className="bg-[#242222] border-[#373333] text-[#F5F3F1] text-sm"
+                    className="bg-[#242222] border-[#373333] text-white text-sm"
                   />
                 </div>
               </div>
 
               <div className="flex justify-end gap-3 pt-3 border-t border-[#373333]">
-                <Button type="button" variant="outline" onClick={() => setShowCreateModal(false)} className="border-[#373333] text-[#A9A4A0]">
+                <Button type="button" variant="outline" onClick={() => setShowCreateModal(false)} className="border-[#373333] text-[#E5E7EB]">
                   Cancel
                 </Button>
                 <Button type="submit" className="bg-[#8F0028] hover:bg-[#A8002F] text-white">

@@ -64,7 +64,7 @@ function AgentsDropdown() {
                 <div className="text-sm font-bold text-[#111111] group-hover:!text-[var(--agent-color)] transition-colors duration-150 leading-tight">
                   {agent.name}
                 </div>
-                <div className="text-[11px] text-[#858585] font-medium mt-0.5 leading-snug">{agent.desc}</div>
+                <div className="text-[11px] text-[#E5E7EB] font-medium mt-0.5 leading-snug">{agent.desc}</div>
               </div>
             </Link>
           ))}
@@ -79,7 +79,7 @@ function AgentsDropdown() {
             </p>
           </div>
           <div className="pt-5 border-t border-white/10 mt-6">
-            <div className="text-[#858585] text-[10px] font-bold uppercase tracking-widest mb-3">Orchestrated by</div>
+            <div className="text-[#E5E7EB] text-[10px] font-bold uppercase tracking-widest mb-3">Orchestrated by</div>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-5 h-5 rounded-md bg-[#800020] flex items-center justify-center">
                 <div className="w-1.5 h-1.5 rounded-full bg-white" />
@@ -120,7 +120,7 @@ function IntegrationsDropdown() {
                     <span className="text-[8px] font-bold uppercase tracking-wider border border-[#E8E4DC] bg-white text-[#5A5A5A] px-1.5 py-0.5 rounded-sm">Soon</span>
                   )}
                 </div>
-                <div className="text-[11px] text-[#858585] font-medium mt-0.5 leading-snug">{integration.desc}</div>
+                <div className="text-[11px] text-[#E5E7EB] font-medium mt-0.5 leading-snug">{integration.desc}</div>
               </div>
             </Link>
           ))}
@@ -141,7 +141,7 @@ function IntegrationsDropdown() {
               </div>
               <div>
                 <div className="text-white text-xs font-bold">Brian Proctor</div>
-                <div className="text-[#858585] text-[11px] font-medium mt-0.5">Solo founder &middot; Quest Dating</div>
+                <div className="text-[#E5E7EB] text-[11px] font-medium mt-0.5">Solo founder &middot; Quest Dating</div>
               </div>
             </div>
           </div>
@@ -159,8 +159,8 @@ export function MarketingNavbar() {
   return (
     <header className="sticky top-0 z-50 bg-[#FAF8F3]/90 backdrop-blur-md border-b border-[#E8E4DC]">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Link href="/landingpage" className="flex items-center gap-2 shrink-0">
-          <Image src="/logo.jpg" alt="StandBharat Logo" width={28} height={28} className="rounded-lg object-contain shadow-sm border border-black/5" />
+        <Link href="/landingpage" className="flex items-center gap-2.5 shrink-0">
+          <Image src="/logo-icon.png" alt="StandBharat Logo" width={28} height={28} className="object-contain" />
           <span className="font-bold text-lg tracking-tight text-[#111111]">StandBharat</span>
         </Link>
 
@@ -285,10 +285,8 @@ export function MarketingFooter() {
     <footer className="bg-white border-t border-[#E8E4DC] pt-20 pb-10 px-6 lg:px-8">
       <div className="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-5 gap-12 mb-16">
         <div className="col-span-2 md:col-span-1 space-y-4">
-          <Link href="/landingpage" className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md bg-[#800020] flex items-center justify-center">
-              <div className="w-2 h-2 rounded-full bg-white" />
-            </div>
+          <Link href="/landingpage" className="flex items-center gap-2.5">
+            <Image src="/logo-icon.png" alt="StandBharat Logo" width={28} height={28} className="object-contain" />
             <span className="font-bold text-lg tracking-tight text-[#111111]">StandBharat</span>
           </Link>
           <p className="text-[#5A5A5A] text-sm font-medium pr-4 leading-relaxed">The AI marketing operating system for modern businesses.</p>
@@ -329,7 +327,7 @@ export function MarketingFooter() {
           </ul>
         </div>
       </div>
-      <div className="max-w-[1400px] mx-auto pt-8 border-t border-[#E8E4DC] flex justify-between items-center text-sm font-medium text-[#858585]">
+      <div className="max-w-[1400px] mx-auto pt-8 border-t border-[#E8E4DC] flex justify-between items-center text-sm font-medium text-[#E5E7EB]">
         <div>&copy; 2026 StandBharat. All rights reserved.</div>
       </div>
     </footer>

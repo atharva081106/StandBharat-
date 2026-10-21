@@ -139,7 +139,7 @@ export function WorkflowFlow() {
               </h2>
             </div>
             <div className="gsap-reveal" data-delay="0.2">
-              <p className="text-[#858585] text-lg font-medium">
+              <p className="text-[#E5E7EB] text-lg font-medium">
                 Your brand, market and competitors — analyzed into a complete strategic foundation.
               </p>
             </div>
@@ -225,7 +225,7 @@ export function WorkflowFlow() {
                      {/* Front card */}
                      <div className="gsap-parallax absolute top-2 right-16 w-[140px] h-[180px] bg-white rounded-xl p-4 shadow-2xl transform -rotate-6 z-20 flex flex-col items-center border border-white/20" data-speed="-0.6">
                         <div className="flex items-center gap-1.5 mb-4 w-full">
-                           <Image src="/logo.jpg" alt="StandBharat Logo" width={18} height={18} className="rounded object-contain brightness-90 contrast-125 border border-black/5" />
+                           <Image src="/logo-icon.png" alt="StandBharat Logo" width={18} height={18} className="rounded object-contain brightness-90 contrast-125 border border-black/5" />
                            <div className="text-[9px] font-bold text-black tracking-tight">StandBharat</div>
                         </div>
                         <div className="text-xs font-extrabold text-black mb-3 leading-tight w-full">Go-To-Market Strategy</div>
@@ -244,7 +244,7 @@ export function WorkflowFlow() {
                     <div className="space-y-3">
                       {['Product Information', 'Marketing Strategy', 'Competitor Analysis', 'Brand Voice', 'Content Strategy'].map((doc, i) => (
                         <div key={i} className="flex items-center gap-3">
-                          <CheckCircle2 className="w-4 h-4 text-[#168A5B]" />
+                          <CheckCircle2 className="w-4 h-4 text-white" />
                           <span className="text-[11px] font-medium text-white/80">{doc}</span>
                         </div>
                       ))}
@@ -270,7 +270,7 @@ export function WorkflowFlow() {
              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-white/10 bg-[#0A0A0A] flex items-center justify-center">
                <FileText className="w-4 h-4 text-white/60" />
              </div>
-             <div className="text-[9px] font-bold text-[#E91E63] uppercase tracking-[0.3em] mb-4">THE HANDOFF</div>
+             <div className="text-[9px] font-bold text-white uppercase tracking-[0.3em] mb-4">THE HANDOFF</div>
              <h3 className="text-2xl font-extrabold mb-8 text-white leading-tight">Every agent reads these five documents<br/>before it writes a word.</h3>
              <div className="flex flex-wrap justify-center gap-3">
                {['product-info.md', 'marketing-strategy.md', 'competitor-analysis.md', 'brand-voice.md', 'content-strategy.md'].map(doc => (
@@ -305,7 +305,7 @@ export function WorkflowFlow() {
               </h2>
             </div>
             <div className="gsap-reveal" data-delay="0.2">
-              <p className="text-[#858585] text-lg font-medium">
+              <p className="text-[#E5E7EB] text-lg font-medium">
                 Specialized agents turn strategy into high-quality, on-brand content across every channel.
               </p>
             </div>
@@ -356,7 +356,7 @@ export function WorkflowFlow() {
                            <div className="text-[11px] text-[#A1A1A1] mb-3">{agent.desc}</div>
                            <div className="flex items-center gap-1.5 mt-auto">
                               <div className="w-1.5 h-1.5 rounded-full bg-[#168A5B]"></div>
-                              <div className="text-[10px] font-bold text-[#168A5B]">Ready</div>
+                              <div className="text-[10px] font-bold text-white">Ready</div>
                            </div>
                         </div>
                       )
@@ -389,7 +389,7 @@ export function WorkflowFlow() {
               </h2>
             </div>
             <div className="gsap-reveal" data-delay="0.2">
-              <p className="text-[#858585] text-lg font-medium">
+              <p className="text-[#E5E7EB] text-lg font-medium">
                 Turn approved content into results across your favourite tools.
               </p>
             </div>
@@ -449,7 +449,7 @@ export function WorkflowFlow() {
               </h2>
             </div>
             <div className="gsap-reveal" data-delay="0.2">
-              <p className="text-[#858585] text-lg font-medium">
+              <p className="text-[#E5E7EB] text-lg font-medium">
                 Once published, StandBharat continuously pulls engagement data back into the Brand Brain. The AI CMO analyzes what worked, generating new signals and growth opportunities for your next campaign.
               </p>
             </div>
@@ -462,7 +462,7 @@ export function WorkflowFlow() {
                      <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-4">
                         <div className="flex items-center gap-3">
                            <div className="w-8 h-8 rounded-full bg-[#168A5B]/10 flex items-center justify-center">
-                              <BarChart3 className="w-4 h-4 text-[#168A5B]" />
+                              <BarChart3 className="w-4 h-4 text-white" />
                            </div>
                            <div className="font-bold text-white">Brand Command Center</div>
                         </div>
@@ -473,12 +473,12 @@ export function WorkflowFlow() {
                         <div className="bg-[#1A1A1A] p-4 rounded-xl border border-white/5">
                            <div className="text-xs text-white/40 mb-1">Brand Visibility</div>
                            <div className="text-2xl font-bold text-white mb-2">78</div>
-                           <div className="text-[10px] text-[#168A5B]">+12% this week</div>
+                           <div className="text-[10px] text-white">+12% this week</div>
                         </div>
                         <div className="bg-[#1A1A1A] p-4 rounded-xl border border-white/5">
                            <div className="text-xs text-white/40 mb-1">Audience Sentiment</div>
                            <div className="text-2xl font-bold text-white mb-2">92%</div>
-                           <div className="text-[10px] text-[#168A5B]">+8% vs last mo</div>
+                           <div className="text-[10px] text-white">+8% vs last mo</div>
                         </div>
                      </div>
                      

@@ -8,8 +8,9 @@ import { ApiClient } from '@/lib/api/client'
 import { useAuth } from '@/lib/providers/MockProvider'
 import { 
   ShieldAlert, Plus, RefreshCw, AlertCircle, Globe, 
-  Trash2, ExternalLink, Zap, Swords, Target, Eye
+  Trash2, ExternalLink, Zap, Swords, Target, Eye, Radio, Sparkles, TrendingUp
 } from 'lucide-react'
+import { CompetitorBattlecardModal } from '@/components/competitors/CompetitorBattlecardModal'
 
 interface Competitor {
   id: string
@@ -32,6 +33,8 @@ export default function CompetitorsPage() {
   const [showModal, setShowModal] = useState(false)
   const [saving, setSaving] = useState(false)
   const [actionLoading, setActionLoading] = useState<string | null>(null)
+  const [selectedBattlecard, setSelectedBattlecard] = useState<Competitor | null>(null)
+  const [battlecardOpen, setBattlecardOpen] = useState(false)
 
   const [form, setForm] = useState({
     name: '',
@@ -41,6 +44,8 @@ export default function CompetitorsPage() {
     weaknesses: '',
     positioning: ''
   })
+
+  const [autoDiscovering, setAutoDiscovering] = useState(false)
 
   const fetchCompetitors = async () => {
     if (!activeBrand) return
@@ -54,6 +59,22 @@ export default function CompetitorsPage() {
       setError(err.message || 'Failed to load competitors')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleAutoDiscover = async () => {
+    setAutoDiscovering(true)
+    try {
+      const data = await ApiClient.post<Competitor[]>('/api/brand-brain/competitors/auto-discover', {})
+      if (Array.isArray(data) && data.length > 0) {
+        setCompetitors(data)
+      } else {
+        await fetchCompetitors()
+      }
+    } catch (err: any) {
+      alert('Auto-discovery failed: ' + (err.message || 'Error'))
+    } finally {
+      setAutoDiscovering(false)
     }
   }
 
@@ -91,17 +112,17 @@ export default function CompetitorsPage() {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 max-w-7xl mx-auto w-full space-y-6 text-[#F5F3F1]">
+    <div className="flex-1 overflow-y-auto p-6 max-w-7xl mx-auto w-full space-y-6 text-white">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#373333] pb-6">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight text-[#F5F3F1]">Competitor Landscape</h1>
-            <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#A9A4A0] text-xs">
+            <h1 className="text-2xl font-bold tracking-tight text-white">Competitor Landscape</h1>
+            <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#E5E7EB] text-xs">
               {competitors.length} Tracked
             </Badge>
           </div>
-          <p className="text-[#A9A4A0] text-sm mt-1">
+          <p className="text-[#E5E7EB] text-sm mt-1">
             Analyze market rivals, detect messaging vulnerabilities, and uncover keyword/positioning gaps.
           </p>
         </div>
@@ -109,9 +130,19 @@ export default function CompetitorsPage() {
           <Button 
             variant="outline" 
             size="sm" 
+            onClick={handleAutoDiscover} 
+            disabled={autoDiscovering}
+            className="border-[#373333] text-white hover:bg-[#242222] flex items-center gap-1.5"
+          >
+            <Zap className={`w-3.5 h-3.5 text-[#8F0028] ${autoDiscovering ? 'animate-spin' : ''}`} />
+            {autoDiscovering ? 'Discovering...' : 'Auto-Discover Rivals'}
+          </Button>
+          <Button 
+            variant="outline" 
+            size="sm" 
             onClick={fetchCompetitors} 
             disabled={loading}
-            className="border-[#373333] text-[#A9A4A0] hover:text-[#F5F3F1] hover:bg-[#242222]"
+            className="border-[#373333] text-[#E5E7EB] hover:text-white hover:bg-[#242222]"
           >
             <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${loading ? 'animate-spin' : ''}`} />
             Refresh
@@ -127,14 +158,66 @@ export default function CompetitorsPage() {
         </div>
       </div>
 
+      {/* Live Competitive Activity Radar - Solid dark container */}
+      <div className="bg-[#1C1A1A] border border-[#2E2A2A] rounded-2xl p-5 space-y-3">
+        <div className="flex items-center justify-between border-b border-[#2E2A2A] pb-3">
+          <div className="flex items-center gap-2.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-[#FF4560] animate-pulse" />
+            <span className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+              <Radio className="w-3.5 h-3.5 text-white" />
+              Real-Time Competitor Activity Radar
+            </span>
+            <Badge className="bg-[#262323] text-[#E5E7EB] border border-[#3E3838] text-[10px] py-0">
+              Auto-Scraping Active
+            </Badge>
+          </div>
+          <span className="text-[11px] text-[#E5E7EB]">3 movements detected in past 24h</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="bg-[#242222] border border-[#373333] rounded-xl p-3.5 space-y-1.5">
+            <div className="flex items-center justify-between text-[11px]">
+              <Badge className="bg-[#1C1A1A] text-white border border-[#332E2E] text-[9.5px] py-0 font-bold">
+                Pricing Pivot
+              </Badge>
+              <span className="text-[#6E6A67] text-[10px] font-mono">2h ago</span>
+            </div>
+            <p className="text-xs font-semibold text-white">Rival increased Enterprise tier by 20%</p>
+            <p className="text-[11px] text-[#E5E7EB]">Opportunity: Highlight our fixed-tier predictable SaaS model.</p>
+          </div>
+
+          <div className="bg-[#242222] border border-[#373333] rounded-xl p-3.5 space-y-1.5">
+            <div className="flex items-center justify-between text-[11px]">
+              <Badge className="bg-[#1C1A1A] text-white border border-[#332E2E] text-[9.5px] py-0 font-bold">
+                Meta Ad Spy
+              </Badge>
+              <span className="text-[#6E6A67] text-[10px] font-mono">5h ago</span>
+            </div>
+            <p className="text-xs font-semibold text-white">4 new video ads detected in Ad Library</p>
+            <p className="text-[11px] text-[#E5E7EB]">Targeting pain points on 'manual campaign burnout'.</p>
+          </div>
+
+          <div className="bg-[#242222] border border-[#373333] rounded-xl p-3.5 space-y-1.5">
+            <div className="flex items-center justify-between text-[11px]">
+              <Badge className="bg-[#1C1A1A] text-white border border-[#332E2E] text-[9.5px] py-0 font-bold">
+                SEO Opportunity
+              </Badge>
+              <span className="text-[#6E6A67] text-[10px] font-mono">Yesterday</span>
+            </div>
+            <p className="text-xs font-semibold text-white">Rival dropped from #2 to #5 on 'ai marketing os'</p>
+            <p className="text-[11px] text-[#E5E7EB]">StandBharat is currently indexed at position #3.</p>
+          </div>
+        </div>
+      </div>
+
       {/* Error state */}
       {error && (
-        <div className="p-4 bg-red-950/30 border border-red-800 rounded-xl text-red-300 text-sm flex items-center justify-between">
+        <div className="p-4 bg-[#242222] border border-[#373333] rounded-xl text-red-400 text-sm flex items-center justify-between">
           <div className="flex items-center gap-2">
             <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
             <span>{error}</span>
           </div>
-          <Button size="sm" variant="outline" onClick={fetchCompetitors} className="border-red-800 text-red-300">
+          <Button size="sm" variant="outline" onClick={fetchCompetitors} className="border-[#373333] text-red-300 hover:bg-[#2A2828]">
             Retry
           </Button>
         </div>
@@ -142,7 +225,7 @@ export default function CompetitorsPage() {
 
       {/* Loading state */}
       {loading && (
-        <div className="p-16 text-center text-[#A9A4A0] space-y-3">
+        <div className="p-16 text-center text-[#E5E7EB] space-y-3">
           <div className="w-8 h-8 rounded-full border-2 border-[#8F0028] border-t-transparent animate-spin mx-auto"></div>
           <p className="text-sm">Loading competitor profiles from PostgreSQL...</p>
         </div>
@@ -155,8 +238,8 @@ export default function CompetitorsPage() {
             <Swords className="w-6 h-6" />
           </div>
           <div className="max-w-md mx-auto">
-            <h3 className="text-lg font-semibold text-[#F5F3F1]">No Competitors Added Yet</h3>
-            <p className="text-xs text-[#A9A4A0] mt-1">
+            <h3 className="text-lg font-semibold text-white">No Competitors Added Yet</h3>
+            <p className="text-xs text-[#E5E7EB] mt-1">
               Add your key direct and indirect competitors so the AI CMO can analyze market positioning and formulate defensive strategies.
             </p>
           </div>
@@ -177,7 +260,7 @@ export default function CompetitorsPage() {
               <CardHeader className="pb-3 border-b border-[#373333]">
                 <div className="flex justify-between items-start gap-2">
                   <div>
-                    <CardTitle className="text-lg text-[#F5F3F1] font-bold">
+                    <CardTitle className="text-lg text-white font-bold">
                       {comp.name}
                     </CardTitle>
                     {comp.website_url && (
@@ -185,7 +268,7 @@ export default function CompetitorsPage() {
                         href={comp.website_url.startsWith('http') ? comp.website_url : `https://${comp.website_url}`}
                         target="_blank" 
                         rel="noreferrer"
-                        className="text-xs text-[#00A650] hover:underline flex items-center gap-1 mt-0.5"
+                        className="text-xs text-white hover:underline flex items-center gap-1 mt-0.5"
                       >
                         <Globe className="w-3 h-3" />
                         {comp.website_url.replace(/^https?:\/\//, '')}
@@ -198,7 +281,7 @@ export default function CompetitorsPage() {
                     size="sm"
                     disabled={actionLoading === comp.id}
                     onClick={() => handleDelete(comp.id)}
-                    className="h-8 w-8 p-0 text-[#A9A4A0] hover:text-red-400 hover:bg-red-950/20"
+                    className="h-8 w-8 p-0 text-[#E5E7EB] hover:text-red-400 hover:bg-red-950/20"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </Button>
@@ -206,7 +289,7 @@ export default function CompetitorsPage() {
               </CardHeader>
               <CardContent className="pt-4 space-y-4 flex-1 flex flex-col justify-between">
                 {comp.description && (
-                  <p className="text-xs text-[#A9A4A0] leading-relaxed line-clamp-3">
+                  <p className="text-xs text-[#E5E7EB] leading-relaxed line-clamp-3">
                     {comp.description}
                   </p>
                 )}
@@ -214,24 +297,35 @@ export default function CompetitorsPage() {
                 <div className="space-y-3 pt-2 border-t border-[#373333] text-xs">
                   {comp.positioning && (
                     <div>
-                      <span className="font-semibold text-[#A9A4A0] block text-[10px] uppercase tracking-wider mb-0.5">Positioning</span>
-                      <span className="text-[#F5F3F1]">{comp.positioning}</span>
+                      <span className="font-semibold text-[#E5E7EB] block text-[10px] uppercase tracking-wider mb-0.5">Positioning</span>
+                      <span className="text-white">{comp.positioning}</span>
                     </div>
                   )}
 
                   {comp.strengths && (
                     <div>
-                      <span className="font-semibold text-[#00A650] block text-[10px] uppercase tracking-wider mb-0.5">Strengths</span>
-                      <span className="text-[#A9A4A0]">{comp.strengths}</span>
+                      <span className="font-semibold text-white block text-[10px] uppercase tracking-wider mb-0.5">Strengths</span>
+                      <span className="text-[#E5E7EB]">{comp.strengths}</span>
                     </div>
                   )}
 
                   {comp.weaknesses && (
                     <div>
                       <span className="font-semibold text-red-400 block text-[10px] uppercase tracking-wider mb-0.5">Weaknesses / Gaps</span>
-                      <span className="text-[#A9A4A0]">{comp.weaknesses}</span>
+                      <span className="text-[#E5E7EB]">{comp.weaknesses}</span>
                     </div>
                   )}
+                </div>
+
+                <div className="pt-3 border-t border-[#373333]">
+                  <Button 
+                    size="sm"
+                    onClick={() => { setSelectedBattlecard(comp); setBattlecardOpen(true); }}
+                    className="w-full bg-[#8F0028]/15 hover:bg-[#8F0028] text-white hover:text-white border border-[#8F0028]/40 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <Swords className="w-3.5 h-3.5" />
+                    View Counter-Battlecard
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -244,52 +338,52 @@ export default function CompetitorsPage() {
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-[#1C1A1A] border border-[#373333] rounded-2xl max-w-lg w-full p-6 space-y-5 shadow-2xl">
             <div className="flex justify-between items-center border-b border-[#373333] pb-3">
-              <h2 className="text-lg font-bold text-[#F5F3F1]">Add Competitor Profile</h2>
-              <button onClick={() => setShowModal(false)} className="text-[#A9A4A0] hover:text-[#F5F3F1]">✕</button>
+              <h2 className="text-lg font-bold text-white">Add Competitor Profile</h2>
+              <button onClick={() => setShowModal(false)} className="text-[#E5E7EB] hover:text-white">✕</button>
             </div>
             
             <form onSubmit={handleCreate} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Competitor Name *</label>
+                  <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Competitor Name *</label>
                   <Input 
                     required
                     placeholder="e.g. Acme Brands"
                     value={form.name}
                     onChange={e => setForm({ ...form, name: e.target.value })}
-                    className="bg-[#242222] border-[#373333] text-[#F5F3F1] text-sm"
+                    className="bg-[#242222] border-[#373333] text-white text-sm"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Website URL</label>
+                  <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Website URL</label>
                   <Input 
                     placeholder="e.g. acme.com"
                     value={form.website_url}
                     onChange={e => setForm({ ...form, website_url: e.target.value })}
-                    className="bg-[#242222] border-[#373333] text-[#F5F3F1] text-sm"
+                    className="bg-[#242222] border-[#373333] text-white text-sm"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Market Positioning</label>
+                <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Market Positioning</label>
                 <Input 
                   placeholder="e.g. Low-cost mass-market alternative"
                   value={form.positioning}
                   onChange={e => setForm({ ...form, positioning: e.target.value })}
-                  className="bg-[#242222] border-[#373333] text-[#F5F3F1] text-sm"
+                  className="bg-[#242222] border-[#373333] text-white text-sm"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#00A650] uppercase tracking-wider mb-1">Strengths</label>
+                  <label className="block text-xs font-semibold text-white uppercase tracking-wider mb-1">Strengths</label>
                   <textarea 
                     rows={2}
                     placeholder="e.g. High domain authority, huge ad budget"
                     value={form.strengths}
                     onChange={e => setForm({ ...form, strengths: e.target.value })}
-                    className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-xs text-[#F5F3F1] placeholder:text-[#A9A4A0] focus:outline-none focus:border-[#8F0028]"
+                    className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-xs text-white placeholder:text-[#E5E7EB] focus:outline-none focus:border-[#8F0028]"
                   />
                 </div>
                 <div>
@@ -299,24 +393,24 @@ export default function CompetitorsPage() {
                     placeholder="e.g. Slow customer support, generic messaging"
                     value={form.weaknesses}
                     onChange={e => setForm({ ...form, weaknesses: e.target.value })}
-                    className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-xs text-[#F5F3F1] placeholder:text-[#A9A4A0] focus:outline-none focus:border-[#8F0028]"
+                    className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-xs text-white placeholder:text-[#E5E7EB] focus:outline-none focus:border-[#8F0028]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#A9A4A0] uppercase tracking-wider mb-1">Description / Notes</label>
+                <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Description / Notes</label>
                 <textarea 
                   rows={2}
                   placeholder="Additional context about this competitor..."
                   value={form.description}
                   onChange={e => setForm({ ...form, description: e.target.value })}
-                  className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-xs text-[#F5F3F1] placeholder:text-[#A9A4A0] focus:outline-none focus:border-[#8F0028]"
+                  className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-xs text-white placeholder:text-[#E5E7EB] focus:outline-none focus:border-[#8F0028]"
                 />
               </div>
 
               <div className="flex justify-end gap-3 pt-3 border-t border-[#373333]">
-                <Button type="button" variant="outline" onClick={() => setShowModal(false)} className="border-[#373333] text-[#A9A4A0]">
+                <Button type="button" variant="outline" onClick={() => setShowModal(false)} className="border-[#373333] text-[#E5E7EB]">
                   Cancel
                 </Button>
                 <Button type="submit" disabled={saving} className="bg-[#8F0028] hover:bg-[#A8002F] text-white">
@@ -327,6 +421,14 @@ export default function CompetitorsPage() {
           </div>
         </div>
       )}
+
+      {/* Competitor Battlecard Modal */}
+      <CompetitorBattlecardModal 
+        isOpen={battlecardOpen}
+        onClose={() => setBattlecardOpen(false)}
+        competitor={selectedBattlecard}
+        brandName={activeBrand?.name || 'StandBharat'}
+      />
     </div>
   )
 }

@@ -90,6 +90,14 @@ def execute_coding_agent(self, run_id_str: str):
     _execute_agent_run(run_id_str)
 
 @celery_app.task(bind=True, max_retries=3)
+def execute_influencer_agent(self, run_id_str: str):
+    _execute_agent_run(run_id_str)
+
+@celery_app.task(bind=True, max_retries=3)
+def execute_ugc_agent(self, run_id_str: str):
+    _execute_agent_run(run_id_str)
+
+@celery_app.task(bind=True, max_retries=3)
 def execute_generic_agent(self, run_id_str: str):
     _execute_agent_run(run_id_str)
 

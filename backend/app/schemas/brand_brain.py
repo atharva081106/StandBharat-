@@ -199,6 +199,12 @@ class BrandDocumentBase(BaseModel):
     uploaded_by: Optional[UUID] = None
     extracted_text: Optional[str] = None
 
+class BrandDocumentCreate(BaseModel):
+    name: str
+    category: Optional[str] = "Product Information"
+    content: str
+    type: Optional[str] = "text/markdown"
+
 class BrandDocumentResponse(BrandDocumentBase):
     id: UUID
     brand_id: UUID

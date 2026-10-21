@@ -53,7 +53,7 @@ def login(request: Request, user_in: UserCreate, response: Response, db: Session
         secure=settings.SECURE_COOKIES,
         path="/"
     )
-    return {"message": "Login successful"}
+    return {"message": "Login successful", "access_token": access_token}
 
 @router.post("/logout")
 def logout(response: Response):

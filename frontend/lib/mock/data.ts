@@ -23,12 +23,174 @@ export const mockKPIs = {
 };
 
 export const mockAgents = [
-  { id: "analytics", name: "Analytics Agent", status: "ACTIVE", description: "Monitors performance metrics and ingests analytics data.", capabilities: ["Data Ingestion", "Metric Tracking", "Trend Analysis"] },
-  { id: "competitor", name: "Competitor Agent", status: "ACTIVE", description: "Tracks competitor positioning, pricing, and content gaps.", capabilities: ["Market Scanning", "Gap Analysis", "Competitor Profiling"] },
-  { id: "growth", name: "Growth Agent", status: "ACTIVE", description: "Identifies growth opportunities and formulates strategic hypotheses.", capabilities: ["Opportunity Scoring", "Hypothesis Generation", "Revenue Modeling"] },
-  { id: "content_strategy", name: "Content Strategy Agent", status: "ACTIVE", description: "Translates opportunities into actionable content briefs.", capabilities: ["Brief Generation", "SEO Outlining", "Content Planning"] },
-  { id: "content_writer", name: "Content Writer Agent", status: "WAITING", description: "Drafts high-quality content based on approved briefs.", capabilities: ["Long-form Writing", "Copywriting", "Tone Matching"] },
-  { id: "content_publisher", name: "Content Publisher Agent", status: "IDLE", description: "Deploys approved content to external platforms (e.g. LinkedIn).", capabilities: ["API Integration", "Scheduling", "Cross-posting"] }
+  // --- FREE AGENTS (Ultra-low compute & resource footprint) ---
+  {
+    id: "ai_cmo",
+    name: "AI CMO Advisor (Light)",
+    status: "ACTIVE",
+    tier: "FREE",
+    resourceProfile: "LIGHTWEIGHT",
+    creditCost: 750,
+    description: "High-level strategic guidance, marketing sprint planning, and campaign recommendations.",
+    capabilities: ["Strategy Guidance", "Campaign Direction", "Quick Q&A"],
+    isOkaraParity: true
+  },
+  {
+    id: "seo",
+    name: "SEO Quick Audit Agent",
+    status: "ACTIVE",
+    tier: "FREE",
+    resourceProfile: "LIGHTWEIGHT",
+    creditCost: 500,
+    description: "Fast single-page on-page SEO inspection, meta tags, heading hierarchy, and keyword opportunities.",
+    capabilities: ["On-Page Audit", "Meta Tag Analysis", "Keyword Ideas"],
+    isOkaraParity: true
+  },
+  {
+    id: "content_writer",
+    name: "Social Hook & Copy Agent",
+    status: "ACTIVE",
+    tier: "FREE",
+    resourceProfile: "LIGHTWEIGHT",
+    creditCost: 600,
+    description: "Crafts high-converting viral hooks, punchy social copy snippets, and 300-word blog outlines.",
+    capabilities: ["Short-form Copy", "Viral Hooks", "Blog Outlines"],
+    isOkaraParity: true
+  },
+
+  // --- PRO AGENTS (Autonomous Multi-Channel Execution & Frontier LLMs) ---
+  {
+    id: "reddit",
+    name: "Reddit Growth & Karma Sniper",
+    status: "ACTIVE",
+    tier: "PRO",
+    resourceProfile: "STANDARD",
+    creditCost: 1500,
+    description: "Monitors high-intent subreddits, detects pain points, and drafts non-promotional karma-building replies.",
+    capabilities: ["Subreddit Listening", "Pain-point Sniping", "Organic Karma Building"],
+    isOkaraParity: true
+  },
+  {
+    id: "linkedin",
+    name: "LinkedIn Thought Leader",
+    status: "ACTIVE",
+    tier: "PRO",
+    resourceProfile: "STANDARD",
+    creditCost: 1500,
+    description: "Creates viral multi-slide PDF carousels, executive thought leadership, and high-engagement commentary.",
+    capabilities: ["Carousel Slides", "Ghostwriting", "B2B Hook Generator"],
+    isOkaraParity: true
+  },
+  {
+    id: "x",
+    name: "X / Twitter Viral Engine",
+    status: "ACTIVE",
+    tier: "PRO",
+    resourceProfile: "STANDARD",
+    creditCost: 1500,
+    description: "Generates daily viral threads, smart quote-tweets, and automated audience engagement schedules.",
+    capabilities: ["Viral Threads", "Auto-Engagement", "Quote-Tweet Angles"],
+    isOkaraParity: true
+  },
+  {
+    id: "influencer",
+    name: "Influencer Outreach & Matchmaker",
+    status: "ACTIVE",
+    tier: "PRO",
+    resourceProfile: "HEAVY",
+    creditCost: 2500,
+    description: "Discovers nano/micro creators, evaluates engagement rates, and generates personalized outreach sequences.",
+    capabilities: ["Creator Discovery", "Matchmaking", "Outreach Sequences"],
+    isOkaraParity: true
+  },
+  {
+    id: "ugc",
+    name: "UGC & Video Script Studio",
+    status: "ACTIVE",
+    tier: "PRO",
+    resourceProfile: "HEAVY",
+    creditCost: 2500,
+    description: "Builds 3-second viral hooks, scene-by-scene Reels/TikTok/Shorts storyboards, and creator filming briefs.",
+    capabilities: ["Shorts/Reels Scripts", "3s Hook Variations", "Storyboard Briefs"],
+    isOkaraParity: true
+  },
+  {
+    id: "geo",
+    name: "Generative Engine Optimization (GEO)",
+    status: "ACTIVE",
+    tier: "PRO",
+    resourceProfile: "HEAVY",
+    creditCost: 3000,
+    description: "Tracks and optimizes brand visibility across ChatGPT Search, Perplexity AI, Google Gemini, and Claude.",
+    capabilities: ["ChatGPT Search Audit", "Perplexity Citation", "Gemini Visibility"],
+    isOkaraParity: true
+  },
+  {
+    id: "coding",
+    name: "Technical Marketing & Code Agent",
+    status: "ACTIVE",
+    tier: "PRO",
+    resourceProfile: "HEAVY",
+    creditCost: 2500,
+    description: "Builds programmatic SEO templates, interactive web calculators, and validated JSON-LD schemas.",
+    capabilities: ["Programmatic Landing Pages", "Interactive Calculators", "JSON-LD Schemas"],
+    isOkaraParity: true
+  },
+  {
+    id: "competitor",
+    name: "Competitor Radar & Spy Agent",
+    status: "ACTIVE",
+    tier: "PRO",
+    resourceProfile: "HEAVY",
+    creditCost: 3000,
+    description: "24/7 web scraping of competitor websites, ad angle changes, pricing moves, and messaging shifts.",
+    capabilities: ["24/7 Web Crawling", "Ad Angle Analysis", "Gap Detection"],
+    isStandBharatExclusive: true
+  },
+  {
+    id: "growth",
+    name: "CRO & Growth Experiment Agent",
+    status: "ACTIVE",
+    tier: "PRO",
+    resourceProfile: "STANDARD",
+    creditCost: 2000,
+    description: "Analyzes landing page conversion leaks and formulates data-backed A/B test experiments.",
+    capabilities: ["Conversion Rate Audit", "A/B Hypotheses", "Friction Analysis"],
+    isStandBharatExclusive: true
+  },
+  {
+    id: "performance",
+    name: "Paid Ads & ROAS Optimizer",
+    status: "ACTIVE",
+    tier: "PRO",
+    resourceProfile: "HEAVY",
+    creditCost: 2500,
+    description: "Drafts Meta Ads, Google Search Ads, and LinkedIn Sponsored Content with ROAS targeting.",
+    capabilities: ["Meta Ads Copy", "Google Search Ads", "Budget Optimization"],
+    isStandBharatExclusive: true
+  },
+  {
+    id: "analytics",
+    name: "Multi-Touch Revenue Attribution",
+    status: "ACTIVE",
+    tier: "PRO",
+    resourceProfile: "HEAVY",
+    creditCost: 3000,
+    description: "Connects GA4, Search Console, and CRM data to attribute real pipeline revenue to AI marketing channels.",
+    capabilities: ["Revenue Attribution", "Blended CAC/LTV", "Funnel Leakage Alerts"],
+    isStandBharatExclusive: true
+  },
+  {
+    id: "content_strategy",
+    name: "Content Strategy & Roadmap Agent",
+    status: "ACTIVE",
+    tier: "PRO",
+    resourceProfile: "STANDARD",
+    creditCost: 2000,
+    description: "Architects 90-day pillar-cluster editorial calendars and autonomous multi-channel distribution plans.",
+    capabilities: ["Topic Clustering", "90-Day Editorial Plans", "Pillar-Cluster Mapping"],
+    isStandBharatExclusive: true
+  }
 ];
 
 export const mockOpportunities = [

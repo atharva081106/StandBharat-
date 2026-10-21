@@ -87,7 +87,7 @@ export function BusinessOverviewPanel() {
   if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center">
-        <Loader2 className="w-6 h-6 text-[#A9A4A0] animate-spin" />
+        <Loader2 className="w-6 h-6 text-[#E5E7EB] animate-spin" />
       </div>
     )
   }
@@ -98,11 +98,11 @@ export function BusinessOverviewPanel() {
         
         {/* Header */}
         <div>
-          <h2 className="text-[18px] font-bold text-[#F5F3F1] flex items-center gap-2">
+          <h2 className="text-[18px] font-bold text-white flex items-center gap-2">
             <Briefcase className="w-5 h-5 text-[#8F0028]" />
             Business Overview
           </h2>
-          <p className="text-[13px] text-[#A9A4A0] mt-1">
+          <p className="text-[13px] text-[#E5E7EB] mt-1">
             Define your core business identity. This context is used by the AI CMO and all specialized agents.
           </p>
         </div>
@@ -117,105 +117,105 @@ export function BusinessOverviewPanel() {
         <div className="space-y-6">
           <div className="grid grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Business Name</label>
+              <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Business Name</label>
               <input 
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="e.g. Acme Corp"
-                className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors"
+                className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors"
               />
             </div>
             <div className="space-y-2">
-              <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Website URL</label>
+              <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Website URL</label>
               <input 
                 name="website_url"
                 value={formData.website_url}
                 onChange={handleChange}
                 placeholder="e.g. https://acme.com"
-                className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors"
+                className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Industry</label>
+              <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Industry</label>
               <input 
                 name="industry"
                 value={formData.industry}
                 onChange={handleChange}
                 placeholder="e.g. SaaS"
-                className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors"
+                className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors"
               />
             </div>
             <div className="space-y-2">
-              <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Category</label>
+              <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Category</label>
               <input 
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
                 placeholder="e.g. B2B Software"
-                className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors"
+                className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Location</label>
+            <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Location</label>
             <input 
               name="location"
               value={formData.location}
               onChange={handleChange}
               placeholder="e.g. Global / New York / Remote"
-              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors"
+              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Tagline</label>
+            <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Tagline</label>
             <input 
               name="tagline"
               value={formData.tagline}
               onChange={handleChange}
               placeholder="Your short, catchy brand promise"
-              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors"
+              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Mission</label>
+            <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Mission</label>
             <textarea 
               name="mission"
               value={formData.mission}
               onChange={handleChange}
               placeholder="What is your company's core mission?"
               rows={3}
-              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
+              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Vision</label>
+            <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Vision</label>
             <textarea 
               name="vision"
               value={formData.vision}
               onChange={handleChange}
               placeholder="Where is your company heading in the long term?"
               rows={3}
-              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
+              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-[12px] font-bold text-[#A9A4A0] uppercase tracking-wider">Core Values</label>
+            <label className="text-[12px] font-bold text-[#E5E7EB] uppercase tracking-wider">Core Values</label>
             <textarea 
               name="values"
               value={formData.values}
               onChange={handleChange}
               placeholder="List the guiding principles of your brand"
               rows={3}
-              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-[#F5F3F1] focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
+              className="w-full bg-[#242222] border border-[#373333] rounded-lg p-2.5 text-[13px] text-white focus:border-[#8F0028] outline-none transition-colors custom-scrollbar resize-y"
             />
           </div>
         </div>
@@ -223,7 +223,7 @@ export function BusinessOverviewPanel() {
         {/* Footer Actions */}
         <div className="pt-6 border-t border-[#373333] flex items-center justify-between sticky bottom-0 bg-[#1C1A1A] z-10 py-4">
           <div>
-            {success && <span className="text-[#00A650] text-[13px] font-bold">✓ Saved successfully</span>}
+            {success && <span className="text-white text-[13px] font-bold">✓ Saved successfully</span>}
           </div>
           <button 
             onClick={handleSave}

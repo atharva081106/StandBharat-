@@ -6,7 +6,7 @@ export default function CampaignDetail({ params }: { params: { id: string } }) {
       <h1 className="text-2xl font-semibold tracking-tight">Campaign: {params.id}</h1>
       <Card>
         <CardHeader><CardTitle>Performance Overview</CardTitle></CardHeader>
-        <CardContent className="text-sm text-[#737373]">
+        <CardContent className="text-sm text-[#E5E7EB]">
            Campaign data will appear here.
         </CardContent>
       </Card>

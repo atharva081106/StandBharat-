@@ -47,3 +47,9 @@ scratch/
 *audit_results*.json
 pytest_*.txt
 
+
+# Celery
+celerybeat-schedule*
+backend/celerybeat-schedule*
+.archify/
+

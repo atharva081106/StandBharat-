@@ -23,6 +23,7 @@ class CampaignResponse(BaseModel):
     
     model_config = ConfigDict(from_attributes=True)
 
+@router.get("", response_model=List[CampaignResponse])
 @router.get("/", response_model=List[CampaignResponse])
 def get_campaigns(
     brand: Brand = Depends(get_current_brand),
@@ -42,20 +43,39 @@ def get_campaigns(
         "end_date": c.end_date.isoformat() if c.end_date else None
     } for c in campaigns]
 
-@router.post("/")
+@router.post("")
+@router.post("/", response_model=CampaignResponse)
 def create_campaign(
     payload: dict = Body(...),
     brand: Brand = Depends(get_current_brand),
     db: Session = Depends(get_db)
 ):
+    raw_budget = payload.get("budget")
+    try:
+        budget_val = float(raw_budget) if raw_budget is not None else None
+    except (ValueError, TypeError):
+        budget_val = None
+
     c = Campaign(
         workspace_id=brand.workspace_id,
         brand_id=brand.id,
-        name=payload.get("name"),
+        name=payload.get("name", "New Campaign"),
         description=payload.get("description"),
-        status=payload.get("status", "DRAFT")
+        budget=budget_val,
+        status=payload.get("status", "ACTIVE")
     )
     db.add(c)
     db.commit()
     db.refresh(c)
-    return {"id": str(c.id), "status": "SUCCESS"}
+    return {
+        "id": str(c.id),
+        "workspace_id": str(c.workspace_id),
+        "brand_id": str(c.brand_id),
+        "name": c.name,
+        "description": c.description,
+        "status": c.status,
+        "budget": c.budget,
+        "spent": c.spent,
+        "start_date": c.start_date.isoformat() if c.start_date else None,
+        "end_date": c.end_date.isoformat() if c.end_date else None
+    }

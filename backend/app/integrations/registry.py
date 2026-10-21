@@ -29,6 +29,7 @@ from .providers.reddit import RedditProvider
 from .providers.github import GitHubProvider
 from .providers.facebook import FacebookProvider
 from .providers.instagram import InstagramProvider
+from .providers.meta_ads import MetaAdsProvider
 from .providers.tiktok import TikTokProvider
 from .providers.youtube import YouTubeProvider
 
@@ -41,5 +42,6 @@ integration_registry.register(RedditProvider())
 integration_registry.register(GitHubProvider())
 integration_registry.register(FacebookProvider())
 integration_registry.register(InstagramProvider())
+integration_registry.register(MetaAdsProvider())
 integration_registry.register(TikTokProvider())
 integration_registry.register(YouTubeProvider())

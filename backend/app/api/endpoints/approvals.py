@@ -81,6 +81,7 @@ def submit_for_review(
     return _enrich_approval_response(approval, draft, project)
 
 @router.get("", response_model=List[ContentApprovalResponse])
+@router.get("/", response_model=List[ContentApprovalResponse])
 @router.get("/approvals", response_model=List[ContentApprovalResponse])
 def get_approvals(
     status: Optional[str] = Query(None),

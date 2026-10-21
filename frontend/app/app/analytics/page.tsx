@@ -26,6 +26,7 @@ import {
 import { useAppProvider } from '@/lib/providers'
 import { useWebsiteAnalysis } from '@/lib/providers/WebsiteAnalysisProvider'
 import { ApiClient } from '@/lib/api/client'
+import LighthouseAuditWidget from '@/components/analytics/LighthouseAuditWidget'
 
 interface TrafficMetricsData {
   sessions: number
@@ -106,9 +107,9 @@ export default function WebsiteAnalyticsPage() {
   if (!activeBrand) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-8 text-center bg-[#171515]">
-        <Globe className="w-12 h-12 text-[#A9A4A0] mb-4" />
-        <h2 className="text-[#F5F3F1] text-lg font-bold mb-2">No Brand Selected</h2>
-        <p className="text-[#A9A4A0] text-sm max-w-sm mb-6">
+        <Globe className="w-12 h-12 text-[#E5E7EB] mb-4" />
+        <h2 className="text-white text-lg font-bold mb-2">No Brand Selected</h2>
+        <p className="text-[#E5E7EB] text-sm max-w-sm mb-6">
           Please select a brand from your workspace to view its dedicated website analytics and SEO signals.
         </p>
         <Link 
@@ -134,14 +135,14 @@ export default function WebsiteAnalyticsPage() {
     : 'Never'
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-[#171515] overflow-y-auto custom-scrollbar font-sans text-[#F5F3F1]">
+    <div className="flex-1 flex flex-col h-full bg-[#171515] overflow-y-auto custom-scrollbar font-sans text-white">
       
       {/* Top Header / Breadcrumb Bar */}
       <div className="px-6 py-4 border-b border-[#373333] bg-[#1C1A1A] sticky top-0 z-20 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <Link 
             href="/app/command-center" 
-            className="flex items-center gap-1.5 px-2.5 py-1.5 bg-[#242222] border border-[#373333] rounded-md text-[11px] font-medium text-[#A9A4A0] hover:text-[#F5F3F1] hover:border-[#4A4545] transition-colors"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 bg-[#242222] border border-[#373333] rounded-md text-[11px] font-medium text-[#E5E7EB] hover:text-white hover:border-[#4A4545] transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             Command Center
@@ -149,18 +150,18 @@ export default function WebsiteAnalyticsPage() {
           <div className="h-4 w-px bg-[#373333] hidden sm:block"></div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-[17px] font-bold text-[#F5F3F1] tracking-tight">Website Analytics</h1>
+              <h1 className="text-[17px] font-bold text-white tracking-tight">Website Analytics</h1>
               <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
                 analysis?.status === 'COMPLETED' 
-                  ? 'bg-[#00A650]/15 text-[#00A650] border border-[#00A650]/30' 
+                  ? 'bg-[#00A650]/15 text-white border border-[#00A650]/30' 
                   : analysis?.status === 'RUNNING' || analysis?.status === 'QUEUED'
-                  ? 'bg-yellow-500/15 text-yellow-400 border border-yellow-500/30'
-                  : 'bg-[#373333] text-[#A9A4A0]'
+                  ? 'bg-yellow-500/15 text-white border border-yellow-500/30'
+                  : 'bg-[#373333] text-[#E5E7EB]'
               }`}>
                 {analysis?.status || 'NOT_ANALYZED'}
               </span>
             </div>
-            <p className="text-[11px] text-[#A9A4A0] flex items-center gap-2 mt-0.5">
+            <p className="text-[11px] text-[#E5E7EB] flex items-center gap-2 mt-0.5">
               <span>{activeBrand.name}</span>
               <span>•</span>
               <span className="flex items-center gap-1">
@@ -173,7 +174,7 @@ export default function WebsiteAnalyticsPage() {
 
         {/* Header Actions */}
         <div className="flex items-center gap-2.5">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[#242222] border border-[#373333] rounded-md text-[11px] font-medium text-[#A9A4A0]">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[#242222] border border-[#373333] rounded-md text-[11px] font-medium text-[#E5E7EB]">
             <Calendar className="w-3.5 h-3.5" />
             <span>{dateRange}</span>
             <ChevronDown className="w-3 h-3 ml-1" />
@@ -181,7 +182,7 @@ export default function WebsiteAnalyticsPage() {
 
           <Link
             href="/app/integrations"
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-[#242222] border border-[#373333] rounded-md text-[11px] font-medium text-[#A9A4A0] hover:text-[#F5F3F1] hover:border-[#4A4545] transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-[#242222] border border-[#373333] rounded-md text-[11px] font-medium text-[#E5E7EB] hover:text-white hover:border-[#4A4545] transition-colors"
           >
             <ShieldCheck className="w-3.5 h-3.5" />
             Integrations
@@ -204,8 +205,8 @@ export default function WebsiteAnalyticsPage() {
           onClick={() => setActiveTab('overview')}
           className={`flex items-center gap-2 py-3 px-4 text-[13px] font-semibold border-b-2 transition-colors ${
             activeTab === 'overview'
-              ? 'border-[#8F0028] text-[#F5F3F1]'
-              : 'border-transparent text-[#A9A4A0] hover:text-[#F5F3F1]'
+              ? 'border-[#8F0028] text-white'
+              : 'border-transparent text-[#E5E7EB] hover:text-white'
           }`}
         >
           <Globe className="w-4 h-4 text-[#8F0028]" />
@@ -216,16 +217,16 @@ export default function WebsiteAnalyticsPage() {
           onClick={() => setActiveTab('traffic')}
           className={`flex items-center gap-2 py-3 px-4 text-[13px] font-semibold border-b-2 transition-colors ${
             activeTab === 'traffic'
-              ? 'border-[#8F0028] text-[#F5F3F1]'
-              : 'border-transparent text-[#A9A4A0] hover:text-[#F5F3F1]'
+              ? 'border-[#8F0028] text-white'
+              : 'border-transparent text-[#E5E7EB] hover:text-white'
           }`}
         >
-          <BarChart2 className="w-4 h-4 text-[#A9A4A0]" />
+          <BarChart2 className="w-4 h-4 text-[#E5E7EB]" />
           Traffic Analytics (GA4)
           <span className={`ml-1 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase ${
             backendData?.ga4.status === 'AVAILABLE' 
-              ? 'bg-[#00A650]/20 text-[#00A650]' 
-              : 'bg-[#2A2828] text-[#A9A4A0]'
+              ? 'bg-[#00A650]/20 text-white' 
+              : 'bg-[#2A2828] text-[#E5E7EB]'
           }`}>
             {backendData?.ga4.status || '...'}
           </span>
@@ -235,16 +236,16 @@ export default function WebsiteAnalyticsPage() {
           onClick={() => setActiveTab('search')}
           className={`flex items-center gap-2 py-3 px-4 text-[13px] font-semibold border-b-2 transition-colors ${
             activeTab === 'search'
-              ? 'border-[#8F0028] text-[#F5F3F1]'
-              : 'border-transparent text-[#A9A4A0] hover:text-[#F5F3F1]'
+              ? 'border-[#8F0028] text-white'
+              : 'border-transparent text-[#E5E7EB] hover:text-white'
           }`}
         >
-          <Search className="w-4 h-4 text-[#A9A4A0]" />
+          <Search className="w-4 h-4 text-[#E5E7EB]" />
           Search Performance (GSC)
           <span className={`ml-1 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase ${
             backendData?.gsc.status === 'AVAILABLE' 
-              ? 'bg-[#00A650]/20 text-[#00A650]' 
-              : 'bg-[#2A2828] text-[#A9A4A0]'
+              ? 'bg-[#00A650]/20 text-white' 
+              : 'bg-[#2A2828] text-[#E5E7EB]'
           }`}>
             {backendData?.gsc.status || '...'}
           </span>
@@ -261,54 +262,60 @@ export default function WebsiteAnalyticsPage() {
             {/* Quick KPI Overview Cards */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="bg-[#242222] border border-[#373333] rounded-xl p-4">
-                <span className="block text-[10px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1">HTTP Status</span>
+                <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">HTTP Status</span>
                 <div className="flex items-center justify-between">
-                  <span className="text-[18px] font-bold text-[#F5F3F1] flex items-center gap-1.5">
+                  <span className="text-[18px] font-bold text-white flex items-center gap-1.5">
                     {resultMetadata?.http_status || 200}
-                    <CheckCircle2 className="w-4 h-4 text-[#00A650]" />
+                    <CheckCircle2 className="w-4 h-4 text-white" />
                   </span>
-                  <span className="text-[11px] text-[#A9A4A0]">Protocol: {resultMetadata?.https ? 'HTTPS' : 'HTTP'}</span>
+                  <span className="text-[11px] text-[#E5E7EB]">Protocol: {resultMetadata?.https ? 'HTTPS' : 'HTTP'}</span>
                 </div>
               </div>
 
               <div className="bg-[#242222] border border-[#373333] rounded-xl p-4">
-                <span className="block text-[10px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1">Title Length</span>
+                <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Title Length</span>
                 <div className="flex items-center justify-between">
-                  <span className="text-[18px] font-bold text-[#F5F3F1]">
+                  <span className="text-[18px] font-bold text-white">
                     {resultMetadata?.title_length || (resultMetadata?.title?.length || 0)} chars
                   </span>
-                  <span className="text-[11px] text-[#00A650] font-medium">Optimal</span>
+                  <span className="text-[11px] text-white font-medium">Optimal</span>
                 </div>
               </div>
 
               <div className="bg-[#242222] border border-[#373333] rounded-xl p-4">
-                <span className="block text-[10px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1">Heading Tags</span>
+                <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Heading Tags</span>
                 <div className="flex items-center justify-between">
-                  <span className="text-[18px] font-bold text-[#F5F3F1]">
+                  <span className="text-[18px] font-bold text-white">
                     {resultMetadata?.h1_count ?? 1} H1 / {resultMetadata?.h2_count ?? 4} H2
                   </span>
-                  <span className="text-[11px] text-[#00A650] font-medium">Structured</span>
+                  <span className="text-[11px] text-white font-medium">Structured</span>
                 </div>
               </div>
 
               <div className="bg-[#242222] border border-[#373333] rounded-xl p-4">
-                <span className="block text-[10px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1">Technical SEO Score</span>
+                <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Technical SEO Score</span>
                 <div className="flex items-center justify-between">
-                  <span className="text-[18px] font-bold text-[#00A650]">4 / 4 Passing</span>
-                  <span className="text-[11px] text-[#A9A4A0]">Canonical, Robots, Sitemap, OG</span>
+                  <span className="text-[18px] font-bold text-white">4 / 4 Passing</span>
+                  <span className="text-[11px] text-[#E5E7EB]">Canonical, Robots, Sitemap, OG</span>
                 </div>
               </div>
             </div>
+
+            {/* Interactive Lighthouse Audit Scores Component */}
+            <LighthouseAuditWidget 
+              initialUrl={activeBrand?.website_url || "sat-query-ai-frontiers.vercel.app/"}
+              brandName={activeBrand?.name}
+            />
 
             {/* Detailed SEO Audit Grid */}
             <div className="bg-[#242222] border border-[#373333] rounded-xl overflow-hidden">
               <div className="px-5 py-3.5 border-b border-[#373333] bg-[#2A2828]/50 flex justify-between items-center">
                 <div className="flex items-center gap-2">
                   <Globe className="w-4 h-4 text-[#8F0028]" />
-                  <h2 className="text-[12px] font-bold text-[#F5F3F1] uppercase tracking-wider">On-Page SEO Signals</h2>
+                  <h2 className="text-[12px] font-bold text-white uppercase tracking-wider">On-Page SEO Signals</h2>
                 </div>
-                <div className="text-[11px] text-[#A9A4A0]">
-                  Last analyzed: <span className="text-[#F5F3F1] font-medium">{formattedLastAnalysis}</span>
+                <div className="text-[11px] text-[#E5E7EB]">
+                  Last analyzed: <span className="text-white font-medium">{formattedLastAnalysis}</span>
                 </div>
               </div>
 
@@ -316,32 +323,32 @@ export default function WebsiteAnalyticsPage() {
                 
                 {/* Final URL */}
                 <div>
-                  <span className="block text-[11px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1.5">Final Crawled URL</span>
-                  <div className="p-2.5 bg-[#1C1A1A] border border-[#373333] rounded-lg text-[13px] text-[#F5F3F1] flex items-center gap-2 truncate">
-                    <Lock className="w-3.5 h-3.5 text-[#00A650] shrink-0" />
+                  <span className="block text-[11px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1.5">Final Crawled URL</span>
+                  <div className="p-2.5 bg-[#1C1A1A] border border-[#373333] rounded-lg text-[13px] text-white flex items-center gap-2 truncate">
+                    <Lock className="w-3.5 h-3.5 text-white shrink-0" />
                     <span className="truncate">{resultMetadata?.final_url || activeBrand.website_url}</span>
                   </div>
                 </div>
 
                 {/* HTTP Status & Security */}
                 <div>
-                  <span className="block text-[11px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1.5">HTTP Response & SSL</span>
-                  <div className="p-2.5 bg-[#1C1A1A] border border-[#373333] rounded-lg text-[13px] text-[#F5F3F1] flex items-center justify-between">
+                  <span className="block text-[11px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1.5">HTTP Response & SSL</span>
+                  <div className="p-2.5 bg-[#1C1A1A] border border-[#373333] rounded-lg text-[13px] text-white flex items-center justify-between">
                     <span className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#00A650]" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-white" />
                       Status: {resultMetadata?.http_status || 200} OK
                     </span>
-                    <span className="text-[11px] text-[#00A650] font-medium bg-[#00A650]/10 px-2 py-0.5 rounded">SSL Secure</span>
+                    <span className="text-[11px] text-white font-medium bg-[#00A650]/10 px-2 py-0.5 rounded">SSL Secure</span>
                   </div>
                 </div>
 
                 {/* Title */}
                 <div className="md:col-span-2">
                   <div className="flex justify-between items-center mb-1.5">
-                    <span className="text-[11px] font-bold text-[#A9A4A0] uppercase tracking-wider">Page Title</span>
-                    <span className="text-[11px] text-[#A9A4A0]">{resultMetadata?.title?.length || 0} characters</span>
+                    <span className="text-[11px] font-bold text-[#E5E7EB] uppercase tracking-wider">Page Title</span>
+                    <span className="text-[11px] text-[#E5E7EB]">{resultMetadata?.title?.length || 0} characters</span>
                   </div>
-                  <div className="p-3 bg-[#1C1A1A] border border-[#373333] rounded-lg text-[14px] text-[#F5F3F1] font-medium leading-relaxed">
+                  <div className="p-3 bg-[#1C1A1A] border border-[#373333] rounded-lg text-[14px] text-white font-medium leading-relaxed">
                     {resultMetadata?.title || 'No Title Tag Found'}
                   </div>
                 </div>
@@ -349,53 +356,53 @@ export default function WebsiteAnalyticsPage() {
                 {/* Meta Description */}
                 <div className="md:col-span-2">
                   <div className="flex justify-between items-center mb-1.5">
-                    <span className="text-[11px] font-bold text-[#A9A4A0] uppercase tracking-wider">Meta Description</span>
-                    <span className="text-[11px] text-[#A9A4A0]">{resultMetadata?.meta_description?.length || 0} characters</span>
+                    <span className="text-[11px] font-bold text-[#E5E7EB] uppercase tracking-wider">Meta Description</span>
+                    <span className="text-[11px] text-[#E5E7EB]">{resultMetadata?.meta_description?.length || 0} characters</span>
                   </div>
-                  <div className="p-3 bg-[#1C1A1A] border border-[#373333] rounded-lg text-[13px] text-[#A9A4A0] leading-relaxed">
+                  <div className="p-3 bg-[#1C1A1A] border border-[#373333] rounded-lg text-[13px] text-[#E5E7EB] leading-relaxed">
                     {resultMetadata?.meta_description || 'No Meta Description Found'}
                   </div>
                 </div>
 
                 {/* Structure / Headings */}
                 <div className="p-4 bg-[#1C1A1A] border border-[#373333] rounded-lg space-y-3">
-                  <span className="block text-[11px] font-bold text-[#A9A4A0] uppercase tracking-wider">Heading Structure</span>
+                  <span className="block text-[11px] font-bold text-[#E5E7EB] uppercase tracking-wider">Heading Structure</span>
                   <div className="space-y-2 text-[12px]">
                     <div className="flex items-center justify-between">
-                      <span className="flex items-center gap-2 text-[#F5F3F1]">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#00A650]" />
+                      <span className="flex items-center gap-2 text-white">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-white" />
                         H1 Tag Present
                       </span>
-                      <span className="font-bold text-[#F5F3F1]">{resultMetadata?.h1_count ?? 1} tag(s)</span>
+                      <span className="font-bold text-white">{resultMetadata?.h1_count ?? 1} tag(s)</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="flex items-center gap-2 text-[#F5F3F1]">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#00A650]" />
+                      <span className="flex items-center gap-2 text-white">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-white" />
                         H2 Subheadings
                       </span>
-                      <span className="font-bold text-[#F5F3F1]">{resultMetadata?.h2_count ?? 4} tag(s)</span>
+                      <span className="font-bold text-white">{resultMetadata?.h2_count ?? 4} tag(s)</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Technical SEO Standards */}
                 <div className="p-4 bg-[#1C1A1A] border border-[#373333] rounded-lg space-y-3">
-                  <span className="block text-[11px] font-bold text-[#A9A4A0] uppercase tracking-wider">Technical Indexability</span>
+                  <span className="block text-[11px] font-bold text-[#E5E7EB] uppercase tracking-wider">Technical Indexability</span>
                   <div className="grid grid-cols-2 gap-2 text-[12px]">
-                    <div className="flex items-center gap-2 text-[#F5F3F1]">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#00A650]" />
+                    <div className="flex items-center gap-2 text-white">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-white" />
                       Canonical Tag
                     </div>
-                    <div className="flex items-center gap-2 text-[#F5F3F1]">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#00A650]" />
+                    <div className="flex items-center gap-2 text-white">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-white" />
                       robots.txt
                     </div>
-                    <div className="flex items-center gap-2 text-[#F5F3F1]">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#00A650]" />
+                    <div className="flex items-center gap-2 text-white">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-white" />
                       sitemap.xml
                     </div>
-                    <div className="flex items-center gap-2 text-[#F5F3F1]">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#00A650]" />
+                    <div className="flex items-center gap-2 text-white">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-white" />
                       Open Graph
                     </div>
                   </div>
@@ -403,26 +410,26 @@ export default function WebsiteAnalyticsPage() {
 
                 {/* Content & Media Stats */}
                 <div className="p-4 bg-[#1C1A1A] border border-[#373333] rounded-lg space-y-2">
-                  <span className="block text-[11px] font-bold text-[#A9A4A0] uppercase tracking-wider">Content & Word Count</span>
+                  <span className="block text-[11px] font-bold text-[#E5E7EB] uppercase tracking-wider">Content & Word Count</span>
                   <div className="flex justify-between items-center pt-1">
-                    <span className="text-[12px] text-[#A9A4A0]">Analyzed Word Count</span>
-                    <span className="text-[14px] font-bold text-[#F5F3F1]">{resultMetadata?.word_count || 842} Words</span>
+                    <span className="text-[12px] text-[#E5E7EB]">Analyzed Word Count</span>
+                    <span className="text-[14px] font-bold text-white">{resultMetadata?.word_count || 842} Words</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-[12px] text-[#A9A4A0]">Internal Links</span>
-                    <span className="text-[14px] font-bold text-[#F5F3F1]">{resultMetadata?.internal_links || 18} Links</span>
+                    <span className="text-[12px] text-[#E5E7EB]">Internal Links</span>
+                    <span className="text-[14px] font-bold text-white">{resultMetadata?.internal_links || 18} Links</span>
                   </div>
                 </div>
 
                 {/* Images & External Links */}
                 <div className="p-4 bg-[#1C1A1A] border border-[#373333] rounded-lg space-y-2">
-                  <span className="block text-[11px] font-bold text-[#A9A4A0] uppercase tracking-wider">Images & Assets</span>
+                  <span className="block text-[11px] font-bold text-[#E5E7EB] uppercase tracking-wider">Images & Assets</span>
                   <div className="flex justify-between items-center pt-1">
-                    <span className="text-[12px] text-[#A9A4A0]">Total Images Found</span>
-                    <span className="text-[14px] font-bold text-[#F5F3F1]">{resultMetadata?.image_count || 14} Images</span>
+                    <span className="text-[12px] text-[#E5E7EB]">Total Images Found</span>
+                    <span className="text-[14px] font-bold text-white">{resultMetadata?.image_count || 14} Images</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-[12px] text-[#A9A4A0]">Image Alt Attributes</span>
+                    <span className="text-[12px] text-[#E5E7EB]">Image Alt Attributes</span>
                     <span className="text-[12px] text-[#8F0028] font-bold">
                       {resultMetadata?.images_missing_alt || 1} missing alt text
                     </span>
@@ -435,26 +442,26 @@ export default function WebsiteAnalyticsPage() {
             {/* Business & Brand Context */}
             <div className="bg-[#242222] border border-[#373333] rounded-xl p-5 space-y-4">
               <div className="flex justify-between items-center border-b border-[#373333] pb-3">
-                <span className="text-[11px] font-bold text-[#A9A4A0] uppercase tracking-wider">Semantic Business Context</span>
-                <span className="text-[10px] text-[#00A650] font-bold uppercase tracking-wider bg-[#00A650]/10 px-2 py-0.5 rounded">AI Inferred</span>
+                <span className="text-[11px] font-bold text-[#E5E7EB] uppercase tracking-wider">Semantic Business Context</span>
+                <span className="text-[10px] text-white font-bold uppercase tracking-wider bg-[#00A650]/10 px-2 py-0.5 rounded">AI Inferred</span>
               </div>
               <div>
-                <span className="block text-[11px] font-bold text-[#A9A4A0] mb-2">Inferred Core Topics</span>
+                <span className="block text-[11px] font-bold text-[#E5E7EB] mb-2">Inferred Core Topics</span>
                 <div className="flex flex-wrap gap-2">
                   {analysisResults?.inferred_topics?.length ? (
                     analysisResults.inferred_topics.map((t: string) => (
-                      <span key={t} className="px-2.5 py-1 bg-[#1C1A1A] border border-[#373333] rounded text-[11px] text-[#F5F3F1]">
+                      <span key={t} className="px-2.5 py-1 bg-[#1C1A1A] border border-[#373333] rounded text-[11px] text-white">
                         {t}
                       </span>
                     ))
                   ) : (
-                    <span className="text-[12px] text-[#A9A4A0] italic">Single-estate teas, organic certification, Darjeeling & Assam heritage gardens</span>
+                    <span className="text-[12px] text-[#E5E7EB] italic">Single-estate teas, organic certification, Darjeeling & Assam heritage gardens</span>
                   )}
                 </div>
               </div>
               <div>
-                <span className="block text-[11px] font-bold text-[#A9A4A0] mb-1">Brand Value Proposition</span>
-                <p className="text-[13px] text-[#F5F3F1] italic bg-[#1C1A1A] p-3 rounded-lg border border-[#373333]">
+                <span className="block text-[11px] font-bold text-[#E5E7EB] mb-1">Brand Value Proposition</span>
+                <p className="text-[13px] text-white italic bg-[#1C1A1A] p-3 rounded-lg border border-[#373333]">
                   "{analysisResults?.value_proposition || 'Direct-from-farm ethical single-estate teas with complete purity and traceable harvest dates.'}"
                 </p>
               </div>
@@ -473,12 +480,12 @@ export default function WebsiteAnalyticsPage() {
                   <BarChart2 className="w-7 h-7 text-[#8F0028]" />
                 </div>
                 <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-lg font-bold text-[#F5F3F1]">Google Analytics 4 Not Connected</h3>
-                  <span className="text-[10px] font-bold text-yellow-400 bg-yellow-500/10 border border-yellow-500/30 px-2 py-0.5 rounded uppercase">
+                  <h3 className="text-lg font-bold text-white">Google Analytics 4 Not Connected</h3>
+                  <span className="text-[10px] font-bold text-white bg-yellow-500/10 border border-yellow-500/30 px-2 py-0.5 rounded uppercase">
                     NOT_CONFIGURED
                   </span>
                 </div>
-                <p className="text-[13px] text-[#A9A4A0] max-w-lg mb-6 leading-relaxed">
+                <p className="text-[13px] text-[#E5E7EB] max-w-lg mb-6 leading-relaxed">
                   Traffic analytics requires an active Google Analytics 4 integration. Once connected, StandBharat will automatically display your real sessions, visitor trends, pageviews, and campaign conversion rates.
                 </p>
                 <Link
@@ -492,38 +499,38 @@ export default function WebsiteAnalyticsPage() {
                 {/* Features Preview */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl mt-10 pt-8 border-t border-[#373333] text-left">
                   <div className="p-3 bg-[#1C1A1A] rounded-lg border border-[#373333]">
-                    <span className="block text-[10px] text-[#A9A4A0] uppercase font-bold">Sessions</span>
-                    <span className="text-[14px] font-bold text-[#A9A4A0]">--</span>
+                    <span className="block text-[10px] text-[#E5E7EB] uppercase font-bold">Sessions</span>
+                    <span className="text-[14px] font-bold text-[#E5E7EB]">--</span>
                   </div>
                   <div className="p-3 bg-[#1C1A1A] rounded-lg border border-[#373333]">
-                    <span className="block text-[10px] text-[#A9A4A0] uppercase font-bold">Active Users</span>
-                    <span className="text-[14px] font-bold text-[#A9A4A0]">--</span>
+                    <span className="block text-[10px] text-[#E5E7EB] uppercase font-bold">Active Users</span>
+                    <span className="text-[14px] font-bold text-[#E5E7EB]">--</span>
                   </div>
                   <div className="p-3 bg-[#1C1A1A] rounded-lg border border-[#373333]">
-                    <span className="block text-[10px] text-[#A9A4A0] uppercase font-bold">Pageviews</span>
-                    <span className="text-[14px] font-bold text-[#A9A4A0]">--</span>
+                    <span className="block text-[10px] text-[#E5E7EB] uppercase font-bold">Pageviews</span>
+                    <span className="text-[14px] font-bold text-[#E5E7EB]">--</span>
                   </div>
                   <div className="p-3 bg-[#1C1A1A] rounded-lg border border-[#373333]">
-                    <span className="block text-[10px] text-[#A9A4A0] uppercase font-bold">Conversions</span>
-                    <span className="text-[14px] font-bold text-[#A9A4A0]">--</span>
+                    <span className="block text-[10px] text-[#E5E7EB] uppercase font-bold">Conversions</span>
+                    <span className="text-[14px] font-bold text-[#E5E7EB]">--</span>
                   </div>
                 </div>
               </div>
             ) : backendData?.ga4.status === 'NO_DATA' ? (
               <div className="bg-[#242222] border border-[#373333] rounded-xl p-10 text-center flex flex-col items-center">
                 <div className="w-14 h-14 rounded-full bg-[#00A650]/10 flex items-center justify-center mb-4">
-                  <BarChart2 className="w-7 h-7 text-[#00A650]" />
+                  <BarChart2 className="w-7 h-7 text-white" />
                 </div>
                 <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-lg font-bold text-[#F5F3F1]">Connected — Awaiting First Sync</h3>
-                  <span className="text-[10px] font-bold text-[#00A650] bg-[#00A650]/10 border border-[#00A650]/30 px-2 py-0.5 rounded uppercase">
+                  <h3 className="text-lg font-bold text-white">Connected — Awaiting First Sync</h3>
+                  <span className="text-[10px] font-bold text-white bg-[#00A650]/10 border border-[#00A650]/30 px-2 py-0.5 rounded uppercase">
                     NO_DATA
                   </span>
                 </div>
-                <p className="text-[13px] text-[#A9A4A0] max-w-md mb-4">
+                <p className="text-[13px] text-[#E5E7EB] max-w-md mb-4">
                   Google Analytics 4 is successfully authenticated for this brand, but no historical traffic rows have been synchronized yet.
                 </p>
-                <p className="text-[11px] text-[#A9A4A0]">
+                <p className="text-[11px] text-[#E5E7EB]">
                   Last Sync Status: {backendData.ga4.last_sync_at || 'Pending next automated run'}
                 </p>
               </div>
@@ -532,31 +539,31 @@ export default function WebsiteAnalyticsPage() {
               <div className="space-y-6">
                 <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
                   <div className="bg-[#242222] border border-[#373333] rounded-xl p-4">
-                    <span className="block text-[10px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1">Sessions</span>
-                    <span className="text-[20px] font-bold text-[#F5F3F1]">
+                    <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Sessions</span>
+                    <span className="text-[20px] font-bold text-white">
                       {backendData?.ga4.metrics.sessions.toLocaleString()}
                     </span>
                   </div>
                   <div className="bg-[#242222] border border-[#373333] rounded-xl p-4">
-                    <span className="block text-[10px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1">Active Users</span>
-                    <span className="text-[20px] font-bold text-[#F5F3F1]">
+                    <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Active Users</span>
+                    <span className="text-[20px] font-bold text-white">
                       {backendData?.ga4.metrics.active_users.toLocaleString()}
                     </span>
                   </div>
                   <div className="bg-[#242222] border border-[#373333] rounded-xl p-4">
-                    <span className="block text-[10px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1">Pageviews</span>
-                    <span className="text-[20px] font-bold text-[#F5F3F1]">
+                    <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Pageviews</span>
+                    <span className="text-[20px] font-bold text-white">
                       {backendData?.ga4.metrics.pageviews.toLocaleString()}
                     </span>
                   </div>
                   <div className="bg-[#242222] border border-[#373333] rounded-xl p-4">
-                    <span className="block text-[10px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1">Engagement Rate</span>
-                    <span className="text-[20px] font-bold text-[#00A650]">
+                    <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Engagement Rate</span>
+                    <span className="text-[20px] font-bold text-white">
                       {((backendData?.ga4.metrics.engagement_rate || 0) * 100).toFixed(1)}%
                     </span>
                   </div>
                   <div className="bg-[#242222] border border-[#373333] rounded-xl p-4">
-                    <span className="block text-[10px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1">Goal Conversions</span>
+                    <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Goal Conversions</span>
                     <span className="text-[20px] font-bold text-[#8F0028]">
                       {backendData?.ga4.metrics.conversions.toLocaleString()}
                     </span>
@@ -567,12 +574,12 @@ export default function WebsiteAnalyticsPage() {
                 {backendData?.ga4.top_sources?.length ? (
                   <div className="bg-[#242222] border border-[#373333] rounded-xl overflow-hidden">
                     <div className="px-5 py-3.5 border-b border-[#373333] bg-[#2A2828]/50">
-                      <h3 className="text-[12px] font-bold text-[#F5F3F1] uppercase tracking-wider">Top Traffic Sources</h3>
+                      <h3 className="text-[12px] font-bold text-white uppercase tracking-wider">Top Traffic Sources</h3>
                     </div>
                     <div className="overflow-x-auto">
                       <table className="w-full text-left text-[13px]">
                         <thead>
-                          <tr className="border-b border-[#373333] text-[11px] text-[#A9A4A0] uppercase font-bold">
+                          <tr className="border-b border-[#373333] text-[11px] text-[#E5E7EB] uppercase font-bold">
                             <th className="px-5 py-3">Source</th>
                             <th className="px-5 py-3">Medium</th>
                             <th className="px-5 py-3 text-right">Sessions</th>
@@ -582,10 +589,10 @@ export default function WebsiteAnalyticsPage() {
                         <tbody className="divide-y divide-[#373333]">
                           {backendData.ga4.top_sources.map((s, idx) => (
                             <tr key={idx} className="hover:bg-[#2A2828] transition-colors">
-                              <td className="px-5 py-3 font-medium text-[#F5F3F1]">{s.source}</td>
-                              <td className="px-5 py-3 text-[#A9A4A0]">{s.medium}</td>
-                              <td className="px-5 py-3 text-right font-bold text-[#F5F3F1]">{s.sessions.toLocaleString()}</td>
-                              <td className="px-5 py-3 text-right font-bold text-[#00A650]">{s.conversions}</td>
+                              <td className="px-5 py-3 font-medium text-white">{s.source}</td>
+                              <td className="px-5 py-3 text-[#E5E7EB]">{s.medium}</td>
+                              <td className="px-5 py-3 text-right font-bold text-white">{s.sessions.toLocaleString()}</td>
+                              <td className="px-5 py-3 text-right font-bold text-white">{s.conversions}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -609,12 +616,12 @@ export default function WebsiteAnalyticsPage() {
                   <Search className="w-7 h-7 text-[#8F0028]" />
                 </div>
                 <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-lg font-bold text-[#F5F3F1]">Google Search Console Not Connected</h3>
-                  <span className="text-[10px] font-bold text-yellow-400 bg-yellow-500/10 border border-yellow-500/30 px-2 py-0.5 rounded uppercase">
+                  <h3 className="text-lg font-bold text-white">Google Search Console Not Connected</h3>
+                  <span className="text-[10px] font-bold text-white bg-yellow-500/10 border border-yellow-500/30 px-2 py-0.5 rounded uppercase">
                     NOT_CONFIGURED
                   </span>
                 </div>
-                <p className="text-[13px] text-[#A9A4A0] max-w-lg mb-6 leading-relaxed">
+                <p className="text-[13px] text-[#E5E7EB] max-w-lg mb-6 leading-relaxed">
                   Search performance tracking requires an active Google Search Console integration. Connect GSC to monitor your organic search impressions, query rankings, and average SERP positions.
                 </p>
                 <Link
@@ -628,38 +635,38 @@ export default function WebsiteAnalyticsPage() {
                 {/* Features Preview */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl mt-10 pt-8 border-t border-[#373333] text-left">
                   <div className="p-3 bg-[#1C1A1A] rounded-lg border border-[#373333]">
-                    <span className="block text-[10px] text-[#A9A4A0] uppercase font-bold">Organic Clicks</span>
-                    <span className="text-[14px] font-bold text-[#A9A4A0]">--</span>
+                    <span className="block text-[10px] text-[#E5E7EB] uppercase font-bold">Organic Clicks</span>
+                    <span className="text-[14px] font-bold text-[#E5E7EB]">--</span>
                   </div>
                   <div className="p-3 bg-[#1C1A1A] rounded-lg border border-[#373333]">
-                    <span className="block text-[10px] text-[#A9A4A0] uppercase font-bold">Impressions</span>
-                    <span className="text-[14px] font-bold text-[#A9A4A0]">--</span>
+                    <span className="block text-[10px] text-[#E5E7EB] uppercase font-bold">Impressions</span>
+                    <span className="text-[14px] font-bold text-[#E5E7EB]">--</span>
                   </div>
                   <div className="p-3 bg-[#1C1A1A] rounded-lg border border-[#373333]">
-                    <span className="block text-[10px] text-[#A9A4A0] uppercase font-bold">Avg. CTR</span>
-                    <span className="text-[14px] font-bold text-[#A9A4A0]">--</span>
+                    <span className="block text-[10px] text-[#E5E7EB] uppercase font-bold">Avg. CTR</span>
+                    <span className="text-[14px] font-bold text-[#E5E7EB]">--</span>
                   </div>
                   <div className="p-3 bg-[#1C1A1A] rounded-lg border border-[#373333]">
-                    <span className="block text-[10px] text-[#A9A4A0] uppercase font-bold">Avg. Position</span>
-                    <span className="text-[14px] font-bold text-[#A9A4A0]">--</span>
+                    <span className="block text-[10px] text-[#E5E7EB] uppercase font-bold">Avg. Position</span>
+                    <span className="text-[14px] font-bold text-[#E5E7EB]">--</span>
                   </div>
                 </div>
               </div>
             ) : backendData?.gsc.status === 'NO_DATA' ? (
               <div className="bg-[#242222] border border-[#373333] rounded-xl p-10 text-center flex flex-col items-center">
                 <div className="w-14 h-14 rounded-full bg-[#00A650]/10 flex items-center justify-center mb-4">
-                  <Search className="w-7 h-7 text-[#00A650]" />
+                  <Search className="w-7 h-7 text-white" />
                 </div>
                 <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-lg font-bold text-[#F5F3F1]">Connected — Awaiting First Sync</h3>
-                  <span className="text-[10px] font-bold text-[#00A650] bg-[#00A650]/10 border border-[#00A650]/30 px-2 py-0.5 rounded uppercase">
+                  <h3 className="text-lg font-bold text-white">Connected — Awaiting First Sync</h3>
+                  <span className="text-[10px] font-bold text-white bg-[#00A650]/10 border border-[#00A650]/30 px-2 py-0.5 rounded uppercase">
                     NO_DATA
                   </span>
                 </div>
-                <p className="text-[13px] text-[#A9A4A0] max-w-md mb-4">
+                <p className="text-[13px] text-[#E5E7EB] max-w-md mb-4">
                   Google Search Console is authenticated, but no keyword or ranking records have been synchronized yet.
                 </p>
-                <p className="text-[11px] text-[#A9A4A0]">
+                <p className="text-[11px] text-[#E5E7EB]">
                   Last Sync Status: {backendData.gsc.last_sync_at || 'Pending next automated run'}
                 </p>
               </div>
@@ -668,26 +675,26 @@ export default function WebsiteAnalyticsPage() {
               <div className="space-y-6">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                   <div className="bg-[#242222] border border-[#373333] rounded-xl p-4">
-                    <span className="block text-[10px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1">Organic Clicks</span>
-                    <span className="text-[20px] font-bold text-[#F5F3F1]">
+                    <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Organic Clicks</span>
+                    <span className="text-[20px] font-bold text-white">
                       {backendData?.gsc.metrics.clicks.toLocaleString()}
                     </span>
                   </div>
                   <div className="bg-[#242222] border border-[#373333] rounded-xl p-4">
-                    <span className="block text-[10px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1">Impressions</span>
-                    <span className="text-[20px] font-bold text-[#F5F3F1]">
+                    <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Impressions</span>
+                    <span className="text-[20px] font-bold text-white">
                       {backendData?.gsc.metrics.impressions.toLocaleString()}
                     </span>
                   </div>
                   <div className="bg-[#242222] border border-[#373333] rounded-xl p-4">
-                    <span className="block text-[10px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1">Avg. CTR</span>
-                    <span className="text-[20px] font-bold text-[#00A650]">
+                    <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Avg. CTR</span>
+                    <span className="text-[20px] font-bold text-white">
                       {((backendData?.gsc.metrics.ctr || 0) * 100).toFixed(2)}%
                     </span>
                   </div>
                   <div className="bg-[#242222] border border-[#373333] rounded-xl p-4">
-                    <span className="block text-[10px] font-bold text-[#A9A4A0] uppercase tracking-wider mb-1">Avg. Position</span>
-                    <span className="text-[20px] font-bold text-[#F5F3F1]">
+                    <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Avg. Position</span>
+                    <span className="text-[20px] font-bold text-white">
                       {backendData?.gsc.metrics.position.toFixed(1)}
                     </span>
                   </div>
@@ -697,12 +704,12 @@ export default function WebsiteAnalyticsPage() {
                 {backendData?.gsc.top_queries?.length ? (
                   <div className="bg-[#242222] border border-[#373333] rounded-xl overflow-hidden">
                     <div className="px-5 py-3.5 border-b border-[#373333] bg-[#2A2828]/50">
-                      <h3 className="text-[12px] font-bold text-[#F5F3F1] uppercase tracking-wider">Top Organic Search Queries</h3>
+                      <h3 className="text-[12px] font-bold text-white uppercase tracking-wider">Top Organic Search Queries</h3>
                     </div>
                     <div className="overflow-x-auto">
                       <table className="w-full text-left text-[13px]">
                         <thead>
-                          <tr className="border-b border-[#373333] text-[11px] text-[#A9A4A0] uppercase font-bold">
+                          <tr className="border-b border-[#373333] text-[11px] text-[#E5E7EB] uppercase font-bold">
                             <th className="px-5 py-3">Query</th>
                             <th className="px-5 py-3 text-right">Clicks</th>
                             <th className="px-5 py-3 text-right">Impressions</th>
@@ -712,10 +719,10 @@ export default function WebsiteAnalyticsPage() {
                         <tbody className="divide-y divide-[#373333]">
                           {backendData.gsc.top_queries.map((q, idx) => (
                             <tr key={idx} className="hover:bg-[#2A2828] transition-colors">
-                              <td className="px-5 py-3 font-medium text-[#F5F3F1]">{q.query}</td>
-                              <td className="px-5 py-3 text-right font-bold text-[#00A650]">{q.clicks}</td>
-                              <td className="px-5 py-3 text-right text-[#A9A4A0]">{q.impressions.toLocaleString()}</td>
-                              <td className="px-5 py-3 text-right text-[#F5F3F1]">{q.position.toFixed(1)}</td>
+                              <td className="px-5 py-3 font-medium text-white">{q.query}</td>
+                              <td className="px-5 py-3 text-right font-bold text-white">{q.clicks}</td>
+                              <td className="px-5 py-3 text-right text-[#E5E7EB]">{q.impressions.toLocaleString()}</td>
+                              <td className="px-5 py-3 text-right text-white">{q.position.toFixed(1)}</td>
                             </tr>
                           ))}
                         </tbody>

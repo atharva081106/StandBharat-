@@ -11,7 +11,10 @@ class SEOAgent(BaseAgent):
             agent_id="seo_agent",
             name="SEO Agent",
             description="Analyzes website structure, keywords, and identifies SEO opportunities.",
-            capabilities=["seo_audit", "keyword_research", "technical_seo", "content_gaps"]
+            capabilities=["seo_audit", "keyword_research", "technical_seo", "content_gaps"],
+            tier="FREE",
+            resource_profile="LIGHTWEIGHT",
+            credit_cost=500
         )
         self.definition = AgentDefinition(
             id=self.agent_id,
@@ -26,7 +29,12 @@ class SEOAgent(BaseAgent):
         )
 
     def execute(self, context: AgentContext) -> AgentResult:
-        website_analysis = context.brand_context.get("website_analysis", {}) if context.brand_context else {}
+        website_analysis = {}
+        if context.brand_context:
+            if isinstance(context.brand_context, dict):
+                website_analysis = context.brand_context.get("website_analysis", {})
+            else:
+                website_analysis = getattr(context.brand_context, "website_analysis", {})
         
         if not website_analysis:
             brand_obj = getattr(context.brand_context, "brand", None) if context.brand_context else None
@@ -56,7 +64,12 @@ class SEOAgent(BaseAgent):
             "3. technical_tasks (list of strings)"
         )
         
-        bo = context.brand_context.get('business_overview', {})
+        bo = {}
+        if context.brand_context:
+            if isinstance(context.brand_context, dict):
+                bo = context.brand_context.get('business_overview', {})
+            else:
+                bo = getattr(context.brand_context, 'business_overview', {})
         if hasattr(bo, 'model_dump'):
             bo = bo.model_dump(mode='json')
         wa = website_analysis
@@ -75,22 +88,29 @@ class SEOAgent(BaseAgent):
         from app.models.all_models import AIUsageEvent, SearchMetrics
         from app.db.session import SessionLocal
         
-        db = SessionLocal()
+        gsc_data = []
         try:
-            gsc_data = []
-            metrics = db.query(SearchMetrics).filter(SearchMetrics.brand_id == context.brand_id).order_by(SearchMetrics.date.desc()).limit(100).all()
-            if metrics:
-                for m in metrics:
-                    gsc_data.append({
-                        "date": m.date.isoformat() if m.date else None,
-                        "query": m.query,
-                        "page": m.page,
-                        "clicks": m.clicks,
-                        "impressions": m.impressions,
-                        "ctr": m.ctr,
-                        "position": m.position
-                    })
-            user_message += f"GSC Data (SearchMetrics): {json.dumps(gsc_data)}\n"
+            db = SessionLocal()
+            try:
+                metrics = db.query(SearchMetrics).filter(SearchMetrics.brand_id == context.brand_id).order_by(SearchMetrics.date.desc()).limit(100).all()
+                if metrics:
+                    for m in metrics:
+                        gsc_data.append({
+                            "date": m.date.isoformat() if m.date else None,
+                            "query": m.query,
+                            "page": m.page,
+                            "clicks": m.clicks,
+                            "impressions": m.impressions,
+                            "ctr": m.ctr,
+                            "position": m.position
+                        })
+            finally:
+                db.close()
+        except Exception:
+            pass
+        user_message += f"GSC Data (SearchMetrics): {json.dumps(gsc_data)}\n"
+        
+        try:
             
             response = ai_gateway.generate(
                 messages=[
@@ -142,4 +162,8 @@ class SEOAgent(BaseAgent):
         except Exception as e:
             return AgentResult(status="FAILED", error=str(e))
         finally:
-            db.close()
+            if 'db' in locals() and db:
+                try:
+                    db.close()
+                except Exception:
+                    pass

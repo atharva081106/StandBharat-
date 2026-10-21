@@ -31,13 +31,22 @@ def get_client_id(request: Request) -> str:
         except Exception:
             pass
 
-    # Fallback to IP address (ignoring proxy headers like X-Forwarded-For)
-    # request.client.host gives the real connecting IP. If behind a proxy, 
-    # we would need the proxy to be configured correctly in Uvicorn (--proxy-headers).
     return f"ip:{request.client.host if request.client else '127.0.0.1'}"
+
+def get_storage_uri() -> str:
+    redis_url = getattr(settings, "REDIS_URL", "")
+    if redis_url and not redis_url.startswith("memory"):
+        try:
+            import redis
+            r = redis.from_url(redis_url, socket_connect_timeout=0.2, socket_timeout=0.2)
+            r.ping()
+            return redis_url
+        except Exception:
+            return "memory://"
+    return "memory://"
 
 limiter = Limiter(
     key_func=get_client_id,
-    storage_uri=settings.REDIS_URL,
+    storage_uri=get_storage_uri(),
     default_limits=["100/minute"],
 )

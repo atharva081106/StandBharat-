@@ -39,7 +39,7 @@ export function StrategyDocumentPanel({ documentName }: { documentName: string }
   if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center">
-        <Loader2 className="w-6 h-6 text-[#A9A4A0] animate-spin" />
+        <Loader2 className="w-6 h-6 text-[#E5E7EB] animate-spin" />
       </div>
     )
   }
@@ -48,8 +48,8 @@ export function StrategyDocumentPanel({ documentName }: { documentName: string }
     return (
       <div className="flex-1 flex flex-col h-full bg-[#1C1A1A] p-8 overflow-y-auto custom-scrollbar">
         <div className="mb-6">
-          <h2 className="text-[20px] font-bold text-[#F5F3F1] mb-1">{documentName}</h2>
-          <p className="text-[13px] text-[#A9A4A0]">
+          <h2 className="text-[20px] font-bold text-white mb-1">{documentName}</h2>
+          <p className="text-[13px] text-[#E5E7EB]">
             This document has not been generated yet. It will be created automatically once sufficient research is completed.
           </p>
         </div>
@@ -65,12 +65,12 @@ export function StrategyDocumentPanel({ documentName }: { documentName: string }
         
         {/* Header */}
         <div>
-          <h2 className="text-[18px] font-bold text-[#F5F3F1] flex items-center gap-2">
+          <h2 className="text-[18px] font-bold text-white flex items-center gap-2">
             <FileText className="w-5 h-5 text-[#8F0028]" />
             {content.title || documentName}
           </h2>
           {content.executive_summary && (
-            <p className="text-[13px] text-[#A9A4A0] mt-2 leading-relaxed">
+            <p className="text-[13px] text-[#E5E7EB] mt-2 leading-relaxed">
               {content.executive_summary}
             </p>
           )}
@@ -85,10 +85,10 @@ export function StrategyDocumentPanel({ documentName }: { documentName: string }
         <div className="space-y-8">
           {(content.sections || []).map((section: any, idx: number) => (
             <div key={idx} className="space-y-3">
-              <h3 className="text-[15px] font-bold text-[#F5F3F1] border-b border-[#373333] pb-2">
+              <h3 className="text-[15px] font-bold text-white border-b border-[#373333] pb-2">
                 {section.heading}
               </h3>
-              <div className="text-[13px] text-[#A9A4A0] leading-relaxed whitespace-pre-wrap">
+              <div className="text-[13px] text-[#E5E7EB] leading-relaxed whitespace-pre-wrap">
                 {section.content}
               </div>
             </div>

@@ -4,9 +4,19 @@ export class ApiClient {
   static defaultHeaders: Record<string, string> = {}
 
   static async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    const url = `${BASE_URL}${endpoint}`
+    const url = endpoint.startsWith('http') ? endpoint : `${BASE_URL}${endpoint}`
+    
+    const authHeaders: Record<string, string> = {}
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('standbharat_token') || localStorage.getItem('access_token')
+      if (token) {
+        authHeaders['Authorization'] = `Bearer ${token}`
+      }
+    }
+
     const headers = {
       'Content-Type': 'application/json',
+      ...authHeaders,
       ...this.defaultHeaders,
       ...options.headers,
     }

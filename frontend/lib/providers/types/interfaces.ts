@@ -21,6 +21,8 @@ export interface AgentProvider {
   runAgent: (id: string, payload: any) => Promise<any>;
   getAgentRun: (runId: string) => Promise<any>;
   getAgentRuns: (agentId?: string) => Promise<any[]>;
+  getAgentConfig?: (id: string) => Promise<any>;
+  saveAgentConfig?: (id: string, config: any) => Promise<any>;
 }
 
 export interface Opportunity {

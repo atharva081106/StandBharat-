@@ -43,61 +43,139 @@ class LocalSynthesisProvider(BaseAIProvider):
             else:
                 brand_name = "StandBharat"
 
-        # 0. AI CMO Agent
+        # 0. AI CMO Agent & Conversational Chat
         if "cmo" in sys_content.lower() or "chief marketing officer" in sys_content.lower() or "ai cmo" in full_text.lower():
-            result = {
-                "executive_summary": (
-                    f"Comprehensive CMO strategic review for {brand_name}. Analysis indicates high organic discovery potential "
-                    f"in the target vertical. By unifying brand narrative across touchpoints and deploying automated high-velocity "
-                    f"content, {brand_name} can outpace traditional competitors and expand customer acquisition efficiency."
-                ),
-                "strategic_pillars": [
-                    "High-Intent Organic Search & Topical Authority",
-                    "Multi-Channel Authority Distribution (LinkedIn & Blog)",
-                    "Conversion Funnel & Landing Page Optimization",
-                    "Automated Competitor Counter-Positioning"
-                ],
-                "opportunities": [
-                    {
-                        "title": f"Capture High-Intent Category Keywords for {brand_name}",
-                        "description": f"Publish 5 comparison and tactical guide articles targeting underserved high-intent search queries.",
-                        "impact": "HIGH",
-                        "effort": "LOW",
-                        "confidence": "HIGH",
-                        "category": "SEO"
-                    },
-                    {
-                        "title": "Automate Executive LinkedIn Thought Leadership",
-                        "description": "Deploy weekly strategic industry breakdowns to build direct brand affinity with key enterprise decision makers.",
-                        "impact": "HIGH",
-                        "effort": "LOW",
-                        "confidence": "HIGH",
-                        "category": "CONTENT"
-                    },
-                    {
-                        "title": "Generative Engine Optimization (GEO) Citations",
-                        "description": "Structure technical brand schema and entity references to maximize LLM search citations across Perplexity and ChatGPT.",
-                        "impact": "HIGH",
-                        "effort": "LOW",
-                        "confidence": "HIGH",
-                        "category": "GEO"
-                    }
-                ],
-                "delegations": [
-                    {
-                        "agent_id": "seo_agent",
-                        "task": "Execute full technical and keyword gap analysis"
-                    },
-                    {
-                        "agent_id": "content_strategy",
-                        "task": "Formulate 30-day topical authority content calendar"
-                    },
-                    {
-                        "agent_id": "geo_agent",
-                        "task": "Audit LLM engine visibility and entity coverage"
-                    }
-                ]
-            }
+            is_json_strict = (
+                "must return a json object" in sys_content.lower() or 
+                "return a json object" in sys_content.lower() or
+                "output_schema" in sys_content.lower()
+            )
+            
+            if is_json_strict:
+                result = {
+                    "executive_summary": (
+                        f"Comprehensive CMO strategic review for {brand_name}. Analysis indicates high organic discovery potential "
+                        f"in the target vertical. By unifying brand narrative across touchpoints and deploying automated high-velocity "
+                        f"content, {brand_name} can outpace traditional competitors and expand customer acquisition efficiency."
+                    ),
+                    "strategic_pillars": [
+                        "High-Intent Organic Search & Topical Authority",
+                        "Multi-Channel Authority Distribution (LinkedIn & Blog)",
+                        "Conversion Funnel & Landing Page Optimization",
+                        "Automated Competitor Counter-Positioning"
+                    ],
+                    "opportunities": [
+                        {
+                            "title": f"Capture High-Intent Category Keywords for {brand_name}",
+                            "description": f"Publish 5 comparison and tactical guide articles targeting underserved high-intent search queries.",
+                            "impact": "HIGH",
+                            "effort": "LOW",
+                            "confidence": "HIGH",
+                            "category": "SEO"
+                        },
+                        {
+                            "title": "Automate Executive LinkedIn Thought Leadership",
+                            "description": "Deploy weekly strategic industry breakdowns to build direct brand affinity with key enterprise decision makers.",
+                            "impact": "HIGH",
+                            "effort": "LOW",
+                            "confidence": "HIGH",
+                            "category": "CONTENT"
+                        },
+                        {
+                            "title": "Generative Engine Optimization (GEO) Citations",
+                            "description": "Structure technical brand schema and entity references to maximize LLM search citations across Perplexity and ChatGPT.",
+                            "impact": "HIGH",
+                            "effort": "LOW",
+                            "confidence": "HIGH",
+                            "category": "GEO"
+                        }
+                    ],
+                    "delegations": [
+                        {
+                            "agent_id": "seo_agent",
+                            "task": "Execute full technical and keyword gap analysis"
+                        },
+                        {
+                            "agent_id": "content_strategy",
+                            "task": "Formulate 30-day topical authority content calendar"
+                        },
+                        {
+                            "agent_id": "geo_agent",
+                            "task": "Audit LLM engine visibility and entity coverage"
+                        }
+                    ]
+                }
+            else:
+                u_lower = user_content.lower()
+                if "30-day" in u_lower or "30 day" in u_lower or "playbook" in u_lower or "growth" in u_lower or "priorit" in u_lower or "plan" in u_lower or "strateg" in u_lower:
+                    result = (
+                        f"### 🎯 30-Day Growth Playbook & Strategic Priorities for {brand_name}\n\n"
+                        f"Based on our strategic review of **{brand_name}**, the fastest path to market leadership is building compounding topical authority, optimizing conversion pathways, and deploying autonomous multi-channel distribution.\n\n"
+                        f"---\n\n"
+                        f"### 🏛️ Top Strategic Priorities\n\n"
+                        f"1. **High-Intent Organic Search & Topical Authority (SEO)**\n"
+                        f"   Target high-intent category search queries and publish tactical comparison guides before competitors bid them up.\n\n"
+                        f"2. **Multi-Channel Thought Leadership Distribution**\n"
+                        f"   Turn core product positioning into automated weekly executive breakdowns on LinkedIn and Twitter/X.\n\n"
+                        f"3. **Generative Engine Optimization (GEO)**\n"
+                        f"   Structure entity schema and brand references to maximize LLM search citations across **ChatGPT, Perplexity, and SearchGPT**.\n\n"
+                        f"4. **Conversion Funnel & Landing Page Optimization**\n"
+                        f"   Streamline page hooks, proof points, and CTAs to maximize free-to-activated customer conversion velocity.\n\n"
+                        f"---\n\n"
+                        f"### 🗓️ 30-Day Execution Roadmap\n\n"
+                        f"• **Week 1: Foundation & Authority Audit**\n"
+                        f"  - Deploy the **SEO Agent** to run a comprehensive keyword gap analysis.\n"
+                        f"  - Audit technical schema markup and indexation for AI citations.\n\n"
+                        f"• **Week 2: High-Velocity Content Sprints**\n"
+                        f"  - Generate and approve 5 strategic comparison and tactical guide articles.\n"
+                        f"  - Launch the executive LinkedIn automated thought leadership sequence.\n\n"
+                        f"• **Week 3: GEO & Multi-Channel Syndication**\n"
+                        f"  - Syndicate high-authority digital references and industry citations.\n"
+                        f"  - Deploy conversion rate optimization (CRO) improvements on key landing pages.\n\n"
+                        f"• **Week 4: Performance Review & Autonomous Loop**\n"
+                        f"  - Review organic impression velocity, search engine citation share, and inbound pipeline.\n"
+                        f"  - Re-allocate autonomous agent capacity to the highest-converting topical clusters.\n\n"
+                        f"---\n\n"
+                        f"### ⚡ Autonomous Delegations Ready to Launch\n\n"
+                        f"• **SEO Specialist Agent:** Ready to execute full technical & keyword gap audit.\n"
+                        f"• **Content Strategy Agent:** 30-day topical authority calendar generated.\n"
+                        f"• **GEO Agent:** LLM engine visibility and entity coverage audit primed.\n\n"
+                        f"Would you like me to deploy the Week 1 autonomous workflows now, or focus on a specific channel?"
+                    )
+                elif "competitor" in u_lower or "positioning" in u_lower or "track" in u_lower:
+                    result = (
+                        f"### 🕵️ Competitive Radar & Counter-Positioning for {brand_name}\n\n"
+                        f"Our competitor scans show rival offerings in the target vertical rely heavily on generic manual agency retainers.\n\n"
+                        f"---\n\n"
+                        f"### 🥊 Core Differentiators & Moat\n\n"
+                        f"• **Execution Velocity:** Continuous 24/7 AI-driven content generation with zero agency bottlenecks.\n"
+                        f"• **Acquisition Efficiency:** Substantially lower customer acquisition costs (CAC) via automated multi-channel distribution.\n"
+                        f"• **Programmatic Coverage:** Dominating long-tail search and buyer comparison queries at scale.\n\n"
+                        f"---\n\n"
+                        f"### 🚀 Next Strategic Actions\n\n"
+                        f"1. **Deploy Competitor Agent** to run deep teardowns on keyword overlap and backlink velocity.\n"
+                        f"2. **Draft Head-to-Head Comparison Pages** highlighting {brand_name}'s autonomous capabilities.\n"
+                        f"3. **Monitor Price & Feature Shifts** across tracked rivals in real-time."
+                    )
+                elif "approval" in u_lower or "queue" in u_lower or "publish" in u_lower:
+                    result = (
+                        f"### 📋 Content Publishing & Approvals Pipeline\n\n"
+                        f"Your multi-channel content engine is synchronized with brand guidelines:\n\n"
+                        f"• **Drafts Ready for Sign-Off:** Review high-intent articles and executive posts in the **Approvals** tab.\n"
+                        f"• **Distribution Channels:** Linked to LinkedIn, Twitter/X, and Blog.\n"
+                        f"• **Estimated Impact:** +24% increase in organic discovery over the next 14 days upon release.\n\n"
+                        f"You can approve and publish drafts in 1 click from the Approvals Center."
+                    )
+                else:
+                    result = (
+                        f"### 🎯 Strategic CMO Recommendation for {brand_name}\n\n"
+                        f"Analyzing: *\"{user_content}\"*\n\n"
+                        f"Here is my executive perspective:\n\n"
+                        f"1. **Strategic Alignment:** Ensure this initiative directly reinforces our core value proposition and acquisition goals.\n"
+                        f"2. **Autonomous Execution:** We can task specialized agents (SEO, Content Strategy, or Competitor Intelligence) to generate the underlying assets.\n"
+                        f"3. **Measurement & KPI:** Track leading indicators (organic impressions, CTR, engagement) before committing paid spend.\n\n"
+                        f"Would you like me to generate a tailored execution brief or deploy an autonomous agent sprint for this?"
+                    )
 
         # 0.5 Website Analysis & Semantic Data Extraction Agent
         elif "data extraction agent" in sys_content.lower() or "website text:" in full_text.lower():
@@ -479,14 +557,18 @@ Happy to share our prompt frameworks and architecture if anyone is building simi
                 }
             }
 
-        content_json = json.dumps(result, indent=2)
+        if isinstance(result, str):
+            final_content = result
+        else:
+            final_content = json.dumps(result, indent=2)
+
         info = AIResponseInfo(
             provider="local_synthesis",
             model="standbharat-heuristic-v1",
             input_tokens=len(full_text.split()),
-            output_tokens=len(content_json.split()),
-            total_tokens=len(full_text.split()) + len(content_json.split()),
+            output_tokens=len(final_content.split()),
+            total_tokens=len(full_text.split()) + len(final_content.split()),
             finish_reason="stop",
             estimated_cost=0.0
         )
-        return AIResponse(content=content_json, info=info)
+        return AIResponse(content=final_content, info=info)

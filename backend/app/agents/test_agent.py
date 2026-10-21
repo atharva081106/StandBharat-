@@ -16,6 +16,7 @@ class TestAgent(BaseAgent):
             description="A generic test agent to verify the AI Foundation",
             capabilities=["test"]
         )
+        self.tier = "FREE"
 
     def execute(self, context: AgentContext) -> AgentResult:
         messages = [

@@ -25,7 +25,7 @@ class ContentProjectResponse(ContentProjectBase):
     workspace_id: UUID
     brand_id: UUID
     status: str
-    created_by: UUID
+    created_by: Optional[UUID] = None
     created_at: datetime
     updated_at: datetime
 
@@ -73,6 +73,14 @@ class ContentBriefResponse(ContentBriefBase):
 
     model_config = ConfigDict(from_attributes=True)
 
+class ContentDraftCreate(BaseModel):
+    title: str
+    body: Optional[str] = ""
+    content_type: Optional[str] = "blog"
+    status: Optional[str] = "DRAFT"
+    content_project_id: Optional[UUID] = None
+    brief_id: Optional[UUID] = None
+
 class ContentDraftResponse(BaseModel):
     id: UUID
     content_project_id: Optional[UUID] = None
@@ -114,7 +122,7 @@ class ContentApprovalResponse(BaseModel):
     content_draft_id: UUID
     workspace_id: UUID
     brand_id: UUID
-    requested_by: UUID
+    requested_by: Optional[UUID] = None
     reviewed_by: Optional[UUID] = None
     status: str
     review_comment: Optional[str] = None

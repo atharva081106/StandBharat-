@@ -43,9 +43,20 @@ from app.core.encryption import (
     DecryptionError,
 )
 from app.core.security import sanitize_error_message
+import uuid
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("credentials_migration")
+
+
+def _parse_id(val: Any) -> Any:
+    """Safely converts string UUIDs to uuid.UUID instances for database queries."""
+    if isinstance(val, uuid.UUID):
+        return val
+    try:
+        return uuid.UUID(str(val))
+    except (ValueError, TypeError, AttributeError):
+        return val
 
 
 class MigrationError(Exception):
@@ -166,10 +177,10 @@ def run_dry_run_migration(db: Session, engine=None) -> Dict[str, Any]:
 
         migratable_count += 1
         if rec_meta["table"] == "integration":
-            row = db.query(Integration).filter(Integration.id == rec_meta["id"]).first()
+            row = db.query(Integration).filter(Integration.id == _parse_id(rec_meta["id"])).first()
             raw_ciphertext = row.credentials_encrypted
         else:
-            row = db.query(PublisherConnection).filter(PublisherConnection.id == rec_meta["id"]).first()
+            row = db.query(PublisherConnection).filter(PublisherConnection.id == _parse_id(rec_meta["id"])).first()
             raw_ciphertext = row.encrypted_credentials
 
         # Round-trip verification simulation
@@ -248,7 +259,7 @@ def execute_migration(
         migrated_count = 0
         for rec_meta in legacy_records:
             if rec_meta["table"] == "integration":
-                row = db.query(Integration).filter(Integration.id == rec_meta["id"]).first()
+                row = db.query(Integration).filter(Integration.id == _parse_id(rec_meta["id"])).first()
                 original_ciphertext = row.credentials_encrypted
                 
                 snapshot_data["records"].append({
@@ -270,7 +281,7 @@ def execute_migration(
                 migrated_count += 1
 
             elif rec_meta["table"] == "publisher_connection":
-                row = db.query(PublisherConnection).filter(PublisherConnection.id == rec_meta["id"]).first()
+                row = db.query(PublisherConnection).filter(PublisherConnection.id == _parse_id(rec_meta["id"])).first()
                 original_ciphertext = row.encrypted_credentials
 
                 snapshot_data["records"].append({
@@ -340,12 +351,12 @@ def execute_rollback(db: Session, backup_file_path: str) -> Dict[str, Any]:
             original_ciphertext = item.get("original_ciphertext")
 
             if table == "integration":
-                row = db.query(Integration).filter(Integration.id == row_id).first()
+                row = db.query(Integration).filter(Integration.id == _parse_id(row_id)).first()
                 if row:
                     row.credentials_encrypted = original_ciphertext
                     restored_count += 1
             elif table == "publisher_connection":
-                row = db.query(PublisherConnection).filter(PublisherConnection.id == row_id).first()
+                row = db.query(PublisherConnection).filter(PublisherConnection.id == _parse_id(row_id)).first()
                 if row:
                     row.encrypted_credentials = original_ciphertext
                     restored_count += 1

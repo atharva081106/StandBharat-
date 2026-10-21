@@ -74,7 +74,7 @@ export default function ApprovalsPage() {
     setFeedbackMessage(null)
     try {
       await ApiClient.post(`/api/approvals/${id}/approve`, {})
-      setFeedbackMessage({ type: 'success', text: 'Approval recorded: Content is now APPROVED.' })
+      setFeedbackMessage({ type: 'success', text: 'Approval recorded: Content is now APPROVED for publishing.' })
       await fetchApprovals()
     } catch (err: any) {
       setFeedbackMessage({ type: 'error', text: err.message || 'Failed to approve content.' })
@@ -105,26 +105,26 @@ export default function ApprovalsPage() {
     switch (status) {
       case 'APPROVED':
         return (
-          <Badge variant="success" className="flex items-center gap-1.5 py-1 px-2.5">
+          <Badge className="bg-[#242222] text-white border border-[#373333] flex items-center gap-1.5 py-1 px-2.5 text-xs font-bold">
             <CheckCircle2 className="w-3.5 h-3.5" /> Approved
           </Badge>
         )
       case 'REJECTED':
         return (
-          <Badge variant="danger" className="flex items-center gap-1.5 py-1 px-2.5">
+          <Badge className="bg-[#242222] text-white border border-[#373333] flex items-center gap-1.5 py-1 px-2.5 text-xs font-bold">
             <XCircle className="w-3.5 h-3.5" /> Rejected
           </Badge>
         )
       case 'CHANGES_REQUESTED':
         return (
-          <Badge variant="secondary" className="flex items-center gap-1.5 py-1 px-2.5">
+          <Badge className="bg-[#242222] text-white border border-[#373333] flex items-center gap-1.5 py-1 px-2.5 text-xs font-bold">
             <AlertCircle className="w-3.5 h-3.5" /> Changes Requested
           </Badge>
         )
       case 'PENDING':
       default:
         return (
-          <Badge variant="warning" className="flex items-center gap-1.5 py-1 px-2.5">
+          <Badge className="bg-[#8F0028] text-white border border-[#8F0028] flex items-center gap-1.5 py-1 px-2.5 text-xs font-bold">
             <Clock className="w-3.5 h-3.5" /> Pending Review
           </Badge>
         )
@@ -139,30 +139,40 @@ export default function ApprovalsPage() {
   ]
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto pb-12">
+    <div className="flex-1 overflow-y-auto p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-6 bg-[#171515] text-white">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--color-border-primary)] pb-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#373333] pb-6">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-[var(--color-text-primary)]">
-            Approval Queue
-          </h1>
-          <p className="text-[var(--color-text-tertiary)] text-base mt-1">
-            Enforce compliance, review draft content, and authorize publication pipelines.
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+              Approval Queue
+            </h1>
+            <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#E5E7EB] text-xs">
+              {items.length} Submissions
+            </Badge>
+          </div>
+          <p className="text-[#E5E7EB] text-sm sm:text-base mt-1">
+            Enforce compliance, review AI marketing copy, and authorize publication pipelines.
           </p>
         </div>
         <div className="flex items-center gap-3">
           <Button
             variant="outline"
+            size="sm"
             onClick={fetchApprovals}
             disabled={loading}
-            className="flex items-center gap-2"
+            className="border-[#373333] text-[#E5E7EB] hover:text-white hover:bg-[#242222] flex items-center gap-1.5"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
             Refresh
           </Button>
           <Link href="/app/content">
-            <Button variant="outline" className="flex items-center gap-2">
-              <FileText className="w-4 h-4" />
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="border-[#373333] text-[#E5E7EB] hover:text-white hover:bg-[#242222] flex items-center gap-1.5"
+            >
+              <FileText className="w-3.5 h-3.5" />
               Content Studio
             </Button>
           </Link>
@@ -172,10 +182,10 @@ export default function ApprovalsPage() {
       {/* Global Feedback Banner */}
       {feedbackMessage && (
         <div
-          className={`p-4 rounded-xl border flex items-center justify-between text-sm ${
+          className={`p-4 rounded-xl border flex items-center justify-between text-xs sm:text-sm ${
             feedbackMessage.type === 'success'
-              ? 'bg-emerald-50/80 border-emerald-200 text-emerald-800 dark:bg-emerald-950/40 dark:border-emerald-800 dark:text-emerald-300'
-              : 'bg-red-50/80 border-red-200 text-red-800 dark:bg-red-950/40 dark:border-red-800 dark:text-red-300'
+              ? 'bg-[#1C2E20] border-[#00A650] text-white'
+              : 'bg-[#2E1A1A] border-[#EF4444] text-[#EF4444]'
           }`}
         >
           <div className="flex items-center gap-2">
@@ -184,11 +194,11 @@ export default function ApprovalsPage() {
             ) : (
               <AlertCircle className="w-4 h-4 shrink-0" />
             )}
-            <span>{feedbackMessage.text}</span>
+            <span className="font-semibold text-white">{feedbackMessage.text}</span>
           </div>
           <button
             onClick={() => setFeedbackMessage(null)}
-            className="text-xs font-semibold hover:underline ml-4"
+            className="text-xs font-semibold text-[#E5E7EB] hover:text-white ml-4"
           >
             Dismiss
           </button>
@@ -196,18 +206,18 @@ export default function ApprovalsPage() {
       )}
 
       {/* Filter Tabs */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-[var(--color-border-primary)] pb-2">
-        <span className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mr-2 flex items-center gap-1.5">
+      <div className="flex flex-wrap items-center gap-2 border-b border-[#373333] pb-3">
+        <span className="text-xs font-bold text-[#E5E7EB] uppercase tracking-wider mr-2 flex items-center gap-1.5">
           <Filter className="w-3.5 h-3.5" /> Filter:
         </span>
         {filterTabs.map(tab => (
           <button
             key={tab.value}
             onClick={() => setStatusFilter(tab.value)}
-            className={`px-3.5 py-1.5 text-xs font-medium rounded-lg transition-all ${
+            className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
               statusFilter === tab.value
-                ? 'bg-[var(--color-accent)] text-white shadow-sm'
-                : 'bg-[var(--color-bg-subtle)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-border-primary)]'
+                ? 'bg-[#8F0028] text-white shadow-sm'
+                : 'bg-[#242222] text-[#E5E7EB] hover:text-white hover:bg-[#2D2A2A] border border-[#373333]'
             }`}
           >
             {tab.label}
@@ -217,62 +227,36 @@ export default function ApprovalsPage() {
 
       {/* Error State */}
       {error && (
-        <div className="p-8 text-center border border-red-200 bg-red-50/50 dark:bg-red-950/20 dark:border-red-900 rounded-xl space-y-4">
+        <div className="p-8 text-center border border-red-800/80 bg-red-950/30 rounded-2xl space-y-4">
           <AlertCircle className="w-10 h-10 text-red-500 mx-auto" />
           <div>
-            <h3 className="font-semibold text-red-900 dark:text-red-200 text-lg">Unable to load approvals</h3>
-            <p className="text-sm text-red-600 dark:text-red-400 mt-1 max-w-md mx-auto">{error}</p>
+            <h3 className="font-bold text-red-300 text-lg">Unable to load approvals</h3>
+            <p className="text-xs sm:text-sm text-red-400 mt-1 max-w-md mx-auto">{error}</p>
           </div>
-          <Button variant="outline" onClick={fetchApprovals} className="border-red-300 hover:bg-red-100 dark:border-red-800">
+          <Button variant="outline" onClick={fetchApprovals} className="border-red-800 text-red-300 hover:bg-red-950/60">
             <RefreshCw className="w-4 h-4 mr-2" /> Try Again
           </Button>
         </div>
       )}
 
-      {/* Loading Skeleton */}
-      {loading && !error && (
-        <div className="space-y-4">
-          {[1, 2, 3].map(i => (
-            <Card key={i} className="animate-pulse bg-[var(--color-bg-surface)] border-[var(--color-border-primary)]">
-              <CardContent className="p-6">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div className="space-y-2.5 flex-1">
-                    <div className="h-5 bg-[var(--color-bg-subtle)] rounded w-1/3"></div>
-                    <div className="h-3.5 bg-[var(--color-bg-subtle)] rounded w-2/3"></div>
-                    <div className="flex gap-4 pt-1">
-                      <div className="h-4 bg-[var(--color-bg-subtle)] rounded w-20"></div>
-                      <div className="h-4 bg-[var(--color-bg-subtle)] rounded w-24"></div>
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <div className="h-9 w-20 bg-[var(--color-bg-subtle)] rounded-lg"></div>
-                    <div className="h-9 w-24 bg-[var(--color-bg-subtle)] rounded-lg"></div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
-
       {/* Empty State */}
       {!loading && !error && items.length === 0 && (
-        <div className="p-16 text-center border border-dashed border-[var(--color-border-primary)] bg-[var(--color-bg-surface)] rounded-2xl space-y-4">
-          <div className="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-sm">
+        <div className="p-16 text-center border border-dashed border-[#373333] bg-[#1C1A1A] rounded-2xl space-y-4">
+          <div className="w-14 h-14 rounded-2xl bg-[#242222] text-white border border-[#373333] flex items-center justify-center mx-auto shadow-sm">
             <CheckCircle2 className="w-7 h-7" />
           </div>
           <div className="max-w-md mx-auto">
-            <h3 className="font-semibold text-lg text-[var(--color-text-primary)]">
+            <h3 className="font-bold text-lg text-white">
               {statusFilter === 'ALL' ? 'No Approvals Found' : `No ${statusFilter.toLowerCase()} approvals`}
             </h3>
-            <p className="text-sm text-[var(--color-text-tertiary)] mt-1.5">
+            <p className="text-xs sm:text-sm text-[#E5E7EB] mt-1.5 leading-relaxed">
               {statusFilter === 'PENDING'
                 ? 'All pending content has been reviewed. Great work maintaining the publication standard!'
                 : 'There are no approval requests matching your current filter.'}
             </p>
           </div>
           <Link href="/app/content">
-            <Button variant="outline" className="mt-2">
+            <Button variant="outline" className="mt-2 border-[#373333] text-[#E5E7EB] hover:text-white hover:bg-[#242222]">
               View All Content
             </Button>
           </Link>
@@ -289,7 +273,7 @@ export default function ApprovalsPage() {
             return (
               <Card
                 key={app.id}
-                className="transition-all duration-200 hover:shadow-md border-[var(--color-border-primary)] bg-[var(--color-bg-surface)] overflow-hidden"
+                className="transition-all duration-200 hover:shadow-xl border-[#373333] bg-[#1C1A1A] overflow-hidden"
               >
                 <CardContent className="p-6">
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
@@ -298,51 +282,51 @@ export default function ApprovalsPage() {
                       <div className="flex flex-wrap items-center gap-3">
                         <Link
                           href={`/app/content/${app.content_draft_id}`}
-                          className="group inline-flex items-center gap-1.5 text-lg font-semibold text-[var(--color-text-primary)] hover:text-[var(--color-accent)] transition-colors"
+                          className="group inline-flex items-center gap-1.5 text-base sm:text-lg font-bold text-white hover:text-white transition-colors"
                         >
                           <span className="truncate">{app.draft_title || 'Untitled Draft'}</span>
                           <ExternalLink className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity shrink-0" />
                         </Link>
                         {getStatusBadge(app.status)}
                         {app.draft_type && (
-                          <Badge variant="secondary" className="text-xs uppercase tracking-wider font-mono">
+                          <Badge variant="secondary" className="text-[10px] uppercase tracking-wider font-mono bg-[#242222] text-[#E5E7EB] border-[#373333]">
                             {app.draft_type}
                           </Badge>
                         )}
                       </div>
 
                       {app.project_title && (
-                        <p className="text-xs text-[var(--color-text-secondary)]">
-                          Project: <span className="font-medium text-[var(--color-text-primary)]">{app.project_title}</span>
+                        <p className="text-xs text-[#E5E7EB]">
+                          Project: <span className="font-semibold text-white">{app.project_title}</span>
                         </p>
                       )}
 
                       {app.draft_body && (
-                        <p className="text-sm text-[var(--color-text-tertiary)] line-clamp-2 bg-[var(--color-bg-subtle)] p-3 rounded-lg border border-[var(--color-border-primary)] font-serif leading-relaxed">
+                        <p className="text-xs sm:text-sm text-white line-clamp-2 bg-[#242222] p-3 rounded-xl border border-[#373333] font-sans leading-relaxed">
                           {app.draft_body}
                         </p>
                       )}
 
                       {/* Review Comment display if present */}
                       {app.review_comment && (
-                        <div className="flex items-start gap-2 text-xs bg-amber-50/70 dark:bg-amber-950/30 text-amber-900 dark:text-amber-300 p-2.5 rounded-lg border border-amber-200 dark:border-amber-800">
+                        <div className="flex items-start gap-2 text-xs bg-[#242222] text-white p-3 rounded-xl border border-[#373333]">
                           <MessageSquare className="w-3.5 h-3.5 mt-0.5 shrink-0" />
                           <div>
-                            <span className="font-semibold">Reviewer Notes: </span>
+                            <span className="font-bold">Reviewer Notes: </span>
                             <span>{app.review_comment}</span>
                           </div>
                         </div>
                       )}
 
                       {/* Metadata row */}
-                      <div className="flex flex-wrap items-center gap-4 text-xs text-[var(--color-text-muted)] pt-1">
+                      <div className="flex flex-wrap items-center gap-4 text-[11px] text-[#E5E7EB] pt-1">
                         <span>Submitted: {new Date(app.created_at).toLocaleString()}</span>
                         {app.reviewed_at && (
                           <span>Reviewed: {new Date(app.reviewed_at).toLocaleString()}</span>
                         )}
                         <Link
                           href={`/app/content/${app.content_draft_id}`}
-                          className="text-[var(--color-accent)] hover:underline inline-flex items-center gap-1"
+                          className="text-white hover:underline inline-flex items-center gap-1 font-semibold"
                         >
                           View Full Content <ChevronRight className="w-3 h-3" />
                         </Link>
@@ -364,14 +348,14 @@ export default function ApprovalsPage() {
                                 setRejectingId(app.id)
                               }
                             }}
-                            className="w-full sm:w-auto text-red-600 border-red-200 hover:bg-red-50 dark:hover:bg-red-950/30 dark:border-red-800"
+                            className="w-full sm:w-auto text-red-400 border-red-900/60 hover:bg-red-950/40 text-xs font-bold"
                           >
                             {isRejecting ? 'Cancel Reject' : 'Reject'}
                           </Button>
                           <Button
                             disabled={isActing}
                             onClick={() => handleApprove(app.id)}
-                            className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white flex items-center gap-1.5 shadow-sm"
+                            className="w-full sm:w-auto bg-[#00A650] hover:bg-[#008f45] text-white flex items-center gap-1.5 shadow-md text-xs font-bold"
                           >
                             <CheckCircle2 className="w-4 h-4" />
                             {isActing ? 'Approving...' : 'Approve'}
@@ -379,7 +363,7 @@ export default function ApprovalsPage() {
                         </>
                       ) : (
                         <Link href={`/app/content/${app.content_draft_id}`}>
-                          <Button variant="outline" size="sm" className="w-full sm:w-auto">
+                          <Button variant="outline" size="sm" className="w-full sm:w-auto border-[#373333] text-[#E5E7EB] hover:text-white hover:bg-[#242222] text-xs">
                             Manage Content
                           </Button>
                         </Link>
@@ -389,8 +373,8 @@ export default function ApprovalsPage() {
 
                   {/* Inline Rejection Reason Panel */}
                   {isRejecting && (
-                    <div className="mt-4 pt-4 border-t border-[var(--color-border-primary)] space-y-3">
-                      <label className="block text-xs font-medium text-[var(--color-text-secondary)]">
+                    <div className="mt-4 pt-4 border-t border-[#373333] space-y-3">
+                      <label className="block text-xs font-bold text-[#E5E7EB]">
                         Reason for Rejection (Optional but recommended):
                       </label>
                       <textarea
@@ -398,7 +382,7 @@ export default function ApprovalsPage() {
                         value={rejectComment}
                         onChange={e => setRejectComment(e.target.value)}
                         placeholder="Provide clear actionable feedback for the marketing team..."
-                        className="w-full text-sm p-2.5 rounded-lg border border-[var(--color-border-primary)] bg-[var(--color-bg-base)] text-[var(--color-text-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)]"
+                        className="w-full text-xs p-3 rounded-xl border border-[#373333] bg-[#242222] text-white placeholder-[#78736E] focus:outline-none focus:border-[#8F0028]"
                       />
                       <div className="flex justify-end gap-2">
                         <Button
@@ -408,6 +392,7 @@ export default function ApprovalsPage() {
                             setRejectingId(null)
                             setRejectComment('')
                           }}
+                          className="border-[#373333] text-[#E5E7EB] hover:text-white hover:bg-[#242222] text-xs"
                         >
                           Cancel
                         </Button>
@@ -415,7 +400,7 @@ export default function ApprovalsPage() {
                           size="sm"
                           disabled={isActing}
                           onClick={() => handleReject(app.id)}
-                          className="bg-red-600 hover:bg-red-700 text-white"
+                          className="bg-red-600 hover:bg-red-700 text-white font-bold text-xs"
                         >
                           {isActing ? 'Rejecting...' : 'Confirm Rejection'}
                         </Button>

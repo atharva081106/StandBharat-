@@ -1,13 +1,14 @@
 from pydantic import BaseModel, ConfigDict
-from typing import Optional
+from typing import Optional, Any
 from datetime import datetime
 import uuid
 
 class OpportunityBase(BaseModel):
     title: str
     description: Optional[str] = None
+    opportunity_type: Optional[str] = None
     impact: Optional[str] = None
-    confidence: Optional[str] = None
+    confidence: Optional[Any] = None
     effort: Optional[str] = None
     priority: Optional[int] = 0
     status: Optional[str] = "NEW"
@@ -19,8 +20,9 @@ class OpportunityCreate(OpportunityBase):
 class OpportunityUpdate(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
+    opportunity_type: Optional[str] = None
     impact: Optional[str] = None
-    confidence: Optional[str] = None
+    confidence: Optional[Any] = None
     effort: Optional[str] = None
     priority: Optional[int] = None
     status: Optional[str] = None

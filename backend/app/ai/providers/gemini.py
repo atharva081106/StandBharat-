@@ -15,7 +15,7 @@ from ..config import ai_config
 
 class GeminiProvider(BaseAIProvider):
     provider_name = "gemini"
-    default_model = "gemini-1.5-flash"
+    default_model = "gemini-3.8-flash"
 
     def __init__(self):
         key = ai_config.GEMINI_API_KEY
@@ -36,8 +36,8 @@ class GeminiProvider(BaseAIProvider):
         start_time = time.time()
         _ = metadata
 
-        # Adapt model name if alien model passed
-        if not model or model.startswith("gpt-") or model.startswith("mistral-") or model.startswith("llama-"):
+        # Adapt model name if alien model or deprecated version passed
+        if not model or model.startswith("gpt-") or model.startswith("mistral-") or model.startswith("llama-") or "1.5" in model or "2.5" in model:
             model = self.default_model
 
         system_instruction = None
@@ -57,10 +57,59 @@ class GeminiProvider(BaseAIProvider):
                     "parts": [{"text": content_text}]
                 })
             elif msg.role in ["assistant", "model"]:
+                parts = []
+                if content_text:
+                    parts.append({"text": content_text})
+                tool_calls = getattr(msg, "tool_calls", None)
+                if tool_calls:
+                    for tc in tool_calls:
+                        func_name = ""
+                        args_dict = {}
+                        if hasattr(tc, "function"):
+                            fn = tc.function
+                            if isinstance(fn, dict):
+                                func_name = fn.get("name", "")
+                                raw_args = fn.get("arguments", "{}")
+                            else:
+                                func_name = getattr(fn, "name", "")
+                                raw_args = getattr(fn, "arguments", "{}")
+                            if isinstance(raw_args, str):
+                                try:
+                                    args_dict = json.loads(raw_args)
+                                except Exception:
+                                    args_dict = {}
+                            elif isinstance(raw_args, dict):
+                                args_dict = raw_args
+                        if func_name:
+                            parts.append({
+                                "functionCall": {
+                                    "name": func_name,
+                                    "args": args_dict
+                                }
+                            })
+                if not parts:
+                    parts = [{"text": ""}]
                 contents.append({
                     "role": "model",
-                    "parts": [{"text": content_text}]
+                    "parts": parts
                 })
+            elif msg.role in ["tool", "function"]:
+                contents.append({
+                    "role": "user",
+                    "parts": [{"text": f"[Tool Execution Output]:\n{content_text}"}]
+                })
+
+        # Gemini requires that contents does not end with a model turn
+        if contents and contents[-1]["role"] == "model":
+            contents.append({
+                "role": "user",
+                "parts": [{"text": "Synthesize all the above data and provide the complete strategic recommendations."}]
+            })
+        elif not contents:
+            contents.append({
+                "role": "user",
+                "parts": [{"text": "Analyze brand performance and provide strategic insights."}]
+            })
 
         generation_config: Dict[str, Any] = {
             "temperature": temperature,
@@ -90,10 +139,10 @@ class GeminiProvider(BaseAIProvider):
         url = f"{self.base_url}/{model}:generateContent?key={self.api_key}"
 
         try:
-            with httpx.Client(timeout=60.0) as client:
+            with httpx.Client(timeout=7.0) as client:
                 res = client.post(url, json=payload, headers={"Content-Type": "application/json"})
         except httpx.TimeoutException:
-            raise AIProviderException("Gemini API request timed out after 60s.")
+            raise AIProviderException("Gemini API request timed out after 7s.")
         except Exception as e:
             raise AIProviderException(f"Network error connecting to Gemini API: {str(e)}")
 

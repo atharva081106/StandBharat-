@@ -13,11 +13,21 @@ class Settings(BaseSettings):
     POSTGRES_PORT: str = "5432"
     POSTGRES_DB: str = "standbharat_db"
     
+    DATABASE_URL_OVERRIDE: Optional[str] = None
+    
     @property
     def DATABASE_URL(self) -> str:
+        if self.DATABASE_URL_OVERRIDE:
+            return self.DATABASE_URL_OVERRIDE
+        import os
+        if os.getenv("DATABASE_URL"):
+            return os.getenv("DATABASE_URL")
+        # In development, fallback to SQLite if PostgreSQL is not active
+        if os.path.exists("standbharat_local.db") or not os.getenv("POSTGRES_HOST"):
+            return "sqlite:///./standbharat_local.db"
         return f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
     
-    REDIS_URL: str = "redis://localhost:6380/0"
+    REDIS_URL: str = "redis://localhost:6379/0"
     
     # OAuth configuration
     GOOGLE_CLIENT_ID: Optional[str] = None
@@ -35,8 +45,8 @@ class Settings(BaseSettings):
     # Database Pooling & Connection Reliability
     DB_POOL_PRE_PING: bool = True
     DB_POOL_RECYCLE: int = 1800
-    DB_POOL_SIZE: int = 10
-    DB_MAX_OVERFLOW: int = 10
+    DB_POOL_SIZE: int = 25
+    DB_MAX_OVERFLOW: int = 20
     DB_POOL_TIMEOUT: int = 30
 
     # Storage & Upload Configuration

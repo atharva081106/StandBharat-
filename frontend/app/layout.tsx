@@ -11,8 +11,13 @@ import { AuthModal } from '@/components/auth-modal'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'StandBharat - AI CMO',
+  title: 'StandBharat - AI CMO & Autonomous Marketing OS',
   description: 'Your AI CMO for Real Growth',
+  icons: {
+    icon: '/logo-icon.png',
+    shortcut: '/logo-icon.png',
+    apple: '/logo-icon.png',
+  },
 }
 
 export default function RootLayout({

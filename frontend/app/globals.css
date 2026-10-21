@@ -11,9 +11,9 @@
   --color-bg-subtle: #FAF8F3;
 
   --color-text-primary: #111111;
-  --color-text-secondary: #333333;
-  --color-text-tertiary: #5A5A5A;
-  --color-text-muted: #858585;
+  --color-text-secondary: #1F2937;
+  --color-text-tertiary: #374151;
+  --color-text-muted: #4B5563;
   
   --color-border-primary: #E8E4DC;
   --color-border-hover: #D8D2C5;
@@ -27,6 +27,25 @@
   }
 }
 
+.dashboard-dark, .app-theme {
+  --color-brand-accent: #8F0028;
+  --color-brand-accent-hover: #A8002F;
+  --color-brand-accent-light: #242222;
+  --color-brand-accent-subtle: #2A2828;
+
+  --color-bg-primary: #171515;
+  --color-bg-surface: #1C1A1A;
+  --color-bg-subtle: #242222;
+
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #F5F3F1;
+  --color-text-tertiary: #E5E7EB;
+  --color-text-muted: #D1D5DB;
+  
+  --color-border-primary: #373333;
+  --color-border-hover: #4D4747;
+}
+
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
@@ -35,4 +54,176 @@
 
 @utility animate-float {
   animation: float 6s ease-in-out infinite;
+}
+
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #373333;
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #8F0028;
+}
+
+/* Ensure all flex and grid items respect boundaries */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Loading Motion Keyframes & Utilities */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse-slow {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.92); opacity: 0.8; }
+  50% { transform: scale(1.08); opacity: 0.3; }
+  100% { transform: scale(0.92); opacity: 0.8; }
+}
+
+@keyframes radar-sweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes shimmer-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 14s linear infinite;
+}
+
+.animate-spin-reverse-slow {
+  animation: spin-reverse-slow 9s linear infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-radar-sweep {
+  animation: radar-sweep 3.5s linear infinite;
+}
+
+.animate-shimmer-slide {
+  animation: shimmer-slide 2s ease-in-out infinite;
+}
+
+/* Global high-contrast typography: eliminate funky and faint text */
+.text-\[\#A9A4A0\],
+[class*="text-[#A9A4A0]"],
+.text-\[\#78736E\],
+[class*="text-[#78736E]"],
+.text-\[\#8E8A85\],
+.text-\[\#8E8B88\],
+.text-\[\#858585\],
+.text-\[\#888888\],
+.text-\[\#777777\],
+.text-\[\#737373\],
+.text-\[\#B0AB9E\],
+.text-\[\#BDC1C6\],
+.text-\[\#D1CBC5\],
+.text-\[\#D1CEC9\],
+.text-gray-400,
+.text-gray-500,
+.text-stone-400,
+.text-stone-500,
+.text-neutral-400,
+.text-zinc-400 {
+  color: #E5E7EB !important;
+}
+
+.text-\[\#D5D1CB\],
+[class*="text-[#D5D1CB]"],
+.text-\[\#F5F3F1\],
+[class*="text-[#F5F3F1]"],
+.text-\[\#D8D4D0\],
+.text-\[\#E5E1DD\],
+.text-\[\#E6E1DC\],
+.text-\[\#ECE8E4\],
+.text-\[\#E7E9EA\],
+.text-\[\#E8E4DC\],
+.text-\[\#F5E6E8\] {
+  color: #FFFFFF !important;
+}
+
+/* Eliminate funky colors: hot pinks, neon greens, blues, purples, oranges, yellows */
+.text-\[\#FF4A70\],
+.text-\[\#FF4560\],
+.text-\[\#FF7A85\],
+.text-\[\#FF7A95\],
+.text-\[\#E91E63\],
+.text-\[\#F91880\],
+[class*="text-[#FF4A70]"],
+[class*="text-[#FF4560]"],
+[class*="text-[#FF7A85]"],
+[class*="text-[#FF7A95]"],
+[class*="text-[#E91E63]"],
+[class*="text-[#F91880]"] {
+  color: #FFFFFF !important;
+}
+
+.text-\[\#00A650\],
+.text-\[\#008A2E\],
+.text-\[\#168A5B\],
+.text-\[\#34A853\],
+.text-\[\#38BDF8\],
+.text-\[\#8AB4F8\],
+.text-\[\#FF6534\],
+.text-\[\#FFD700\],
+.text-\[\#FBBC04\],
+.text-\[\#F5A623\],
+.text-\[\#F59E0B\],
+.text-emerald-300,
+.text-emerald-400,
+.text-emerald-500,
+.text-emerald-600,
+.text-emerald-700,
+.text-emerald-800,
+.text-pink-400,
+.text-purple-400,
+.text-purple-600,
+.text-purple-700,
+.text-blue-300,
+.text-blue-400,
+.text-blue-500,
+.text-blue-600,
+.text-blue-700,
+.text-blue-800,
+.text-cyan-400,
+.text-teal-400,
+.text-amber-300,
+.text-amber-400,
+.text-amber-500,
+.text-amber-700,
+.text-amber-800,
+.text-orange-400,
+.text-orange-500,
+.text-orange-600,
+.text-yellow-400,
+.text-yellow-500,
+.text-rose-400 {
+  color: #FFFFFF !important;
 }

@@ -18,6 +18,7 @@ export interface BrandDocument {
   created_at: string;
   updated_at: string;
   metadata_json: any;
+  extracted_text?: string;
 }
 
 export interface DocumentProviderContextType {
@@ -26,6 +27,8 @@ export interface DocumentProviderContextType {
   error: string | null;
   fetchDocuments: () => Promise<void>;
   uploadDocument: (file: File, category?: string) => Promise<void>;
+  createDocument: (data: { name: string; content: string; category?: string; type?: string }) => Promise<BrandDocument>;
+  generateRealDocuments: () => Promise<BrandDocument[]>;
   deleteDocument: (id: string) => Promise<void>;
 }
 
@@ -68,6 +71,36 @@ export const DocumentProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const createDocument = async (data: { name: string; content: string; category?: string; type?: string }) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await (provider as any).createDocument(data);
+      await fetchDocuments();
+      return res;
+    } catch (err: any) {
+      setError(err.message || 'Failed to create document');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const generateRealDocuments = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await (provider as any).generateRealDocuments();
+      await fetchDocuments();
+      return res;
+    } catch (err: any) {
+      setError(err.message || 'Failed to generate real documents');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const deleteDocument = async (id: string) => {
     try {
       setLoading(true);
@@ -100,7 +133,7 @@ export const DocumentProvider = ({ children }: { children: ReactNode }) => {
   }, [authState]);
 
   return (
-    <DocumentContext.Provider value={{ documents, loading, error, fetchDocuments, uploadDocument, deleteDocument }}>
+    <DocumentContext.Provider value={{ documents, loading, error, fetchDocuments, uploadDocument, createDocument, generateRealDocuments, deleteDocument }}>
       {children}
     </DocumentContext.Provider>
   );

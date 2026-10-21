@@ -5,12 +5,13 @@ from uuid import UUID
 import datetime
 
 from app.db.session import get_db
+from app.api import deps
 from app.api.deps import get_current_user as get_current_active_user, get_current_workspace, get_current_brand
 from app.core.authorization import check_workspace_role
 from app.models.all_models import User, Workspace, Brand, ContentProject, ContentBrief, ContentDraft, ContentVersion, ContentApproval, AgentTask, AgentRun
 from app.schemas.content import (
     ContentProjectCreate, ContentProjectUpdate, ContentProjectResponse,
-    ContentBriefCreate, ContentBriefResponse, ContentDraftResponse,
+    ContentBriefCreate, ContentBriefResponse, ContentDraftCreate, ContentDraftResponse,
     ContentVersionResponse
 )
 from app.core.limiter import limiter
@@ -217,9 +218,13 @@ def generate_content_draft(
     db.commit()
     db.refresh(run)
     
-    # Send to Celery
-    from app.core.celery_app import celery_app
-    celery_app.send_task("app.worker.execute_agent_task", args=[str(task.id), str(run.id)])
+    # Dispatch to Celery worker with graceful fallback
+    try:
+        from app.worker import execute_agent_task
+        execute_agent_task.delay(str(task.id), str(run.id))
+    except Exception:
+        from app.worker import _execute_agent_run
+        background_tasks.add_task(_execute_agent_run, str(run.id))
     
     return {"message": "Draft generation started", "task_id": str(task.id)}
 
@@ -240,6 +245,50 @@ def get_xxx_project_drafts(
         ContentDraft.brand_id == brand.id
     ).order_by(ContentDraft.created_at.desc()).all()
 
+@router.post("/drafts", response_model=ContentDraftResponse)
+def create_content_draft(
+    draft_in: ContentDraftCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user),
+    workspace_ctx: dict = Depends(get_current_workspace),
+    brand: Brand = Depends(get_current_brand)
+):
+    check_workspace_role(db, current_user.id, workspace_ctx["workspace"].id, ["OWNER", "ADMIN", "MARKETER", "EDITOR"])
+    workspace_id = deps.to_uuid(workspace_ctx["workspace"].id)
+    brand_id = deps.to_uuid(brand.id)
+    
+    project_id = draft_in.content_project_id
+    if not project_id:
+        proj = ContentProject(
+            workspace_id=workspace_id,
+            brand_id=brand_id,
+            title=draft_in.title,
+            content_type=draft_in.content_type or "blog",
+            created_by=deps.to_uuid(current_user.id)
+        )
+        db.add(proj)
+        db.commit()
+        db.refresh(proj)
+        project_id = proj.id
+    else:
+        project_id = deps.to_uuid(project_id)
+        
+    draft = ContentDraft(
+        workspace_id=workspace_id,
+        brand_id=brand_id,
+        content_project_id=project_id,
+        brief_id=deps.to_uuid(draft_in.brief_id) if draft_in.brief_id else None,
+        title=draft_in.title,
+        body=draft_in.body or "",
+        content_type=draft_in.content_type or "blog",
+        status=draft_in.status or "DRAFT",
+        generated_by=str(current_user.id)
+    )
+    db.add(draft)
+    db.commit()
+    db.refresh(draft)
+    return draft
+
 @router.get("/drafts", response_model=List[ContentDraftResponse])
 def get_all_drafts(
     db: Session = Depends(get_db),
@@ -248,28 +297,31 @@ def get_all_drafts(
     brand: Brand = Depends(get_current_brand)
 ):
     check_workspace_role(db, current_user.id, workspace_ctx["workspace"].id, ["OWNER", "ADMIN", "MARKETER", "EDITOR", "VIEWER"])
-    workspace_id = workspace_ctx["workspace"].id
+    workspace_id = deps.to_uuid(workspace_ctx["workspace"].id)
+    brand_id = deps.to_uuid(brand.id)
     
     return db.query(ContentDraft).filter(
         ContentDraft.workspace_id == workspace_id,
-        ContentDraft.brand_id == brand.id
+        ContentDraft.brand_id == brand_id
     ).order_by(ContentDraft.updated_at.desc()).all()
 
 @router.get("/drafts/{id}", response_model=ContentDraftResponse)
 def get_xxx_content_draft(
-    id: UUID,
+    id: str,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user),
     workspace_ctx: dict = Depends(get_current_workspace),
     brand: Brand = Depends(get_current_brand)
 ):
     check_workspace_role(db, current_user.id, workspace_ctx["workspace"].id, ["OWNER", "ADMIN", "MARKETER", "EDITOR", "VIEWER"])
-    workspace_id = workspace_ctx["workspace"].id
+    workspace_id = deps.to_uuid(workspace_ctx["workspace"].id)
+    brand_id = deps.to_uuid(brand.id)
+    draft_uuid = deps.to_uuid(id)
     
     draft = db.query(ContentDraft).filter(
-        ContentDraft.id == id,
+        ContentDraft.id == draft_uuid,
         ContentDraft.workspace_id == workspace_id,
-        ContentDraft.brand_id == brand.id
+        ContentDraft.brand_id == brand_id
     ).first()
     if not draft:
         raise HTTPException(status_code=404, detail="Draft not found")

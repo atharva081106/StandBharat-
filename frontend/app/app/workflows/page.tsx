@@ -21,7 +21,7 @@ export default function Workflows() {
                <span className="text-[#E5E5E5]">→</span>
                <div className="px-4 py-2 bg-amber-50 border border-amber-200 text-amber-700 rounded-md text-sm font-medium whitespace-nowrap">Growth (Running)</div>
                <span className="text-[#E5E5E5]">→</span>
-               <div className="px-4 py-2 bg-gray-50 border border-[#E5E5E5] text-[#737373] rounded-md text-sm font-medium whitespace-nowrap">Writer</div>
+               <div className="px-4 py-2 bg-gray-50 border border-[#E5E5E5] text-[#E5E7EB] rounded-md text-sm font-medium whitespace-nowrap">Writer</div>
              </div>
           </CardContent>
         </Card>
