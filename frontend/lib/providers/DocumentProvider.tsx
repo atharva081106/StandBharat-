@@ -122,8 +122,10 @@ export const DocumentProvider = ({ children }: { children: ReactNode }) => {
     const interval = setInterval(() => {
       setDocuments(prev => {
         const hasProcessing = prev.some(d => ['UPLOADED', 'PROCESSING'].includes(d.processing_status));
-        if (hasProcessing) {
-          provider.getDocuments().then(setDocuments).catch(console.error);
+        if (hasProcessing && authState === 'loggedIn') {
+          provider.getDocuments().then(setDocuments).catch(err => {
+            console.warn("Failed to poll documents:", err?.message || err);
+          });
         }
         return prev;
       });

@@ -97,7 +97,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       await fetchNotifications();
       return false;
     } catch (e) {
-      console.error("Failed to load workspace context", e);
+      console.warn("Failed to load workspace context", e);
       return false;
     }
   };

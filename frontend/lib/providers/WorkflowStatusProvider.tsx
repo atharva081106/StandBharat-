@@ -39,11 +39,31 @@ export const WorkflowStatusProvider = ({ children }: { children: ReactNode }) =>
   // We need to keep a stable reference for the manual refresh, but avoid stale closures for the effect
   const fetchStatus = async (brandId: string) => {
     if (process.env.NEXT_PUBLIC_DATA_MODE !== 'api') return null;
+    if (!brandId) return null;
+
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('standbharat_token') || localStorage.getItem('access_token');
+      if (!token && authState !== 'loggedIn') {
+        return null;
+      }
+    }
+
     try {
-      const data = await ApiClient.get<WorkflowStatus>(`/api/brands/${brandId}/workflow-status`);
+      const headers: Record<string, string> = { 'X-Brand-ID': brandId };
+      if (ApiClient.defaultHeaders['X-Workspace-ID']) {
+        headers['X-Workspace-ID'] = ApiClient.defaultHeaders['X-Workspace-ID'];
+      }
+      const data = await ApiClient.get<WorkflowStatus>(`/api/brands/${brandId}/workflow-status`, {
+        headers,
+        silent: true
+      });
       return data;
-    } catch (err) {
-      console.error("Failed to fetch workflow status", err);
+    } catch (err: any) {
+      const msg = String(err?.message || err || '');
+      if (msg.includes('Not authenticated') || msg.includes('401') || msg.includes('Failed to fetch')) {
+        return null;
+      }
+      console.warn("WorkflowStatusProvider: polling paused or error:", msg);
       return null;
     }
   };
@@ -54,6 +74,9 @@ export const WorkflowStatusProvider = ({ children }: { children: ReactNode }) =>
 
     const poll = async () => {
       if (authState !== 'loggedIn' || !activeBrand?.id) return;
+
+      const token = typeof window !== 'undefined' ? (localStorage.getItem('standbharat_token') || localStorage.getItem('access_token')) : null;
+      if (!token) return;
 
       const data = await fetchStatus(activeBrand.id);
       if (!isMounted || !data) return;
@@ -86,7 +109,7 @@ export const WorkflowStatusProvider = ({ children }: { children: ReactNode }) =>
     if (authState === 'loggedIn' && activeBrand?.id) {
        fetchStatus(activeBrand.id).then(data => {
          if (data) setStatus(data);
-       });
+       }).catch(() => {});
     }
   };
 
