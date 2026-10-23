@@ -676,7 +676,7 @@ export default function AIWorkspace() {
         ) : (
           <>
             {/* Analytics Header */}
-            <div className="px-6 py-3 flex items-center justify-between border-b border-[#373333] shrink-0 bg-[#1C1A1A]">
+            <div className="px-3.5 sm:px-6 py-3 flex items-center justify-between border-b border-[#373333] shrink-0 bg-[#1C1A1A]">
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2 text-white font-bold text-[13px]">
                   <BarChart2 className="w-4 h-4 text-[#E5E7EB]" />
@@ -706,12 +706,12 @@ export default function AIWorkspace() {
             </div>
 
             {/* Tabs */}
-            <div className="flex items-center px-6 border-b border-[#373333] shrink-0 overflow-x-auto custom-scrollbar">
+            <div className="flex items-center px-3.5 sm:px-6 border-b border-[#373333] shrink-0 overflow-x-auto custom-scrollbar">
                {(['Attribution', 'SEO', 'Links', 'GEO', 'Content'] as const).map(tab => (
                  <button 
                    key={tab}
                    onClick={() => setAnalyticsTab(tab)}
-                   className={`px-4 py-3 text-[13px] font-semibold border-b-2 transition-colors shrink-0 ${
+                   className={`px-3.5 sm:px-4 py-2.5 sm:py-3 text-[12px] sm:text-[13px] font-semibold border-b-2 transition-colors shrink-0 ${
                      analyticsTab === tab ? 'border-[#8F0028] text-white' : 'border-transparent text-[#E5E7EB] hover:text-white'
                    }`}
                  >
@@ -721,7 +721,7 @@ export default function AIWorkspace() {
             </div>
 
             {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-6">
+            <div className="flex-1 overflow-y-auto custom-scrollbar p-3.5 sm:p-6 space-y-4 sm:space-y-6">
               
               {/* Daily 8:00 AM IST Executive AI CMO Pulse */}
               <MorningBriefingCard onActionTriggered={(type) => {

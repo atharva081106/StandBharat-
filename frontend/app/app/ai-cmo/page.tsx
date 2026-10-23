@@ -21,6 +21,7 @@ export default function AICMO() {
     }
   ])
   const [isLoading, setIsLoading] = useState(false)
+  const [mobileTab, setMobileTab] = useState<'chat' | 'context'>('chat')
   const chatScrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -99,9 +100,35 @@ export default function AICMO() {
   }
 
   return (
-    <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden bg-[#171515] text-white p-4 lg:p-6 gap-6 max-w-[1600px] mx-auto w-full">
+    <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden bg-[#171515] text-white p-3 sm:p-4 lg:p-6 gap-4 sm:gap-6 max-w-[1600px] mx-auto w-full">
+      {/* Mobile Top Segmented Switcher (< md) */}
+      <div className="md:hidden flex items-center bg-[#242222] p-1 rounded-xl border border-[#373333] shrink-0">
+        <button
+          onClick={() => setMobileTab('chat')}
+          className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+            mobileTab === 'chat'
+              ? 'bg-[#8F0028] text-white shadow-sm'
+              : 'text-[#E5E7EB] hover:text-white'
+          }`}
+        >
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>AI Strategist Chat</span>
+        </button>
+        <button
+          onClick={() => setMobileTab('context')}
+          className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+            mobileTab === 'context'
+              ? 'bg-[#8F0028] text-white shadow-sm'
+              : 'text-[#E5E7EB] hover:text-white'
+          }`}
+        >
+          <Brain className="w-3.5 h-3.5" />
+          <span>Brand Context & Stepper</span>
+        </button>
+      </div>
+
       {/* Left Column: Chat Interface */}
-      <div className="flex-1 flex flex-col bg-[#1C1A1A] rounded-2xl shadow-xl border border-[#373333] overflow-hidden">
+      <div className={`${mobileTab === 'chat' ? 'flex' : 'hidden'} md:flex flex-1 flex-col bg-[#1C1A1A] rounded-2xl shadow-xl border border-[#373333] overflow-hidden`}>
         {/* Header */}
         <div className="p-3 sm:p-4 px-4 sm:px-6 border-b border-[#373333] flex justify-between items-center bg-[#242222]">
           <div className="flex items-center gap-2.5 sm:gap-3">
@@ -186,7 +213,7 @@ export default function AICMO() {
       </div>
 
       {/* Right Column: Strategic Context & Autonomous Workflow */}
-      <div className="w-[320px] lg:w-[380px] flex-col gap-5 hidden md:flex overflow-y-auto">
+      <div className={`${mobileTab === 'context' ? 'flex' : 'hidden'} md:flex w-full md:w-[320px] lg:w-[380px] flex-col gap-4 sm:gap-5 overflow-y-auto custom-scrollbar`}>
         <h3 className="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-1.5">
           <Brain className="w-3.5 h-3.5 text-[#8F0028]" />
           Live Brand Brain Context

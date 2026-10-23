@@ -207,15 +207,15 @@ export default function ApprovalsPage() {
       )}
 
       {/* Filter Tabs */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-[#373333] pb-3">
-        <span className="text-xs font-bold text-[#E5E7EB] uppercase tracking-wider mr-2 flex items-center gap-1.5">
+      <div className="flex items-center gap-2 border-b border-[#373333] pb-3 overflow-x-auto custom-scrollbar shrink-0">
+        <span className="text-xs font-bold text-[#E5E7EB] uppercase tracking-wider mr-2 flex items-center gap-1.5 shrink-0">
           <Filter className="w-3.5 h-3.5" /> Filter:
         </span>
         {filterTabs.map(tab => (
           <button
             key={tab.value}
             onClick={() => setStatusFilter(tab.value)}
-            className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
+            className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all shrink-0 ${
               statusFilter === tab.value
                 ? 'bg-[#8F0028] text-white shadow-sm'
                 : 'bg-[#242222] text-[#E5E7EB] hover:text-white hover:bg-[#2D2A2A] border border-[#373333]'
@@ -339,7 +339,7 @@ export default function ApprovalsPage() {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex flex-col sm:flex-row items-center gap-2.5 shrink-0">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0 w-full sm:w-auto">
                       {app.status === 'PENDING' ? (
                         <>
                           <Button
