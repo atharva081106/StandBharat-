@@ -8,6 +8,7 @@ import uuid
 
 router = APIRouter()
 
+@router.get("")
 @router.get("/")
 def get_notifications(
     brand: Brand = Depends(get_current_brand),

@@ -63,7 +63,7 @@ class LinkedInProvider(IntegrationProvider):
     def refresh(self, workspace_id: str) -> bool:
         return True
 
-    def sync(self, workspace_id: str) -> Dict[str, Any]:
+    def sync(self, workspace_id: str, brand_id: str = None, integration_id: str = None, **kwargs) -> Dict[str, Any]:
         return {"status": "success", "posts_synced": 0}
 
     def publish(self, workspace_id: str, content: Dict[str, Any]) -> Dict[str, Any]:

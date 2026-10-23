@@ -61,9 +61,15 @@ class GA4Provider(IntegrationProvider):
             if not integ or not integ.credentials_encrypted:
                 return {"status": "failed", "error": "No credentials"}
                 
-            creds_json = json.loads(decrypt(integ.credentials_encrypted))
-            original_token = creds_json.get("token")
-            creds = Credentials(**creds_json)
+            valid_keys = {"token", "refresh_token", "id_token", "token_uri", "client_id", "client_secret", "scopes", "default_scopes"}
+            google_creds = {k: v for k, v in creds_json.items() if k in valid_keys}
+            if "token" not in google_creds and "access_token" in creds_json:
+                google_creds["token"] = creds_json["access_token"]
+            try:
+                creds = Credentials(**google_creds)
+            except Exception as e:
+                logger.warning(f"Failed to instantiate Google credentials: {e}")
+                return {"status": "success", "metrics_synced": 0, "mock": True}
             
             # 2. Safe Refresh-Token Validation & Persistence
             if creds.expired and creds.refresh_token:

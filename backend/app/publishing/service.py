@@ -25,28 +25,40 @@ class PublishingService:
     def get_connection(self, workspace_id: uuid.UUID, brand_id: uuid.UUID, platform: str) -> Optional[Any]:
         # 1. Authoritative Integration table check with alias support
         from app.models.all_models import Integration
-        provider_name = platform
+        from app.api.deps import to_uuid
+        provider_name = platform.lower()
         if provider_name in ("x", "twitter"):
             provider_name = "twitter_x"
 
+        ws_uuid = to_uuid(workspace_id)
+        br_uuid = to_uuid(brand_id)
+
         integ = self.db.query(Integration).filter(
-            Integration.workspace_id == workspace_id,
-            Integration.brand_id == brand_id,
+            Integration.workspace_id == ws_uuid,
+            Integration.brand_id == br_uuid,
             Integration.provider == provider_name
         ).first()
         if integ and integ.status == "CONNECTED":
             return integ
 
+        # Fallback without brand filter if workspace-level integration exists
+        integ_ws = self.db.query(Integration).filter(
+            Integration.workspace_id == ws_uuid,
+            Integration.provider == provider_name
+        ).first()
+        if integ_ws and integ_ws.status == "CONNECTED":
+            return integ_ws
+
         # 2. Backward-compatible fallback to PublisherConnection
         conn = self.db.query(PublisherConnection).filter(
-            PublisherConnection.workspace_id == workspace_id,
-            PublisherConnection.brand_id == brand_id,
+            PublisherConnection.workspace_id == ws_uuid,
+            PublisherConnection.brand_id == br_uuid,
             PublisherConnection.platform == platform
         ).first()
         if conn and conn.status == "CONNECTED":
             return conn
 
-        return integ or conn
+        return integ or integ_ws or conn
 
     def get_credentials(self, connection: Any) -> Dict[str, Any]:
         if not connection or connection.status != "CONNECTED":
