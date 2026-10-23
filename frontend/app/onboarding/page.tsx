@@ -118,7 +118,7 @@ export default function Onboarding() {
         </div>
         <div className="w-1/3 flex justify-center">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo-icon.png" alt="StandBharat Logo" width={28} height={28} className="object-contain" />
+            <Image src="/logo-icon.png" alt="StandBharat Logo" width={28} height={28} className="object-contain" style={{ width: 'auto', height: 'auto' }} priority />
             <span className="font-bold text-lg tracking-tight text-[#111111] hidden sm:block">StandBharat</span>
           </Link>
         </div>

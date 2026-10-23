@@ -21,6 +21,7 @@ import {
   Send,
   X
 } from 'lucide-react'
+import { PlatformLogo } from '@/components/icons/PlatformLogos'
 
 interface PublicationEvent {
   id: string
@@ -184,10 +185,11 @@ export default function CalendarPage() {
               <button
                 key={plat}
                 onClick={() => setSelectedPlatform(plat)}
-                className={`px-2.5 py-1 text-[11px] font-medium rounded ${
-                  selectedPlatform === plat ? 'bg-[#8F0028] text-white' : 'text-[#E5E7EB] hover:text-white'
+                className={`px-2.5 py-1 text-[11px] font-medium rounded flex items-center gap-1.5 transition-colors ${
+                  selectedPlatform === plat ? 'bg-[#8F0028] text-white shadow-sm' : 'text-[#E5E7EB] hover:text-white'
                 }`}
               >
+                <PlatformLogo platform={plat} className="w-3.5 h-3.5" />
                 {plat}
               </button>
             ))}
@@ -317,8 +319,11 @@ export default function CalendarPage() {
                         )}`}
                       >
                         <div className="font-medium truncate leading-tight">{evt.title}</div>
-                        <div className="flex items-center justify-between mt-1 text-[9px] opacity-80 uppercase tracking-wider">
-                          <span>{evt.platform}</span>
+                        <div className="flex items-center justify-between mt-1 text-[9px] opacity-90 uppercase tracking-wider">
+                          <span className="flex items-center gap-1 font-semibold">
+                            <PlatformLogo platform={evt.platform} className="w-3 h-3 shrink-0" />
+                            {evt.platform}
+                          </span>
                           <span>{new Date(evt.scheduled_for).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                         </div>
                       </div>
@@ -349,7 +354,8 @@ export default function CalendarPage() {
                   {selectedEvent.title}
                 </h3>
                 <div className="flex items-center gap-2 mt-2">
-                  <Badge variant="outline" className="text-[10px] uppercase font-mono bg-[#242222] border-[#373333]">
+                  <Badge variant="outline" className="text-[10px] uppercase font-mono bg-[#242222] border-[#373333] flex items-center gap-1.5 py-0.5 px-2">
+                    <PlatformLogo platform={selectedEvent.platform} className="w-3.5 h-3.5" />
                     {selectedEvent.platform}
                   </Badge>
                   <span

@@ -2,16 +2,38 @@
 
 import React from 'react'
 import { 
-  BarChart3, Zap, TrendingUp, Layers, PenTool, 
-  DollarSign, Search, Sparkles, Bot, Share2, 
-  MessageSquare, Code2, Megaphone, Video,
-  Flame, Crown, Compass, ShieldCheck, Target, Activity
+  Zap, TrendingUp, Layers, PenTool, Sparkles, Bot, Crown, Target
 } from 'lucide-react'
+import {
+  GA4Logo,
+  GSCLogo,
+  LinkedInLogo,
+  XLogo,
+  RedditLogo,
+  TikTokLogo,
+  InstagramLogo,
+  MetaLogo,
+  GitHubLogo,
+  StandBharatLogo
+} from '@/components/icons/PlatformLogos'
 
-// Authentic modern X emblem
-const XIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+// Generative Engine Optimization (GEO) Multi-LLM AI Emblem
+const GeoEngineIcon = ({ className = 'w-5 h-5' }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} aria-label="GEO Multi-LLM">
+    <defs>
+      <linearGradient id="geoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#8E2DE2" />
+        <stop offset="50%" stopColor="#4A00E0" />
+        <stop offset="100%" stopColor="#00F2FE" />
+      </linearGradient>
+    </defs>
+    <path 
+      d="M12 2L14.4 8.6L21 11L14.4 13.4L12 20L9.6 13.4L3 11L9.6 8.6L12 2Z" 
+      fill="url(#geoGrad)" 
+      stroke="#A855F7" 
+      strokeWidth="0.75"
+    />
+    <circle cx="12" cy="11" r="2" fill="#FFFFFF" />
   </svg>
 )
 
@@ -33,19 +55,19 @@ interface AgentColorConfig {
 }
 
 const AGENT_CONFIGS: Record<string, AgentColorConfig> = {
-  // 1. Multi-Touch Revenue Attribution & Analytics Agent
+  // 1. Google Analytics 4 Revenue Attribution & Analytics Agent
   analytics: {
-    icon: BarChart3,
+    icon: GA4Logo,
     textColor: 'text-white',
-    bgColor: 'bg-blue-500/15',
-    borderColor: 'border-blue-500/35',
-    glowColor: 'shadow-[0_0_12px_rgba(59,130,246,0.25)]',
-    badgeGradient: 'from-blue-600/20 to-blue-400/5'
+    bgColor: 'bg-amber-500/10',
+    borderColor: 'border-amber-500/35',
+    glowColor: 'shadow-[0_0_12px_rgba(249,171,0,0.25)]',
+    badgeGradient: 'from-amber-600/20 to-blue-500/10'
   },
-  // 2. Competitor Radar & Spy Agent
+  // 2. Competitor Radar & Market Recon Agent
   competitor: {
     icon: Zap,
-    textColor: 'text-white',
+    textColor: 'text-amber-400',
     bgColor: 'bg-amber-500/15',
     borderColor: 'border-amber-500/35',
     glowColor: 'shadow-[0_0_12px_rgba(245,158,11,0.25)]',
@@ -54,7 +76,7 @@ const AGENT_CONFIGS: Record<string, AgentColorConfig> = {
   // 3. CRO & Growth Experiment Agent
   growth: {
     icon: TrendingUp,
-    textColor: 'text-white',
+    textColor: 'text-emerald-400',
     bgColor: 'bg-emerald-500/15',
     borderColor: 'border-emerald-500/35',
     glowColor: 'shadow-[0_0_12px_rgba(16,185,129,0.25)]',
@@ -63,7 +85,7 @@ const AGENT_CONFIGS: Record<string, AgentColorConfig> = {
   // 4. Content Strategy & Roadmap Agent
   content_strategy: {
     icon: Layers,
-    textColor: 'text-white',
+    textColor: 'text-purple-400',
     bgColor: 'bg-purple-500/15',
     borderColor: 'border-purple-500/35',
     glowColor: 'shadow-[0_0_12px_rgba(168,85,247,0.25)]',
@@ -72,7 +94,7 @@ const AGENT_CONFIGS: Record<string, AgentColorConfig> = {
   // 5. High-Velocity Content Writer Agent
   content_writer: {
     icon: PenTool,
-    textColor: 'text-white',
+    textColor: 'text-pink-400',
     bgColor: 'bg-pink-500/15',
     borderColor: 'border-pink-500/35',
     glowColor: 'shadow-[0_0_12px_rgba(236,72,153,0.25)]',
@@ -80,41 +102,41 @@ const AGENT_CONFIGS: Record<string, AgentColorConfig> = {
   },
   writer: {
     icon: PenTool,
-    textColor: 'text-white',
+    textColor: 'text-pink-400',
     bgColor: 'bg-pink-500/15',
     borderColor: 'border-pink-500/35',
     glowColor: 'shadow-[0_0_12px_rgba(236,72,153,0.25)]',
     badgeGradient: 'from-pink-600/20 to-pink-400/5'
   },
-  // 6. Paid Ads & Performance Intelligence Agent
+  // 6. Paid Ads & Performance Intelligence Agent (Meta Ads)
   performance: {
-    icon: DollarSign,
+    icon: MetaLogo,
     textColor: 'text-white',
-    bgColor: 'bg-orange-500/15',
-    borderColor: 'border-orange-500/35',
-    glowColor: 'shadow-[0_0_12px_rgba(249,115,22,0.25)]',
-    badgeGradient: 'from-orange-600/20 to-orange-400/5'
+    bgColor: 'bg-blue-600/15',
+    borderColor: 'border-blue-500/35',
+    glowColor: 'shadow-[0_0_12px_rgba(0,100,224,0.3)]',
+    badgeGradient: 'from-blue-600/25 to-sky-400/10'
   },
-  // 7. SEO & Topical Authority Agent
+  // 7. SEO & Topical Authority Agent (Google Search Console)
   seo: {
-    icon: Search,
+    icon: GSCLogo,
     textColor: 'text-white',
-    bgColor: 'bg-cyan-500/15',
-    borderColor: 'border-cyan-500/35',
-    glowColor: 'shadow-[0_0_12px_rgba(6,182,212,0.25)]',
-    badgeGradient: 'from-cyan-600/20 to-cyan-400/5'
+    bgColor: 'bg-blue-500/15',
+    borderColor: 'border-blue-500/35',
+    glowColor: 'shadow-[0_0_12px_rgba(66,133,244,0.25)]',
+    badgeGradient: 'from-blue-600/20 to-cyan-400/10'
   },
   seo_agent: {
-    icon: Search,
+    icon: GSCLogo,
     textColor: 'text-white',
-    bgColor: 'bg-cyan-500/15',
-    borderColor: 'border-cyan-500/35',
-    glowColor: 'shadow-[0_0_12px_rgba(6,182,212,0.25)]',
-    badgeGradient: 'from-cyan-600/20 to-cyan-400/5'
+    bgColor: 'bg-blue-500/15',
+    borderColor: 'border-blue-500/35',
+    glowColor: 'shadow-[0_0_12px_rgba(66,133,244,0.25)]',
+    badgeGradient: 'from-blue-600/20 to-cyan-400/10'
   },
   // 8. Generative Engine Optimization (GEO) Agent
   geo: {
-    icon: Sparkles,
+    icon: GeoEngineIcon,
     textColor: 'text-fuchsia-400',
     bgColor: 'bg-fuchsia-500/15',
     borderColor: 'border-fuchsia-500/35',
@@ -122,16 +144,16 @@ const AGENT_CONFIGS: Record<string, AgentColorConfig> = {
     badgeGradient: 'from-fuchsia-600/20 to-fuchsia-400/5'
   },
   geo_agent: {
-    icon: Sparkles,
+    icon: GeoEngineIcon,
     textColor: 'text-fuchsia-400',
     bgColor: 'bg-fuchsia-500/15',
     borderColor: 'border-fuchsia-500/35',
     glowColor: 'shadow-[0_0_12px_rgba(217,70,239,0.25)]',
     badgeGradient: 'from-fuchsia-600/20 to-fuchsia-400/5'
   },
-  // 9. Strategic AI CMO Advisor
+  // 9. Strategic AI CMO Advisor (StandBharat Crest)
   ai_cmo: {
-    icon: Crown,
+    icon: StandBharatLogo,
     textColor: 'text-white',
     bgColor: 'bg-[#8F0028]/25',
     borderColor: 'border-[#FF4A70]/40',
@@ -139,50 +161,50 @@ const AGENT_CONFIGS: Record<string, AgentColorConfig> = {
     badgeGradient: 'from-[#8F0028]/40 to-[#FF4A70]/15'
   },
   cmo: {
-    icon: Crown,
+    icon: StandBharatLogo,
     textColor: 'text-white',
     bgColor: 'bg-[#8F0028]/25',
     borderColor: 'border-[#FF4A70]/40',
     glowColor: 'shadow-[0_0_14px_rgba(255,74,112,0.3)]',
     badgeGradient: 'from-[#8F0028]/40 to-[#FF4A70]/15'
   },
-  // 10. LinkedIn Thought Leadership Agent
+  // 10. LinkedIn Thought Leadership Agent (Official LinkedIn Logo)
   linkedin: {
-    icon: Share2,
-    textColor: 'text-sky-300',
+    icon: LinkedInLogo,
+    textColor: 'text-white',
     bgColor: 'bg-[#0A66C2]/20',
     borderColor: 'border-[#0A66C2]/45',
-    glowColor: 'shadow-[0_0_12px_rgba(10,102,194,0.3)]',
+    glowColor: 'shadow-[0_0_12px_rgba(10,102,194,0.35)]',
     badgeGradient: 'from-[#0A66C2]/30 to-sky-400/10'
   },
   linkedin_agent: {
-    icon: Share2,
-    textColor: 'text-sky-300',
+    icon: LinkedInLogo,
+    textColor: 'text-white',
     bgColor: 'bg-[#0A66C2]/20',
     borderColor: 'border-[#0A66C2]/45',
-    glowColor: 'shadow-[0_0_12px_rgba(10,102,194,0.3)]',
+    glowColor: 'shadow-[0_0_12px_rgba(10,102,194,0.35)]',
     badgeGradient: 'from-[#0A66C2]/30 to-sky-400/10'
   },
-  // 11. X / Twitter Growth Agent
+  // 11. X / Twitter Growth Agent (Official X Logo)
   x: {
-    icon: XIcon,
-    textColor: 'text-sky-400',
-    bgColor: 'bg-sky-500/15',
-    borderColor: 'border-sky-500/35',
-    glowColor: 'shadow-[0_0_12px_rgba(56,189,248,0.25)]',
-    badgeGradient: 'from-sky-600/20 to-sky-400/5'
+    icon: XLogo,
+    textColor: 'text-white',
+    bgColor: 'bg-white/10',
+    borderColor: 'border-white/30',
+    glowColor: 'shadow-[0_0_12px_rgba(255,255,255,0.2)]',
+    badgeGradient: 'from-neutral-700/30 to-neutral-500/10'
   },
   x_agent: {
-    icon: XIcon,
-    textColor: 'text-sky-400',
-    bgColor: 'bg-sky-500/15',
-    borderColor: 'border-sky-500/35',
-    glowColor: 'shadow-[0_0_12px_rgba(56,189,248,0.25)]',
-    badgeGradient: 'from-sky-600/20 to-sky-400/5'
+    icon: XLogo,
+    textColor: 'text-white',
+    bgColor: 'bg-white/10',
+    borderColor: 'border-white/30',
+    glowColor: 'shadow-[0_0_12px_rgba(255,255,255,0.2)]',
+    badgeGradient: 'from-neutral-700/30 to-neutral-500/10'
   },
-  // 12. Reddit Community Engagement Agent
+  // 12. Reddit Community Engagement Agent (Official Reddit Logo)
   reddit: {
-    icon: MessageSquare,
+    icon: RedditLogo,
     textColor: 'text-white',
     bgColor: 'bg-[#FF4500]/20',
     borderColor: 'border-[#FF4500]/40',
@@ -190,122 +212,110 @@ const AGENT_CONFIGS: Record<string, AgentColorConfig> = {
     badgeGradient: 'from-[#FF4500]/25 to-amber-500/10'
   },
   reddit_agent: {
-    icon: MessageSquare,
+    icon: RedditLogo,
     textColor: 'text-white',
     bgColor: 'bg-[#FF4500]/20',
     borderColor: 'border-[#FF4500]/40',
     glowColor: 'shadow-[0_0_12px_rgba(255,69,0,0.3)]',
     badgeGradient: 'from-[#FF4500]/25 to-amber-500/10'
   },
-  // 13. Technical Marketing & Code Agent
+  // 13. Technical Marketing & Code Agent (Official GitHub Logo)
   coding: {
-    icon: Code2,
-    textColor: 'text-lime-400',
-    bgColor: 'bg-lime-500/15',
-    borderColor: 'border-lime-500/35',
-    glowColor: 'shadow-[0_0_12px_rgba(132,204,22,0.25)]',
-    badgeGradient: 'from-lime-600/20 to-lime-400/5'
+    icon: GitHubLogo,
+    textColor: 'text-white',
+    bgColor: 'bg-emerald-500/15',
+    borderColor: 'border-emerald-500/35',
+    glowColor: 'shadow-[0_0_12px_rgba(16,185,129,0.25)]',
+    badgeGradient: 'from-emerald-600/20 to-teal-400/5'
   },
   coding_agent: {
-    icon: Code2,
-    textColor: 'text-lime-400',
-    bgColor: 'bg-lime-500/15',
-    borderColor: 'border-lime-500/35',
-    glowColor: 'shadow-[0_0_12px_rgba(132,204,22,0.25)]',
-    badgeGradient: 'from-lime-600/20 to-lime-400/5'
+    icon: GitHubLogo,
+    textColor: 'text-white',
+    bgColor: 'bg-emerald-500/15',
+    borderColor: 'border-emerald-500/35',
+    glowColor: 'shadow-[0_0_12px_rgba(16,185,129,0.25)]',
+    badgeGradient: 'from-emerald-600/20 to-teal-400/5'
   },
-  // 14. Influencer & PR Outreach Agent
+  // 14. Influencer & Creator Outreach Agent (Official Instagram Logo)
   influencer: {
-    icon: Megaphone,
+    icon: InstagramLogo,
     textColor: 'text-white',
     bgColor: 'bg-rose-500/15',
     borderColor: 'border-rose-500/35',
-    glowColor: 'shadow-[0_0_12px_rgba(251,113,133,0.25)]',
-    badgeGradient: 'from-rose-600/20 to-rose-400/5'
+    glowColor: 'shadow-[0_0_12px_rgba(244,63,94,0.25)]',
+    badgeGradient: 'from-rose-600/20 to-pink-400/5'
   },
   influencer_agent: {
-    icon: Megaphone,
+    icon: InstagramLogo,
     textColor: 'text-white',
     bgColor: 'bg-rose-500/15',
     borderColor: 'border-rose-500/35',
-    glowColor: 'shadow-[0_0_12px_rgba(251,113,133,0.25)]',
-    badgeGradient: 'from-rose-600/20 to-rose-400/5'
+    glowColor: 'shadow-[0_0_12px_rgba(244,63,94,0.25)]',
+    badgeGradient: 'from-rose-600/20 to-pink-400/5'
   },
-  // 15. UGC & Video Script Studio Agent
+  // 15. Short-Form Video & UGC Scriptwriter (Official TikTok Logo)
   ugc: {
-    icon: Video,
-    textColor: 'text-red-400',
-    bgColor: 'bg-red-500/15',
-    borderColor: 'border-red-500/35',
-    glowColor: 'shadow-[0_0_12px_rgba(239,68,68,0.25)]',
-    badgeGradient: 'from-red-600/20 to-red-400/5'
+    icon: TikTokLogo,
+    textColor: 'text-white',
+    bgColor: 'bg-cyan-500/15',
+    borderColor: 'border-cyan-500/35',
+    glowColor: 'shadow-[0_0_12px_rgba(6,182,212,0.25)]',
+    badgeGradient: 'from-cyan-600/20 to-blue-400/5'
   },
   ugc_agent: {
-    icon: Video,
-    textColor: 'text-red-400',
-    bgColor: 'bg-red-500/15',
-    borderColor: 'border-red-500/35',
-    glowColor: 'shadow-[0_0_12px_rgba(239,68,68,0.25)]',
-    badgeGradient: 'from-red-600/20 to-red-400/5'
-  },
-  // Test / Diagnostics Agent
-  test: {
-    icon: Bot,
+    icon: TikTokLogo,
     textColor: 'text-white',
-    bgColor: 'bg-teal-500/15',
-    borderColor: 'border-teal-500/35',
-    glowColor: 'shadow-[0_0_12px_rgba(20,184,166,0.25)]',
-    badgeGradient: 'from-teal-600/20 to-teal-400/5'
+    bgColor: 'bg-cyan-500/15',
+    borderColor: 'border-cyan-500/35',
+    glowColor: 'shadow-[0_0_12px_rgba(6,182,212,0.25)]',
+    badgeGradient: 'from-cyan-600/20 to-blue-400/5'
   }
 }
 
 function resolveAgentConfig(id?: string, name?: string): AgentColorConfig {
-  const cleanId = (id || '').toLowerCase().trim().replace(/-/g, '_')
+  const cleanId = (id || '').toLowerCase().trim().replace(/[-_]/g, '')
   const cleanName = (name || '').toLowerCase().trim()
 
-  // 1. Direct ID match
-  if (cleanId && AGENT_CONFIGS[cleanId]) {
-    return AGENT_CONFIGS[cleanId]
+  // Match by ID
+  for (const [key, cfg] of Object.entries(AGENT_CONFIGS)) {
+    const normKey = key.toLowerCase().replace(/[-_]/g, '')
+    if (cleanId === normKey || cleanId.startsWith(normKey)) {
+      return cfg
+    }
   }
 
-  // 2. Stripped '_agent' match
-  const strippedId = cleanId.replace(/_agent$/, '')
-  if (strippedId && AGENT_CONFIGS[strippedId]) {
-    return AGENT_CONFIGS[strippedId]
-  }
-
-  // 3. Name-based matching heuristics
-  if (cleanName.includes('revenue') || cleanName.includes('attribution') || cleanName.includes('analytics')) {
+  // Match by Name heuristics
+  if (cleanName.includes('analytic') || cleanName.includes('attribution') || cleanName.includes('revenue')) {
     return AGENT_CONFIGS.analytics
   }
   if (cleanName.includes('competitor') || cleanName.includes('spy') || cleanName.includes('radar')) {
     return AGENT_CONFIGS.competitor
   }
-  if (cleanName.includes('cro') || cleanName.includes('growth') || cleanName.includes('experiment')) {
+  if (cleanName.includes('growth') || cleanName.includes('experiment') || cleanName.includes('cro')) {
     return AGENT_CONFIGS.growth
   }
-  if (cleanName.includes('strategy') || cleanName.includes('roadmap')) {
+  if (cleanName.includes('strategy') || cleanName.includes('roadmap') || cleanName.includes('brief')) {
     return AGENT_CONFIGS.content_strategy
   }
-  if (cleanName.includes('writer') || cleanName.includes('hook') || cleanName.includes('copy')) {
+  if (cleanName.includes('writer') || cleanName.includes('copy') || cleanName.includes('blog')) {
     return AGENT_CONFIGS.content_writer
   }
-  if (cleanName.includes('paid') || cleanName.includes('ad') || cleanName.includes('ppc') || cleanName.includes('roas') || cleanName.includes('performance')) {
+  if (cleanName.includes('performance') || cleanName.includes('paid') || cleanName.includes('ad')) {
     return AGENT_CONFIGS.performance
   }
-  if (cleanName.includes('seo') || cleanName.includes('topical') || cleanName.includes('serp')) {
+  if (cleanName.includes('seo') || cleanName.includes('search') || cleanName.includes('ranking')) {
     return AGENT_CONFIGS.seo
   }
-  if (cleanName.includes('geo') || cleanName.includes('generative') || cleanName.includes('citation') || cleanName.includes('answer engine')) {
+  if (cleanName.includes('geo') || cleanName.includes('generative') || cleanName.includes('engine') || cleanName.includes('perplexity')) {
     return AGENT_CONFIGS.geo
   }
-  if (cleanName.includes('cmo') || cleanName.includes('advisor')) {
+  if (cleanName.includes('cmo') || cleanName.includes('advisor') || cleanName.includes('executive')) {
     return AGENT_CONFIGS.ai_cmo
   }
   if (cleanName.includes('linkedin')) {
     return AGENT_CONFIGS.linkedin
   }
-  if (cleanName.includes('twitter') || cleanName.includes(' x ') || cleanName.startsWith('x ')) {
+  if (cleanName.includes('twitter') || cleanName.includes(' x ') || cleanName.startsWith('x ') || cleanName === 'x') {
     return AGENT_CONFIGS.x
   }
   if (cleanName.includes('reddit')) {
@@ -321,14 +331,14 @@ function resolveAgentConfig(id?: string, name?: string): AgentColorConfig {
     return AGENT_CONFIGS.ugc
   }
 
-  // Fallback: Vibrant Emerald Bot
+  // Fallback: StandBharat Tech Bot
   return {
     icon: Bot,
     textColor: 'text-white',
-    bgColor: 'bg-emerald-500/15',
-    borderColor: 'border-emerald-500/35',
-    glowColor: 'shadow-[0_0_10px_rgba(16,185,129,0.2)]',
-    badgeGradient: 'from-emerald-600/20 to-emerald-400/5'
+    bgColor: 'bg-[#8F0028]/20',
+    borderColor: 'border-[#FF4A70]/40',
+    glowColor: 'shadow-[0_0_10px_rgba(255,74,112,0.2)]',
+    badgeGradient: 'from-[#8F0028]/30 to-[#FF4A70]/10'
   }
 }
 
@@ -369,7 +379,7 @@ export function AgentLogo({
       {/* Subtle Inner Gradient Flare */}
       <div className={`absolute inset-0 rounded-[inherit] bg-gradient-to-br ${config.badgeGradient} opacity-60 pointer-events-none`} />
 
-      {/* Main Colored Icon */}
+      {/* Main Colored Icon / Real Logo */}
       <IconComponent className={`relative z-10 ${sizeStyles.icon} ${config.textColor} transition-transform duration-300 group-hover:scale-110`} />
 
       {/* Optional Active Micro Indicator Dot */}

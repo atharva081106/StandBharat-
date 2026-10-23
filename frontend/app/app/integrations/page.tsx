@@ -7,6 +7,7 @@ import { useAppProvider } from '@/lib/providers'
 import { ApiClient } from '@/lib/api/client'
 import { Input } from '@/components/ui/input'
 import { Activity, CheckCircle2, RefreshCw, Zap, ShieldCheck, Sparkles } from 'lucide-react'
+import { PlatformLogo } from '@/components/icons/PlatformLogos'
 
 export default function Integrations() {
   const { auth } = useAppProvider()
@@ -234,14 +235,29 @@ export default function Integrations() {
       
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {integrations.map((integration: any) => (
-          <Card key={integration.id} className="bg-[#1C1A1A] border-[#373333]">
-            <CardHeader className="pb-2">
-              <div className="flex justify-between items-start">
-                <CardTitle className="text-lg text-white">{integration.provider}</CardTitle>
-                <Badge variant="outline" className="bg-[#242222] text-[#E5E7EB] border-[#373333]">{integration.category}</Badge>
+          <Card key={integration.id} className="bg-[#1C1A1A] border-[#373333] hover:border-[#524B4B] transition-all group overflow-hidden">
+            <CardHeader className="pb-3">
+              <div className="flex justify-between items-start gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-xl bg-[#242222] border border-[#373333] flex items-center justify-center p-2 shrink-0 group-hover:scale-105 transition-transform shadow-sm">
+                    <PlatformLogo platform={integration.id || integration.provider} className="w-7 h-7" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-base sm:text-lg text-white font-bold capitalize">
+                      {integration.name || integration.provider}
+                    </CardTitle>
+                    <Badge variant="outline" className="bg-[#242222] text-[#E5E7EB] border-[#373333] text-[10px] mt-1 font-mono">
+                      {integration.category}
+                    </Badge>
+                  </div>
+                </div>
               </div>
-              <div className="text-[13px] text-[#E5E7EB] flex gap-2 pt-2">
-                {integration.capabilities.map((c: string) => <span key={c} className="bg-[#2A2828] px-1.5 py-0.5 rounded text-[10px] uppercase">{c}</span>)}
+              <div className="text-[12px] text-[#E5E7EB] flex flex-wrap gap-1.5 pt-2">
+                {integration.capabilities.map((c: string) => (
+                  <span key={c} className="bg-[#2A2828] border border-[#373333] px-2 py-0.5 rounded text-[10px] uppercase font-mono tracking-wider">
+                    {c}
+                  </span>
+                ))}
               </div>
             </CardHeader>
              <CardContent>

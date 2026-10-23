@@ -19,6 +19,7 @@ import {
   MessageSquare,
   ExternalLink
 } from 'lucide-react'
+import { PlatformLogo } from '@/components/icons/PlatformLogos'
 
 interface ApprovalItem {
   id: string
@@ -280,6 +281,9 @@ export default function ApprovalsPage() {
                     {/* Item Information */}
                     <div className="space-y-3 flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-[#242222] border border-[#373333] flex items-center justify-center p-1.5 shrink-0 shadow-sm">
+                          <PlatformLogo platform={app.draft_type || 'linkedin'} className="w-5 h-5" />
+                        </div>
                         <Link
                           href={`/app/content/${app.content_draft_id}`}
                           className="group inline-flex items-center gap-1.5 text-base sm:text-lg font-bold text-white hover:text-white transition-colors"
@@ -289,7 +293,8 @@ export default function ApprovalsPage() {
                         </Link>
                         {getStatusBadge(app.status)}
                         {app.draft_type && (
-                          <Badge variant="secondary" className="text-[10px] uppercase tracking-wider font-mono bg-[#242222] text-[#E5E7EB] border-[#373333]">
+                          <Badge variant="secondary" className="text-[10px] uppercase tracking-wider font-mono bg-[#242222] text-[#E5E7EB] border border-[#373333] flex items-center gap-1.5 py-1 px-2">
+                            <PlatformLogo platform={app.draft_type} className="w-3.5 h-3.5" />
                             {app.draft_type}
                           </Badge>
                         )}

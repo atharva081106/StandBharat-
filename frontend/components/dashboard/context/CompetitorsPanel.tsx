@@ -6,6 +6,7 @@ import {
   Plus, Loader2, ExternalLink, Sparkles, Trash2, Globe, 
   Swords, AlertCircle, CheckCircle2, ShieldAlert
 } from 'lucide-react'
+import { CompetitorLogo } from '@/components/competitors/CompetitorLogo'
 
 interface CompetitorsPanelProps {
   selectedCompetitorName?: string | null;
@@ -224,9 +225,12 @@ export function CompetitorsPanel({ selectedCompetitorName }: CompetitorsPanelPro
               >
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-[#8F0028]/20 border border-[#8F0028]/40 flex items-center justify-center font-bold text-white text-[13px]">
-                      {comp.name ? comp.name.charAt(0).toUpperCase() : 'C'}
-                    </div>
+                    <CompetitorLogo 
+                      name={comp.name} 
+                      websiteUrl={comp.website_url} 
+                      className="w-9 h-9" 
+                      size={36} 
+                    />
                     <div>
                       <h4 className="text-[15px] font-bold text-white flex items-center gap-2">
                         {comp.name}

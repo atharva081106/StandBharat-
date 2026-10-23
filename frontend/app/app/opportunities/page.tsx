@@ -10,6 +10,7 @@ import {
   Zap, Target, TrendingUp, CheckCircle2, XCircle, 
   Trash2, Plus, RefreshCw, AlertCircle, ArrowUpRight, Sparkles 
 } from 'lucide-react'
+import { PlatformLogo } from '@/components/icons/PlatformLogos'
 
 interface Opportunity {
   id: string
@@ -221,8 +222,9 @@ export default function OpportunitiesPage() {
                       {opp.impact} Impact
                     </span>
                     {opp.opportunity_type && (
-                      <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#E5E7EB] text-[10px] font-mono uppercase">
-                        {opp.opportunity_type}
+                      <Badge variant="outline" className="bg-[#242222] border-[#373333] text-[#E5E7EB] text-[10px] font-mono uppercase flex items-center gap-1.5 py-0.5">
+                        <PlatformLogo platform={opp.opportunity_type} className="w-3.5 h-3.5 shrink-0" size={14} />
+                        <span>{opp.opportunity_type}</span>
                       </Badge>
                     )}
                     {opp.status === 'IN_PROGRESS' && (

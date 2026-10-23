@@ -5,6 +5,17 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { TrendingUp, UserSearch, FileText, BarChart2, Eye, Terminal, Users, Star } from 'lucide-react'
+import {
+  GA4Logo,
+  GSCLogo,
+  LinkedInLogo,
+  XLogo,
+  WordPressLogo,
+  GitHubLogo,
+  SlackLogo,
+  TikTokLogo,
+  InstagramLogo
+} from '@/components/icons/PlatformLogos'
 
 const AGENTS = [
   { name: 'Growth Agent', desc: 'Find high-impact opportunities.', icon: TrendingUp, color: '#34A853' },
@@ -18,25 +29,15 @@ const AGENTS = [
 ]
 
 const INTEGRATIONS = [
-  { name: 'WordPress', desc: 'Auto-publish posts.', soon: false, icon: <svg viewBox="0 0 24 24" fill="#21759b" className="w-5 h-5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-.91 14.51L8.52 10.3l-2.45 6.64A8.046 8.046 0 014 12c0-1.8.61-3.46 1.63-4.78.21.03.44.05.67.05 1.05 0 2.66-.13 2.66-.13.56-.03.64.79.08.84 0 0-.54.06-1.15.1l3.59 10.73 2.16-6.49-3.08-8.61c-.57-.04-1.12-.1-1.12-.1-.56-.03-.48-.87.08-.84 0 0 1.63.13 2.62.13.96 0 2.61-.13 2.61-.13.56-.03.64.79.08.84 0 0-.55.06-1.15.1L16.27 15l-1.99 5.86c-.16-.07-.32-.15-.47-.24-.26-.14-.52-.3-.77-.48l-1.95-3.63zm7.04-4.88c0 1.25-.45 2.21-.86 3.14l-2.61 7.6c1.94-1.29 3.23-3.48 3.23-6.02 0-1.74-.63-3.05-1.42-4.14-.14-.18-.3-.36-.45-.54-.01-.01-.02-.02-.02-.04H16.4l1.73 4z" /></svg> },
-  { name: 'Webflow', desc: 'Publish to Webflow.', soon: false, icon: <svg viewBox="0 0 24 24" fill="#4353FF" className="w-5 h-5"><path d="M16.89 6.27h-4.3l-1.57 6.42-2.18-6.42h-4.3l3.88 11.46h4.52l1.9-7.3 1.9 7.3h4.52L25.13 6.27h-4.18l-1.9 8.16-2.16-8.16z" transform="translate(-1.4, 0) scale(0.9)"/></svg> },
-  { name: 'Framer', desc: 'Sync Framer content.', soon: false, icon: <svg viewBox="0 0 24 24" fill="#000000" className="w-5 h-5"><path d="M4 2h16v7H12L4 2zm16 7v7H4l8-7h8zm-8 7v7l-8-7h8z"/></svg> },
-
-  { name: 'Wix', desc: 'Publish to Wix blog.', soon: false, icon: <svg viewBox="0 0 24 24" fill="#000000" className="w-5 h-5"><path d="M12.98 17.5l-2.58-8.23-2.58 8.23H5.5L2 6.5h2.51l2.13 7.23 2.5-7.23h2.38l2.5 7.23 2.13-7.23H22l-3.5 11h-2.32V17.5h-3.2z"/></svg> },
-  { name: 'Sanity', desc: 'Publish content.', soon: false, icon: <svg viewBox="0 0 24 24" fill="#F03E2F" className="w-5 h-5"><path d="M16.71 5.37l-4.5 5.56 1.83 4.19 5.36-6.4-2.69-3.35zM4.6 7.49L2.6 10l5.88 7.02 2.69-3.35-6.57-6.18zM14.6 18.63l-2.69 3.35L7.4 16.41l2.69-3.35 4.51 5.57z"/></svg> },
-  { name: 'Google Search Console', desc: 'Track rankings.', soon: false, icon: <svg viewBox="0 0 24 24" fill="#4285F4" className="w-5 h-5"><path d="M3 19h18v2H3v-2zm10-5h4v4h-4v-4zm-5-3h4v7H8v-7zm-5-4h4v11H3V7zm15-4h4v15h-4V3z"/></svg> },
-
-  { name: 'Google Analytics', desc: 'Track traffic.', soon: false, icon: <svg viewBox="0 0 24 24" fill="#F9AB00" className="w-5 h-5"><path d="M16 3h4v18h-4V3zm-6 7h4v11h-4V10zM4 14h4v7H4v-7z"/></svg> },
-  { name: 'GitHub', desc: 'Open SEO PRs.', soon: false, icon: <svg viewBox="0 0 24 24" fill="#181717" className="w-5 h-5"><path d="M12 .3a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1-1 .1-1 .1-1 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .3z"/></svg> },
-  { name: 'LinkedIn', desc: 'Publish posts.', soon: false, icon: <svg viewBox="0 0 24 24" fill="#0A66C2" className="w-5 h-5"><path d="M20.4 20.5H16.9v-5.6c0-1.3-.5-2.2-1.6-2.2-1 0-1.5.6-1.8 1.2-.1.2-.1.5-.1.8v5.8H9.9s.1-10.5 0-11.6h3.5v1.6c.5-.7 1.3-1.8 3.2-1.8 2.3 0 4 1.5 4 4.8v7zM5 7.4a2 2 0 110-4.1 2 2 0 010 4.1zm1.8 13.1H3.3V8.9h3.5v11.6z"/></svg> },
-
-  { name: 'X (Twitter)', desc: 'Publish threads.', soon: false, icon: <svg viewBox="0 0 24 24" fill="#000000" className="w-5 h-5"><path d="M18.9 3h3.4l-7.4 8.5 8.7 11.5h-6.8l-5.3-7-6.1 7H2.1l7.9-9L1.8 3h7l4.8 6.3L18.9 3zM15.4 20.8h1.9L6.5 4.9H4.4l11 15.9z"/></svg> },
-  { name: 'WhatsApp', desc: 'Drafts in chat.', soon: false, icon: <svg viewBox="0 0 24 24" fill="#25D366" className="w-5 h-5"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.83 3.1 1.27 4.79 1.27 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.46 14.1c-.2.58-1.15 1.11-1.74 1.23-.55.12-1.28.25-3.86-.82-3.13-1.3-5.18-4.52-5.34-4.73-.15-.22-1.27-1.7-1.27-3.24 0-1.55.81-2.32 1.1-2.62.28-.3.62-.38.83-.38.2 0 .4 0 .58.01.2.01.46-.08.72.54.27.65.92 2.24 1 2.44.08.2.14.43.01.68-.13.25-.2.41-.4.65-.2.23-.42.52-.6.7-.2.22-.42.45-.18.86.23.4 1.03 1.7 2.21 2.75 1.52 1.35 2.8 1.77 3.2 1.96.4.2.64.16.88-.1.25-.27 1.03-1.2 1.3-1.61.28-.41.56-.34.92-.2l2.3 1.09c.35.17.58.26.66.4.08.14.08.82-.12 1.4z"/></svg> },
-  { name: 'Telegram', desc: 'Updates in chat.', soon: false, icon: <svg viewBox="0 0 24 24" fill="#26A5E4" className="w-5 h-5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.06-.19-.07-.05-.17-.03-.25-.01-.11.02-1.89 1.18-5.35 3.51-.51.35-.97.53-1.38.52-.45-.01-1.32-.26-1.96-.46-.79-.26-1.42-.39-1.37-.83.02-.23.32-.47.9-.72 3.53-1.53 5.88-2.54 7.05-3.03 3.35-1.4 4.04-1.64 4.49-1.65.1 0 .32.02.46.12.12.09.16.21.17.33 0 .07-.01.21-.02.32z"/></svg> },
-
-  { name: 'TikTok', desc: 'Publish clips.', soon: true, icon: <svg viewBox="0 0 24 24" fill="#000000" className="w-5 h-5"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 2.78-1.15 5.54-3.11 7.42-2.12 2.05-5.07 3.03-7.98 2.68-2.9-.34-5.46-1.89-7.14-4.23-1.64-2.26-2.14-5.2-1.33-7.85.79-2.67 2.69-4.87 5.17-5.96 1.48-.65 3.12-.91 4.72-.77v4.11c-1.59-.14-3.23.47-4.27 1.64-1.04 1.15-1.4 2.82-1.01 4.3.4 1.5 1.54 2.7 2.96 3.25 1.42.54 3.06.41 4.37-.36 1.33-.78 2.21-2.16 2.42-3.69.08-.57.1-1.15.1-1.72V.02h-1.04z"/></svg> },
-  { name: 'Instagram', desc: 'Publish clips.', soon: true, icon: <svg viewBox="0 0 24 24" fill="#E4405F" className="w-5 h-5"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.22.41.56.22.96.48 1.36.88.4.4.66.8.88 1.36.16.42.36 1.05.41 2.22.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.22-.22.56-.48.96-.88 1.36-.4.4-.8.66-1.36.88-.42.16-1.05.36-2.22.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.22-.41-.56-.22-.96-.48-1.36-.88-.4-.4-.66-.8-.88-1.36-.16-.42-.36-1.05-.41-2.22C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.22.22-.56.48-.96.88-1.36.4-.4.8-.66 1.36-.88.42-.16 1.05-.36 2.22-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07c-1.27.06-2.14.26-2.9.56-.78.3-1.44.73-2.1 1.39-.66.66-1.09 1.32-1.39 2.1-.3.76-.5 1.63-.56 2.9C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.14.56 2.9.3.78.73 1.44 1.39 2.1.66.66 1.32 1.09 2.1 1.39.76.3 1.63.5 2.9.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.14-.26 2.9-.56.78-.3 1.44-.73 2.1-1.39.66-.66 1.09-1.32 1.39-2.1.3-.76.5-1.63.56-2.9.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.14-.56-2.9-.3-.78-.73-1.44-1.39-2.1-.66-.66-1.32-1.09-2.1-1.39-.76-.3-1.63-.5-2.9-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zm0 10.16A4 4 0 1116 12a4 4 0 01-4 4zm5.22-9.62a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg> },
-  { name: 'Slack', desc: 'Drafts and approvals.', soon: true, icon: <svg viewBox="0 0 24 24" fill="#4A154B" className="w-5 h-5"><path d="M5.04 15.27a2.38 2.38 0 01-2.38 2.38 2.38 2.38 0 01-2.38-2.38c0-1.3.99-2.37 2.27-2.38h2.49v2.38zm1.19-2.38a2.38 2.38 0 012.38-2.38 2.38 2.38 0 012.38 2.38v5.94a2.38 2.38 0 11-4.76 0v-5.94zM8.73 5.04A2.38 2.38 0 016.35 2.66 2.38 2.38 0 018.73.28c1.3 0 2.37.99 2.38 2.27v2.49H8.73zm2.38 1.19a2.38 2.38 0 012.38 2.38 2.38 2.38 0 01-2.38 2.38H5.17a2.38 2.38 0 110-4.76h5.94zm7.85 2.5a2.38 2.38 0 012.38-2.38 2.38 2.38 0 012.38 2.38c0 1.3-.99 2.37-2.27 2.38h-2.49V8.73zm-1.19 2.38a2.38 2.38 0 01-2.38 2.38 2.38 2.38 0 01-2.38-2.38V5.17a2.38 2.38 0 114.76 0v5.94zM15.27 18.96a2.38 2.38 0 012.38 2.38 2.38 2.38 0 01-2.38 2.38c-1.3 0-2.37-.99-2.38-2.27v-2.49h2.38zm-2.38-1.19a2.38 2.38 0 01-2.38-2.38 2.38 2.38 0 012.38-2.38h5.94a2.38 2.38 0 110 4.76h-5.94z"/></svg> },
+  { name: 'WordPress', desc: 'Auto-publish posts.', soon: false, icon: <WordPressLogo className="w-5 h-5" /> },
+  { name: 'Google Search Console', desc: 'Track rankings & indexation.', soon: false, icon: <GSCLogo className="w-5 h-5" /> },
+  { name: 'Google Analytics 4', desc: 'Track traffic & attribution.', soon: false, icon: <GA4Logo className="w-5 h-5" /> },
+  { name: 'LinkedIn', desc: 'Publish thought leadership.', soon: false, icon: <LinkedInLogo className="w-5 h-5" /> },
+  { name: 'X (Twitter)', desc: 'Publish threads & reach.', soon: false, icon: <XLogo className="w-5 h-5" /> },
+  { name: 'Instagram', desc: 'Publish visual stories.', soon: false, icon: <InstagramLogo className="w-5 h-5" /> },
+  { name: 'TikTok', desc: 'Short-form video reach.', soon: false, icon: <TikTokLogo className="w-5 h-5" /> },
+  { name: 'GitHub', desc: 'Open SEO PRs & automations.', soon: false, icon: <GitHubLogo className="w-5 h-5" /> },
+  { name: 'Slack', desc: 'Approval notifications in chat.', soon: false, icon: <SlackLogo className="w-5 h-5" /> },
 ]
 
 // Removed AgentIcon helper as we now use Lucide icons directly

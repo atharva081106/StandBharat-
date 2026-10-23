@@ -113,7 +113,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         {/* LEFT: Logo & Workspace */}
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <Image src="/logo-icon.png" alt="StandBharat Logo" width={28} height={28} className="object-contain" />
+            <Image src="/logo-icon.png" alt="StandBharat Logo" width={28} height={28} className="object-contain" style={{ width: 'auto', height: 'auto' }} priority />
             <span className="font-bold text-[15px] tracking-tight">StandBharat <ChevronDown className="w-3 h-3 inline text-[#E5E7EB]" /></span>
           </div>
           

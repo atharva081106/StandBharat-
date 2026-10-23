@@ -19,6 +19,7 @@ import {
   AlertCircle
 } from 'lucide-react'
 import Link from 'next/link'
+import { PlatformLogo } from '@/components/icons/PlatformLogos'
 
 export default function Content() {
   const { auth } = useAppProvider()
@@ -174,14 +175,20 @@ export default function Content() {
                     )}
                   </td>
                   <td className="px-6 py-4">
-                    <span className="text-white capitalize font-medium">{item.content_type || 'Article'}</span>
+                    <div className="flex items-center gap-2">
+                      <PlatformLogo platform={item.content_type || 'blog'} className="w-4 h-4 shrink-0" />
+                      <span className="text-white capitalize font-medium">{item.content_type || 'Article'}</span>
+                    </div>
                   </td>
                   <td className="px-6 py-4">
                     {getStatusBadge(item.status)}
                     {item.status === 'FAILED' && <div className="text-xs text-white mt-1">{item.error_message}</div>}
                   </td>
                   <td className="px-6 py-4">
-                    <span className="text-[#E5E7EB] capitalize font-medium">{item.platform || 'Multi-Channel'}</span>
+                    <div className="flex items-center gap-2">
+                      <PlatformLogo platform={item.platform || item.content_type || 'linkedin'} className="w-4 h-4 shrink-0" />
+                      <span className="text-[#E5E7EB] capitalize font-medium">{item.platform || 'Multi-Channel'}</span>
+                    </div>
                   </td>
                   <td className="px-6 py-4 text-right text-[#E5E7EB]">
                     {new Date(item.updated_at).toLocaleDateString()}

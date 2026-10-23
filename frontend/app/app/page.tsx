@@ -26,6 +26,7 @@ import LighthouseAuditWidget from '@/components/analytics/LighthouseAuditWidget'
 import { ChatMessageRenderer } from '@/components/chat/ChatMessageRenderer'
 import { DocumentDeliveryViewer } from '@/components/dashboard/context/DocumentDeliveryViewer'
 import { AgentLogo } from '@/components/agents/AgentLogo'
+import { CompetitorLogo } from '@/components/competitors/CompetitorLogo'
 import { FastApprovalModal } from '@/components/approvals/FastApprovalModal'
 import { AutonomousSprintModal } from '@/components/agents/AutonomousSprintModal'
 import { StrategicRecommendationModal } from '@/components/cmo/StrategicRecommendationModal'
@@ -544,7 +545,7 @@ export default function AIWorkspace() {
                   }`}
                 >
                   <div className="flex items-center gap-2 truncate">
-                    <div className={`w-4 h-4 rounded flex items-center justify-center text-[9px] font-bold text-white uppercase shrink-0 ${activeNav === comp ? 'bg-[#8F0028]' : 'bg-[#373333]'}`}>{comp.charAt(0)}</div>
+                    <CompetitorLogo name={comp} className="w-4 h-4 shrink-0 rounded" size={16} />
                     <span className="text-[13px] font-medium truncate">{comp}</span>
                   </div>
                 </div>
@@ -1772,7 +1773,10 @@ export default function AIWorkspace() {
               {(brandBrain?.competitors && brandBrain.competitors.length > 0) ? (
                 brandBrain.competitors.map((c: any, idx: number) => (
                   <div key={c.id || `${c.name}-${idx}`} className="p-3 bg-[#242222] border border-[#373333] rounded-xl text-[12px]">
-                    <div className="font-bold text-white mb-1">{c.name}</div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <CompetitorLogo name={c.name} websiteUrl={c.website_url} className="w-5 h-5 shrink-0" size={20} />
+                      <div className="font-bold text-white">{c.name}</div>
+                    </div>
                     <div className="text-white text-[11px]">Monitored: Competitive pricing & brand search signals</div>
                     <div className="text-white text-[11px] mt-0.5">Differentiator: {activeBrand?.name || 'Our brand'} offers {brandBrain?.positioning?.unique_value_proposition?.slice(0, 60) || 'distinctive value solutions'}</div>
                   </div>

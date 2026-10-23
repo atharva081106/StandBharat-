@@ -11,6 +11,7 @@ import {
   Trash2, ExternalLink, Zap, Swords, Target, Eye, Radio, Sparkles, TrendingUp
 } from 'lucide-react'
 import { CompetitorBattlecardModal } from '@/components/competitors/CompetitorBattlecardModal'
+import { CompetitorLogo } from '@/components/competitors/CompetitorLogo'
 
 interface Competitor {
   id: string
@@ -258,23 +259,26 @@ export default function CompetitorsPage() {
           {competitors.map(comp => (
             <Card key={comp.id} className="bg-[#1C1A1A] border-[#373333] hover:border-[#4A4545] transition-all flex flex-col justify-between">
               <CardHeader className="pb-3 border-b border-[#373333]">
-                <div className="flex justify-between items-start gap-2">
-                  <div>
-                    <CardTitle className="text-lg text-white font-bold">
-                      {comp.name}
-                    </CardTitle>
-                    {comp.website_url && (
-                      <a 
-                        href={comp.website_url.startsWith('http') ? comp.website_url : `https://${comp.website_url}`}
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="text-xs text-white hover:underline flex items-center gap-1 mt-0.5"
-                      >
-                        <Globe className="w-3 h-3" />
-                        {comp.website_url.replace(/^https?:\/\//, '')}
-                        <ExternalLink className="w-2.5 h-2.5" />
-                      </a>
-                    )}
+                <div className="flex justify-between items-start gap-3">
+                  <div className="flex items-center gap-3">
+                    <CompetitorLogo name={comp.name} websiteUrl={comp.website_url} className="w-10 h-10" />
+                    <div>
+                      <CardTitle className="text-base sm:text-lg text-white font-bold">
+                        {comp.name}
+                      </CardTitle>
+                      {comp.website_url && (
+                        <a 
+                          href={comp.website_url.startsWith('http') ? comp.website_url : `https://${comp.website_url}`}
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="text-xs text-[#E5E7EB] hover:text-white hover:underline flex items-center gap-1 mt-0.5"
+                        >
+                          <Globe className="w-3 h-3 text-[#3B82F6]" />
+                          {comp.website_url.replace(/^https?:\/\//, '')}
+                          <ExternalLink className="w-2.5 h-2.5 opacity-60" />
+                        </a>
+                      )}
+                    </div>
                   </div>
                   <Button 
                     variant="ghost" 
