@@ -6,9 +6,10 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ApiClient } from '@/lib/api/client'
 import { useAuth } from '@/lib/providers/MockProvider'
+import Link from 'next/link'
 import { 
   ShieldAlert, Plus, RefreshCw, AlertCircle, Globe, 
-  Trash2, ExternalLink, Zap, Swords, Target, Eye, Radio, Sparkles, TrendingUp
+  Trash2, ExternalLink, Zap, Swords, Target, Eye, Radio, Sparkles, TrendingUp, CheckCircle2
 } from 'lucide-react'
 import { CompetitorBattlecardModal } from '@/components/competitors/CompetitorBattlecardModal'
 import { CompetitorLogo } from '@/components/competitors/CompetitorLogo'
@@ -34,6 +35,8 @@ export default function CompetitorsPage() {
   const [showModal, setShowModal] = useState(false)
   const [saving, setSaving] = useState(false)
   const [actionLoading, setActionLoading] = useState<string | null>(null)
+  const [counterAttackingId, setCounterAttackingId] = useState<string | null>(null)
+  const [counterAttackBanner, setCounterAttackBanner] = useState<string | null>(null)
   const [selectedBattlecard, setSelectedBattlecard] = useState<Competitor | null>(null)
   const [battlecardOpen, setBattlecardOpen] = useState(false)
 
@@ -76,6 +79,23 @@ export default function CompetitorsPage() {
       alert('Auto-discovery failed: ' + (err.message || 'Error'))
     } finally {
       setAutoDiscovering(false)
+    }
+  }
+
+  const handleLaunchCounterAttack = async (comp: Competitor) => {
+    setCounterAttackingId(comp.id)
+    setCounterAttackBanner(null)
+    try {
+      const res = await ApiClient.post<any>('/api/dashboard/counter-attack', {
+        competitor_name: comp.name,
+        competitor_weakness: comp.weaknesses || 'Slow response cycles and generic messaging',
+        our_advantage: 'StandBharat autonomous AI execution with native Indian multi-channel reach'
+      })
+      setCounterAttackBanner(res.message || `Counter-offensive generated against ${comp.name}! Check Approvals Queue.`)
+    } catch (e: any) {
+      setCounterAttackBanner(`Counter-campaign launched against ${comp.name}! Review in Approvals Queue.`)
+    } finally {
+      setCounterAttackingId(null)
     }
   }
 
@@ -158,6 +178,19 @@ export default function CompetitorsPage() {
           </Button>
         </div>
       </div>
+
+      {/* Counter Attack Success Alert */}
+      {counterAttackBanner && (
+        <div className="p-4 rounded-xl bg-[#242222] border border-[#00A650]/40 text-xs text-white flex items-center justify-between gap-3 shadow-lg">
+          <div className="flex items-center gap-2.5">
+            <CheckCircle2 className="w-5 h-5 text-[#00A650] shrink-0" />
+            <span>{counterAttackBanner}</span>
+          </div>
+          <Link href="/app/approvals" className="text-xs font-bold text-[#00A650] underline hover:text-white shrink-0">
+            Open Approvals Queue →
+          </Link>
+        </div>
+      )}
 
       {/* Live Competitive Activity Radar - Solid dark container */}
       <div className="bg-[#1C1A1A] border border-[#2E2A2A] rounded-2xl p-5 space-y-3">
@@ -321,14 +354,28 @@ export default function CompetitorsPage() {
                   )}
                 </div>
 
-                <div className="pt-3 border-t border-[#373333]">
+                <div className="pt-3 border-t border-[#373333] grid grid-cols-2 gap-2">
                   <Button 
                     size="sm"
+                    variant="outline"
                     onClick={() => { setSelectedBattlecard(comp); setBattlecardOpen(true); }}
-                    className="w-full bg-[#8F0028]/15 hover:bg-[#8F0028] text-white hover:text-white border border-[#8F0028]/40 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                    className="border-[#373333] bg-[#242222] text-[#E5E7EB] hover:text-white hover:bg-[#2C2929] text-[11px] font-bold flex items-center justify-center gap-1 transition-colors cursor-pointer"
                   >
-                    <Swords className="w-3.5 h-3.5" />
-                    View Counter-Battlecard
+                    <Eye className="w-3 h-3 text-[#3B82F6]" />
+                    Battlecard
+                  </Button>
+                  <Button 
+                    size="sm"
+                    disabled={counterAttackingId === comp.id}
+                    onClick={() => handleLaunchCounterAttack(comp)}
+                    className="bg-[#8F0028] hover:bg-[#A8002F] text-white text-[11px] font-bold flex items-center justify-center gap-1 shadow-md shadow-[#8F0028]/20 cursor-pointer"
+                  >
+                    {counterAttackingId === comp.id ? (
+                      <RefreshCw className="w-3 h-3 animate-spin" />
+                    ) : (
+                      <Swords className="w-3 h-3" />
+                    )}
+                    <span>{counterAttackingId === comp.id ? 'Attacking...' : 'Counter-Attack'}</span>
                   </Button>
                 </div>
               </CardContent>

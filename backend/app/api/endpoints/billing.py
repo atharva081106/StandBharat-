@@ -2,7 +2,7 @@ import uuid
 import json
 import logging
 from typing import Dict, Any, List
-from fastapi import APIRouter, Depends, HTTPException, Request, Header, status
+from fastapi import APIRouter, Depends, HTTPException, Request, Header, status, Body
 from sqlalchemy.orm import Session
 
 from app.api import deps
@@ -126,7 +126,7 @@ def get_invoice_receipt(
     db: Session = Depends(deps.get_db),
     context: dict = Depends(deps.get_current_workspace),
 ):
-    """Fetches printable receipt details for a specific invoice."""
+    """Fetches printable receipt details with full Indian GST breakdown."""
     workspace = context["workspace"]
     inv = (
         db.query(Invoice)
@@ -136,19 +136,99 @@ def get_invoice_receipt(
     if not inv:
         raise HTTPException(status_code=404, detail="Invoice not found")
 
+    amount = float(inv.amount_paid or 0)
+    # 18% GST calculation (9% CGST + 9% SGST)
+    taxable_value = round(amount / 1.18, 2)
+    cgst_amount = round((amount - taxable_value) / 2.0, 2)
+    sgst_amount = round(amount - taxable_value - cgst_amount, 2)
+
     return {
         "invoice_number": inv.invoice_number,
         "workspace_name": workspace.name,
-        "amount_paid": inv.amount_paid,
+        "amount_paid": amount,
+        "taxable_value": taxable_value,
+        "cgst_rate": "9%",
+        "cgst_amount": cgst_amount,
+        "sgst_rate": "9%",
+        "sgst_amount": sgst_amount,
+        "igst_rate": "18%",
+        "hsn_sac_code": "998314",
+        "service_description": "Cloud & Autonomous Marketing Artificial Intelligence SaaS (HSN 998314)",
         "currency": inv.currency,
         "status": inv.status,
         "description": inv.description,
         "created_at": inv.created_at.isoformat() if inv.created_at else None,
         "period_start": inv.period_start.isoformat() if inv.period_start else None,
         "period_end": inv.period_end.isoformat() if inv.period_end else None,
-        "payment_method": "Credit Card / NetBanking",
+        "payment_method": "UPI (Instant BHIM / Razorpay)",
         "merchant": "StandBharat Autonomous AI Marketing Pvt Ltd",
-        "tax_identifier": "GSTIN27AABCS1429B1Z",
+        "merchant_address": "Level 9, Tech Park One, Airport Road, Pune, Maharashtra 411006, India",
+        "tax_identifier": "27AABCS1429B1Z",
+        "place_of_supply": "27 - Maharashtra",
+        "reverse_charge": "No",
+        "authorized_signatory": "StandBharat Automated Billing Gateway"
+    }
+
+
+@router.post("/upi-intent")
+def create_upi_intent(
+    payload: dict = Body(...),
+    db: Session = Depends(deps.get_db),
+    context: dict = Depends(deps.get_current_workspace),
+    current_user: User = Depends(deps.get_current_user),
+):
+    """
+    Generates a live NPCI UPI payment intent & dynamic QR code string
+    with full 18% GST breakdown and instant intent URLs for GPay, PhonePe, Paytm, BHIM.
+    """
+    workspace = context["workspace"]
+    plan_tier = payload.get("plan_tier", "PRO").upper()
+    billing_cycle = payload.get("billing_cycle", "MONTHLY").upper()
+    customer_gstin = payload.get("customer_gstin")
+
+    amounts = {
+        ("PRO", "MONTHLY"): 4999.0,
+        ("PRO", "ANNUAL"): 47990.0,
+        ("ENTERPRISE", "MONTHLY"): 19999.0,
+        ("ENTERPRISE", "ANNUAL"): 191990.0
+    }
+
+    total_amount = amounts.get((plan_tier, billing_cycle), 4999.0)
+    taxable_value = round(total_amount / 1.18, 2)
+    gst_total = round(total_amount - taxable_value, 2)
+    cgst = round(gst_total / 2.0, 2)
+    sgst = round(gst_total - cgst, 2)
+
+    order_id = f"sb_upi_{uuid.uuid4().hex[:10]}"
+    vpa = "standbharat@icici"
+    merchant_name = "StandBharat AI"
+    note = f"{plan_tier} {billing_cycle.title()} Plan"
+
+    # Official NPCI UPI URI Scheme
+    upi_uri = f"upi://pay?pa={vpa}&pn={merchant_name.replace(' ', '%20')}&am={total_amount:.2f}&cu=INR&tn={note.replace(' ', '%20')}&tr={order_id}&mc=5734"
+
+    return {
+        "order_id": order_id,
+        "plan_tier": plan_tier,
+        "billing_cycle": billing_cycle,
+        "total_amount": total_amount,
+        "taxable_value": taxable_value,
+        "cgst": cgst,
+        "sgst": sgst,
+        "hsn_sac": "998314",
+        "upi_vpa": vpa,
+        "merchant_name": merchant_name,
+        "upi_uri": upi_uri,
+        "customer_gstin": customer_gstin,
+        "itc_eligible": bool(customer_gstin and len(customer_gstin) == 15),
+        "intents": {
+            "gpay": f"gpay://upi/pay?pa={vpa}&pn={merchant_name.replace(' ', '%20')}&am={total_amount:.2f}&cu=INR&tn={note.replace(' ', '%20')}&tr={order_id}",
+            "phonepe": f"phonepe://pay?pa={vpa}&pn={merchant_name.replace(' ', '%20')}&am={total_amount:.2f}&cu=INR&tn={note.replace(' ', '%20')}&tr={order_id}",
+            "paytm": f"paytmmp://pay?pa={vpa}&pn={merchant_name.replace(' ', '%20')}&am={total_amount:.2f}&cu=INR&tn={note.replace(' ', '%20')}&tr={order_id}",
+            "bhim": f"bhim://pay?pa={vpa}&pn={merchant_name.replace(' ', '%20')}&am={total_amount:.2f}&cu=INR&tn={note.replace(' ', '%20')}&tr={order_id}"
+        },
+        "expires_in_seconds": 300,
+        "message": "UPI payment intent created. Scan the QR code or click your preferred UPI app to pay."
     }
 
 

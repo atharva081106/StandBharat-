@@ -33,6 +33,7 @@ import { StrategicRecommendationModal } from '@/components/cmo/StrategicRecommen
 import { ExportReportModal } from '@/components/reports/ExportReportModal'
 import { AttributionFunnelVisualizer } from '@/components/analytics/AttributionFunnelVisualizer'
 import { NextBestActionFeed } from '@/components/dashboard/NextBestActionFeed'
+import { MorningBriefingCard } from '@/components/dashboard/MorningBriefingCard'
 
 export default function AIWorkspace() {
   const auth = useAuth()
@@ -680,6 +681,11 @@ export default function AIWorkspace() {
             {/* Scrollable Content */}
             <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-6">
               
+              {/* Daily 8:00 AM IST Executive AI CMO Pulse */}
+              <MorningBriefingCard onActionTriggered={(type) => {
+                showToast(`Executive action '${type}' dispatched to autonomous loop`, 'success')
+              }} />
+
               {/* TAB 0: REVENUE ATTRIBUTION, FUNNEL & AUTONOMOUS ACTION LOOP */}
               {analyticsTab === 'Attribution' && (
                 <>

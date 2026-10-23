@@ -11,6 +11,8 @@ import {
   DollarSign, TrendingUp, CheckCircle2, Clock, Play, Pause, BarChart3
 } from 'lucide-react'
 import { RoiBudgetSimulator } from '@/components/analytics/RoiBudgetSimulator'
+import { FestiveCampaignEngine } from '@/components/campaigns/FestiveCampaignEngine'
+import { WhatsAppStudio } from '@/components/campaigns/WhatsAppStudio'
 
 interface Campaign {
   id: string
@@ -32,6 +34,8 @@ export default function CampaignsPage() {
   const [error, setError] = useState<string | null>(null)
   const [showModal, setShowModal] = useState(false)
   const [creating, setCreating] = useState(false)
+  
+  const [activeTab, setActiveTab] = useState<'campaigns' | 'festive' | 'whatsapp' | 'simulator'>('campaigns')
   
   const [form, setForm] = useState({
     name: '',
@@ -152,91 +156,170 @@ export default function CampaignsPage() {
         </div>
       </div>
 
-      {/* Predictive Marketing ROI & Budget Simulator */}
-      <RoiBudgetSimulator />
+      {/* Navigation Tabs */}
+      <div className="flex items-center gap-2 border-b border-[#373333] pb-3 overflow-x-auto">
+        <button
+          onClick={() => setActiveTab('campaigns')}
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 ${
+            activeTab === 'campaigns'
+              ? 'bg-[#8F0028] text-white shadow-md'
+              : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
+          }`}
+        >
+          <Briefcase className="w-3.5 h-3.5" />
+          Active Campaigns ({campaigns.length})
+        </button>
 
-      {/* Error state */}
-      {error && (
-        <div className="p-4 bg-red-950/30 border border-red-800 rounded-xl text-red-300 text-sm flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
-            <span>{error}</span>
-          </div>
-          <Button size="sm" variant="outline" onClick={fetchCampaigns} className="border-red-800 text-red-300">
-            Retry
-          </Button>
-        </div>
+        <button
+          onClick={() => setActiveTab('festive')}
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 ${
+            activeTab === 'festive'
+              ? 'bg-[#8F0028] text-white shadow-md'
+              : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
+          }`}
+        >
+          <span>🪔</span>
+          Festive Bharat Engine
+          <span className="px-1.5 py-0.2 bg-[#242222] text-[#00A650] rounded text-[10px] font-bold">
+            Diwali Peak
+          </span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('whatsapp')}
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 ${
+            activeTab === 'whatsapp'
+              ? 'bg-[#8F0028] text-white shadow-md'
+              : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
+          }`}
+        >
+          <span>💬</span>
+          WhatsApp Broadcast Studio
+        </button>
+
+        <button
+          onClick={() => setActiveTab('simulator')}
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 ${
+            activeTab === 'simulator'
+              ? 'bg-[#8F0028] text-white shadow-md'
+              : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
+          }`}
+        >
+          <BarChart3 className="w-3.5 h-3.5" />
+          Predictive ROI Simulator
+        </button>
+      </div>
+
+      {/* Tab: Festive Engine */}
+      {activeTab === 'festive' && (
+        <FestiveCampaignEngine onSprintLaunched={fetchCampaigns} />
       )}
 
-      {/* Loading state */}
-      {loading && (
-        <div className="p-16 text-center text-[#E5E7EB] space-y-3">
-          <div className="w-8 h-8 rounded-full border-2 border-[#8F0028] border-t-transparent animate-spin mx-auto"></div>
-          <p className="text-sm">Loading campaigns from PostgreSQL...</p>
-        </div>
+      {/* Tab: WhatsApp Studio */}
+      {activeTab === 'whatsapp' && (
+        <WhatsAppStudio />
       )}
 
-      {/* Empty state */}
-      {!loading && !error && campaigns.length === 0 && (
-        <div className="p-16 border border-dashed border-[#373333] rounded-2xl bg-[#1C1A1A] text-center space-y-4">
-          <div className="w-12 h-12 rounded-full bg-[#8F0028]/10 text-[#8F0028] flex items-center justify-center mx-auto">
-            <Briefcase className="w-6 h-6" />
-          </div>
-          <div className="max-w-md mx-auto">
-            <h3 className="text-lg font-semibold text-white">No Campaigns Created Yet</h3>
-            <p className="text-xs text-[#E5E7EB] mt-1">
-              Start by creating your first marketing campaign to coordinate content, organic promotion, and budget spend.
-            </p>
-          </div>
-          <Button 
-            onClick={() => setShowModal(true)}
-            className="bg-[#8F0028] hover:bg-[#A8002F] text-white text-xs font-semibold"
-          >
-            + Create Campaign
-          </Button>
-        </div>
+      {/* Tab: ROI Simulator */}
+      {activeTab === 'simulator' && (
+        <RoiBudgetSimulator />
       )}
 
-      {/* Campaigns Grid */}
-      {!loading && campaigns.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {campaigns.map(camp => (
-            <Card key={camp.id} className="bg-[#1C1A1A] border-[#373333] hover:border-[#4A4545] transition-all flex flex-col justify-between">
-              <CardHeader className="pb-3 border-b border-[#373333]">
-                <div className="flex justify-between items-start gap-2">
-                  <CardTitle className="text-base text-white font-bold line-clamp-1">
-                    {camp.name}
-                  </CardTitle>
-                  {getStatusBadge(camp.status)}
-                </div>
-              </CardHeader>
-              <CardContent className="pt-4 space-y-4 flex-1 flex flex-col justify-between">
-                <p className="text-xs text-[#E5E7EB] leading-relaxed line-clamp-3">
-                  {camp.description || 'No detailed description provided for this campaign.'}
+      {/* Tab: Campaigns List */}
+      {activeTab === 'campaigns' && (
+        <>
+          {/* Error state */}
+          {error && (
+            <div className="p-4 bg-red-950/30 border border-red-800 rounded-xl text-red-300 text-sm flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+                <span>{error}</span>
+              </div>
+              <Button size="sm" variant="outline" onClick={fetchCampaigns} className="border-red-800 text-red-300">
+                Retry
+              </Button>
+            </div>
+          )}
+
+          {/* Loading state */}
+          {loading && (
+            <div className="p-16 text-center text-[#E5E7EB] space-y-3">
+              <div className="w-8 h-8 rounded-full border-2 border-[#8F0028] border-t-transparent animate-spin mx-auto"></div>
+              <p className="text-sm">Loading campaigns from PostgreSQL...</p>
+            </div>
+          )}
+
+          {/* Empty state */}
+          {!loading && !error && campaigns.length === 0 && (
+            <div className="p-16 border border-dashed border-[#373333] rounded-2xl bg-[#1C1A1A] text-center space-y-4">
+              <div className="w-12 h-12 rounded-full bg-[#8F0028]/10 text-[#8F0028] flex items-center justify-center mx-auto">
+                <Briefcase className="w-6 h-6" />
+              </div>
+              <div className="max-w-md mx-auto">
+                <h3 className="text-lg font-semibold text-white">No Campaigns Created Yet</h3>
+                <p className="text-xs text-[#E5E7EB] mt-1">
+                  Start by launching an Indian festive sprint or creating your first custom marketing campaign.
                 </p>
+              </div>
+              <div className="flex items-center justify-center gap-3">
+                <Button 
+                  onClick={() => setActiveTab('festive')}
+                  className="bg-[#00A650] hover:bg-[#008f45] text-white text-xs font-semibold"
+                >
+                  Launch Festive Sprint 🪔
+                </Button>
+                <Button 
+                  onClick={() => setShowModal(true)}
+                  className="bg-[#8F0028] hover:bg-[#A8002F] text-white text-xs font-semibold"
+                >
+                  + Create Custom Campaign
+                </Button>
+              </div>
+            </div>
+          )}
 
-                <div className="space-y-2 pt-2 border-t border-[#373333] text-xs">
-                  <div className="flex justify-between items-center text-[#E5E7EB]">
-                    <span>Budget:</span>
-                    <span className="font-semibold text-white">₹{(camp.budget || 0).toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between items-center text-[#E5E7EB]">
-                    <span>Spend:</span>
-                    <span className="font-semibold text-[#8F0028]">₹{(camp.spent || 0).toLocaleString()}</span>
-                  </div>
-                  {camp.budget ? (
-                    <div className="w-full bg-[#242222] rounded-full h-1.5 overflow-hidden">
-                      <div 
-                        className="bg-[#00A650] h-full rounded-full" 
-                        style={{ width: `${Math.min(100, Math.round(((camp.spent || 0) / camp.budget) * 100))}%` }}
-                      />
+          {/* Campaigns Grid */}
+          {!loading && campaigns.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {campaigns.map(camp => (
+                <Card key={camp.id} className="bg-[#1C1A1A] border-[#373333] hover:border-[#4A4545] transition-all flex flex-col justify-between">
+                  <CardHeader className="pb-3 border-b border-[#373333]">
+                    <div className="flex justify-between items-start gap-2">
+                      <CardTitle className="text-base text-white font-bold line-clamp-1">
+                        {camp.name}
+                      </CardTitle>
+                      {getStatusBadge(camp.status)}
                     </div>
-                  ) : null}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                  </CardHeader>
+                  <CardContent className="pt-4 space-y-4 flex-1 flex flex-col justify-between">
+                    <p className="text-xs text-[#E5E7EB] leading-relaxed line-clamp-3">
+                      {camp.description || 'No detailed description provided for this campaign.'}
+                    </p>
+
+                    <div className="space-y-2 pt-2 border-t border-[#373333] text-xs">
+                      <div className="flex justify-between items-center text-[#E5E7EB]">
+                        <span>Budget:</span>
+                        <span className="font-semibold text-white">₹{(camp.budget || 0).toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center text-[#E5E7EB]">
+                        <span>Spend:</span>
+                        <span className="font-semibold text-[#8F0028]">₹{(camp.spent || 0).toLocaleString()}</span>
+                      </div>
+                      {camp.budget ? (
+                        <div className="w-full bg-[#242222] rounded-full h-1.5 overflow-hidden">
+                          <div 
+                            className="bg-[#00A650] h-full rounded-full" 
+                            style={{ width: `${Math.min(100, Math.round(((camp.spent || 0) / camp.budget) * 100))}%` }}
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </>
       )}
 
       {/* Create Campaign Modal */}

@@ -20,10 +20,12 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { PlatformLogo } from '@/components/icons/PlatformLogos'
+import { CarouselStudio } from '@/components/content/CarouselStudio'
 
 export default function Content() {
   const { auth } = useAppProvider()
   const { activeBrand } = auth
+  const [viewMode, setViewMode] = useState<'library' | 'carousel'>('library')
   const [drafts, setDrafts] = useState<any[]>([])
   const [publications, setPublications] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
@@ -124,28 +126,62 @@ export default function Content() {
         </div>
       </div>
 
-      {/* KPI Overview */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-[#1C1A1A] border border-[#373333] rounded-xl p-4">
-          <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Total Content Pieces</span>
-          <span className="text-[22px] font-bold text-white">{mergedContent.length}</span>
-        </div>
-        <div className="bg-[#1C1A1A] border border-[#373333] rounded-xl p-4">
-          <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Live / Published</span>
-          <span className="text-[22px] font-bold text-white">{publishedCount}</span>
-        </div>
-        <div className="bg-[#1C1A1A] border border-[#373333] rounded-xl p-4">
-          <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">In Review / Draft</span>
-          <span className="text-[22px] font-bold text-white">{draftCount}</span>
-        </div>
-        <div className="bg-[#1C1A1A] border border-[#373333] rounded-xl p-4">
-          <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Channels Monitored</span>
-          <span className="text-[22px] font-bold text-white">LinkedIn, X, Blog</span>
-        </div>
+      {/* View Mode Switcher */}
+      <div className="flex items-center gap-2 border-b border-[#373333] pb-3">
+        <button
+          onClick={() => setViewMode('library')}
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+            viewMode === 'library'
+              ? 'bg-[#8F0028] text-white shadow-md'
+              : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
+          }`}
+        >
+          <FileText className="w-3.5 h-3.5" />
+          Content Library ({mergedContent.length})
+        </button>
+
+        <button
+          onClick={() => setViewMode('carousel')}
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+            viewMode === 'carousel'
+              ? 'bg-[#8F0028] text-white shadow-md'
+              : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
+          }`}
+        >
+          <span>🎨</span>
+          LinkedIn & Instagram Carousel Studio
+          <span className="px-1.5 py-0.2 bg-[#242222] text-[#00A650] rounded text-[10px] font-bold">
+            Multi-Slide
+          </span>
+        </button>
       </div>
-      
-      {/* Content Table Card */}
-      <div className="bg-[#1C1A1A] border border-[#373333] rounded-2xl overflow-hidden shadow-md">
+
+      {viewMode === 'carousel' ? (
+        <CarouselStudio brandName={activeBrand?.name || 'StandBharat'} />
+      ) : (
+        <>
+          {/* KPI Overview */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-[#1C1A1A] border border-[#373333] rounded-xl p-4">
+              <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Total Content Pieces</span>
+              <span className="text-[22px] font-bold text-white">{mergedContent.length}</span>
+            </div>
+            <div className="bg-[#1C1A1A] border border-[#373333] rounded-xl p-4">
+              <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Live / Published</span>
+              <span className="text-[22px] font-bold text-white">{publishedCount}</span>
+            </div>
+            <div className="bg-[#1C1A1A] border border-[#373333] rounded-xl p-4">
+              <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">In Review / Draft</span>
+              <span className="text-[22px] font-bold text-white">{draftCount}</span>
+            </div>
+            <div className="bg-[#1C1A1A] border border-[#373333] rounded-xl p-4">
+              <span className="block text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1">Channels Monitored</span>
+              <span className="text-[22px] font-bold text-white">LinkedIn, X, Blog</span>
+            </div>
+          </div>
+          
+          {/* Content Table Card */}
+          <div className="bg-[#1C1A1A] border border-[#373333] rounded-2xl overflow-hidden shadow-md">
         <div className="overflow-x-auto">
           <table className="w-full text-xs sm:text-sm text-left whitespace-nowrap">
             <thead className="bg-[#242222] text-[#E5E7EB] border-b border-[#373333] text-[11px] uppercase tracking-wider font-bold">
@@ -232,6 +268,8 @@ export default function Content() {
           </div>
         )}
       </div>
-    </div>
+    </>
+  )}
+</div>
   )
 }
