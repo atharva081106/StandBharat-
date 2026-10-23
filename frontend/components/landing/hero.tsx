@@ -35,21 +35,95 @@ export function InteractiveDashboardMockup() {
   }
 
   return (
-    <div 
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      onClick={async () => {
-        try {
-          await login('demo@standbharat.ai', 'demo')
-          router.push('/app')
-        } catch (e) {
-          console.error('Mockup demo login error:', e)
-        }
-      }}
-      className="relative z-10 w-full h-[550px] perspective-[2000px] group flex items-center justify-center transform scale-[0.80] lg:scale-[0.85] origin-center -translate-x-4 lg:-translate-x-10 transition-transform cursor-pointer"
-    >
+    <>
+      {/* Mobile-Native Smartphone Preview (< lg) */}
+      <div 
+        onClick={async () => {
+          try {
+            await login('demo@standbharat.ai', 'demo')
+            router.push('/app')
+          } catch (e) {
+            console.error('Mockup demo login error:', e)
+          }
+        }}
+        className="lg:hidden w-full max-w-[340px] mx-auto bg-[#1C1A1A] border-2 border-[#373333] rounded-[36px] p-4 shadow-2xl shadow-black/40 relative overflow-hidden text-white cursor-pointer group hover:border-[#8F0028] transition-all active:scale-95"
+      >
+        {/* Phone Speaker Notch */}
+        <div className="w-24 h-3.5 bg-[#141212] rounded-full mx-auto mb-3 flex items-center justify-center gap-1.5 border border-[#302B2B]">
+          <div className="w-2 h-2 rounded-full bg-[#373333]" />
+          <div className="w-8 h-1 rounded-full bg-[#262323]" />
+        </div>
+
+        {/* Mobile Mockup Header */}
+        <div className="flex items-center justify-between pb-3 border-b border-[#302B2B]">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-lg bg-[#8F0028] flex items-center justify-center font-bold text-xs text-white shadow-sm">
+              SB
+            </div>
+            <div>
+              <div className="text-xs font-bold text-white flex items-center gap-1">
+                Kalyan Silks
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00A650] animate-pulse" />
+              </div>
+              <div className="text-[10px] text-[#A39E9E]">Brand Brain Synced</div>
+            </div>
+          </div>
+          <div className="text-[10px] bg-[#242222] border border-[#373333] px-2 py-0.5 rounded-md text-white font-mono">
+            LIVE
+          </div>
+        </div>
+
+        {/* AI CMO Daily Briefing Card */}
+        <div className="mt-3 p-3 rounded-2xl bg-gradient-to-br from-[#242222] to-[#1C1A1A] border border-[#373333] space-y-1.5">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold text-[#8F0028] uppercase tracking-wider flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#8F0028]" />
+              AI CMO Pulse
+            </span>
+            <span className="text-[9px] text-[#A39E9E]">8:00 AM IST</span>
+          </div>
+          <p className="text-xs font-semibold text-white leading-snug">
+            Diwali Growth Sprint: 3 WhatsApp broadcasts and 5 social carousels generated for review.
+          </p>
+        </div>
+
+        {/* 2x2 Mobile Live Metrics */}
+        <div className="grid grid-cols-2 gap-2 mt-3">
+          <div className="p-2.5 rounded-xl bg-[#242222] border border-[#373333]">
+            <div className="text-[10px] text-[#A39E9E] font-medium">Attributed Revenue</div>
+            <div className="text-sm font-extrabold text-white mt-0.5">₹42.8 Lakh</div>
+            <div className="text-[9px] text-[#00A650] font-bold">+34% vs last mo</div>
+          </div>
+          <div className="p-2.5 rounded-xl bg-[#242222] border border-[#373333]">
+            <div className="text-[10px] text-[#A39E9E] font-medium">Autonomous Agents</div>
+            <div className="text-sm font-extrabold text-white mt-0.5">15 Active</div>
+            <div className="text-[9px] text-[#00A650] font-bold">0 Pipeline Errors</div>
+          </div>
+        </div>
+
+        {/* Floating Tap Indicator */}
+        <div className="mt-3 py-2 px-3 rounded-xl bg-[#8F0028] text-white text-center text-xs font-bold shadow-lg shadow-[#8F0028]/30 flex items-center justify-center gap-1.5 group-hover:bg-[#A8002F] transition-colors">
+          <span>Tap to Enter Live Demo Workspace</span>
+          <span className="text-sm">&rarr;</span>
+        </div>
+      </div>
+
+      {/* Desktop 3D Isometric Mockup (lg:flex) */}
+      <div 
+        ref={containerRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={handleMouseLeave}
+        onClick={async () => {
+          try {
+            await login('demo@standbharat.ai', 'demo')
+            router.push('/app')
+          } catch (e) {
+            console.error('Mockup demo login error:', e)
+          }
+        }}
+        className="hidden lg:flex relative z-10 w-full h-[550px] perspective-[2000px] group items-center justify-center transform scale-[0.85] origin-center -translate-x-10 transition-transform cursor-pointer"
+      >
       {/* Background shadow layer for depth */}
       <div 
         className="absolute w-[90%] h-[450px] bg-black/5 rounded-3xl blur-2xl transition-transform ease-out duration-700"
@@ -222,9 +296,9 @@ export function InteractiveDashboardMockup() {
 
       </div>
     </div>
+    </>
   )
 }
-
 
 export function HeroSection() {
   const { login } = useAuth()
@@ -244,39 +318,36 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative overflow-hidden pt-12 pb-10 px-6 lg:px-8 bg-transparent flex items-center min-h-[max(calc(100vh-140px),600px)]">
-      
-      
-
-      <div className="max-w-[1400px] w-full mx-auto relative z-10 flex flex-col lg:flex-row items-center gap-10 lg:gap-8 pointer-events-none">
+    <section className="relative overflow-hidden pt-8 sm:pt-12 pb-10 px-4 sm:px-6 lg:px-8 bg-transparent flex items-center min-h-[max(calc(100vh-140px),600px)]">
+      <div className="max-w-[1400px] w-full mx-auto relative z-10 flex flex-col lg:flex-row items-center gap-8 lg:gap-8 pointer-events-none">
         
         {/* Left Column 42% */}
-        <div className="w-full lg:w-[42%] space-y-6 pointer-events-auto lg:ml-10">
+        <div className="w-full lg:w-[42%] space-y-5 sm:space-y-6 pointer-events-auto lg:ml-10 text-center lg:text-left">
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both" style={{ animationDelay: '0.0s' }}>
-            <div className="inline-flex items-center rounded-sm px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#5C0017] bg-[#F5E6E8]">
+            <div className="inline-flex items-center rounded-full px-3 py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#5C0017] bg-[#F5E6E8]">
               THE AI MARKETING OPERATING SYSTEM • BUILT FOR BHARAT 🇮🇳
             </div>
           </div>
           
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both" style={{ animationDelay: '0.1s' }}>
-            <h1 className="text-[48px] lg:text-[64px] font-extrabold tracking-tight text-[#111111] leading-[1.05]">
-              Your marketing team,<br />
-              with an <span className="text-[#800020]">AI CMO</span><br />
+            <h1 className="text-[32px] xs:text-[38px] sm:text-[48px] lg:text-[64px] font-extrabold tracking-tight text-[#111111] leading-[1.1] sm:leading-[1.05]">
+              Your marketing team,<br className="hidden sm:inline" />
+              with an <span className="text-[#800020]">AI CMO</span><br className="hidden sm:inline" />
               at the center.
             </h1>
           </div>
           
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both" style={{ animationDelay: '0.2s' }}>
-            <p className="text-base lg:text-lg text-[#5A5A5A] leading-relaxed max-w-lg font-medium">
+            <p className="text-sm sm:text-base lg:text-lg text-[#5A5A5A] leading-relaxed max-w-lg mx-auto lg:mx-0 font-medium">
               StandBharat connects your brand intelligence, Indic voice presets, WhatsApp Business, AI agents, 1-click publishing, and INR revenue attribution into one continuous marketing system.
             </p>
           </div>
           
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both" style={{ animationDelay: '0.3s' }}>
-            <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
-              <Link href="#" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-auth-signup')) }}>
-                <Button size="lg" className="h-12 px-8 text-base bg-[#800020] text-white hover:bg-[#5C0017] rounded-xl font-semibold border-none">
-                  Start Building Your Marketing System &rarr;
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+              <Link href="#" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-auth-signup')) }} className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto h-12 px-6 sm:px-8 text-sm sm:text-base bg-[#800020] text-white hover:bg-[#5C0017] rounded-xl font-bold border-none shadow-lg shadow-[#800020]/25">
+                  Start Building Your System &rarr;
                 </Button>
               </Link>
               <Button 
@@ -284,7 +355,7 @@ export function HeroSection() {
                 disabled={isDemoLoading}
                 size="lg" 
                 variant="outline" 
-                className="h-12 px-8 text-base bg-white text-[#111111] border-[#E8E4DC] hover:bg-white rounded-xl font-semibold backdrop-blur-sm"
+                className="w-full sm:w-auto h-12 px-6 sm:px-8 text-sm sm:text-base bg-white text-[#111111] border-[#E8E4DC] hover:bg-[#FAF8F3] rounded-xl font-bold shadow-sm"
               >
                 {isDemoLoading ? 'Entering Workspace...' : 'Try Demo Account'}
               </Button>
@@ -293,7 +364,7 @@ export function HeroSection() {
         </div>
 
         {/* Right Column 58% - Product Mockup */}
-        <div className="w-full lg:w-[58%] pointer-events-auto">
+        <div className="w-full lg:w-[58%] pointer-events-auto mt-4 lg:mt-0">
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both" style={{ animationDelay: '0.4s' }}>
             <InteractiveDashboardMockup />
           </div>

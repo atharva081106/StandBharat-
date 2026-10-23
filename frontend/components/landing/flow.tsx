@@ -121,7 +121,7 @@ export function WorkflowFlow() {
   }, { scope: container })
 
   return (
-    <div ref={container} className="bg-[#000000] text-white py-32 px-6 lg:px-8 relative overflow-hidden font-sans border-y border-white/5">
+    <div ref={container} className="bg-[#000000] text-white py-16 sm:py-28 md:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans border-y border-white/5">
       
       {/* Background Decorative Gradients */}
       <div className="absolute inset-0 bg-[url('https://res.cloudinary.com/djp1xhexg/image/upload/v1727788414/grid_czvjio.svg')] bg-center opacity-10" style={{ maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0) 100%)', WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0) 100%)' }} />
@@ -129,38 +129,38 @@ export function WorkflowFlow() {
       <div className="max-w-[1200px] mx-auto flex flex-col relative z-10">
         
         {/* Step 1: Research */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center justify-between">
-          <div className="w-full lg:w-[45%] space-y-6">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-20 items-center justify-between">
+          <div className="w-full lg:w-[45%] space-y-4 sm:space-y-6">
             <div className="gsap-reveal">
-              <div className="inline-flex items-center rounded-full px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white/80 bg-white/5 border border-white/10 shadow-sm">
+              <div className="inline-flex items-center rounded-full px-3.5 py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-white/80 bg-white/5 border border-white/10 shadow-sm">
                 STEP 1 — RESEARCH
               </div>
             </div>
             <div className="gsap-reveal" data-delay="0.1">
-              <h2 className="text-[36px] md:text-[46px] font-extrabold tracking-tight text-white leading-[1.1]">
+              <h2 className="text-[28px] xs:text-[34px] md:text-[46px] font-extrabold tracking-tight text-white leading-[1.15] sm:leading-[1.1]">
                 StandBharat researches and prepares all strategy documents <span className="text-white/40">first.</span>
               </h2>
             </div>
             <div className="gsap-reveal" data-delay="0.2">
-              <p className="text-[#E5E7EB] text-lg font-medium">
+              <p className="text-[#E5E7EB] text-base sm:text-lg font-medium">
                 Your brand, market and competitors — analyzed into a complete strategic foundation.
               </p>
             </div>
-            <div className="gsap-reveal pt-4" data-delay="0.3">
-              <div className="flex flex-wrap gap-3">
-                <span className="px-5 py-2.5 rounded-full text-xs font-bold bg-white text-[#000000] shadow-sm flex items-center gap-2 cursor-pointer hover:bg-white/90 transition-colors">
+            <div className="gsap-reveal pt-2 sm:pt-4" data-delay="0.3">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
+                <span className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs font-bold bg-white text-[#000000] shadow-sm flex items-center gap-1.5 cursor-pointer hover:bg-white/90 transition-colors">
                   Product Information <ArrowRight className="w-3.5 h-3.5" />
                 </span>
-                <span className="px-5 py-2.5 rounded-full border border-white/10 text-xs font-bold bg-transparent text-white shadow-sm cursor-pointer hover:bg-white/5 transition-colors">
+                <span className="px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-full border border-white/10 text-xs font-bold bg-transparent text-white shadow-sm cursor-pointer hover:bg-white/5 transition-colors">
                   Marketing Strategy
                 </span>
-                <span className="px-5 py-2.5 rounded-full border border-white/10 text-xs font-bold bg-transparent text-white shadow-sm cursor-pointer hover:bg-white/5 transition-colors">
+                <span className="px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-full border border-white/10 text-xs font-bold bg-transparent text-white shadow-sm cursor-pointer hover:bg-white/5 transition-colors">
                   Competitor Analysis
                 </span>
-                <span className="px-5 py-2.5 rounded-full border border-white/10 text-xs font-bold bg-transparent text-white shadow-sm cursor-pointer hover:bg-white/5 transition-colors">
+                <span className="px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-full border border-white/10 text-xs font-bold bg-transparent text-white shadow-sm cursor-pointer hover:bg-white/5 transition-colors">
                   Brand Voice
                 </span>
-                <span className="px-5 py-2.5 rounded-full border border-white/10 text-xs font-bold bg-transparent text-white shadow-sm cursor-pointer hover:bg-white/5 transition-colors">
+                <span className="px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-full border border-white/10 text-xs font-bold bg-transparent text-white shadow-sm cursor-pointer hover:bg-white/5 transition-colors">
                   Content Strategy
                 </span>
               </div>
@@ -169,9 +169,9 @@ export function WorkflowFlow() {
 
           <div className="w-full lg:w-[50%] gsap-parallax-container">
             <div className="gsap-reveal gsap-parallax w-full" data-delay="0.3" data-speed="0.5">
-              <TiltCard className="bg-[#0A0A0A] border border-white/5 rounded-3xl p-6 shadow-2xl relative flex">
+              <TiltCard className="bg-[#0A0A0A] border border-white/5 rounded-3xl p-4 sm:p-6 shadow-2xl relative flex flex-col md:flex-row gap-6 md:gap-0">
                 {/* Left list */}
-                <div className="w-1/2 space-y-6 pr-4">
+                <div className="w-full md:w-1/2 space-y-4 sm:space-y-6 pr-0 md:pr-4">
                   {[
                     { title: 'Product Information', color: '#4285F4', bg: '#4285F4/10', icon: FileText, active: true },
                     { title: 'Overview', color: '#858585', bg: '#1A1A1A', icon: FileText },
@@ -187,7 +187,7 @@ export function WorkflowFlow() {
                            <Icon className="w-5 h-5" style={{ color: item.color }} />
                         </div>
                         <div className="pt-1 w-full">
-                          <div className={`text-sm font-bold mb-2 ${item.active ? 'text-white' : 'text-white/60'}`}>{item.title}</div>
+                          <div className={`text-sm font-bold mb-1.5 ${item.active ? 'text-white' : 'text-white/60'}`}>{item.title}</div>
                           {item.active ? (
                             <div className="text-[10px] text-white/40">Generated from your inputs</div>
                           ) : (
@@ -203,7 +203,7 @@ export function WorkflowFlow() {
                 </div>
 
                 {/* Right floating cards */}
-                <div className="w-1/2 relative flex flex-col justify-end pl-2">
+                <div className="w-full md:w-1/2 relative flex flex-col justify-end pl-0 md:pl-2 min-h-[220px] md:min-h-0">
                   <div className="absolute top-0 right-0 w-full h-[180px] flex justify-end gap-2 perspective-[1000px] origin-top-right">
                      {/* Back card */}
                      <div className="gsap-parallax w-[120px] h-[160px] bg-[#111111] border border-white/10 rounded-xl p-3 shadow-xl transform rotate-12 translate-x-4 translate-y-4 opacity-50 z-0 flex flex-col" data-speed="-0.2">
@@ -269,15 +269,15 @@ export function WorkflowFlow() {
 
         {/* The Handoff */}
         <div className="flex flex-col items-center justify-center text-center relative z-10 gsap-reveal">
-           <div className="bg-[#0A0A0A] border border-white/10 rounded-3xl pt-10 pb-8 px-12 shadow-2xl max-w-3xl mx-auto relative z-10 w-full border-t-0 mt-4">
+           <div className="bg-[#0A0A0A] border border-white/10 rounded-3xl pt-10 pb-8 px-4 sm:px-8 md:px-12 shadow-2xl max-w-3xl mx-auto relative z-10 w-full border-t-0 mt-4">
              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-white/10 bg-[#0A0A0A] flex items-center justify-center">
                <FileText className="w-4 h-4 text-white/60" />
              </div>
              <div className="text-[9px] font-bold text-white uppercase tracking-[0.3em] mb-4">THE HANDOFF</div>
-             <h3 className="text-2xl font-extrabold mb-8 text-white leading-tight">Every agent reads these five documents<br/>before it writes a word.</h3>
-             <div className="flex flex-wrap justify-center gap-3">
+             <h3 className="text-xl sm:text-2xl font-extrabold mb-6 sm:mb-8 text-white leading-tight">Every agent reads these five documents<br className="hidden sm:inline" /> before it writes a word.</h3>
+             <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                {['product-info.md', 'marketing-strategy.md', 'competitor-analysis.md', 'brand-voice.md', 'content-strategy.md'].map(doc => (
-                 <span key={doc} className="px-3 py-1.5 rounded-md border border-white/10 text-[10px] font-mono text-white/50 bg-[#111111] flex items-center gap-2">
+                 <span key={doc} className="px-2.5 sm:px-3 py-1.5 rounded-md border border-white/10 text-[9px] sm:text-[10px] font-mono text-white/50 bg-[#111111] flex items-center gap-1.5 sm:gap-2">
                    <FileText className="w-3 h-3 text-white/30" />
                    {doc}
                  </span>
@@ -295,20 +295,20 @@ export function WorkflowFlow() {
         </div>
 
         {/* Step 2: Execution */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center justify-between">
-          <div className="w-full lg:w-[35%] space-y-6">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center justify-between">
+          <div className="w-full lg:w-[35%] space-y-4 sm:space-y-6">
             <div className="gsap-reveal">
               <div className="inline-flex items-center rounded-full px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white/80 bg-white/5 border border-white/10 shadow-sm">
                 STEP 2 — EXECUTION
               </div>
             </div>
             <div className="gsap-reveal" data-delay="0.1">
-              <h2 className="text-[36px] md:text-[46px] font-extrabold tracking-tight text-white leading-[1.1]">
+              <h2 className="text-[26px] xs:text-[32px] md:text-[46px] font-extrabold tracking-tight text-white leading-[1.1]">
                 All agents execute the strategy, channel by channel.
               </h2>
             </div>
             <div className="gsap-reveal" data-delay="0.2">
-              <p className="text-[#E5E7EB] text-lg font-medium">
+              <p className="text-[#E5E7EB] text-base sm:text-lg font-medium">
                 Specialized agents turn strategy into high-quality, on-brand content across every channel.
               </p>
             </div>
@@ -316,23 +316,23 @@ export function WorkflowFlow() {
 
           <div className="w-full lg:w-[65%] gsap-parallax-container">
             <div className="gsap-reveal gsap-parallax w-full" data-delay="0.3" data-speed="0.4">
-               <TiltCard className="bg-[#0A0A0A] border border-white/5 rounded-3xl p-8 pt-10 shadow-2xl relative">
+               <TiltCard className="bg-[#0A0A0A] border border-white/5 rounded-3xl p-4 sm:p-8 pt-8 sm:pt-10 shadow-2xl relative">
                   
                   {/* AI CMO Top Block */}
-                  <div className="flex justify-center mb-8 relative z-10">
-                     <div className="bg-[#111111] border border-[#F59E0B]/30 rounded-2xl px-6 py-4 flex items-center gap-4 shadow-[0_0_30px_rgba(245,158,11,0.05)]">
-                        <div className="w-12 h-12 bg-[#F59E0B]/10 rounded-xl flex items-center justify-center border border-[#F59E0B]/20">
-                           <Crown className="w-6 h-6 text-[#F59E0B]" />
+                  <div className="flex justify-center mb-6 sm:mb-8 relative z-10">
+                     <div className="bg-[#111111] border border-[#F59E0B]/30 rounded-2xl px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-3 sm:gap-4 shadow-[0_0_30px_rgba(245,158,11,0.05)]">
+                        <div className="w-10 sm:w-12 h-10 sm:h-12 bg-[#F59E0B]/10 rounded-xl flex items-center justify-center border border-[#F59E0B]/20 shrink-0">
+                           <Crown className="w-5 sm:w-6 h-5 sm:h-6 text-[#F59E0B]" />
                         </div>
                         <div>
-                           <div className="font-extrabold text-white text-lg">AI CMO</div>
-                           <div className="text-xs text-white/50 max-w-[150px] leading-tight mt-1">Orchestrates agents and keeps everything aligned.</div>
+                           <div className="font-extrabold text-white text-base sm:text-lg">AI CMO</div>
+                           <div className="text-[11px] sm:text-xs text-white/50 max-w-[200px] leading-tight mt-0.5 sm:mt-1">Orchestrates agents and keeps everything aligned.</div>
                         </div>
                      </div>
                   </div>
 
                   {/* Connecting Routing Lines SVG */}
-                  <div className="absolute top-[85px] left-0 w-full h-[125px] pointer-events-none opacity-50 z-0">
+                  <div className="hidden md:block absolute top-[85px] left-0 w-full h-[125px] pointer-events-none opacity-50 z-0">
                      <svg width="100%" height="100%" preserveAspectRatio="none">
                         <defs>
                            <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
@@ -347,19 +347,19 @@ export function WorkflowFlow() {
                   </div>
 
                   {/* Agent Grid */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 relative z-10">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 mt-4 sm:mt-12 relative z-10">
                     {AGENTS.map((agent, i) => {
                       const Icon = agent.icon;
                       return (
-                        <div key={agent.name} className="bg-[#111111] border border-white/5 rounded-xl p-5 hover:bg-[#151515] hover:border-white/20 transition-all duration-300">
-                           <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: `${agent.color}15` }}>
-                             <Icon className="w-5 h-5" style={{ color: agent.color }} />
+                        <div key={agent.name} className="bg-[#111111] border border-white/5 rounded-xl p-3 sm:p-5 hover:bg-[#151515] hover:border-white/20 transition-all duration-300 flex flex-col">
+                           <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-xl flex items-center justify-center mb-2.5 sm:mb-4" style={{ backgroundColor: `${agent.color}15` }}>
+                             <Icon className="w-4 sm:w-5 h-4 sm:h-5" style={{ color: agent.color }} />
                            </div>
-                           <h4 className="text-[13px] font-bold text-white mb-1 leading-tight">{agent.name}</h4>
-                           <div className="text-[11px] text-[#A1A1A1] mb-3">{agent.desc}</div>
+                           <h4 className="text-xs sm:text-[13px] font-bold text-white mb-1 leading-tight">{agent.name}</h4>
+                           <div className="text-[10px] sm:text-[11px] text-[#A1A1A1] mb-2 sm:mb-3 line-clamp-2">{agent.desc}</div>
                            <div className="flex items-center gap-1.5 mt-auto">
                               <div className="w-1.5 h-1.5 rounded-full bg-[#168A5B]"></div>
-                              <div className="text-[10px] font-bold text-white">Ready</div>
+                              <div className="text-[9px] sm:text-[10px] font-bold text-white">Ready</div>
                            </div>
                         </div>
                       )
@@ -379,25 +379,25 @@ export function WorkflowFlow() {
         </div>
 
         {/* Step 3: Publish */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center justify-between">
-          <div className="w-full lg:w-[35%] space-y-6">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center justify-between">
+          <div className="w-full lg:w-[35%] space-y-4 sm:space-y-6">
             <div className="gsap-reveal">
               <div className="inline-flex items-center rounded-full px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white/80 bg-white/5 border border-white/10 shadow-sm">
                 STEP 3 — PUBLISH
               </div>
             </div>
             <div className="gsap-reveal" data-delay="0.1">
-              <h2 className="text-[36px] md:text-[46px] font-extrabold tracking-tight text-white leading-[1.1]">
-                Connect your stack.<br/>Publish without leaving it.
+              <h2 className="text-[26px] xs:text-[32px] md:text-[46px] font-extrabold tracking-tight text-white leading-[1.1]">
+                Connect your stack.<br className="hidden sm:inline" /> Publish without leaving it.
               </h2>
             </div>
             <div className="gsap-reveal" data-delay="0.2">
-              <p className="text-[#E5E7EB] text-lg font-medium">
+              <p className="text-[#E5E7EB] text-base sm:text-lg font-medium">
                 Turn approved content into results across your favourite tools.
               </p>
             </div>
-            <div className="gsap-reveal pt-4" data-delay="0.3">
-               <span className="px-5 py-3 rounded-full text-sm font-bold bg-white text-[#050505] shadow-sm inline-flex items-center gap-2 cursor-pointer hover:bg-white/90 transition-colors">
+            <div className="gsap-reveal pt-2 sm:pt-4" data-delay="0.3">
+               <span className="w-full sm:w-auto justify-center px-5 py-3 rounded-full text-sm font-bold bg-white text-[#050505] shadow-sm inline-flex items-center gap-2 cursor-pointer hover:bg-white/90 transition-colors">
                   Connect Integrations <ArrowRight className="w-4 h-4" />
                 </span>
             </div>
@@ -405,23 +405,23 @@ export function WorkflowFlow() {
 
           <div className="w-full lg:w-[65%] gsap-parallax-container">
             <div className="gsap-reveal gsap-parallax w-full" data-delay="0.3" data-speed="0.3">
-               <TiltCard className="bg-[#0A0A0A] border border-white/5 rounded-3xl p-8 pt-10 shadow-2xl relative">
-                  <div className="grid grid-cols-3 md:grid-cols-4 gap-y-10 gap-x-6 text-center">
+               <TiltCard className="bg-[#0A0A0A] border border-white/5 rounded-3xl p-4 sm:p-8 pt-6 sm:pt-10 shadow-2xl relative">
+                  <div className="grid grid-cols-3 md:grid-cols-4 gap-y-6 sm:gap-y-10 gap-x-2.5 sm:gap-x-6 text-center">
                      {INTEGRATIONS.map((int, i) => (
-                        <div key={int.name} className="flex flex-col items-center gap-3">
+                        <div key={int.name} className="flex flex-col items-center gap-2 sm:gap-3">
                            {int.icon}
-                           <div className="text-[11px] font-bold text-white/80 leading-tight">{int.name}</div>
-                           <div className="px-2.5 py-1 rounded-full text-[8px] font-bold uppercase tracking-wide border border-white/5" style={{ backgroundColor: int.status === 'Connected' ? 'rgba(22, 138, 91, 0.1)' : '#111111', color: int.status === 'Connected' ? '#168A5B' : '#5A5A5A' }}>
+                           <div className="text-[10px] sm:text-[11px] font-bold text-white/80 leading-tight">{int.name}</div>
+                           <div className="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[7px] sm:text-[8px] font-bold uppercase tracking-wide border border-white/5" style={{ backgroundColor: int.status === 'Connected' ? 'rgba(22, 138, 91, 0.1)' : '#111111', color: int.status === 'Connected' ? '#168A5B' : '#5A5A5A' }}>
                               {int.status}
                            </div>
                         </div>
                      ))}
                      
                      {/* More Integrations + */}
-                     <div className="col-span-3 md:col-span-4 mt-2">
-                        <div className="border border-dashed border-white/10 rounded-xl p-4 flex flex-col items-center justify-center gap-2 bg-[#111111]/50 h-full">
-                           <div className="text-white/40 text-xl font-light">+</div>
-                           <div className="text-[10px] font-bold text-white/40 leading-tight">More Integrations<br/>Coming Soon</div>
+                     <div className="col-span-3 md:col-span-4 mt-1 sm:mt-2">
+                        <div className="border border-dashed border-white/10 rounded-xl p-3 sm:p-4 flex flex-col items-center justify-center gap-1.5 sm:gap-2 bg-[#111111]/50 h-full">
+                           <div className="text-white/40 text-lg sm:text-xl font-light">+</div>
+                           <div className="text-[9px] sm:text-[10px] font-bold text-white/40 leading-tight">More Integrations<br/>Coming Soon</div>
                         </div>
                      </div>
                   </div>
@@ -439,20 +439,20 @@ export function WorkflowFlow() {
         </div>
 
         {/* Step 4: Measure */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center justify-between">
-          <div className="w-full lg:w-[35%] space-y-6">
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center justify-between">
+          <div className="w-full lg:w-[35%] space-y-4 sm:space-y-6">
             <div className="gsap-reveal">
               <div className="inline-flex items-center rounded-full px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white/80 bg-white/5 border border-white/10 shadow-sm">
                 STEP 4 — MEASURE
               </div>
             </div>
             <div className="gsap-reveal" data-delay="0.1">
-              <h2 className="text-[36px] md:text-[46px] font-extrabold tracking-tight text-white leading-[1.1]">
+              <h2 className="text-[26px] xs:text-[32px] md:text-[46px] font-extrabold tracking-tight text-white leading-[1.1]">
                 Performance Intelligence closes the loop.
               </h2>
             </div>
             <div className="gsap-reveal" data-delay="0.2">
-              <p className="text-[#E5E7EB] text-lg font-medium">
+              <p className="text-[#E5E7EB] text-base sm:text-lg font-medium">
                 Once published, StandBharat continuously pulls engagement data back into the Brand Brain. The AI CMO analyzes what worked, generating new signals and growth opportunities for your next campaign.
               </p>
             </div>
@@ -460,39 +460,39 @@ export function WorkflowFlow() {
 
           <div className="w-full lg:w-[65%] relative gsap-parallax-container">
             <div className="gsap-reveal gsap-parallax w-full" data-delay="0.3" data-speed="0.4">
-               <TiltCard className="bg-[#0A0A0A] border border-white/5 rounded-3xl p-8 pt-10 shadow-2xl relative">
-                  <div className="bg-[#111111] border border-white/10 rounded-[24px] p-6 shadow-xl relative overflow-hidden group">
-                     <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-4">
-                        <div className="flex items-center gap-3">
-                           <div className="w-8 h-8 rounded-full bg-[#168A5B]/10 flex items-center justify-center">
-                              <BarChart3 className="w-4 h-4 text-white" />
+               <TiltCard className="bg-[#0A0A0A] border border-white/5 rounded-3xl p-4 sm:p-8 pt-6 sm:pt-10 shadow-2xl relative">
+                  <div className="bg-[#111111] border border-white/10 rounded-2xl sm:rounded-[24px] p-4 sm:p-6 shadow-xl relative overflow-hidden group">
+                     <div className="flex justify-between items-center mb-6 sm:mb-8 border-b border-white/5 pb-3 sm:pb-4">
+                        <div className="flex items-center gap-2.5 sm:gap-3">
+                           <div className="w-7 sm:w-8 h-7 sm:h-8 rounded-full bg-[#168A5B]/10 flex items-center justify-center shrink-0">
+                              <BarChart3 className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-white" />
                            </div>
-                           <div className="font-bold text-white">Brand Command Center</div>
+                           <div className="font-bold text-white text-xs sm:text-base">Brand Command Center</div>
                         </div>
-                        <div className="text-[10px] bg-white/5 px-3 py-1 rounded-full text-white/60">Live Updates</div>
+                        <div className="text-[9px] sm:text-[10px] bg-white/5 px-2.5 sm:px-3 py-1 rounded-full text-white/60">Live Updates</div>
                      </div>
                      
-                     <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div className="bg-[#1A1A1A] p-4 rounded-xl border border-white/5">
-                           <div className="text-xs text-white/40 mb-1">Brand Visibility</div>
-                           <div className="text-2xl font-bold text-white mb-2">78</div>
-                           <div className="text-[10px] text-white">+12% this week</div>
+                     <div className="grid grid-cols-2 gap-2.5 sm:gap-4 mb-4 sm:mb-6">
+                        <div className="bg-[#1A1A1A] p-3 sm:p-4 rounded-xl border border-white/5">
+                           <div className="text-[11px] sm:text-xs text-white/40 mb-1">Brand Visibility</div>
+                           <div className="text-xl sm:text-2xl font-bold text-white mb-1.5 sm:mb-2">78</div>
+                           <div className="text-[9px] sm:text-[10px] text-white">+12% this week</div>
                         </div>
-                        <div className="bg-[#1A1A1A] p-4 rounded-xl border border-white/5">
-                           <div className="text-xs text-white/40 mb-1">Audience Sentiment</div>
-                           <div className="text-2xl font-bold text-white mb-2">92%</div>
-                           <div className="text-[10px] text-white">+8% vs last mo</div>
+                        <div className="bg-[#1A1A1A] p-3 sm:p-4 rounded-xl border border-white/5">
+                           <div className="text-[11px] sm:text-xs text-white/40 mb-1">Audience Sentiment</div>
+                           <div className="text-xl sm:text-2xl font-bold text-white mb-1.5 sm:mb-2">92%</div>
+                           <div className="text-[9px] sm:text-[10px] text-white">+8% vs last mo</div>
                         </div>
                      </div>
                      
-                     <div className="bg-[#1A1A1A] p-4 rounded-xl border border-[#F59E0B]/20 relative overflow-hidden">
+                     <div className="bg-[#1A1A1A] p-3.5 sm:p-4 rounded-xl border border-[#F59E0B]/20 relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-[#F59E0B]/5 rounded-full blur-[30px] -mr-10 -mt-10"></div>
                         <div className="flex items-center gap-2 mb-2">
                            <div className="w-2 h-2 rounded-full bg-[#F59E0B] animate-pulse"></div>
-                           <div className="text-[10px] font-bold text-[#F59E0B] uppercase tracking-wider">Opportunity Detected</div>
+                           <div className="text-[9px] sm:text-[10px] font-bold text-[#F59E0B] uppercase tracking-wider">Opportunity Detected</div>
                         </div>
-                        <div className="text-sm font-bold text-white mb-1">High engagement on recent X thread</div>
-                        <div className="text-xs text-white/60">The AI CMO recommends turning this topic into a long-form blog post.</div>
+                        <div className="text-xs sm:text-sm font-bold text-white mb-1">High engagement on recent X thread</div>
+                        <div className="text-[11px] sm:text-xs text-white/60">The AI CMO recommends turning this topic into a long-form blog post.</div>
                         <button className="mt-3 px-3 py-1.5 bg-white text-black text-[10px] font-bold rounded-lg hover:bg-white/90 transition-colors">
                            Generate Draft
                         </button>
