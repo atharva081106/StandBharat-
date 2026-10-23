@@ -9,19 +9,19 @@ export interface CompetitorLogoProps {
   size?: number
 }
 
-// Vector logos for prominent Indian & global competitors
+// Vector logos for prominent Indian & global competitors - Solid Brand Colors (No Gradients, No Light Pastels)
 const PractoLogo = ({ className }: { className: string }) => (
   <svg viewBox="0 0 32 32" className={className} aria-label="Practo">
     <rect width="32" height="32" rx="8" fill="#141E33" />
-    <circle cx="16" cy="16" r="10" fill="#28328C" />
-    <path d="M16 10v12M10 16h12" stroke="#00D2D2" strokeWidth="3" strokeLinecap="round" />
+    <circle cx="16" cy="16" r="10" fill="#1A237E" />
+    <path d="M16 10v12M10 16h12" stroke="#00838F" strokeWidth="3" strokeLinecap="round" />
   </svg>
 )
 
 const HealthKartLogo = ({ className }: { className: string }) => (
   <svg viewBox="0 0 32 32" className={className} aria-label="HealthKart">
     <rect width="32" height="32" rx="8" fill="#001829" />
-    <circle cx="16" cy="16" r="11" fill="#009688" />
+    <circle cx="16" cy="16" r="11" fill="#00796B" />
     <path d="M11 11v10M21 11v10M11 16h10" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
   </svg>
 )
@@ -29,15 +29,15 @@ const HealthKartLogo = ({ className }: { className: string }) => (
 const ApolloLogo = ({ className }: { className: string }) => (
   <svg viewBox="0 0 32 32" className={className} aria-label="Apollo 24/7">
     <rect width="32" height="32" rx="8" fill="#2B0A12" />
-    <path d="M16 6c-3 4-6 7-6 11 0 3.3 2.7 6 6 6s6-2.7 6-6c0-4-3-7-6-11z" fill="#FF5E14" />
-    <path d="M16 13c-1.5 2-3 3.5-3 5.5 0 1.7 1.3 3 3 3s3-1.3 3-3c0-2-1.5-3.5-3-5.5z" fill="#FFC107" />
+    <path d="M16 6c-3 4-6 7-6 11 0 3.3 2.7 6 6 6s6-2.7 6-6c0-4-3-7-6-11z" fill="#D84315" />
+    <path d="M16 13c-1.5 2-3 3.5-3 5.5 0 1.7 1.3 3 3 3s3-1.3 3-3c0-2-1.5-3.5-3-5.5z" fill="#E65100" />
   </svg>
 )
 
 const Tata1mgLogo = ({ className }: { className: string }) => (
   <svg viewBox="0 0 32 32" className={className} aria-label="Tata 1mg">
     <rect width="32" height="32" rx="8" fill="#1A1818" />
-    <rect x="7" y="10" width="18" height="12" rx="6" fill="#E23E45" />
+    <rect x="7" y="10" width="18" height="12" rx="6" fill="#C62828" />
     <path d="M16 10v12" stroke="#FFFFFF" strokeWidth="1.5" />
     <circle cx="11.5" cy="16" r="2" fill="#FFFFFF" />
   </svg>
@@ -46,7 +46,7 @@ const Tata1mgLogo = ({ className }: { className: string }) => (
 const SemrushLogo = ({ className }: { className: string }) => (
   <svg viewBox="0 0 32 32" className={className} aria-label="Semrush">
     <rect width="32" height="32" rx="8" fill="#171A22" />
-    <path d="M7 16l6-8 3 4-5 7 5 3-9 2z" fill="#FF642D" />
+    <path d="M7 16l6-8 3 4-5 7 5 3-9 2z" fill="#E65100" />
   </svg>
 )
 
@@ -107,7 +107,7 @@ export const CompetitorLogo: React.FC<CompetitorLogoProps> = ({
     )
   }
 
-  // 4. Elegant monogram fallback
+  // 4. Elegant solid monogram fallback (no gradients, solid dark background)
   const initials = (name || 'CO')
     .split(' ')
     .filter(Boolean)
@@ -117,7 +117,7 @@ export const CompetitorLogo: React.FC<CompetitorLogoProps> = ({
 
   return (
     <div 
-      className={`${className} rounded-lg bg-gradient-to-br from-[#8F0028]/40 to-[#242222] border border-[#373333] flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-sm`}
+      className={`${className} rounded-lg bg-[#242222] border border-[#373333] flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-sm`}
       style={{ width: size, height: size }}
     >
       {initials}

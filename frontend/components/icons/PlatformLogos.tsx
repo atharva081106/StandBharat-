@@ -36,11 +36,11 @@ export const GSCLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6', size }) =>
     <rect width="24" height="24" rx="5" fill="#202124" />
     {/* Document Base */}
     <path d="M6 5.5A1.5 1.5 0 0 1 7.5 4h5.5l5 5v9.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 18.5v-13z" fill="#4285F4" />
-    <path d="M13 4v4a1 1 0 0 0 1 1h4l-5-5z" fill="#A1C2FA" />
+    <path d="M13 4v4a1 1 0 0 0 1 1h4l-5-5z" fill="#2A56C6" />
     {/* Search Lens overlay with Google 4-colors */}
-    <circle cx="11.5" cy="13.5" r="3.5" fill="none" stroke="#FBBC04" strokeWidth="1.6" />
-    <path d="M14 16l3 3" stroke="#EA4335" strokeWidth="1.8" strokeLinecap="round" />
-    <circle cx="11.5" cy="13.5" r="1.8" fill="#34A853" />
+    <circle cx="11.5" cy="13.5" r="3.5" fill="none" stroke="#F4B400" strokeWidth="1.6" />
+    <path d="M14 16l3 3" stroke="#DB4437" strokeWidth="1.8" strokeLinecap="round" />
+    <circle cx="11.5" cy="13.5" r="1.8" fill="#0F9D58" />
   </svg>
 )
 
@@ -60,7 +60,7 @@ export const LinkedInLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6', size 
   </svg>
 )
 
-// 4. Meta Ads / Meta - Official Gradient Infinity Loop
+// 4. Meta Ads / Meta - Official Solid Blue Infinity Loop
 export const MetaLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6', size }) => (
   <svg 
     viewBox="0 0 24 24" 
@@ -68,22 +68,15 @@ export const MetaLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6', size }) =
     style={size ? { width: size, height: size } : undefined}
     aria-label="Meta Ads"
   >
-    <defs>
-      <linearGradient id="metaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#0064E0" />
-        <stop offset="50%" stopColor="#0082FB" />
-        <stop offset="100%" stopColor="#00A4FE" />
-      </linearGradient>
-    </defs>
     <rect width="24" height="24" rx="5" fill="#1C1E21" />
     <path 
       d="M17.2 7.8c-.8 0-1.6.4-2.2 1.1-.9-1-2-1.5-3.2-1.5-2.6 0-4.6 2.1-4.6 4.7 0 2.6 2 4.7 4.6 4.7 1.2 0 2.3-.5 3.2-1.5.6.7 1.4 1.1 2.2 1.1 1.7 0 3-1.4 3-3.1 0-1.8-1.3-3.2-3-3.2zm-5.4 6.8c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5c1.1 0 2.1.7 2.4 1.8h-2.1c-.2-.4-.5-.6-.9-.6-.7 0-1.2.6-1.2 1.3s.5 1.3 1.2 1.3c.4 0 .8-.2.9-.6h2.1c-.3 1.1-1.3 1.8-2.4 1.8zm5.4.3c-.8 0-1.4-.6-1.4-1.4s.6-1.4 1.4-1.4 1.4.6 1.4 1.4-.6 1.4-1.4 1.4z" 
-      fill="url(#metaGrad)"
+      fill="#0081FB" 
     />
   </svg>
 )
 
-// 5. Instagram - Official Gradient Camera
+// 5. Instagram - Official Solid Magenta Camera
 export const InstagramLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6', size }) => (
   <svg 
     viewBox="0 0 24 24" 
@@ -91,22 +84,13 @@ export const InstagramLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6', size
     style={size ? { width: size, height: size } : undefined}
     aria-label="Instagram"
   >
-    <defs>
-      <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#FFDC80" />
-        <stop offset="25%" stopColor="#FD1D1D" />
-        <stop offset="60%" stopColor="#E1306C" />
-        <stop offset="80%" stopColor="#C13584" />
-        <stop offset="100%" stopColor="#833AB4" />
-      </linearGradient>
-    </defs>
-    <rect width="24" height="24" rx="6" fill="url(#igGrad)" />
+    <rect width="24" height="24" rx="6" fill="#C13584" />
     {/* Outer Camera Outline */}
-    <rect x="5.5" y="5.5" width="13" height="13" rx="3.6" fill="none" stroke="#FFFFFF" strokeWidth="1.6" />
+    <rect x="5.5" y="5.5" width="13" height="13" rx="3.6" fill="none" stroke="#FFFFFF" strokeWidth="1.8" />
     {/* Inner Lens */}
-    <circle cx="12" cy="12" r="3.2" fill="none" stroke="#FFFFFF" strokeWidth="1.6" />
+    <circle cx="12" cy="12" r="3.2" fill="none" stroke="#FFFFFF" strokeWidth="1.8" />
     {/* Flash Dot */}
-    <circle cx="15.8" cy="8.2" r="0.9" fill="#FFFFFF" />
+    <circle cx="15.8" cy="8.2" r="1" fill="#FFFFFF" />
   </svg>
 )
 
@@ -288,33 +272,22 @@ export const HubSpotLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6', size }
 export const StandBharatLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6', size }) => (
   <svg 
     viewBox="0 0 32 32" 
-    className={className}
+    className={className} 
     style={size ? { width: size, height: size } : undefined}
     aria-label="StandBharat"
   >
-    <defs>
-      <linearGradient id="sbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#FF4A70" />
-        <stop offset="50%" stopColor="#B30032" />
-        <stop offset="100%" stopColor="#66001D" />
-      </linearGradient>
-      <linearGradient id="goldCore" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#FFD700" />
-        <stop offset="100%" stopColor="#FF8C00" />
-      </linearGradient>
-    </defs>
     <rect width="32" height="32" rx="8" fill="#1C1A1A" stroke="#373333" strokeWidth="1" />
-    {/* Geometric Winged Crest */}
+    {/* Geometric Winged Crest in Solid Deep Burgundy */}
     <path 
       d="M16 4.5l8 4.6v9.8L16 27.5 8 18.9V9.1L16 4.5z" 
-      fill="url(#sbGrad)" 
-      stroke="#FF4A70"
+      fill="#8F0028" 
+      stroke="#B30032"
       strokeWidth="1.2"
     />
-    {/* Center Radiant Stambh / Core */}
+    {/* Center Core in Solid Warm Amber */}
     <path 
       d="M16 9.5l4 3.5-4 9-4-9 4-3.5z" 
-      fill="url(#goldCore)"
+      fill="#E65100"
     />
     <circle cx="16" cy="15.5" r="2.2" fill="#FFFFFF" />
   </svg>
