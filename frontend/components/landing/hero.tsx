@@ -253,8 +253,8 @@ export function HeroSection() {
         {/* Left Column 42% */}
         <div className="w-full lg:w-[42%] space-y-6 pointer-events-auto lg:ml-10">
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both" style={{ animationDelay: '0.0s' }}>
-            <div className="inline-flex items-center rounded-sm px-2 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#5C0017] bg-[#F5E6E8]">
-              THE AI MARKETING OPERATING SYSTEM
+            <div className="inline-flex items-center rounded-sm px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#5C0017] bg-[#F5E6E8]">
+              THE AI MARKETING OPERATING SYSTEM • BUILT FOR BHARAT 🇮🇳
             </div>
           </div>
           
@@ -268,7 +268,7 @@ export function HeroSection() {
           
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both" style={{ animationDelay: '0.2s' }}>
             <p className="text-base lg:text-lg text-[#5A5A5A] leading-relaxed max-w-lg font-medium">
-              StandBharat connects your brand intelligence, strategy, AI agents, content, approvals, publishing, analytics and learning into one continuous marketing system.
+              StandBharat connects your brand intelligence, Indic voice presets, WhatsApp Business, AI agents, 1-click publishing, and INR revenue attribution into one continuous marketing system.
             </p>
           </div>
           

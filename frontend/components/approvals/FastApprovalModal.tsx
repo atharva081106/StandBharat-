@@ -58,7 +58,7 @@ Optimizing for semantic entity citations is now 3x more critical than old-school
 Monitoring pricing and ad copy pivots in real time—not monthly quarterly reviews.
 
 4️⃣ **Automated Video Hook Ideation**
-Testing 10 hook variations in the first 3 seconds before spending $1 on ad spend.
+Testing 10 hook variations in the first 3 seconds before spending ₹100 on ad spend.
 
 5️⃣ **Human-in-the-Loop Governance**
 Autonomous drafting + 1-click human executive approval = 10x output with zero brand hallucination risk.

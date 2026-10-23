@@ -104,7 +104,7 @@ export default function RevenuePage() {
             </div>
           </div>
           <div className="mt-3">
-            <span className="text-2xl font-bold text-white">$48,250</span>
+            <span className="text-2xl font-bold text-white">₹40,25,000</span>
             <span className="text-[11px] text-white ml-2 font-medium flex items-center inline-flex">
               <ArrowUpRight className="w-3 h-3 mr-0.5" /> +18.4%
             </span>
@@ -125,7 +125,7 @@ export default function RevenuePage() {
               <ArrowUpRight className="w-3 h-3 mr-0.5" /> +0.4x vs target
             </span>
           </div>
-          <p className="text-[11px] text-[#E5E7EB] mt-1">$3.85 returned per $1.00 deployed</p>
+          <p className="text-[11px] text-[#E5E7EB] mt-1">₹3.85 returned per ₹1.00 deployed</p>
         </div>
 
         <div className="bg-[#1C1A1A] border border-[#373333] rounded-2xl p-5 relative overflow-hidden">
@@ -136,7 +136,7 @@ export default function RevenuePage() {
             </div>
           </div>
           <div className="mt-3">
-            <span className="text-2xl font-bold text-white">$34.20</span>
+            <span className="text-2xl font-bold text-white">₹2,850</span>
             <span className="text-[11px] text-white ml-2 font-medium flex items-center inline-flex">
               <ArrowDownRight className="w-3 h-3 mr-0.5" /> -12.1% CAC
             </span>
@@ -178,10 +178,10 @@ export default function RevenuePage() {
 
           <div className="space-y-4">
             {[
-              { channel: 'Organic Search (SEO)', revenue: '$21,400', share: 44, color: 'bg-white', cpa: '$8.50' },
-              { channel: 'Social Media & Community', revenue: '$14,650', share: 30, color: 'bg-[#E5E7EB]', cpa: '$22.10' },
-              { channel: 'Targeted Paid Ads', revenue: '$8,200', share: 17, color: 'bg-zinc-400', cpa: '$46.80' },
-              { channel: 'Referral & Backlinks', revenue: '$4,000', share: 9, color: 'bg-zinc-500', cpa: '$12.00' },
+              { channel: 'Organic Search (SEO)', revenue: '₹17,80,000', share: 44, color: 'bg-white', cpa: '₹710' },
+              { channel: 'Social Media & Community', revenue: '₹12,20,000', share: 30, color: 'bg-[#E5E7EB]', cpa: '₹1,840' },
+              { channel: 'Targeted Paid Ads (Meta & Search)', revenue: '₹6,80,000', share: 17, color: 'bg-zinc-400', cpa: '₹3,900' },
+              { channel: 'Referral, WhatsApp & Backlinks', revenue: '₹3,45,000', share: 9, color: 'bg-zinc-500', cpa: '₹1,000' },
             ].map(item => (
               <div key={item.channel} className="space-y-1.5">
                 <div className="flex justify-between items-center text-[13px]">
@@ -202,7 +202,7 @@ export default function RevenuePage() {
           </div>
 
           <div className="mt-6 pt-5 border-t border-[#373333] flex items-center justify-between text-[12px] text-[#E5E7EB]">
-            <span>Total Attributed Gross Profit: <strong className="text-white">$36,800</strong> (76.2% margin)</span>
+            <span>Total Attributed Gross Profit: <strong className="text-white">₹30,60,000</strong> (76.2% margin)</span>
             <Link href="/app/analytics" className="text-white hover:underline flex items-center gap-1 font-semibold">
               Website Funnel Analytics <ExternalLink className="w-3 h-3" />
             </Link>
@@ -226,7 +226,7 @@ export default function RevenuePage() {
                   <TrendingUp className="w-3.5 h-3.5 text-white" /> Scale Organic Content Velocity
                 </div>
                 <p className="text-[#E5E7EB] text-[11px]">
-                  Organic search delivers 44% of revenue at lowest acquisition cost ($8.50). Publishing 3 additional comparison guides is projected to yield +$4.2k/mo.
+                  Organic search delivers 44% of revenue at lowest acquisition cost (₹710). Publishing 3 additional comparison guides is projected to yield +₹3,50,000/mo.
                 </p>
               </div>
 
@@ -309,10 +309,10 @@ export default function RevenuePage() {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-white">
-                      ${camp.budget ? Number(camp.budget).toLocaleString() : '1,500'}
+                      ₹{camp.budget ? Number(camp.budget).toLocaleString('en-IN') : '1,25,000'}
                     </td>
                     <td className="px-6 py-4 text-white font-semibold">
-                      ${camp.budget ? (Number(camp.budget) * 3.4).toLocaleString() : '$5,100'}
+                      ₹{camp.budget ? (Number(camp.budget) * 3.4).toLocaleString('en-IN') : '4,25,000'}
                     </td>
                     <td className="px-6 py-4 text-right font-bold text-white">
                       3.4x

@@ -37,10 +37,11 @@ PRICING_PLANS = {
         "features": [
             "All 15 Autonomous Specialized Agents",
             "1,000,000 AI Token Credits / mo",
-            "Multi-Touch Revenue Attribution Funnel",
+            "WhatsApp Business & Indic Tone Integration",
+            "Multi-Touch Revenue Attribution Funnel (INR)",
             "Multi-Channel Social Auto-Publishing",
-            "Competitive Intelligence Radar",
-            "Automated PostgreSQL Backup & Retention",
+            "Competitive Intelligence Radar (Indian & Global)",
+            "GST Invoices with 18% Input Tax Credit",
             "Priority Support"
         ]
     },

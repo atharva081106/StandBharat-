@@ -165,7 +165,7 @@ class MetaAdsProvider(IntegrationProvider):
                         brand_id=brand_id,
                         metric_name=metric_name,
                         value=float(val),
-                        currency="USD",
+                        currency="INR",
                         recorded_at=datetime.utcnow()
                     )
                     db.add(snapshot)

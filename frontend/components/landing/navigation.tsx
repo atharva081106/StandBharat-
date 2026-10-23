@@ -14,28 +14,31 @@ import {
   GitHubLogo,
   SlackLogo,
   TikTokLogo,
-  InstagramLogo
+  InstagramLogo,
+  WhatsAppLogo,
+  ShopifyLogo
 } from '@/components/icons/PlatformLogos'
 
 const AGENTS = [
   { name: 'Growth Agent', desc: 'Find high-impact opportunities.', icon: TrendingUp, color: '#34A853' },
   { name: 'SEO Agent', desc: 'Find gaps, draft pages.', icon: UserSearch, color: '#E91E63' },
-  { name: 'Content Writer Agent', desc: 'Draft in your brand voice.', icon: FileText, color: '#FBBC04' },
+  { name: 'Content Writer Agent', desc: 'Draft in your brand voice & Hinglish.', icon: FileText, color: '#FBBC04' },
   { name: 'Analytics Agent', desc: "Surface what's working.", icon: BarChart2, color: '#4285F4' },
-  { name: 'Competitor Agent', desc: 'Monitor and exploit gaps.', icon: Eye, color: '#EA4335' },
+  { name: 'Competitor Agent', desc: 'Monitor Indian & global competitors.', icon: Eye, color: '#EA4335' },
   { name: 'Content Strategy Agent', desc: 'Build data-driven briefs.', icon: Terminal, color: '#9333EA' },
-  { name: 'Audience Agent', desc: "Understand who's listening.", icon: Users, color: '#00ACC1' },
+  { name: 'Audience Agent', desc: "Understand Indian metros & Tier 2/3 Bharat.", icon: Users, color: '#00ACC1' },
   { name: 'Brand Voice Agent', desc: 'Keep every word on-brand.', icon: Star, color: '#F57C00' },
 ]
 
 const INTEGRATIONS = [
+  { name: 'WhatsApp Business', desc: 'Auto-publish broadcasts & nurture.', soon: false, icon: <WhatsAppLogo className="w-5 h-5" /> },
+  { name: 'Shopify / Dukaan', desc: 'Sync D2C catalog & revenue.', soon: false, icon: <ShopifyLogo className="w-5 h-5" /> },
   { name: 'WordPress', desc: 'Auto-publish posts.', soon: false, icon: <WordPressLogo className="w-5 h-5" /> },
   { name: 'Google Search Console', desc: 'Track rankings & indexation.', soon: false, icon: <GSCLogo className="w-5 h-5" /> },
   { name: 'Google Analytics 4', desc: 'Track traffic & attribution.', soon: false, icon: <GA4Logo className="w-5 h-5" /> },
   { name: 'LinkedIn', desc: 'Publish thought leadership.', soon: false, icon: <LinkedInLogo className="w-5 h-5" /> },
   { name: 'X (Twitter)', desc: 'Publish threads & reach.', soon: false, icon: <XLogo className="w-5 h-5" /> },
   { name: 'Instagram', desc: 'Publish visual stories.', soon: false, icon: <InstagramLogo className="w-5 h-5" /> },
-  { name: 'TikTok', desc: 'Short-form video reach.', soon: false, icon: <TikTokLogo className="w-5 h-5" /> },
   { name: 'GitHub', desc: 'Open SEO PRs & automations.', soon: false, icon: <GitHubLogo className="w-5 h-5" /> },
   { name: 'Slack', desc: 'Approval notifications in chat.', soon: false, icon: <SlackLogo className="w-5 h-5" /> },
 ]
@@ -290,7 +293,12 @@ export function MarketingFooter() {
             <Image src="/logo-icon.png" alt="StandBharat Logo" width={28} height={28} className="object-contain" />
             <span className="font-bold text-lg tracking-tight text-[#111111]">StandBharat</span>
           </Link>
-          <p className="text-[#5A5A5A] text-sm font-medium pr-4 leading-relaxed">The AI marketing operating system for modern businesses.</p>
+          <p className="text-[#5A5A5A] text-sm font-medium pr-4 leading-relaxed">
+            The AI marketing operating system built for Bharat & ambitious global brands. Designed in India 🇮🇳.
+          </p>
+          <div className="text-[12px] text-[#800020] font-bold">
+            100% Made for Indian D2C, B2B & Modern Enterprises.
+          </div>
         </div>
         <div>
           <h4 className="font-bold text-[#111111] text-sm mb-6">Product</h4>
@@ -299,37 +307,38 @@ export function MarketingFooter() {
             <li><Link href="#product" className="hover:text-[#800020] transition-colors">Brand Brain</Link></li>
             <li><Link href="#product" className="hover:text-[#800020] transition-colors">Agents</Link></li>
             <li><Link href="#how-it-works" className="hover:text-[#800020] transition-colors">Workflows</Link></li>
-            <li><Link href="#product" className="hover:text-[#800020] transition-colors">Content</Link></li>
-            <li><Link href="#product" className="hover:text-[#800020] transition-colors">Analytics</Link></li>
+            <li><Link href="#product" className="hover:text-[#800020] transition-colors">Content & WhatsApp</Link></li>
+            <li><Link href="#product" className="hover:text-[#800020] transition-colors">Analytics & INR Attribution</Link></li>
           </ul>
         </div>
         <div>
           <h4 className="font-bold text-[#111111] text-sm mb-6">Company</h4>
           <ul className="space-y-4 text-sm font-medium text-[#5A5A5A]">
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">About</Link></li>
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">Careers</Link></li>
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">Contact</Link></li>
+            <li><Link href="#" className="hover:text-[#800020] transition-colors">About StandBharat</Link></li>
+            <li><Link href="#" className="hover:text-[#800020] transition-colors">Careers (Bengaluru & Remote)</Link></li>
+            <li><Link href="#" className="hover:text-[#800020] transition-colors">Contact Support</Link></li>
           </ul>
         </div>
         <div>
           <h4 className="font-bold text-[#111111] text-sm mb-6">Resources</h4>
           <ul className="space-y-4 text-sm font-medium text-[#5A5A5A]">
             <li><Link href="#" className="hover:text-[#800020] transition-colors">Documentation</Link></li>
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">Blog</Link></li>
+            <li><Link href="#" className="hover:text-[#800020] transition-colors">Bharat Marketing Playbook</Link></li>
             <li><Link href="#" className="hover:text-[#800020] transition-colors">Help Center</Link></li>
           </ul>
         </div>
         <div>
-          <h4 className="font-bold text-[#111111] text-sm mb-6">Legal</h4>
+          <h4 className="font-bold text-[#111111] text-sm mb-6">Legal & Invoicing</h4>
           <ul className="space-y-4 text-sm font-medium text-[#5A5A5A]">
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">Privacy</Link></li>
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">Terms</Link></li>
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">Cookies</Link></li>
+            <li><Link href="#" className="hover:text-[#800020] transition-colors">Privacy Policy</Link></li>
+            <li><Link href="#" className="hover:text-[#800020] transition-colors">Terms of Service</Link></li>
+            <li><Link href="#" className="hover:text-[#800020] transition-colors">GST Compliance & ITC</Link></li>
           </ul>
         </div>
       </div>
-      <div className="max-w-[1400px] mx-auto pt-8 border-t border-[#E8E4DC] flex justify-between items-center text-sm font-medium text-[#E5E7EB]">
-        <div>&copy; 2026 StandBharat. All rights reserved.</div>
+      <div className="max-w-[1400px] mx-auto pt-8 border-t border-[#E8E4DC] flex flex-col sm:flex-row justify-between items-center text-sm font-medium text-[#666666] gap-4">
+        <div>&copy; 2026 StandBharat Technologies Pvt. Ltd. Proudly Built in India 🇮🇳. All rights reserved.</div>
+        <div className="text-xs text-[#888888]">All pricing in INR (₹) • Instant UPI & RuPay Checkout • GST Invoices with ITC</div>
       </div>
     </footer>
   )

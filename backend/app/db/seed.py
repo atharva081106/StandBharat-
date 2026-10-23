@@ -289,9 +289,9 @@ def ensure_demo_user(db: Session) -> User:
     # Ensure Metric Snapshots
     if db.query(MetricSnapshot).filter(MetricSnapshot.brand_id == brand.id).count() == 0:
         metrics = [
-            MetricSnapshot(id=uuid.uuid4(), workspace_id=ws.id, brand_id=brand.id, metric_name="MRR", value=42500.0, currency="USD"),
-            MetricSnapshot(id=uuid.uuid4(), workspace_id=ws.id, brand_id=brand.id, metric_name="CAC", value=310.0, currency="USD"),
-            MetricSnapshot(id=uuid.uuid4(), workspace_id=ws.id, brand_id=brand.id, metric_name="LTV", value=3850.0, currency="USD"),
+            MetricSnapshot(id=uuid.uuid4(), workspace_id=ws.id, brand_id=brand.id, metric_name="MRR", value=4025000.0, currency="INR"),
+            MetricSnapshot(id=uuid.uuid4(), workspace_id=ws.id, brand_id=brand.id, metric_name="CAC", value=2850.0, currency="INR"),
+            MetricSnapshot(id=uuid.uuid4(), workspace_id=ws.id, brand_id=brand.id, metric_name="LTV", value=32500.0, currency="INR"),
             MetricSnapshot(id=uuid.uuid4(), workspace_id=ws.id, brand_id=brand.id, metric_name="Organic Traffic", value=18400.0, currency="SESSIONS"),
             MetricSnapshot(id=uuid.uuid4(), workspace_id=ws.id, brand_id=brand.id, metric_name="Signups", value=840.0, currency="COUNT"),
         ]

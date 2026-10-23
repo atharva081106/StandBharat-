@@ -8,11 +8,11 @@ export const mockUser = {
 };
 
 export const mockWorkspaces = [
-  { id: "w_1", name: "Acme Corp" }
+  { id: "w_1", name: "BharatOrganics D2C" }
 ];
 
 export const mockBrands = [
-  { id: "b_1", name: "Acme SaaS", workspace_id: "w_1" }
+  { id: "b_1", name: "BharatOrganics", workspace_id: "w_1" }
 ];
 
 export const mockKPIs = {
@@ -194,25 +194,25 @@ export const mockAgents = [
 ];
 
 export const mockOpportunities = [
-  { id: "o_1", title: "Target enterprise keyword 'AI Marketing Automation'", impact: "HIGH", confidence: "87%", effort: "MEDIUM", priority: 8.6, status: "NEW" },
-  { id: "o_2", title: "Counter competitor X's new pricing model", impact: "HIGH", confidence: "92%", effort: "HIGH", priority: 8.2, status: "IN_PROGRESS" },
-  { id: "o_3", title: "Launch LinkedIn series on predictive analytics", impact: "MEDIUM", confidence: "75%", effort: "LOW", priority: 7.0, status: "COMPLETED" }
+  { id: "o_1", title: "Target high-intent keyword 'Organic Wellness India'", impact: "HIGH", confidence: "87%", effort: "MEDIUM", priority: 8.6, status: "NEW" },
+  { id: "o_2", title: "Counter HealthKart's festive flash discount campaign", impact: "HIGH", confidence: "92%", effort: "HIGH", priority: 8.2, status: "IN_PROGRESS" },
+  { id: "o_3", title: "Launch WhatsApp broadcast series for Diwali tier-2 festive buyers", impact: "MEDIUM", confidence: "75%", effort: "LOW", priority: 7.0, status: "COMPLETED" }
 ];
 
 export const mockApprovals = [
-  { id: "a_1", title: "Review Content Brief: Enterprise AI Marketing", agent: "Content Strategy Agent", risk: "LOW", requested: "2 hours ago" },
-  { id: "a_2", title: "Approve LinkedIn Draft: Predictive Analytics Post 1", agent: "Content Writer Agent", risk: "MEDIUM", requested: "5 hours ago" }
+  { id: "a_1", title: "Review Content Brief: Bharat D2C Growth Playbook", agent: "Content Strategy Agent", risk: "LOW", requested: "2 hours ago" },
+  { id: "a_2", title: "Approve LinkedIn Draft: Indian Ecommerce Scaling Post 1", agent: "Content Writer Agent", risk: "MEDIUM", requested: "5 hours ago" }
 ];
 
 export const mockContent = [
-  { id: "c_1", title: "Enterprise AI Marketing Automation Guide", type: "Blog", status: "DRAFT", author: "Content Writer Agent", updated: "1 hour ago" },
-  { id: "c_2", title: "Predictive Analytics Post 1", type: "LinkedIn Post", status: "PUBLISHED", author: "Content Publisher Agent", updated: "1 day ago" },
-  { id: "c_3", title: "Competitor X Feature Comparison", type: "Battlecard", status: "IN_REVIEW", author: "Content Strategy Agent", updated: "3 hours ago" }
+  { id: "c_1", title: "Bharat D2C Growth & WhatsApp Playbook", type: "Blog", status: "DRAFT", author: "Content Writer Agent", updated: "1 hour ago" },
+  { id: "c_2", title: "D2C Scaling in India Post 1", type: "LinkedIn Post", status: "PUBLISHED", author: "Content Publisher Agent", updated: "1 day ago" },
+  { id: "c_3", title: "Practo & HealthKart Comparison Matrix", type: "Battlecard", status: "IN_REVIEW", author: "Content Strategy Agent", updated: "3 hours ago" }
 ];
 
 export const mockRecentActivity = [
-  { id: "act_1", type: "Generated", description: "Draft 'Enterprise AI Marketing Guide'", agent: "Content Writer Agent" },
-  { id: "act_2", type: "Identified", description: "New keyword opportunity 'AI Marketing'", agent: "Growth Agent" },
-  { id: "act_3", type: "Analyzed", description: "Competitor X pricing update", agent: "Competitor Agent" },
-  { id: "act_4", type: "Ingested", description: "Weekly analytics payload", agent: "Analytics Agent" }
+  { id: "act_1", type: "Generated", description: "Draft 'Bharat D2C Scaling Guide'", agent: "Content Writer Agent" },
+  { id: "act_2", type: "Identified", description: "New keyword opportunity 'Ayurvedic Supplements India'", agent: "Growth Agent" },
+  { id: "act_3", type: "Analyzed", description: "HealthKart & Tata 1mg pricing moves", agent: "Competitor Agent" },
+  { id: "act_4", type: "Ingested", description: "Weekly INR revenue & GA4 payload", agent: "Analytics Agent" }
 ];

@@ -256,7 +256,7 @@ export const SlackLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6', size }) 
 export const HubSpotLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6', size }) => (
   <svg 
     viewBox="0 0 24 24" 
-    className={className}
+    className={className} 
     style={size ? { width: size, height: size } : undefined}
     aria-label="HubSpot"
   >
@@ -268,7 +268,23 @@ export const HubSpotLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6', size }
   </svg>
 )
 
-// 15. StandBharat Crest - Official Saffron/Burgundy Lion & Tech Emblem
+// 15. WhatsApp Business - Official Solid Emerald Emblem for Bharat & D2C
+export const WhatsAppLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6', size }) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    className={className} 
+    style={size ? { width: size, height: size } : undefined}
+    aria-label="WhatsApp Business"
+  >
+    <rect width="24" height="24" rx="5" fill="#128C7E" />
+    <path 
+      d="M12 4a8 8 0 0 0-6.9 12L4 20l4.1-1.1A8 8 0 1 0 12 4zm4.6 11.4c-.2.6-1.1 1.1-1.6 1.1-.4 0-.9.2-2.8-.6-2.3-.9-3.7-3.3-3.8-3.5-.1-.2-.9-1.2-.9-2.3 0-1.1.6-1.6.8-1.8.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .5.4.2.5.7 1.7.8 1.8.1.2.1.3 0 .5s-.2.3-.3.4l-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.5 1.5.3.1.5.1.7-.1.2-.3.9-1 1.1-1.4.2-.4.4-.3.7-.2.3.1 1.8.9 2.1 1 .3.2.5.3.6.4.1.2.1 1.1-.1 1.7z" 
+      fill="#FFFFFF" 
+    />
+  </svg>
+)
+
+// 16. StandBharat Crest - Official Saffron/Burgundy Lion & Tech Emblem
 export const StandBharatLogo: React.FC<LogoProps> = ({ className = 'w-6 h-6', size }) => (
   <svg 
     viewBox="0 0 32 32" 
@@ -301,6 +317,9 @@ export interface PlatformLogoProps extends LogoProps {
 export const PlatformLogo: React.FC<PlatformLogoProps> = ({ platform, className = 'w-5 h-5', size }) => {
   const p = (platform || '').toLowerCase().trim().replace(/[-_]/g, '')
   
+  if (p.includes('whatsapp') || p.includes('wa')) {
+    return <WhatsAppLogo className={className} size={size} />
+  }
   if (p.includes('ga4') || p.includes('googleanalytics') || p.includes('analytics')) {
     return <GA4Logo className={className} size={size} />
   }

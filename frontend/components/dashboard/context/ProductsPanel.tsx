@@ -43,6 +43,11 @@ export function ProductsPanel() {
                   <div>
                     <h4 className="text-[13px] font-bold text-white">{product.name}</h4>
                     <p className="text-[12px] text-[#E5E7EB] mt-1">{product.description}</p>
+                    {product.price && (
+                      <span className="inline-block mt-2 text-[11px] font-bold text-[#FFD700] bg-[#800020]/40 border border-[#800020] px-2 py-0.5 rounded">
+                        {product.price}
+                      </span>
+                    )}
                   </div>
                 </div>
               ))

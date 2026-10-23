@@ -689,7 +689,7 @@ export default function AIWorkspace() {
                       { label: "Revenue (AI Attributed)", value: "NOT_CONFIGURED", change: "Connect GA4", trend: "up" },
                       { label: "Leads Generated", value: "NOT_CONFIGURED", change: "Connect GA4", trend: "up" },
                       { label: "Avg Conversion Rate", value: "NOT_CONFIGURED", change: "Connect GA4", trend: "up" },
-                      { label: "AI Spend (Est)", value: "$0.00", change: "0 credits", trend: "down" }
+                      { label: "AI Spend (Est)", value: "₹0.00", change: "0 credits", trend: "down" }
                     ]).map((kpi: any) => {
                       const isNotConfigured = kpi.value === 'NOT_CONFIGURED'
                       const isNoData = kpi.value === 'NO_DATA'

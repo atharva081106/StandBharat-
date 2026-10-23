@@ -17,24 +17,24 @@ export class MockBrandBrainProvider implements BrandBrainProvider {
       tone: "Professional yet approachable, authoritative on AI.",
       personality: "Intelligent, calm, operational, and trustworthy.",
       writing_style: "Concise, data-backed, avoiding hype-words.",
-      preferred_language: "US English"
+      preferred_language: "Indian English & Hinglish"
     },
     audiences: [
-      { id: "1", name: "CMOs", description: "Chief Marketing Officers at mid-to-large enterprises", pain_points: "Attribution, tool fatigue, scaling content" },
-      { id: "2", name: "Growth Leads", description: "Technical marketers focused on revenue", pain_points: "Experimentation speed, data silos" }
+      { id: "1", name: "Indian D2C & SaaS Founders", description: "Founders and CMOs across Mumbai, Bengaluru, Delhi NCR, and Bharat", pain_points: "CAC inflation, agency turnaround times, multi-channel scaling" },
+      { id: "2", name: "Growth & Performance Leads", description: "Growth leaders scaling organic and paid revenue in India", pain_points: "WhatsApp integration, ROAS optimization, Indic localization" }
     ],
     products: [
-      { id: "1", name: "StandBharat Platform", description: "The core AI marketing OS", price: "$999/mo" }
+      { id: "1", name: "StandBharat Platform", description: "India's First Autonomous AI Marketing OS", price: "₹4,999/mo" }
     ],
     positioning: {
-      positioning_statement: "For enterprise marketing teams, StandBharat is the only AI operating system that completely closes the loop from analytics to publishing without human bottlenecks."
+      positioning_statement: "For Indian high-growth brands and MSMEs, StandBharat is the autonomous AI operating system that orchestrates multi-channel marketing from SEO to WhatsApp publishing without agency dependencies."
     },
     goals: [
-      { id: "1", goal: "Increase Demo Requests", target_value: "500/mo", current_value: "320/mo" }
+      { id: "1", goal: "Increase Demo & Trial Requests", target_value: "500/mo", current_value: "320/mo" }
     ],
     competitors: [
-      { id: "1", name: "Legacy Automation Co", strengths: "Enterprise features, established integrations", weaknesses: "Clunky UI, no native AI intelligence" },
-      { id: "2", name: "AI Wrapper Inc", strengths: "Fast onboarding", weaknesses: "No data loop, just generates generic copy" }
+      { id: "1", name: "Practo", strengths: "High domain authority, established consumer brand", weaknesses: "Legacy SEO moats, slower organic search adaptation" },
+      { id: "2", name: "HealthKart", strengths: "Strong D2C brand loyalty, aggressive influencer reach", weaknesses: "High paid ad dependence, rising blended CAC" }
     ],
     strategy: {
       marketing_strategy: "Content-led growth focusing on deep-dive technical guides and thought leadership on LinkedIn."

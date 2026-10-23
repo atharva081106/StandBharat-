@@ -20,15 +20,28 @@ export default function Pricing() {
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F5E6E8] text-[#800020] text-xs font-bold tracking-wide uppercase mb-6 shadow-sm">
             <Sparkles className="w-3.5 h-3.5 text-[#800020]" />
-            Transparent, Value-Packed Pricing
+            Transparent INR Pricing • Built for Bharat 🇮🇳
           </div>
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-[#111111] mb-6 leading-[1.15]">
             Everything Okara.ai offers, <br/>
             <span className="text-[#800020]">plus 6 exclusive agents</span>.
           </h1>
           <p className="text-lg sm:text-xl text-[#5A5A5A] font-medium leading-relaxed max-w-2xl mx-auto">
-            Start completely free with lightweight AI tools. Unlock our full 15-agent autonomous team and multi-channel auto-publishing on Pro.
+            Built for Indian D2C founders, high-growth startups & agencies. Start free or unleash our 15-agent autonomous team with WhatsApp Business, Indic brand voices, and GST invoicing.
           </p>
+
+          {/* Trust badges */}
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-4 text-xs font-bold text-[#800020]">
+            <span className="flex items-center gap-1.5 bg-[#FAF3F4] px-3 py-1 rounded-full border border-[#F0D5D8]">
+              ✓ Instant UPI & RuPay Checkout
+            </span>
+            <span className="flex items-center gap-1.5 bg-[#FAF3F4] px-3 py-1 rounded-full border border-[#F0D5D8]">
+              ✓ 18% GST Input Tax Credit (ITC) Invoices
+            </span>
+            <span className="flex items-center gap-1.5 bg-[#FAF3F4] px-3 py-1 rounded-full border border-[#F0D5D8]">
+              ✓ WhatsApp Business & Hinglish Ready
+            </span>
+          </div>
 
           {/* Billing Switcher */}
           <div className="mt-8 inline-flex items-center gap-3 p-1.5 bg-[#EAE5DC] rounded-full border border-[#DCD5C9]">
@@ -171,7 +184,10 @@ export default function Pricing() {
                 <ul className="space-y-3.5">
                   {[
                     'ALL 15 Specialized Autonomous AI Agents Unlocked',
-                    'Reddit Growth & Karma Sniper (Organic discussions)',
+                    'WhatsApp Business Broadcasts & Auto-Nurture sequences',
+                    'Indic & Regional Tone (Indian English, Hinglish, Metro & Bharat Dialects)',
+                    'D2C eCommerce Connectors (Shopify, Dukaan, WooCommerce, ONDC)',
+                    'Reddit Growth & Karma Sniper (Organic Indian & Global discussions)',
                     'LinkedIn Thought Leader (Viral PDF Carousels)',
                     'X / Twitter Viral Thread Engine & Scheduler',
                     'UGC Video Script Studio (Shorts, Reels, 3s Hooks)',
@@ -179,12 +195,12 @@ export default function Pricing() {
                     'Generative Engine Optimization (GEO) Rank Tracker',
                     'Technical Coding & Programmatic SEO Landing Pages',
                     'Competitor Radar (24/7 web scraping & ad gap spy)',
-                    'Paid Ads ROAS Optimizer (Meta & Google Search Ads)',
-                    'Multi-Touch Revenue Attribution (GA4 + GSC Blended)',
+                    'Paid Ads ROAS Optimizer (Meta & Google Search Ads in INR)',
+                    'Multi-Touch Revenue Attribution (GA4 + GSC Blended in ₹)',
                     'Frontier AI Models: Claude 3.5 Sonnet, GPT-4o, Mistral Large',
                     '1,000,000 AI Credits / month with rollover',
-                    '1-Click Auto-Publishing to WordPress, Webflow, Shopify, Ghost, X, LinkedIn, Reddit',
-                    '24/7 Celery Beat background opportunity monitors',
+                    '1-Click Auto-Publishing to WhatsApp, WordPress, Webflow, Shopify, Ghost, X, LinkedIn, Reddit',
+                    'GST Invoices with 18% Input Tax Credit (ITC)',
                     'Human-in-the-Loop review and approval guardrails'
                   ].map((feature, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm font-medium text-white/90">
@@ -363,10 +379,28 @@ export default function Pricing() {
                   <td className="py-4 px-4 text-center font-bold text-emerald-600 bg-[#FAF3F4]">✓ Included (Exclusive)</td>
                   <td className="py-4 px-4 text-center font-bold text-red-500">✗ Missing</td>
                 </tr>
+                <tr className="bg-[#FFF9EA]">
+                  <td className="py-4 px-4 font-bold text-[#800020]">WhatsApp Business Broadcasts & Nurture</td>
+                  <td className="py-4 px-4 text-center text-gray-400">—</td>
+                  <td className="py-4 px-4 text-center font-bold text-emerald-600 bg-[#FAF3F4]">✓ Included (Indian D2C Ready)</td>
+                  <td className="py-4 px-4 text-center font-bold text-red-500">✗ Missing (US Only)</td>
+                </tr>
+                <tr className="bg-[#FFF9EA]">
+                  <td className="py-4 px-4 font-bold text-[#800020]">Indic Brand Voice & Hinglish Nuances</td>
+                  <td className="py-4 px-4 text-center text-emerald-600">Basic Hinglish</td>
+                  <td className="py-4 px-4 text-center font-bold text-emerald-600 bg-[#FAF3F4]">✓ Deep Bharat Dialects & Cultural Presets</td>
+                  <td className="py-4 px-4 text-center font-bold text-red-500">✗ English Only</td>
+                </tr>
+                <tr className="bg-[#FFF9EA]">
+                  <td className="py-4 px-4 font-bold text-[#800020]">GST Invoicing (18% ITC) & UPI Checkout</td>
+                  <td className="py-4 px-4 text-center text-gray-400">—</td>
+                  <td className="py-4 px-4 text-center font-bold text-emerald-600 bg-[#FAF3F4]">✓ Instant GSTIN Invoices & UPI/RuPay</td>
+                  <td className="py-4 px-4 text-center font-bold text-red-500">✗ USD Card + Forex Markup</td>
+                </tr>
                 <tr>
                   <td className="py-4 px-4 font-semibold text-[#111111]">1-Click Auto-Publishing Connectors</td>
                   <td className="py-4 px-4 text-center text-gray-400">Manual Copy</td>
-                  <td className="py-4 px-4 text-center font-bold text-emerald-600 bg-[#FAF3F4]">✓ WordPress, Webflow, Shopify, Ghost, X, LinkedIn, Reddit</td>
+                  <td className="py-4 px-4 text-center font-bold text-emerald-600 bg-[#FAF3F4]">✓ WhatsApp, WordPress, Webflow, Shopify, Ghost, X, LinkedIn, Reddit</td>
                   <td className="py-4 px-4 text-center font-bold text-emerald-600">✓ Social & CMS</td>
                 </tr>
                 <tr>
@@ -393,6 +427,18 @@ export default function Pricing() {
           </h3>
           <div className="space-y-4">
             <div className="p-6 bg-white rounded-2xl border border-[#E8E4DC]">
+              <h4 className="text-base font-bold text-[#111111] mb-2">Do you provide GST compliant tax invoices with Input Tax Credit (ITC)?</h4>
+              <p className="text-sm text-[#555555] leading-relaxed">
+                Yes! StandBharat generates 100% compliant Indian GST invoices. Simply enter your company's GSTIN at checkout or in workspace settings, and you can claim the full 18% Input Tax Credit seamlessly on your monthly or annual subscription.
+              </p>
+            </div>
+            <div className="p-6 bg-white rounded-2xl border border-[#E8E4DC]">
+              <h4 className="text-base font-bold text-[#111111] mb-2">Which payment methods are accepted in India?</h4>
+              <p className="text-sm text-[#555555] leading-relaxed">
+                We accept instant UPI (Google Pay, PhonePe, Paytm, CRED, BHIM), RuPay debit and credit cards, NetBanking from all major Indian banks (HDFC, ICICI, SBI, Axis, Kotak), and Indian corporate credit cards. International cards are also supported for global operations.
+              </p>
+            </div>
+            <div className="p-6 bg-white rounded-2xl border border-[#E8E4DC]">
               <h4 className="text-base font-bold text-[#111111] mb-2">How does the Free Plan consume fewer resources and AI credits?</h4>
               <p className="text-sm text-[#555555] leading-relaxed">
                 The Free Plan routes through ultra-fast, high-efficiency models like Groq Llama-3-8B and Gemini 1.5 Flash with strict token ceilings (max 500 tokens per generation). This keeps compute costs virtually non-existent while delivering immediate marketing value for early founders.
@@ -401,7 +447,7 @@ export default function Pricing() {
             <div className="p-6 bg-white rounded-2xl border border-[#E8E4DC]">
               <h4 className="text-base font-bold text-[#111111] mb-2">What happens when I upgrade to Pro?</h4>
               <p className="text-sm text-[#555555] leading-relaxed">
-                All 15 AI agents unlock immediately. You get 1,000,000 monthly AI credits, frontier models (Claude 3.5 Sonnet, GPT-4o), 1-click publishing to WordPress, Webflow, Shopify, Ghost, X, LinkedIn, and Reddit, and continuous 24/7 background competitor monitoring.
+                All 15 AI agents unlock immediately. You get 1,000,000 monthly AI credits, frontier models (Claude 3.5 Sonnet, GPT-4o), 1-click publishing to WhatsApp, WordPress, Webflow, Shopify, Ghost, X, LinkedIn, and Reddit, and continuous 24/7 background competitor monitoring.
               </p>
             </div>
             <div className="p-6 bg-white rounded-2xl border border-[#E8E4DC]">

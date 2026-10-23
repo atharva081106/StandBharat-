@@ -373,14 +373,14 @@ export default function Onboarding() {
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
                         </div>
                         <Input 
-                          placeholder="Acme Corp" 
+                          placeholder="e.g. BharatOrganics, VedaSpices, UrbanKicks" 
                           value={businessName} 
                           onChange={e => setBusinessName(e.target.value)} 
                           required 
                           className="h-11 pl-10 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
                         />
                       </div>
-                      <p className="text-[11px] text-[#E5E7EB] mt-1.5">Enter your official business or brand name.</p>
+                      <p className="text-[11px] text-[#E5E7EB] mt-1.5">Enter your official Indian business or brand name.</p>
                     </div>
 
                     <div>
@@ -390,13 +390,13 @@ export default function Onboarding() {
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
                         </div>
                         <Input 
-                          placeholder="https://acme.com" 
+                          placeholder="https://yourbrand.in" 
                           value={website} 
                           onChange={e => setWebsite(e.target.value)} 
                           className="h-11 pl-10 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
                         />
                       </div>
-                      <p className="text-[11px] text-[#E5E7EB] mt-1.5">Your website helps us understand your business, industry and positioning.</p>
+                      <p className="text-[11px] text-[#E5E7EB] mt-1.5">Your website helps our AI CMO understand your domain, products, and positioning.</p>
                     </div>
 
                     <div>
@@ -449,7 +449,7 @@ export default function Onboarding() {
                     <div>
                       <label className="block text-[11px] font-bold text-[#111111] mb-3 uppercase tracking-wider">Brand voice</label>
                       <div className="flex flex-wrap gap-2">
-                        {["Professional", "Friendly", "Bold", "Technical", "Premium", "Playful", "Minimal", "Authoritative"].map(v => (
+                        {["Professional", "Friendly", "Desi / Hinglish", "Aspirational Indian", "Culturally Grounded (Bharat)", "Bold", "Technical", "Premium", "Direct & Relatable"].map(v => (
                           <label key={v} className="cursor-pointer">
                             <input 
                               type="checkbox" 
@@ -478,13 +478,13 @@ export default function Onboarding() {
                 <div className="animate-in fade-in duration-500 slide-in-from-right-4">
                   <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">Let's Define Your Audience</div>
                   <h2 className="text-[32px] font-bold text-[#111111] mb-2 tracking-tight">Target Audience</h2>
-                  <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">Identify who you want to reach and where they spend their time.</p>
+                  <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">Identify who you want to reach across Metros and Tier-2/3 Bharat.</p>
                   
                   <div className="space-y-6">
                     <div>
                       <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Target Demographic <span className="text-red-500">*</span></label>
                       <Input 
-                        placeholder="e.g. B2B SaaS Founders, 25-45" 
+                        placeholder="e.g. Indian D2C Consumers & Professionals (Mumbai, Bengaluru, Delhi NCR, Tier-2 Bharat)" 
                         value={targetDemographic}
                         onChange={e => setTargetDemographic(e.target.value)}
                         className="h-11 px-4 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
@@ -532,12 +532,12 @@ export default function Onboarding() {
                     <div>
                       <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Target Monthly Revenue</label>
                       <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#111111] font-bold">$</div>
+                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#111111] font-bold">₹</div>
                         <Input 
-                          placeholder="10,000" 
+                          placeholder="5,00,000 (e.g. ₹5 Lakhs)" 
                           value={targetRevenue}
                           onChange={e => setTargetRevenue(e.target.value)}
-                          className="h-11 pl-8 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
+                          className="h-11 pl-8 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#888888] rounded-xl shadow-sm"
                         />
                       </div>
                     </div>
@@ -549,21 +549,21 @@ export default function Onboarding() {
                 <div className="animate-in fade-in duration-500 slide-in-from-right-4">
                   <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">Let's Identify Competitors</div>
                   <h2 className="text-[32px] font-bold text-[#111111] mb-2 tracking-tight">Competitors</h2>
-                  <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">Tell us who you're up against so we can find gaps in their strategy.</p>
+                  <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">Tell us who you're up against in the Indian or global market so we can find gaps in their strategy.</p>
                   
                   <div className="space-y-4">
                     {[1, 2, 3].map((num, idx) => (
                       <div key={num}>
                         <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Competitor {num} {num === 1 && <span className="text-red-500">*</span>}</label>
                         <Input 
-                          placeholder={`Competitor ${num} URL or Name`} 
+                          placeholder={idx === 0 ? "e.g. HealthKart or Mamaearth" : idx === 1 ? "e.g. boAt or Nykaa" : "e.g. Practo or Tata 1mg"} 
                           value={competitors[idx]}
                           onChange={e => {
                             const newComps = [...competitors];
                             newComps[idx] = e.target.value;
                             setCompetitors(newComps);
                           }}
-                          className="h-11 px-4 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
+                          className="h-11 px-4 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#888888] rounded-xl shadow-sm"
                         />
                       </div>
                     ))}

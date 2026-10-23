@@ -19,7 +19,7 @@ The strategic mission for **StandBharat** is building a compounding, defensible 
 
 ### Persona A: The High-Growth Founder / Executive
 - **Job Titles**: CEO, Co-Founder, Managing Director.
-- **Core Pain Point**: Burning $5,000–$15,000/month on marketing agencies that deliver generic copy with zero pipeline attribution.
+- **Core Pain Point**: Burning ₹3,50,000–₹12,00,000/month on marketing agencies that deliver generic copy with zero pipeline attribution.
 - **Key Desired Outcome**: An autonomous marketing department running 24/7 with 1-click approvals.
 - **Buying Trigger**: Realizing marketing bandwidth is bottlenecking company revenue growth.
 
@@ -88,13 +88,13 @@ The market is divided between **high-cost manual agencies** (slow, expensive, ze
 ### Alternative 1: Traditional Marketing & SEO Agencies
 - **Their Positioning**: High-touch bespoke strategic retainers.
 - **Their Advantage**: Human relationship, custom creative brainstorming.
-- **Their Fatal Weakness**: $5,000–$15,000 monthly fees, 2-week turnaround per asset, inconsistent junior talent assigned to accounts.
+- **Their Fatal Weakness**: ₹3,50,000–₹12,00,000 monthly fees, 2-week turnaround per asset, inconsistent junior talent assigned to accounts.
 - **Our Decisive Win Theme**: *"StandBharat gives you the strategic power of a full marketing department that runs 24/7 at 10% of the cost, with complete transparency and 1-click approvals."*
 
 ### Alternative 2: Disjointed SaaS Tool Stacks (HubSpot + SEMrush + Hootsuite)
 - **Their Positioning**: Industry-standard enterprise tool suites.
 - **Their Advantage**: Deep single-purpose feature sets.
-- **Their Fatal Weakness**: Fragmented silos, requires manual human operators to bridge every gap, total license cost exceeds $1,200/mo.
+- **Their Fatal Weakness**: Fragmented silos, requires manual human operators to bridge every gap, total license cost exceeds ₹1,00,000/mo.
 - **Our Decisive Win Theme**: *"Instead of paying for 5 separate tools that do nothing until you type into them, StandBharat autonomously discovers opportunities, drafts content, and publishes across channels."*
 
 ### Alternative 3: Generic AI Copywriting Utilities (Jasper, Copy.ai)
@@ -110,7 +110,7 @@ The market is divided between **high-cost manual agencies** (slow, expensive, ze
 | Strategic Capability | Traditional Agency | Disjointed SaaS Stack | StandBharat Autonomous OS |
 | :--- | :--- | :--- | :--- |
 | **Execution Velocity** | 2–3 weeks per article | 3–5 days (manual) | **Sub-minute generation** |
-| **Monthly Retainer Cost** | $5,000 – $15,000+ | $1,200 – $2,500 | **Fraction of agency cost** |
+| **Monthly Retainer Cost** | ₹3,50,000 – ₹12,00,000+ | ₹95,000 – ₹2,00,000 | **Fraction of agency cost** |
 | **Generative Engine (GEO) Indexing** | Rarely supported | Manual plug-ins | **Native automated schemas** |
 | **Brand Voice Grounding** | Varies by copywriter | Manual prompt pasting | **Automated RAG Vector Store** |
 | **Multi-Channel Publishing** | Manual uploads | Third-party integrations | **Unified 1-click publishing** |
