@@ -72,7 +72,7 @@ def _generate_default_summary(aid: str, brand: str, url: str, data: dict) -> str
         "reddit": f"Reddit Community Intelligence & Engagement Plan completed for {brand}{url_text}. Mined discussions across relevant niche subreddits to identify authentic customer sentiment, pain points, and natural talking points.",
         "coding": f"Technical Marketing & Conversion Rate Optimization (CRO) Sprint completed for {brand}{url_text}. Generated validated schema markup, tracking tag enhancements, and performance optimizations.",
         "influencer": f"KOL & Influencer Partnership Intelligence Report completed for {brand}{url_text}. Screened creator categories, engagement authenticity benchmarks, and formulated high-converting partnership outreach briefs.",
-        "ugc": f"User Generated Content (UGC) Strategy & Creative Storyboard completed for {brand}{url_text}. Formulated testimonial acquisition incentives, TikTok/Reels hooks, and relatable social proof frameworks."
+        "ugc": f"User Generated Content (UGC) Strategy & Creative Storyboard completed for {brand}{url_text}. Formulated testimonial acquisition incentives, Instagram Reels & YouTube Shorts hooks, and relatable social proof frameworks."
     }
     return summaries.get(aid, f"Autonomous execution completed for {brand} by {aid.upper()} agent with verified results and recommended actions.")
 

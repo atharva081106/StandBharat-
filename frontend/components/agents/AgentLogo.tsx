@@ -10,7 +10,7 @@ import {
   LinkedInLogo,
   XLogo,
   RedditLogo,
-  TikTokLogo,
+  YouTubeLogo,
   InstagramLogo,
   MetaLogo,
   GitHubLogo,
@@ -198,15 +198,15 @@ const AGENT_CONFIGS: Record<string, AgentColorConfig> = {
     bgColor: 'bg-[#201E1E]',
     borderColor: 'border-[#373333]'
   },
-  // 15. Short-Form Video & UGC Scriptwriter (Official TikTok Logo)
+  // 15. Short-Form Video & UGC Scriptwriter (YouTube Shorts / Reels)
   ugc: {
-    icon: TikTokLogo,
+    icon: YouTubeLogo,
     textColor: 'text-white',
     bgColor: 'bg-[#201E1E]',
     borderColor: 'border-[#373333]'
   },
   ugc_agent: {
-    icon: TikTokLogo,
+    icon: YouTubeLogo,
     textColor: 'text-white',
     bgColor: 'bg-[#201E1E]',
     borderColor: 'border-[#373333]'
@@ -268,7 +268,7 @@ function resolveAgentConfig(id?: string, name?: string): AgentColorConfig {
   if (cleanName.includes('influencer') || cleanName.includes('outreach') || cleanName.includes('pr')) {
     return AGENT_CONFIGS.influencer
   }
-  if (cleanName.includes('ugc') || cleanName.includes('video') || cleanName.includes('tiktok') || cleanName.includes('reels')) {
+  if (cleanName.includes('ugc') || cleanName.includes('video') || cleanName.includes('shorts') || cleanName.includes('reels')) {
     return AGENT_CONFIGS.ugc
   }
 

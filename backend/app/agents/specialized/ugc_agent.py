@@ -15,14 +15,14 @@ logger = logging.getLogger(__name__)
 class UGCAgent(BaseAgent):
     """
     UGC & Short-Form Video Script Studio Agent:
-    Generates viral 3-second hooks, scene-by-scene Reels/TikTok/Shorts scripts,
+    Generates viral 3-second hooks, scene-by-scene Reels/Shorts scripts,
     on-screen text overlays, and creator filming briefs.
     """
     def __init__(self):
         super().__init__(
             agent_id="ugc_agent",
             name="UGC & Video Script Studio",
-            description="Generates high-retention TikTok, Reels & Shorts video scripts with 3-second viral hooks and storyboards.",
+            description="Generates high-retention Reels & Shorts video scripts with 3-second viral hooks and storyboards.",
             capabilities=["viral_hooks", "scene_by_scene_scripts", "storyboards", "creator_briefs", "audio_cues"],
             tier="PRO",
             resource_profile="HEAVY",
@@ -31,7 +31,7 @@ class UGCAgent(BaseAgent):
         self.definition = AgentDefinition(
             id="ugc_agent",
             name="UGC & Video Script Studio",
-            description="Generates high-retention TikTok, Reels & Shorts video scripts with 3-second viral hooks and storyboards.",
+            description="Generates high-retention Reels & Shorts video scripts with 3-second viral hooks and storyboards.",
             category="CREATIVE",
             capabilities=["viral_hooks", "scene_by_scene_scripts", "storyboards", "creator_briefs", "audio_cues"],
             required_integrations=[],
@@ -39,7 +39,7 @@ class UGCAgent(BaseAgent):
                 "type": "object",
                 "properties": {
                     "video_topic": {"type": "string"},
-                    "target_platform": {"type": "string", "enum": ["reels", "tiktok", "shorts", "all"], "default": "reels"},
+                    "target_platform": {"type": "string", "enum": ["reels", "shorts", "all"], "default": "reels"},
                     "duration_seconds": {"type": "integer", "enum": [30, 45, 60], "default": 45}
                 }
             },
@@ -58,7 +58,7 @@ class UGCAgent(BaseAgent):
             platform = context.input_data.get("target_platform", "reels")
             duration = context.input_data.get("duration_seconds", 45)
 
-            sys_prompt = f"""You are the Executive Creative Director for Viral Short-Form Video (TikTok, Instagram Reels, YouTube Shorts) for {brand_name}.
+            sys_prompt = f"""You are the Executive Creative Director for Viral Short-Form Video (Instagram Reels, YouTube Shorts) for {brand_name}.
 Your job is to generate a high-retention, high-converting short-form video script designed for maximum watch time and conversion.
 
 Output a strictly formatted JSON object with:

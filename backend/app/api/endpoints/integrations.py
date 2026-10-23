@@ -33,7 +33,7 @@ INTEGRATION_CATALOG = [
     {"id": "telegram",    "provider": "Telegram",             "category": "Comms",      "capabilities": ["notify"], "status_override": "COMING_SOON"},
     {"id": "instagram",   "provider": "Instagram",            "category": "Social",     "capabilities": ["publish", "analytics"]},
     {"id": "meta_ads",    "provider": "Meta Ads (FB & IG)",   "category": "Paid Media", "capabilities": ["campaigns", "ad_insights", "roi_attribution", "sync"]},
-    {"id": "tiktok",      "provider": "TikTok",               "category": "Social",     "capabilities": ["publish", "analytics"], "status_override": "COMING_SOON"},
+    {"id": "youtube",     "provider": "YouTube Shorts",       "category": "Video",      "capabilities": ["publish", "analytics"], "status_override": "COMING_SOON"},
 ]
 
 class IntegrationResponse(BaseModel):

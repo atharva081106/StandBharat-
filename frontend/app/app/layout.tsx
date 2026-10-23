@@ -125,27 +125,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <span className="font-medium text-white">{activeWorkspace?.name || 'Workspace'}</span>
               <ChevronDown className="w-3 h-3 text-[#E5E7EB]" />
             </div>
-            <Link 
-              href="/app/analytics" 
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md hover:bg-[#242222] cursor-pointer transition-colors text-[#E5E7EB] hover:text-white"
-              title="Dedicated Website Analytics"
-            >
-              <BarChart2 className="w-3.5 h-3.5" />
-              <span className="font-medium">Analytics</span>
-            </Link>
-            <Link 
-              href="/app/agent-log" 
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md cursor-pointer transition-colors ${
-                pathname === '/app/agent-log'
-                  ? 'bg-[#2A2727] text-white border border-[#443F3F]'
-                  : 'hover:bg-[#242222] text-[#E5E7EB] hover:text-white'
-              }`}
-              title="Live Agent Execution Logs & Telemetry"
-            >
-              <Activity className="w-3.5 h-3.5 text-white" />
-              <span className="font-medium">Agent Log</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#800020] animate-pulse ml-0.5"></span>
-            </Link>
           </div>
         </div>
 

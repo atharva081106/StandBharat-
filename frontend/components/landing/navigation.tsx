@@ -13,7 +13,6 @@ import {
   WordPressLogo,
   GitHubLogo,
   SlackLogo,
-  TikTokLogo,
   InstagramLogo,
   WhatsAppLogo,
   ShopifyLogo

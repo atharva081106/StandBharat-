@@ -344,11 +344,8 @@ export const PlatformLogo: React.FC<PlatformLogoProps> = ({ platform, className 
   if (p.includes('reddit')) {
     return <RedditLogo className={className} size={size} />
   }
-  if (p.includes('youtube') || p.includes('yt')) {
+  if (p.includes('youtube') || p.includes('yt') || p.includes('shorts')) {
     return <YouTubeLogo className={className} size={size} />
-  }
-  if (p.includes('tiktok')) {
-    return <TikTokLogo className={className} size={size} />
   }
   if (p.includes('github') || p.includes('code') || p.includes('git')) {
     return <GitHubLogo className={className} size={size} />

@@ -39,7 +39,7 @@ class InfluencerAgent(BaseAgent):
                 "type": "object",
                 "properties": {
                     "niche": {"type": "string"},
-                    "platform": {"type": "string", "enum": ["all", "youtube", "tiktok", "instagram", "linkedin"], "default": "all"},
+                    "platform": {"type": "string", "enum": ["all", "youtube", "instagram", "linkedin"], "default": "all"},
                     "budget_tier": {"type": "string", "enum": ["nano", "micro", "mid", "macro"], "default": "micro"}
                 }
             },
@@ -71,7 +71,7 @@ Output a strict JSON object with:
 - "target_archetypes": 3 distinct creator personas (e.g. 'The Technical Solopreneur', 'The Growth Marketer', 'The Efficiency Hacker').
 - "creator_prospects": A list of 4 realistic creator prospect profiles, each with:
     - "handle": Suggested creator handle format (e.g. '@techgrowthdaily')
-    - "platform": Target platform (YouTube, TikTok, LinkedIn, or Instagram)
+    - "platform": Target platform (YouTube, Instagram, or LinkedIn)
     - "follower_range": (e.g. '15K - 45K')
     - "estimated_engagement_rate": (e.g. '4.8%')
     - "estimated_rate": Estimated fee per dedicated integration / sponsored post (e.g. '$300 - $600' or '₹25,000 - ₹50,000')

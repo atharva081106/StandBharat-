@@ -110,7 +110,7 @@ export const mockAgents = [
     tier: "PRO",
     resourceProfile: "HEAVY",
     creditCost: 2500,
-    description: "Builds 3-second viral hooks, scene-by-scene Reels/TikTok/Shorts storyboards, and creator filming briefs.",
+    description: "Builds 3-second viral hooks, scene-by-scene Reels/Shorts storyboards, and creator filming briefs.",
     capabilities: ["Shorts/Reels Scripts", "3s Hook Variations", "Storyboard Briefs"],
     isOkaraParity: true
   },
