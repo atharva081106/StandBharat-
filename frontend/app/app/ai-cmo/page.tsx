@@ -103,29 +103,29 @@ export default function AICMO() {
       {/* Left Column: Chat Interface */}
       <div className="flex-1 flex flex-col bg-[#1C1A1A] rounded-2xl shadow-xl border border-[#373333] overflow-hidden">
         {/* Header */}
-        <div className="p-4 px-6 border-b border-[#373333] flex justify-between items-center bg-[#242222]">
-          <div className="flex items-center gap-3">
+        <div className="p-3 sm:p-4 px-4 sm:px-6 border-b border-[#373333] flex justify-between items-center bg-[#242222]">
+          <div className="flex items-center gap-2.5 sm:gap-3">
             <div className="p-2 rounded-xl bg-[#8F0028] text-white shadow-md">
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-sm font-bold flex items-center gap-2 text-white">
+              <h2 className="text-xs sm:text-sm font-bold flex items-center gap-2 text-white">
                 AI CMO Strategic Command
               </h2>
-              <p className="text-[11px] text-[#E5E7EB]">
+              <p className="text-[10px] sm:text-[11px] text-[#E5E7EB]">
                 Autonomous marketing strategist grounded in live brand context.
               </p>
             </div>
           </div>
           
-          <div className="flex items-center gap-2 bg-[#1C1A1A] px-3 py-1 rounded-full border border-[#8F0028]/40">
+          <div className="flex items-center gap-1.5 sm:gap-2 bg-[#1C1A1A] px-2.5 sm:px-3 py-1 rounded-full border border-[#8F0028]/40 shrink-0">
             <span className="h-2 w-2 rounded-full bg-[#800020] animate-pulse"></span>
-            <span className="text-[11px] font-bold text-white tracking-wider uppercase">ONLINE & SYNCED</span>
+            <span className="text-[10px] sm:text-[11px] font-bold text-white tracking-wider uppercase">ONLINE</span>
           </div>
         </div>
         
         {/* Messages Body */}
-        <div ref={chatScrollRef} className="flex-1 p-6 overflow-y-auto space-y-5 bg-[#171515]">
+        <div ref={chatScrollRef} className="flex-1 p-3.5 sm:p-5 lg:p-6 overflow-y-auto space-y-4 sm:space-y-5 bg-[#171515]">
           {messages.map((m, i) => (
             <ChatMessageRenderer
               key={i}

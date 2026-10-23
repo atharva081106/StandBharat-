@@ -80,7 +80,7 @@ export default function Content() {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-6 bg-[#171515] text-white">
+    <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-6 bg-[#171515] text-white">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#373333] pb-6">
         <div>
@@ -96,11 +96,11 @@ export default function Content() {
             All AI-generated brand campaigns, blog articles, and social posts in one place.
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <Button 
             variant="outline" 
             size="sm" 
-            onClick={fetchData}
+            onClick={fetchData} 
             disabled={loading}
             className="border-[#373333] text-[#E5E7EB] hover:text-white hover:bg-[#242222]"
           >
@@ -127,7 +127,7 @@ export default function Content() {
       </div>
 
       {/* View Mode Switcher */}
-      <div className="flex items-center gap-2 border-b border-[#373333] pb-3">
+      <div className="flex items-center gap-2 border-b border-[#373333] pb-3 overflow-x-auto custom-scrollbar">
         <button
           onClick={() => setViewMode('library')}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${

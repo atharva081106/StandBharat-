@@ -57,7 +57,7 @@ export default function RevenuePage() {
   const totalCampaigns = campaigns.length
 
   return (
-    <div className="flex-1 flex flex-col h-full overflow-y-auto bg-[#171515] text-white p-6 lg:p-8">
+    <div className="flex-1 flex flex-col h-full overflow-y-auto bg-[#171515] text-white p-4 sm:p-6 lg:p-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#373333] pb-6 mb-8">
         <div>
@@ -71,7 +71,7 @@ export default function RevenuePage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <Button
             variant="outline"
             size="sm"

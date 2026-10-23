@@ -133,7 +133,7 @@ export default function CompetitorsPage() {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 max-w-7xl mx-auto w-full space-y-6 text-white">
+    <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-6 text-white">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#373333] pb-6">
         <div>
@@ -147,7 +147,7 @@ export default function CompetitorsPage() {
             Analyze market rivals, detect messaging vulnerabilities, and uncover keyword/positioning gaps.
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <Button 
             variant="outline" 
             size="sm" 
@@ -171,7 +171,7 @@ export default function CompetitorsPage() {
           <Button 
             size="sm" 
             onClick={() => setShowModal(true)}
-            className="bg-[#8F0028] hover:bg-[#A8002F] text-white flex items-center gap-1.5"
+            className="bg-[#8F0028] hover:bg-[#A8002F] text-white flex items-center gap-1.5 font-bold shadow-md shadow-[#8F0028]/20"
           >
             <Plus className="w-4 h-4" />
             + Add Competitor
@@ -387,14 +387,14 @@ export default function CompetitorsPage() {
       {/* Add Competitor Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#1C1A1A] border border-[#373333] rounded-2xl max-w-lg w-full p-6 space-y-5 shadow-2xl">
+          <div className="bg-[#1C1A1A] border border-[#373333] rounded-2xl max-w-lg w-full p-5 sm:p-6 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div className="flex justify-between items-center border-b border-[#373333] pb-3">
               <h2 className="text-lg font-bold text-white">Add Competitor Profile</h2>
               <button onClick={() => setShowModal(false)} className="text-[#E5E7EB] hover:text-white">✕</button>
             </div>
             
             <form onSubmit={handleCreate} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-[#E5E7EB] uppercase tracking-wider mb-1">Competitor Name *</label>
                   <Input 
@@ -426,7 +426,7 @@ export default function CompetitorsPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-white uppercase tracking-wider mb-1">Strengths</label>
                   <textarea 

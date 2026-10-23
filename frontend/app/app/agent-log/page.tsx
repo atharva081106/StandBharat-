@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { 
   Activity, CheckCircle2, Clock, AlertCircle, Loader2, Search, Filter, 
-  RefreshCw, Play, ArrowRight, ChevronRight, Copy, Check, FileText, 
+  RefreshCw, Play, ArrowRight, ArrowLeft, ChevronRight, Copy, Check, FileText, 
   Sparkles, Terminal, ExternalLink, Shield, Zap, Flame, SlidersHorizontal,
   TrendingUp, Users, DollarSign, BarChart2, Share2, MessageSquare, Code,
   Megaphone, Video, PenTool, CheckCircle, XCircle, ChevronDown, Bot, Layers
@@ -72,6 +72,7 @@ export default function AgentLogPage() {
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [triggerModalOpen, setTriggerModalOpen] = useState<boolean>(false)
   const [executingAgentId, setExecutingAgentId] = useState<string | null>(null)
+  const [mobilePaneView, setMobilePaneView] = useState<'list' | 'detail'>('list')
   
   // Inspector sub-tab
   const [inspectorTab, setInspectorTab] = useState<'briefing' | 'report' | 'payload' | 'config'>('briefing')
@@ -168,7 +169,7 @@ export default function AgentLogPage() {
       {/* ========================================================= */}
       {/* TOP HEADER & TELEMETRY SUMMARY */}
       {/* ========================================================= */}
-      <div className="px-6 py-4 border-b border-[#373333] bg-[#1C1A1A] shrink-0">
+      <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-[#373333] bg-[#1C1A1A] shrink-0">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           
           <div>
@@ -291,7 +292,7 @@ export default function AgentLogPage() {
       <div className="flex-1 flex overflow-hidden">
         
         {/* PANE 1: RUNS STREAM LIST */}
-        <div className="w-full md:w-[380px] lg:w-[440px] border-r border-[#373333] bg-[#1A1818] flex flex-col shrink-0 overflow-hidden">
+        <div className={`${mobilePaneView === 'list' ? 'flex' : 'hidden'} md:flex w-full md:w-[380px] lg:w-[440px] border-r border-[#373333] bg-[#1A1818] flex-col shrink-0 overflow-hidden`}>
           
           <div className="px-4 py-2 border-b border-[#2C2828] bg-[#1E1C1C] flex items-center justify-between text-[11px] text-[#E5E7EB]">
             <span>Activity Stream ({filteredRuns.length} runs)</span>
@@ -326,7 +327,10 @@ export default function AgentLogPage() {
                 return (
                   <div
                     key={run.id}
-                    onClick={() => setSelectedRunId(run.id)}
+                    onClick={() => {
+                      setSelectedRunId(run.id)
+                      setMobilePaneView('detail')
+                    }}
                     className={`p-4 transition-all cursor-pointer flex flex-col gap-2 relative ${
                       isSelected
                         ? 'bg-[#242222] border-l-4 border-l-emerald-400 shadow-inner'
@@ -394,9 +398,18 @@ export default function AgentLogPage() {
         </div>
 
         {/* PANE 2: SELECTED RUN INSPECTOR */}
-        <div className="flex-1 bg-[#171515] flex flex-col overflow-y-auto custom-scrollbar">
+        <div className={`${mobilePaneView === 'detail' ? 'flex' : 'hidden'} md:flex flex-1 bg-[#171515] flex-col overflow-y-auto custom-scrollbar`}>
           {selectedRun ? (
-            <div className="p-6 lg:p-8 space-y-6 max-w-5xl mx-auto w-full">
+            <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-5xl mx-auto w-full">
+              {/* Mobile Back Button */}
+              <div className="md:hidden pb-2 border-b border-[#373333]">
+                <button
+                  onClick={() => setMobilePaneView('list')}
+                  className="flex items-center gap-1.5 text-xs text-[#E5E7EB] hover:text-white font-medium"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" /> Back to Activity Stream
+                </button>
+              </div>
               
               {/* Run Header Card */}
               {(() => {

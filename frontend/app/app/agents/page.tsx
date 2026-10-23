@@ -144,7 +144,7 @@ export default function Agents() {
   const percentUsed = Math.min(100, Math.round((usedCredits / totalCredits) * 100))
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-7 bg-[#171515] text-white custom-scrollbar">
+    <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-7 bg-[#171515] text-white custom-scrollbar">
       {/* Header & Title Section */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#2C2828] pb-6">
         <div>
@@ -166,7 +166,7 @@ export default function Agents() {
         </div>
 
         {/* Global Plan Status Indicator */}
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <Link href="/pricing" className="text-xs font-semibold text-white hover:text-white hover:underline flex items-center gap-1">
             View All Plans <ExternalLink className="w-3 h-3" />
           </Link>

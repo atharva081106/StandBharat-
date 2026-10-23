@@ -301,7 +301,7 @@ export default function BillingSettings() {
 
   return (
     <div className="flex-1 h-full min-h-0 overflow-y-auto w-full custom-scrollbar">
-      <div className="space-y-8 max-w-5xl mx-auto p-8 pb-32 text-white">
+      <div className="space-y-8 max-w-5xl mx-auto p-4 sm:p-6 lg:p-8 pb-24 sm:pb-32 text-white">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#373333] pb-6">
         <div>
@@ -332,7 +332,7 @@ export default function BillingSettings() {
       </div>
 
       {/* Settings Navigation Tabs */}
-      <div className="flex items-center gap-2 border-b border-[#373333] pb-3">
+      <div className="flex items-center gap-2 border-b border-[#373333] pb-3 overflow-x-auto custom-scrollbar">
         <Link 
           href="/app/settings" 
           className="px-3.5 py-1.5 rounded-lg text-[#E5E7EB] hover:text-white hover:bg-[#242222] text-xs font-medium flex items-center gap-1.5 transition-colors"
@@ -752,7 +752,7 @@ export default function BillingSettings() {
       {/* Interactive Checkout Modal */}
       {checkoutModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-[#1C1A1A] border border-[#373333] rounded-2xl max-w-lg w-full p-6 sm:p-7 shadow-2xl relative text-white">
+          <div className="bg-[#1C1A1A] border border-[#373333] rounded-2xl max-w-lg w-full p-5 sm:p-7 shadow-2xl relative text-white max-h-[90vh] overflow-y-auto custom-scrollbar">
             <button
               onClick={() => setCheckoutModalOpen(false)}
               className="absolute top-5 right-5 text-white hover:text-white p-1 rounded-lg hover:bg-[#242222]"
@@ -806,7 +806,7 @@ export default function BillingSettings() {
                 {/* Payment Provider Selection */}
                 <div className="space-y-2">
                   <label className="text-xs font-semibold text-white">Select Payment Gateway / Method</label>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <button
                       type="button"
                       onClick={() => setPaymentMethod('upi')}
@@ -933,7 +933,7 @@ export default function BillingSettings() {
                     {/* Instant App Deep Links */}
                     <div className="pt-2 border-t border-[#2C2929] space-y-1.5">
                       <div className="text-[10px] text-[#E5E7EB] uppercase tracking-wider font-semibold">Or Pay Directly Via Mobile App:</div>
-                      <div className="grid grid-cols-4 gap-1.5">
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
                         <a 
                           href={upiData?.intents?.gpay || '#'} 
                           className="py-1.5 px-2 bg-[#242222] hover:bg-[#2C2929] text-white border border-[#373333] rounded-lg text-[10px] font-bold block"
@@ -1039,7 +1039,7 @@ export default function BillingSettings() {
       {/* Printable Receipt Modal */}
       {receiptModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-[#1C1A1A] border border-[#373333] rounded-2xl max-w-md w-full p-6 shadow-2xl relative text-white">
+          <div className="bg-[#1C1A1A] border border-[#373333] rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl relative text-white max-h-[90vh] overflow-y-auto custom-scrollbar">
             <button
               onClick={() => setReceiptModalOpen(false)}
               className="absolute top-5 right-5 text-white hover:text-white p-1 rounded-lg hover:bg-[#242222]"

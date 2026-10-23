@@ -160,7 +160,7 @@ export default function CalendarPage() {
   return (
     <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#171515] text-white">
       {/* Top Header */}
-      <div className="h-[60px] border-b border-[#373333] px-6 flex items-center justify-between shrink-0 bg-[#1C1A1A]">
+      <div className="min-h-[60px] py-3 border-b border-[#373333] px-4 sm:px-6 flex flex-wrap items-center justify-between gap-3 shrink-0 bg-[#1C1A1A]">
         <div className="flex items-center gap-3">
           <CalendarIcon className="w-5 h-5 text-[#8F0028]" />
           <div>
@@ -171,7 +171,7 @@ export default function CalendarPage() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <div className="flex items-center gap-1 bg-[#242222] border border-[#373333] rounded-lg p-1">
             <button
               onClick={() => setSelectedPlatform('ALL')}
@@ -218,9 +218,9 @@ export default function CalendarPage() {
       </div>
 
       {/* Main Content: Calendar Grid + Inspector Panel */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex overflow-hidden relative">
         {/* Calendar Grid Container */}
-        <div className="flex-1 flex flex-col p-6 overflow-y-auto">
+        <div className="flex-1 flex flex-col p-4 sm:p-6 overflow-y-auto">
           {/* Month Navigation & Stats Header */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
@@ -337,7 +337,7 @@ export default function CalendarPage() {
 
         {/* Selected Event Side Drawer / Details Inspector */}
         {selectedEvent && (
-          <div className="w-80 border-l border-[#373333] bg-[#1C1A1A] p-5 flex flex-col justify-between shrink-0">
+          <div className="fixed md:static inset-y-0 right-0 z-40 w-full sm:w-80 border-l border-[#373333] bg-[#1C1A1A] p-5 flex flex-col justify-between shrink-0 shadow-2xl md:shadow-none animate-in slide-in-from-right duration-150">
             <div className="space-y-4">
               <div className="flex items-center justify-between border-b border-[#373333] pb-3">
                 <span className="text-[13px] font-semibold text-white">Publication Details</span>
@@ -414,7 +414,7 @@ export default function CalendarPage() {
       {/* Schedule Post Modal */}
       {showScheduleModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="w-full max-w-md bg-[#1C1A1A] border border-[#373333] rounded-2xl p-6 shadow-2xl">
+          <div className="w-full max-w-md bg-[#1C1A1A] border border-[#373333] rounded-2xl p-5 sm:p-6 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div className="flex items-center justify-between border-b border-[#373333] pb-3 mb-4">
               <h3 className="text-[16px] font-semibold text-white">Schedule Publication</h3>
               <button
@@ -463,7 +463,7 @@ export default function CalendarPage() {
                 </select>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-[#E5E7EB] mb-1 font-medium">Publish Date</label>
                   <input

@@ -215,7 +215,7 @@ export function WhatsAppStudio() {
               {/* Presets */}
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-[#E5E7EB]">Select Strategic Template</label>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {[
                     { id: 'festive_offer', label: 'Festive VIP Pass', desc: 'Dhamaka discounts & gifts' },
                     { id: 'cart_recovery', label: 'Cart Recovery (COD/UPI)', desc: '10% instant UPI cashback' },
@@ -239,7 +239,7 @@ export function WhatsAppStudio() {
               </div>
 
               {/* Dynamic Variables Inputs */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
                   <label className="text-xs font-semibold text-[#E5E7EB]">Promotional Offer Text</label>
                   <Input 

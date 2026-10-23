@@ -185,7 +185,7 @@ export default function Integrations() {
 
   return (
     <div id="integrations-scroll-container" className="flex-1 h-full min-h-0 overflow-y-auto w-full custom-scrollbar">
-      <div className="p-8 w-full max-w-6xl mx-auto space-y-6 pb-28">
+      <div className="p-4 sm:p-6 lg:p-8 w-full max-w-6xl mx-auto space-y-6 pb-28">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight text-white">Integration Hub</h1>
         <p className="text-[#E5E7EB]">Connect external platforms to your AI Marketing OS.</p>

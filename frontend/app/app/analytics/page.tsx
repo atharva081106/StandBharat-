@@ -138,7 +138,7 @@ export default function WebsiteAnalyticsPage() {
     <div className="flex-1 flex flex-col h-full bg-[#171515] overflow-y-auto custom-scrollbar font-sans text-white">
       
       {/* Top Header / Breadcrumb Bar */}
-      <div className="px-6 py-4 border-b border-[#373333] bg-[#1C1A1A] sticky top-0 z-20 flex flex-wrap items-center justify-between gap-4">
+      <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-[#373333] bg-[#1C1A1A] sticky top-0 z-20 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <Link 
             href="/app/command-center" 
@@ -173,7 +173,7 @@ export default function WebsiteAnalyticsPage() {
         </div>
 
         {/* Header Actions */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
           <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[#242222] border border-[#373333] rounded-md text-[11px] font-medium text-[#E5E7EB]">
             <Calendar className="w-3.5 h-3.5" />
             <span>{dateRange}</span>
@@ -200,7 +200,7 @@ export default function WebsiteAnalyticsPage() {
       </div>
 
       {/* Tabs Navigation */}
-      <div className="px-6 border-b border-[#373333] bg-[#1C1A1A] flex gap-2">
+      <div className="px-4 sm:px-6 border-b border-[#373333] bg-[#1C1A1A] flex gap-2 overflow-x-auto custom-scrollbar">
         <button
           onClick={() => setActiveTab('overview')}
           className={`flex items-center gap-2 py-3 px-4 text-[13px] font-semibold border-b-2 transition-colors ${
@@ -253,7 +253,7 @@ export default function WebsiteAnalyticsPage() {
       </div>
 
       {/* Main Workspace Content */}
-      <div className="p-6 max-w-7xl mx-auto w-full space-y-6">
+      <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-6">
 
         {/* TAB 1: OVERVIEW & SEO AUDIT */}
         {activeTab === 'overview' && (

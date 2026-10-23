@@ -96,7 +96,7 @@ export default function BrandBrain() {
   const documents = context?.documents || []
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto p-6 w-full text-white">
+    <div className="space-y-8 max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 w-full text-white">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#373333] pb-6">
         <div>
           <div className="flex items-center gap-2">

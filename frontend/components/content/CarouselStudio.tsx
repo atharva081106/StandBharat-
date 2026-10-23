@@ -178,7 +178,7 @@ export function CarouselStudio({ brandName = "StandBharat" }: { brandName?: stri
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Button
               onClick={handleQueueCarousel}
               disabled={isExporting}
@@ -225,7 +225,7 @@ export function CarouselStudio({ brandName = "StandBharat" }: { brandName?: stri
                   <Palette className="w-3.5 h-3.5 text-white" />
                   Select Brand Color Palette
                 </label>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {THEMES.map((th) => (
                     <button
                       key={th.id}
@@ -468,7 +468,7 @@ export function CarouselStudio({ brandName = "StandBharat" }: { brandName?: stri
           </div>
 
           {/* Slide Thumbnails Switcher */}
-          <div className="grid grid-cols-5 gap-2 pt-2">
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 pt-2">
             {slides.map((slide, idx) => (
               <button
                 key={slide.id}

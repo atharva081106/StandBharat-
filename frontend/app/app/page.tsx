@@ -65,6 +65,7 @@ export default function AIWorkspace() {
   const [cmoTab, setCmoTab] = useState<'Chat' | 'Research' | 'Strategy' | 'Tasks'>('Chat')
   const [cwvDevice, setCwvDevice] = useState<'desktop' | 'mobile'>('desktop')
   const [onboardingData, setOnboardingData] = useState<any>(null)
+  const [mobilePane, setMobilePane] = useState<'grounding' | 'telemetry' | 'cmo'>('telemetry')
   
   // Interactive Agent Runner State
   const [selectedAgent, setSelectedAgent] = useState<any>(null)
@@ -333,8 +334,49 @@ export default function AIWorkspace() {
   }
 
   return (
-    <div className="flex w-full h-full divide-x divide-[#373333] relative overflow-x-auto overflow-y-hidden custom-scrollbar">
+    <div className="flex flex-col xl:flex-row w-full h-full xl:divide-x divide-[#373333] relative overflow-hidden">
       
+      {/* Mobile/Tablet Sub-Pane Switcher (< xl) */}
+      <div className="xl:hidden flex items-center justify-between bg-[#191717] border-b border-[#373333] px-2.5 py-1.5 shrink-0 z-30">
+        <div className="flex items-center gap-1.5 w-full">
+          <button
+            onClick={() => setMobilePane('grounding')}
+            className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 ${
+              mobilePane === 'grounding'
+                ? 'bg-[#8F0028] text-white shadow-sm'
+                : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
+            }`}
+          >
+            <Layers className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate">1. Grounding</span>
+          </button>
+          
+          <button
+            onClick={() => setMobilePane('telemetry')}
+            className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 ${
+              mobilePane === 'telemetry'
+                ? 'bg-[#8F0028] text-white shadow-sm'
+                : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
+            }`}
+          >
+            <BarChart2 className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate">2. Telemetry</span>
+          </button>
+
+          <button
+            onClick={() => setMobilePane('cmo')}
+            className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 ${
+              mobilePane === 'cmo'
+                ? 'bg-[#8F0028] text-white shadow-sm'
+                : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate">3. AI CMO</span>
+          </button>
+        </div>
+      </div>
+
       {/* Toast Notification */}
       {toastMessage && (
         <div className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-xl border shadow-2xl transition-all animate-in fade-in slide-in-from-bottom-2 ${
@@ -357,7 +399,7 @@ export default function AIWorkspace() {
       {/* ========================================================= */}
       {/* COLUMN 1: CONTEXT */}
       {/* ========================================================= */}
-      <div className="w-[260px] lg:w-[280px] shrink-0 flex flex-col h-full bg-[#1C1A1A] overflow-y-auto custom-scrollbar">
+      <div className={`${mobilePane === 'grounding' ? 'flex' : 'hidden'} xl:flex w-full xl:w-[260px] 2xl:w-[280px] shrink-0 flex-col h-full bg-[#1C1A1A] overflow-y-auto custom-scrollbar`}>
         {/* Header */}
         <div className="px-4 py-3 flex items-center justify-between border-b border-[#373333] sticky top-0 bg-[#1C1A1A] z-10">
           <div className="flex items-center gap-2 text-white font-bold text-[13px]">
@@ -371,7 +413,7 @@ export default function AIWorkspace() {
             </span>
           </div>
           <button 
-            onClick={() => setActiveNav('Analytics')}
+            onClick={() => { setActiveNav('Analytics'); setMobilePane('telemetry') }}
             className="text-[11px] font-semibold text-[#8F0028] hover:text-white transition-colors"
           >
             Dashboard
@@ -401,7 +443,7 @@ export default function AIWorkspace() {
           {/* Navigation - Business */}
           <div className="space-y-1">
             <div 
-              onClick={() => setActiveNav('Analytics')}
+              onClick={() => { setActiveNav('Analytics'); setMobilePane('telemetry') }}
               className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-colors ${
                 activeNav === 'Analytics' ? 'bg-[#2A2828] text-white border-l-2 border-[#8F0028]' : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
               }`}
@@ -410,7 +452,7 @@ export default function AIWorkspace() {
               <span className="text-[13px] font-semibold">Command Center</span>
             </div>
             <div 
-              onClick={() => setActiveNav('Business Overview')}
+              onClick={() => { setActiveNav('Business Overview'); setMobilePane('telemetry') }}
               className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-colors ${
                 activeNav === 'Business Overview' ? 'bg-[#2A2828] text-white border-l-2 border-[#8F0028]' : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
               }`}
@@ -419,7 +461,7 @@ export default function AIWorkspace() {
               <span className="text-[13px] font-semibold">Business Overview</span>
             </div>
             <div 
-              onClick={() => setActiveNav('Website Analysis')}
+              onClick={() => { setActiveNav('Website Analysis'); setMobilePane('telemetry') }}
               className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-colors ${
                 activeNav === 'Website Analysis' ? 'bg-[#2A2828] text-white border-l-2 border-[#8F0028]' : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
               }`}
@@ -428,7 +470,7 @@ export default function AIWorkspace() {
               <span className="text-[13px] font-medium">Website Analysis</span>
             </div>
             <div 
-              onClick={() => setActiveNav('Audience')}
+              onClick={() => { setActiveNav('Audience'); setMobilePane('telemetry') }}
               className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-colors ${
                 activeNav === 'Audience' ? 'bg-[#2A2828] text-white border-l-2 border-[#8F0028]' : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
               }`}
@@ -437,7 +479,7 @@ export default function AIWorkspace() {
               <span className="text-[13px] font-medium">Audience</span>
             </div>
             <div 
-              onClick={() => setActiveNav('Brand Voice')}
+              onClick={() => { setActiveNav('Brand Voice'); setMobilePane('telemetry') }}
               className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-colors ${
                 activeNav === 'Brand Voice' ? 'bg-[#2A2828] text-white border-l-2 border-[#8F0028]' : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
               }`}
@@ -446,7 +488,7 @@ export default function AIWorkspace() {
               <span className="text-[13px] font-medium">Brand Voice</span>
             </div>
             <div 
-              onClick={() => setActiveNav('Products & Services')}
+              onClick={() => { setActiveNav('Products & Services'); setMobilePane('telemetry') }}
               className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-colors ${
                 activeNav === 'Products & Services' ? 'bg-[#2A2828] text-white border-l-2 border-[#8F0028]' : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
               }`}
@@ -473,7 +515,7 @@ export default function AIWorkspace() {
             </div>
             
             <div 
-              onClick={() => setActiveNav('Documents')}
+              onClick={() => { setActiveNav('Documents'); setMobilePane('telemetry') }}
               className={`flex items-center justify-between px-3 py-1.5 rounded-lg cursor-pointer transition-colors ${
                 activeNav === 'Documents' ? 'bg-[#2A2828] text-white border-l-2 border-[#8F0028]' : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
               }`}
@@ -496,7 +538,7 @@ export default function AIWorkspace() {
                 return (
                   <div 
                     key={doc.id || doc.name} 
-                    onClick={() => setActiveNav(doc.name)}
+                    onClick={() => { setActiveNav(doc.name); setMobilePane('telemetry') }}
                     className={`flex items-center justify-between px-3 py-1.5 cursor-pointer transition-colors ${
                       isSelected ? 'text-white bg-[#2A2828] rounded-lg border-l-2 border-[#8F0028]' : 'text-[#E5E7EB] hover:text-white'
                     }`}
@@ -528,7 +570,7 @@ export default function AIWorkspace() {
             <div className="flex items-center justify-between px-3 mb-2">
               <span className="text-[10px] font-bold text-[#E5E7EB] uppercase tracking-wider">Competitors</span>
               <button 
-                onClick={() => setActiveNav('Competitors')}
+                onClick={() => { setActiveNav('Competitors'); setMobilePane('telemetry') }}
                 className="text-[#E5E7EB] hover:text-white transition-colors"
                 title="Add or Discover Competitors"
               >
@@ -540,7 +582,7 @@ export default function AIWorkspace() {
               competitorsList.map((comp: string, idx: number) => (
                 <div 
                   key={`${comp}-${idx}`} 
-                  onClick={() => setActiveNav(comp)}
+                  onClick={() => { setActiveNav(comp); setMobilePane('telemetry') }}
                   className={`flex items-center justify-between px-3 py-1.5 group cursor-pointer transition-colors ${
                     activeNav === comp ? 'text-white bg-[#2A2828] rounded-lg border-l-2 border-[#8F0028]' : 'text-[#E5E7EB] hover:text-white'
                   }`}
@@ -568,7 +610,7 @@ export default function AIWorkspace() {
       {/* ========================================================= */}
       {/* COLUMN 2: MIDDLE PANE (ANALYTICS OR CONTEXT) */}
       {/* ========================================================= */}
-      <div className="flex-1 min-w-[400px] flex flex-col h-full bg-[#1C1A1A] overflow-hidden">
+      <div className={`${mobilePane === 'telemetry' ? 'flex' : 'hidden'} xl:flex flex-1 min-w-0 w-full flex-col h-full bg-[#1C1A1A] overflow-hidden`}>
         
         {activeNav === 'Business Overview' ? (
           <BusinessOverviewPanel />
@@ -1573,7 +1615,7 @@ export default function AIWorkspace() {
       {/* ========================================================= */}
       {/* COLUMN 4: AI CMO */}
       {/* ========================================================= */}
-      <div className="w-[340px] lg:w-[380px] shrink-0 flex flex-col h-full bg-[#1C1A1A]">
+      <div className={`${mobilePane === 'cmo' ? 'flex' : 'hidden'} xl:flex w-full xl:w-[340px] 2xl:w-[380px] shrink-0 flex-col h-full bg-[#1C1A1A]`}>
         {/* Header */}
         <div className="px-4 py-3 flex items-center justify-between border-b border-[#373333] shrink-0 bg-[#1C1A1A]">
           <div className="flex items-center gap-2 text-white font-bold text-[13px]">
