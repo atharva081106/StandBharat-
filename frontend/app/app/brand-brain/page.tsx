@@ -76,7 +76,7 @@ export default function BrandBrain() {
 
   if (loading && !context) {
     return (
-      <div className="h-full flex items-center justify-center text-[#E5E7EB]">
+      <div className="flex-1 h-full flex items-center justify-center text-[#E5E7EB]">
         <div className="flex flex-col items-center gap-3">
           <div className="h-8 w-8 rounded-full border-4 border-[#242222] border-t-[#8F0028] animate-spin"></div>
           <p className="text-sm font-medium">Loading Brand Brain...</p>
@@ -96,8 +96,9 @@ export default function BrandBrain() {
   const documents = context?.documents || []
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 w-full text-white">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#373333] pb-6">
+    <div id="brand-brain-scroll-container" className="flex-1 h-full min-h-0 overflow-y-auto w-full custom-scrollbar">
+      <div className="space-y-8 max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 w-full text-white pb-32">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#373333] pb-6">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-bold tracking-tight text-white">Brand Brain</h1>
@@ -368,11 +369,12 @@ export default function BrandBrain() {
         </Card>
 
       </div>
+    </div>
 
       {/* Universal Dynamic Modal Dialog */}
       {activeModal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#1C1A1A] border border-[#373333] rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-[#1C1A1A] border border-[#373333] rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
             <div className="flex justify-between items-center border-b border-[#373333] pb-3">
               <h2 className="text-lg font-bold text-white capitalize">
                 {activeModal.startsWith('edit') ? activeModal : `Add ${activeModal}`}

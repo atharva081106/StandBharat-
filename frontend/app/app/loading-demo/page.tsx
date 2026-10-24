@@ -54,7 +54,7 @@ export default function LoadingDemoPage() {
   const selectedPreset = PRESETS[activePreset]
 
   return (
-    <div className="min-h-screen bg-[#141212] text-white p-6 lg:p-10 space-y-8 max-w-6xl mx-auto">
+    <div className="flex-1 h-full min-h-0 overflow-y-auto w-full custom-scrollbar bg-[#141212] text-white p-6 lg:p-10 space-y-8 max-w-6xl mx-auto">
       
       {/* Fullscreen Loader Modal Overlay when triggered */}
       {fullscreenActive && (
