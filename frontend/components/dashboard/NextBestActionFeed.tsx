@@ -11,6 +11,7 @@ import {
   Compass,
   Check
 } from 'lucide-react'
+import { HoverScrollText } from '@/components/ui/HoverScrollText'
 
 export interface NextActionItem {
   id: string
@@ -128,6 +129,7 @@ export function NextBestActionFeed({
           return (
             <div 
               key={item.id}
+              data-hover-group="true"
               className={`p-3.5 rounded-lg border border-[#373333] bg-[#242222] transition-all ${
                 isDone ? 'opacity-60' : 'hover:border-[#4A4545]'
               }`}
@@ -135,13 +137,15 @@ export function NextBestActionFeed({
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="space-y-1.5 min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-[9.5px] uppercase font-bold px-2 py-0.5 rounded bg-[#1C1A1A] border border-[#332E2E] text-white">
+                    <span className="text-[9.5px] uppercase font-bold px-2 py-0.5 rounded bg-[#1C1A1A] border border-[#332E2E] text-white shrink-0">
                       {item.category}
                     </span>
-                    <span className="text-xs font-bold text-white truncate">
-                      {item.title}
-                    </span>
-                    <span className="text-[10px] text-[#E5E7EB] font-mono">
+                    <HoverScrollText 
+                      text={item.title} 
+                      className="text-xs font-bold text-white block" 
+                      wrapperClassName="min-w-0 max-w-[260px]" 
+                    />
+                    <span className="text-[10px] text-[#E5E7EB] font-mono shrink-0">
                       ({item.convictionScore}% Conviction)
                     </span>
                   </div>
@@ -185,9 +189,9 @@ export function NextBestActionFeed({
                       </>
                     ) : (
                       <>
-                        <Zap className="w-3.5 h-3.5" />
-                        {item.actionLabel}
-                        <ArrowRight className="w-3 h-3" />
+                        <Zap className="w-3.5 h-3.5 shrink-0" />
+                        <HoverScrollText text={item.actionLabel} />
+                        <ArrowRight className="w-3 h-3 shrink-0" />
                       </>
                     )}
                   </button>

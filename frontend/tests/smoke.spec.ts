@@ -8,8 +8,8 @@ test.describe('Real User Journey Tests', () => {
     });
   });
 
-  test('1. Landing page loads with hero & value proposition', async ({ page }) => {
-    await page.goto('http://localhost:3000/landingpage');
+  test('1. Landing page loads on root (/) with hero & value proposition', async ({ page }) => {
+    await page.goto('http://localhost:3000/');
     await expect(page.locator('text=StandBharat').first()).toBeVisible({ timeout: 10000 });
   });
 
@@ -74,48 +74,18 @@ test.describe('Real User Journey Tests', () => {
     await expect(page.locator('text=Settings').first()).toBeVisible({ timeout: 10000 });
   });
 
-  test('14. Interactive 7-Step Onboarding Wizard (/onboarding) steps through cleanly', async ({ page }) => {
+  test('14. Express 1-Step Onboarding (/onboarding) steps through cleanly', async ({ page }) => {
     await page.addInitScript(() => {
       // Clear workspace so onboarding page does not auto-redirect
       localStorage.removeItem('standbharat_token');
     });
     await page.goto('http://localhost:3000/onboarding');
 
-    // Step 1: Business Profile
-    await expect(page.locator('text=Tell us about your business')).toBeVisible({ timeout: 10000 });
-    await page.fill('input[placeholder="Acme Corp"]', 'Vedic Health Diagnostics');
-    await page.fill('input[placeholder="https://acme.com"]', 'https://vedichealth.ai');
-    await page.fill('textarea[placeholder*="What does your business do"]', 'AI medical diagnostics in Indian languages');
-    await page.click('button:has-text("Continue")');
-
-    // Step 2: Brand Voice
-    await expect(page.locator('text=Build your Brand Brain')).toBeVisible({ timeout: 10000 });
-    await page.fill('input[placeholder="What makes you unique?"]', 'Vernacular healthcare insights in 15 mins');
-    await page.click('button:has-text("Continue")');
-
-    // Step 3: Target Audience
-    await expect(page.locator('text=Target Audience').first()).toBeVisible({ timeout: 10000 });
-    await page.fill('input[placeholder*="B2B SaaS Founders"]', 'Families across Tier 2 Indian cities');
-    await page.click('button:has-text("Continue")');
-
-    // Step 4: Marketing Goals
-    await expect(page.locator('text=Marketing Goals').first()).toBeVisible({ timeout: 10000 });
-    await page.click('button:has-text("Continue")');
-
-    // Step 5: Competitors
-    await expect(page.locator('text=Competitors').first()).toBeVisible({ timeout: 10000 });
-    await page.fill('input[placeholder="Competitor 1 URL or Name"]', 'Practo');
-    await page.click('button:has-text("Continue")');
-
-    // Step 6: AI Team Assembly
-    await expect(page.locator('text=Assembling your AI Team')).toBeVisible({ timeout: 10000 });
-    await expect(page.locator('text=Analytics Agent')).toBeVisible();
-    await expect(page.locator('text=SEO Agent')).toBeVisible();
-    await expect(page.locator('text=Writer Agent')).toBeVisible();
-    await page.click('button:has-text("Continue")');
-
-    // Step 7: Ready to Launch
-    await expect(page.locator('text=Your AI system is ready')).toBeVisible({ timeout: 10000 });
-    await expect(page.locator('button:has-text("Enter Dashboard")')).toBeVisible();
+    // 1-Step Express Setup
+    await expect(page.locator('text=Launch your Autonomous Marketing Engine')).toBeVisible({ timeout: 10000 });
+    await page.fill('input[placeholder*="BharatOrganics"]', 'Vedic Health Diagnostics');
+    await page.fill('input[placeholder*="yourbrand.in"]', 'https://vedichealth.ai');
+    await page.click('button:has-text("Launch Autonomous AI Engine")');
+    await expect(page.locator('text=Synthesizing AI Workspace')).toBeVisible({ timeout: 5000 });
   });
 });

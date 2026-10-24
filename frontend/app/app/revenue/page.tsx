@@ -178,22 +178,28 @@ export default function RevenuePage() {
 
           <div className="space-y-4">
             {[
-              { channel: 'Organic Search (SEO)', revenue: '₹17,80,000', share: 44, color: 'bg-white', cpa: '₹710' },
-              { channel: 'Social Media & Community', revenue: '₹12,20,000', share: 30, color: 'bg-[#E5E7EB]', cpa: '₹1,840' },
-              { channel: 'Targeted Paid Ads (Meta & Search)', revenue: '₹6,80,000', share: 17, color: 'bg-zinc-400', cpa: '₹3,900' },
-              { channel: 'Referral, WhatsApp & Backlinks', revenue: '₹3,45,000', share: 9, color: 'bg-zinc-500', cpa: '₹1,000' },
+              { channel: 'Organic Search & GEO (AI Citations)', revenue: '₹17,80,000', share: 44, gradient: 'from-[#38BDF8] to-[#0284C7]', cpa: '₹710', roas: '8.4x', dot: 'bg-[#38BDF8]' },
+              { channel: 'Social Thought Leadership (LinkedIn & X)', revenue: '₹12,20,000', share: 30, gradient: 'from-[#A855F7] to-[#7E22CE]', cpa: '₹1,840', roas: '6.2x', dot: 'bg-[#A855F7]' },
+              { channel: 'Targeted Paid Ads (Meta & Google)', revenue: '₹6,80,000', share: 17, gradient: 'from-[#FF4560] to-[#E11D48]', cpa: '₹3,900', roas: '3.8x', dot: 'bg-[#FF4560]' },
+              { channel: 'WhatsApp Broadcasts & Direct Referrals', revenue: '₹3,45,000', share: 9, gradient: 'from-[#00A650] to-[#059669]', cpa: '₹450', roas: '14.2x', dot: 'bg-[#00A650]' },
             ].map(item => (
-              <div key={item.channel} className="space-y-1.5">
-                <div className="flex justify-between items-center text-[13px]">
-                  <span className="font-medium text-white">{item.channel}</span>
-                  <div className="flex items-center gap-4">
-                    <span className="text-[#E5E7EB] text-[11px]">Avg CAC: {item.cpa}</span>
-                    <span className="font-bold text-white">{item.revenue} ({item.share}%)</span>
+              <div key={item.channel} className="space-y-2 p-3 rounded-xl bg-[#201D1D] border border-[#302B2B]">
+                <div className="flex justify-between items-center text-[13px] flex-wrap gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className={`w-2 h-2 rounded-full shrink-0 ${item.dot}`} />
+                    <span className="font-bold text-white">{item.channel}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-[10px] font-mono text-[#00A650] bg-[#16291C] border border-[#1E4D2B] px-2 py-0.5 rounded font-bold">
+                      ROAS: {item.roas}
+                    </span>
+                    <span className="text-[#A39E9E] text-[11px] font-mono">CAC: {item.cpa}</span>
+                    <span className="font-bold font-mono text-white">{item.revenue} ({item.share}%)</span>
                   </div>
                 </div>
-                <div className="w-full h-2.5 bg-[#242222] rounded-full overflow-hidden">
+                <div className="w-full h-2 bg-[#1A1818] rounded-full overflow-hidden border border-[#332E2E]">
                   <div
-                    className={`h-full rounded-full ${item.color} transition-all duration-500`}
+                    className={`h-full rounded-full bg-gradient-to-r ${item.gradient} transition-all duration-700`}
                     style={{ width: `${item.share}%` }}
                   />
                 </div>
@@ -201,10 +207,10 @@ export default function RevenuePage() {
             ))}
           </div>
 
-          <div className="mt-6 pt-5 border-t border-[#373333] flex items-center justify-between text-[12px] text-[#E5E7EB]">
-            <span>Total Attributed Gross Profit: <strong className="text-white">₹30,60,000</strong> (76.2% margin)</span>
-            <Link href="/app/analytics" className="text-white hover:underline flex items-center gap-1 font-semibold">
-              Website Funnel Analytics <ExternalLink className="w-3 h-3" />
+          <div className="mt-6 pt-5 border-t border-[#373333] flex flex-col sm:flex-row sm:items-center justify-between text-[12px] text-[#E5E7EB] gap-2">
+            <span>Total Attributed Gross Profit: <strong className="text-white font-mono">₹30,60,000</strong> (76.2% margin)</span>
+            <Link href="/app" className="text-[#8F0028] hover:text-white transition-colors flex items-center gap-1 font-semibold">
+              Command Center Attribution Funnel <ExternalLink className="w-3 h-3" />
             </Link>
           </div>
         </div>

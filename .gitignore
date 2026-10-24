@@ -2,6 +2,7 @@
 .env
 .env.*
 !.env.example
+!**/.env.example
 *.secret
 credentials
 
@@ -24,6 +25,8 @@ env/
 
 # Database
 *.db
+*.db-shm
+*.db-wal
 *.sqlite3
 *.sqlite
 *.dump
@@ -31,6 +34,13 @@ env/
 *.sql
 *.sql.gz
 *rollback_snapshot*.json
+
+# Backups & Test Artifacts
+*.backup.*
+*.bak
+.locked_backup/
+test-results/
+frontend/test-results/
 
 # IDE
 .vscode/
@@ -52,4 +62,6 @@ pytest_*.txt
 celerybeat-schedule*
 backend/celerybeat-schedule*
 .archify/
+.agents/
+
 

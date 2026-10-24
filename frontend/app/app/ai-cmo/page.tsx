@@ -100,7 +100,7 @@ export default function AICMO() {
   }
 
   return (
-    <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden bg-[#171515] text-white p-3 sm:p-4 lg:p-6 gap-4 sm:gap-6 max-w-[1600px] mx-auto w-full">
+    <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden bg-[#171515] text-white p-2.5 sm:p-4 lg:p-6 gap-3 sm:gap-6 max-w-[1600px] mx-auto w-full">
       {/* Mobile Top Segmented Switcher (< md) */}
       <div className="md:hidden flex items-center bg-[#242222] p-1 rounded-xl border border-[#373333] shrink-0">
         <button
@@ -198,8 +198,8 @@ export default function AICMO() {
               value={input} 
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleSend()}
-              placeholder="Ask your AI CMO strategic questions, campaign ideas, or competitor audits..." 
-              className="w-full pr-12 pl-4 rounded-xl bg-[#242222] border border-[#373333] text-white placeholder-[#9CA3AF] focus:outline-none focus:border-[#8F0028] h-12 text-xs sm:text-sm" 
+              placeholder="Ask strategic questions, campaigns, or audits..." 
+              className="w-full pr-12 pl-3.5 sm:pl-4 rounded-xl bg-[#242222] border border-[#373333] text-white placeholder-[#9CA3AF] focus:outline-none focus:border-[#8F0028] h-11 sm:h-12 text-xs sm:text-sm" 
             />
             <button 
               onClick={() => handleSend()} 

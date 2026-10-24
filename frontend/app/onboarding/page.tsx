@@ -1,640 +1,547 @@
 "use client"
-import { useState, useEffect } from 'react'
+
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/lib/providers/MockProvider'
+import { 
+  Sparkles, Bot, CheckCircle2, ChevronDown, ChevronUp, 
+  ArrowRight, Globe, Building2, Target, ShieldCheck,
+  Layers, Check, Loader2, Compass, TrendingUp
+} from 'lucide-react'
 
-const steps = ["Business", "Brand", "Audience", "Goals", "Competitors", "AI Setup", "Ready"]
+interface IndustryPreset {
+  id: string
+  label: string
+  icon: string
+  description: string
+}
 
-export default function Onboarding() {
-  const [stepIdx, setStepIdx] = useState(0)
+const INDUSTRY_PRESETS: IndustryPreset[] = [
+  {
+    id: 'd2c',
+    label: 'D2C & Retail',
+    icon: '🛍️',
+    description: 'Direct-to-consumer lifestyle, fashion, and retail brand.'
+  },
+  {
+    id: 'saas',
+    label: 'SaaS & Tech',
+    icon: '💻',
+    description: 'Modern B2B software and technology productivity platform.'
+  },
+  {
+    id: 'wellness',
+    label: 'Health & Wellness',
+    icon: '🌿',
+    description: 'Natural health, diagnostics, and holistic wellness solutions.'
+  },
+  {
+    id: 'fintech',
+    label: 'Fintech & BFSI',
+    icon: '💳',
+    description: 'Modern financial services, wealthtech, and digital payments.'
+  },
+  {
+    id: 'services',
+    label: 'Agency & Services',
+    icon: '⚡',
+    description: 'High-touch creative, digital marketing, and growth consultancy services.'
+  },
+  {
+    id: 'fmcg',
+    label: 'Food & FMCG',
+    icon: '🍲',
+    description: 'Packaged foods, organic groceries, and artisanal culinary products.'
+  }
+]
+
+export default function ExpressOnboarding() {
   const router = useRouter()
   const { user, authState, setAuthState, activeWorkspace, activeBrand, checkAuth, setAuthModalOpen } = useAuth()
-  const [businessName, setBusinessName] = useState("")
-  const [website, setWebsite] = useState("")
-  const [description, setDescription] = useState("")
-  const [valueProposition, setValueProposition] = useState("")
-  const [brandVoice, setBrandVoice] = useState<string[]>(['Professional'])
-  const [targetDemographic, setTargetDemographic] = useState("")
-  const [customerPainPoints, setCustomerPainPoints] = useState("")
-  const [primaryObjective, setPrimaryObjective] = useState("Increase Brand Awareness")
-  const [targetRevenue, setTargetRevenue] = useState("")
-  const [competitors, setCompetitors] = useState(["", "", ""])
 
-  const [loading, setLoading] = useState(false)
+  // Core Express State
+  const [businessName, setBusinessName] = useState('')
+  const [website, setWebsite] = useState('')
+  const [selectedIndustry, setSelectedIndustry] = useState<string>('d2c')
 
-  // Redirect users who already have a configured workspace & brand to the app
+  // Launching & Progress Animation State
+  const [isLaunching, setIsLaunching] = useState(false)
+  const [launchStep, setLaunchStep] = useState(1)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  // Redirect users who already have configured workspace & brand
   useEffect(() => {
     if (authState === 'loggedIn' && activeWorkspace && activeBrand) {
       router.push('/app')
     }
   }, [authState, activeWorkspace, activeBrand, router])
 
-  const handleNext = async () => {
-    if (stepIdx < steps.length - 1) {
-      if (stepIdx === 0 && !businessName.trim()) {
-         alert("Business name is required")
-         return
-      }
-      setStepIdx(stepIdx + 1)
-    } else {
-      setLoading(true)
-      try {
-        const payload = {
-          businessName: businessName.trim(),
-          website: website.trim(),
-          description: description.trim(),
-          valueProposition: valueProposition.trim(),
-          brandVoice,
-          targetDemographic: targetDemographic.trim(),
-          customerPainPoints: customerPainPoints.trim(),
-          primaryObjective,
-          targetRevenue: targetRevenue.trim(),
-          competitors: competitors.map(c => c.trim()).filter(Boolean)
-        }
+  // Handle Industry Preset Selection
+  const handleSelectIndustry = (preset: IndustryPreset) => {
+    setSelectedIndustry(preset.id)
+  }
 
-        localStorage.setItem('onboardingData', JSON.stringify(payload))
-        
-        const isApi = process.env.NEXT_PUBLIC_DATA_MODE === 'api'
-        if (isApi) {
-          if (!user) {
-            alert("Please sign up or log in to create your workspace and launch your AI CMO.")
-            setAuthModalOpen(true)
-            setLoading(false)
-            return
-          }
-          const { ApiClient } = await import('@/lib/api/client')
+  // Handle Form Submission / Express Launch
+  const handleLaunch = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault()
+    if (!businessName.trim()) {
+      setErrorMessage('Please enter your business or brand name')
+      return
+    }
 
-          // Atomically saves workspace, brand, voice, audience, goals, positioning & competitors to DB
-          const result = await ApiClient.post<any>('/api/onboarding/complete', payload)
+    setErrorMessage(null)
+    setIsLaunching(true)
+    setLaunchStep(1)
 
-          if (result?.workspace_id) {
-            ApiClient.defaultHeaders['X-Workspace-ID'] = result.workspace_id
-          }
-          if (result?.brand_id) {
-            ApiClient.defaultHeaders['X-Brand-ID'] = result.brand_id
-          }
+    const payload = {
+      businessName: businessName.trim(),
+      website: website.trim(),
+      description: INDUSTRY_PRESETS.find(p => p.id === selectedIndustry)?.description || `Workspace for ${businessName.trim()}`,
+      valueProposition: '',
+      brandVoice: ['Professional'],
+      targetDemographic: '',
+      customerPainPoints: '',
+      primaryObjective: 'Accelerate Business Growth',
+      targetRevenue: '',
+      competitors: []
+    }
 
-          await checkAuth()
-        }
-        setAuthState('onboardingComplete')
-        router.push('/app')
-      } catch (e: any) {
-        const errorMsg = e?.message || "Failed to complete setup"
-        alert(errorMsg)
-        if (errorMsg.toLowerCase().includes("not authenticated") || errorMsg.toLowerCase().includes("log in") || errorMsg.toLowerCase().includes("user not found")) {
+    // Persist to local storage for immediate client-side availability
+    try {
+      localStorage.setItem('onboardingData', JSON.stringify(payload))
+    } catch (err) {}
+
+    const isApi = process.env.NEXT_PUBLIC_DATA_MODE === 'api'
+
+    try {
+      // Visual step 2: Agent provisioning
+      setTimeout(() => setLaunchStep(2), 600)
+      // Visual step 3: Synthesis & playbook
+      setTimeout(() => setLaunchStep(3), 1200)
+
+      if (isApi) {
+        if (!user) {
+          setIsLaunching(false)
+          setErrorMessage('Please sign up or log in to create your workspace and launch your AI CMO.')
           setAuthModalOpen(true)
+          return
         }
-      } finally {
-        setLoading(false)
+
+        const { ApiClient } = await import('@/lib/api/client')
+        const result = await ApiClient.post<any>('/api/onboarding/complete', payload)
+
+        if (result?.workspace_id) {
+          ApiClient.defaultHeaders['X-Workspace-ID'] = result.workspace_id
+        }
+        if (result?.brand_id) {
+          ApiClient.defaultHeaders['X-Brand-ID'] = result.brand_id
+        }
+
+        await checkAuth()
+      }
+
+      setAuthState('onboardingComplete')
+
+      // Short delay to let user see final stage before transition
+      setTimeout(() => {
+        router.push('/app')
+      }, 1600)
+
+    } catch (err: any) {
+      setIsLaunching(false)
+      const msg = err?.message || 'Failed to complete setup'
+      setErrorMessage(msg)
+      if (msg.toLowerCase().includes('not authenticated') || msg.toLowerCase().includes('log in') || msg.toLowerCase().includes('user not found')) {
+        setAuthModalOpen(true)
       }
     }
   }
 
-  const handleBack = () => {
-    if (stepIdx > 0) {
-      setStepIdx(stepIdx - 1)
-    } else {
-      router.push('/landingpage')
-    }
-  }
+  const activePreset = INDUSTRY_PRESETS.find(p => p.id === selectedIndustry) || INDUSTRY_PRESETS[0]
 
   return (
-    <div className="h-screen flex flex-col bg-[#FAF8F3] overflow-hidden">
-      <header className="px-8 py-5 border-b border-[#E8E4DC] bg-white flex justify-between items-center sticky top-0 z-50">
-        <div className="w-1/3 flex justify-start">
-          <Button 
-            variant="outline"
-            onClick={handleBack} 
-            disabled={loading}
-            className="h-10 px-4 bg-white hover:bg-[#FAF8F3] text-[#111111] font-bold text-[13px] rounded-xl transition-all border border-[#E8E4DC] shadow-sm flex items-center gap-1.5"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
-            Back
-          </Button>
+    <div className="h-screen h-[100dvh] max-h-screen overflow-hidden flex flex-col bg-[#0E0D0D] text-white selection:bg-[#800020] selection:text-white relative">
+      
+      {/* Background Architectural Vector Grid & Coordinates */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Crisp Vector Grid */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.14]" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="tech-grid" width="48" height="48" patternUnits="userSpaceOnUse">
+              <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#443C3C" strokeWidth="1" />
+              <circle cx="0" cy="0" r="1.5" fill="#800020" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#tech-grid)" />
+        </svg>
+
+        {/* Technical Coordinate Watermarks */}
+        <div className="absolute top-3 left-6 text-[9.5px] font-mono text-[#524B4B] tracking-widest hidden md:block select-none">
+          ENGINE.ID // SB-BHARAT-2026 // NODE.01
         </div>
-        <div className="w-1/3 flex justify-center">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo-icon.png" alt="StandBharat Logo" width={28} height={28} className="object-contain" style={{ width: 'auto', height: 'auto' }} priority />
-            <span className="font-bold text-lg tracking-tight text-[#111111] hidden sm:block">StandBharat</span>
-          </Link>
+        <div className="absolute top-3 right-6 text-[9.5px] font-mono text-[#524B4B] tracking-widest hidden md:block select-none">
+          SYSTEM_STATE: STANDBY [LATENCY: 18ms]
         </div>
-        <div className="w-1/3 flex justify-end items-center gap-3">
-          {!user && (
+        <div className="absolute bottom-3 left-6 text-[9.5px] font-mono text-[#524B4B] tracking-widest hidden md:block select-none">
+          CALIBRATION // 15 AGENT FLEET READY
+        </div>
+        <div className="absolute bottom-3 right-6 text-[9.5px] font-mono text-[#524B4B] tracking-widest hidden md:block select-none">
+          100% PRIVATE DATA ISOLATION
+        </div>
+      </div>
+
+      {/* Compact Header */}
+      <header className="px-5 py-2.5 sm:py-3 border-b border-[#2A2626] bg-[#161414] shrink-0 flex items-center justify-between z-40">
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <Image 
+            src="/logo-icon.png" 
+            alt="StandBharat Logo" 
+            width={28} 
+            height={28} 
+            className="object-contain shrink-0 group-hover:scale-105 transition-transform" 
+            priority 
+          />
+          <div>
+            <span className="font-bold text-[15px] tracking-tight text-white block leading-tight">StandBharat</span>
+            <span className="text-[9.5px] text-[#A09898] font-medium block">Autonomous Marketing Engine</span>
+          </div>
+        </Link>
+
+        <div className="flex items-center gap-3">
+          {!user ? (
             <Button
               variant="ghost"
               onClick={() => setAuthModalOpen(true)}
-              className="text-[12px] font-semibold text-[#5A5A5A] hover:text-[#111111] h-8 px-2.5 rounded-lg"
+              className="text-[12px] font-semibold text-[#D1CCCC] hover:text-white h-7.5 px-2.5 rounded-lg"
             >
               Sign In
             </Button>
-          )}
-          {user && (
-            <span className="text-[12px] font-medium text-[#5A5A5A] hidden lg:inline truncate max-w-[140px]">
+          ) : (
+            <span className="text-[11.5px] font-medium text-[#A09898] truncate max-w-[140px]">
               {user.name || user.email}
             </span>
           )}
-          <div className="text-[13px] font-bold flex items-center gap-4">
-            <span className="text-[#800020] hidden md:block">Step {stepIdx + 1} of {steps.length}</span>
-            <div className="flex items-center relative">
-               <div className="absolute left-0 right-0 h-[1px] bg-[#E8E4DC] top-1/2 -translate-y-1/2 z-0" />
-               <div className="flex items-center gap-3 relative z-10">
-                 {steps.map((s, i) => (
-                    <div key={s} className={`w-2.5 h-2.5 rounded-full ring-4 ring-white ${i === stepIdx ? 'bg-[#800020]' : i < stepIdx ? 'bg-[#800020]/50' : 'bg-[#E8E4DC]'}`} />
-                 ))}
-               </div>
-            </div>
-            <span className="text-[#5A5A5A] min-w-[70px] hidden sm:block text-right">{steps[stepIdx]}</span>
-          </div>
+
+          <Link href="/landingpage" className="text-[11.5px] text-[#A09898] hover:text-white font-medium transition-colors">
+            Exit
+          </Link>
         </div>
       </header>
-      
-      <div className="h-1 bg-[#E8E4DC] w-full absolute top-[76px] z-40">
-        <div 
-          className="h-full bg-[#800020] transition-all duration-500 ease-out" 
-          style={{ width: `${((stepIdx + 1) / steps.length) * 100}%` }}
-        />
-      </div>
-      
-      <main className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-hidden">
-        <div className="max-w-5xl w-full h-full max-h-[650px] bg-white rounded-[24px] shadow-lg border border-[#E8E4DC] flex flex-col md:flex-row overflow-hidden">
-          
-          {/* Left Side: Dynamic Visual Container */}
-          <div className="hidden md:flex w-2/5 bg-[#FDF8F6] border-r border-[#E8E4DC] p-10 flex-col relative overflow-hidden justify-between">
-            <div className="relative z-10">
-              <div className="w-10 h-10 bg-white rounded-xl border border-[#E8E4DC] flex items-center justify-center shadow-sm mb-6 text-[#800020]">
-                {stepIdx === 0 && <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>}
-                {stepIdx === 1 && <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>}
-                {stepIdx === 2 && <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>}
-                {stepIdx === 3 && <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>}
-                {stepIdx === 4 && <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>}
-                {stepIdx === 5 && <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>}
-                {stepIdx === 6 && <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>}
+
+      {/* Main Content Area - Center Card flanked by Solid Graphic Panels */}
+      <main className="flex-1 min-h-0 flex items-center justify-center p-3 sm:p-5 lg:p-6 relative z-10 overflow-hidden">
+        <div className="w-full max-w-6xl flex items-center justify-center gap-5 sm:gap-6">
+
+          {/* LEFT GRAPHIC PANEL: ARCHITECTURE & VECTOR DIAGRAM */}
+          <div className="hidden xl:flex w-[270px] 2xl:w-[285px] shrink-0 flex-col justify-between p-5 rounded-2xl bg-[#161414] border border-[#2B2525] shadow-2xl h-[510px] relative">
+            <div className="absolute top-2.5 left-2.5 w-2 h-2 border-t-2 border-l-2 border-[#800020]" />
+            <div className="absolute top-2.5 right-2.5 w-2 h-2 border-t-2 border-r-2 border-[#800020]" />
+            <div className="absolute bottom-2.5 left-2.5 w-2 h-2 border-b-2 border-l-2 border-[#800020]" />
+            <div className="absolute bottom-2.5 right-2.5 w-2 h-2 border-b-2 border-r-2 border-[#800020]" />
+
+            <div>
+              <div className="flex items-center justify-between border-b border-[#282222] pb-2.5 mb-3.5">
+                <span className="text-[10px] font-mono font-bold text-[#E5E7EB] uppercase tracking-wider flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#00A650] shrink-0 animate-pulse"></span>
+                  SYSTEM TOPOLOGY
+                </span>
+                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#201D1D] text-[#8E8787] border border-[#352F2F]">v2.4</span>
               </div>
-              <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">Step {stepIdx + 1} of {steps.length}</div>
-              <h3 className="text-[28px] font-bold text-[#111111] tracking-tight mb-3">
-                {stepIdx === 0 && "Business Profile"}
-                {stepIdx === 1 && "Brand Voice"}
-                {stepIdx === 2 && "Target Audience"}
-                {stepIdx === 3 && "Marketing Goals"}
-                {stepIdx === 4 && "Competitors"}
-                {stepIdx === 5 && "AI Agent Assembly"}
-                {stepIdx === 6 && "Ready to Launch"}
-              </h3>
-              <p className="text-[#5A5A5A] font-medium text-[15px] leading-relaxed pr-2">
-                {stepIdx === 0 && "Your business details act as the foundation. Our AI uses this to tailor every strategy to your exact domain and industry."}
-                {stepIdx === 1 && "Teach the AI how your brand speaks, so every message feels like you."}
-                {stepIdx === 2 && "Define exactly who you want to reach. We'll identify where they spend their time and what messaging resonates with them."}
-                {stepIdx === 3 && "Set your primary objectives. The AI will optimize all campaigns and content to drive towards these specific results."}
-                {stepIdx === 4 && "Identify key players in your market. We'll analyze their strategies to find gaps and opportunities for your brand to stand out."}
-                {stepIdx === 5 && "We are provisioning dedicated virtual agents that will execute your marketing loops autonomously."}
-                {stepIdx === 6 && "Your autonomous marketing engine is primed. Access the dashboard to watch it work."}
-              </p>
-              
-              {stepIdx === 1 && (
-                <div className="mt-8 space-y-6">
+
+              {/* Graphic Vector Diagram */}
+              <div className="p-3 rounded-xl bg-[#100E0E] border border-[#241F1F] mb-3.5">
+                <svg viewBox="0 0 240 150" className="w-full h-auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Central Node */}
+                  <rect x="85" y="42" width="70" height="66" rx="12" fill="#1C1818" stroke="#800020" strokeWidth="2" />
+                  <circle cx="120" cy="75" r="16" fill="#800020" />
+                  <text x="120" y="79" textAnchor="middle" fill="#FFFFFF" fontSize="8" fontWeight="bold" fontFamily="monospace">BRAIN</text>
+                  
+                  {/* Connectors */}
+                  <line x1="40" y1="32" x2="85" y2="58" stroke="#3A3333" strokeWidth="1.5" strokeDasharray="3 3" />
+                  <line x1="200" y1="32" x2="155" y2="58" stroke="#3A3333" strokeWidth="1.5" strokeDasharray="3 3" />
+                  <line x1="40" y1="118" x2="85" y2="92" stroke="#3A3333" strokeWidth="1.5" strokeDasharray="3 3" />
+                  <line x1="200" y1="118" x2="155" y2="92" stroke="#3A3333" strokeWidth="1.5" strokeDasharray="3 3" />
+
+                  {/* Satellite Nodes */}
+                  <circle cx="40" cy="32" r="14" fill="#1C1818" stroke="#00A650" strokeWidth="1.5" />
+                  <text x="40" y="35" textAnchor="middle" fill="#E5E7EB" fontSize="7" fontWeight="bold" fontFamily="sans-serif">SEO</text>
+
+                  <circle cx="200" cy="32" r="14" fill="#1C1818" stroke="#800020" strokeWidth="1.5" />
+                  <text x="200" y="35" textAnchor="middle" fill="#E5E7EB" fontSize="7" fontWeight="bold" fontFamily="sans-serif">CMO</text>
+
+                  <circle cx="40" cy="118" r="14" fill="#1C1818" stroke="#3A3333" strokeWidth="1.5" />
+                  <text x="40" y="121" textAnchor="middle" fill="#E5E7EB" fontSize="7" fontWeight="bold" fontFamily="sans-serif">DATA</text>
+
+                  <circle cx="200" cy="118" r="14" fill="#1C1818" stroke="#00A650" strokeWidth="1.5" />
+                  <text x="200" y="121" textAnchor="middle" fill="#E5E7EB" fontSize="7" fontWeight="bold" fontFamily="sans-serif">ROAS</text>
+                </svg>
+              </div>
+
+              {/* Solid Specs */}
+              <div className="space-y-2">
+                <div className="p-2 rounded-lg bg-[#141212] border border-[#252020] flex items-center justify-between text-[11px]">
+                  <span className="text-[#8E8787]">Orchestrator:</span>
+                  <span className="font-mono text-white font-bold">15 AI Agents</span>
                 </div>
-              )}
+                <div className="p-2 rounded-lg bg-[#141212] border border-[#252020] flex items-center justify-between text-[11px]">
+                  <span className="text-[#8E8787]">Execution:</span>
+                  <span className="font-mono text-white font-bold">Deterministic</span>
+                </div>
+                <div className="p-2 rounded-lg bg-[#141212] border border-[#252020] flex items-center justify-between text-[11px]">
+                  <span className="text-[#8E8787]">Attribution:</span>
+                  <span className="font-mono text-[#00A650] font-bold">Real-Time GA4</span>
+                </div>
+              </div>
             </div>
 
-            {/* Bottom Graphic (Floating Pills) */}
-            {stepIdx === 0 && (
-              <div className="absolute -bottom-12 -right-8 w-[130%] h-[280px] flex items-center justify-center pointer-events-none">
-                 <div className="absolute w-[400px] h-[400px] bg-[#800020]/5 rounded-full blur-3xl mix-blend-multiply" />
-                 <div className="absolute w-[200px] h-[200px] bg-[#800020]/10 rounded-full blur-2xl mix-blend-multiply" />
-                 
-                 <div className="relative z-10 transform -rotate-[15deg] w-[220px] bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white p-5 mt-10">
-                    <div className="flex items-center gap-2 mb-4">
-                       <div className="w-6 h-6 rounded-md bg-[#800020] flex items-center justify-center"><div className="w-2 h-2 rounded-full bg-white"/></div>
-                       <span className="font-bold text-[14px]">StandBharat</span>
-                    </div>
-                    <div className="space-y-3">
-                       <div className="h-2 w-3/4 bg-[#E8E4DC] rounded-full" />
-                       <div className="h-2 w-1/2 bg-[#E8E4DC] rounded-full" />
-                       <div className="h-2 w-full bg-[#E8E4DC] rounded-full" />
-                    </div>
-                    <div className="mt-5 flex items-end gap-2 justify-end">
-                       <div className="w-3 h-5 bg-[#E8E4DC] rounded-t-sm" />
-                       <div className="w-3 h-8 bg-[#800020]/40 rounded-t-sm" />
-                       <div className="w-3 h-12 bg-[#800020]/60 rounded-t-sm" />
-                    </div>
-                 </div>
-
-                 {/* Floating Pills */}
-                 <div className="absolute top-[15%] left-[10%] px-3.5 py-1.5 bg-white shadow-md border border-[#E8E4DC]/50 rounded-full text-[10px] font-bold text-[#800020] -rotate-12">Your Business</div>
-                 <div className="absolute bottom-[20%] left-[8%] px-3.5 py-1.5 bg-white shadow-md border border-[#E8E4DC]/50 rounded-full text-[10px] font-bold text-[#800020] rotate-12">Your Customers</div>
-                 <div className="absolute top-[45%] right-[10%] px-3.5 py-1.5 bg-white shadow-md border border-[#E8E4DC]/50 rounded-full text-[10px] font-bold text-[#800020] rotate-[10deg]">Your Market</div>
-              </div>
-            )}
-
-            {/* Step 2 Bottom Graphic */}
-            {stepIdx === 1 && (
-              <div className="absolute -bottom-12 -right-8 w-[130%] h-[280px] flex items-center justify-center pointer-events-none">
-                 <div className="absolute w-[400px] h-[400px] bg-[#800020]/5 rounded-full blur-3xl mix-blend-multiply" />
-                 <div className="absolute w-[200px] h-[200px] bg-[#800020]/10 rounded-full blur-2xl mix-blend-multiply" />
-                 
-                 <div className="relative z-10 transform rotate-[10deg] w-[220px] bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white p-5 mt-10">
-                    <div className="flex items-center gap-2 mb-4">
-                       <div className="w-6 h-6 rounded-md bg-[#800020] flex items-center justify-center"><div className="w-2 h-2 rounded-full bg-white"/></div>
-                       <span className="font-bold text-[14px]">StandBharat</span>
-                    </div>
-                    <div className="space-y-3">
-                       <div className="h-2 w-3/4 bg-[#E8E4DC] rounded-full" />
-                       <div className="h-2 w-1/2 bg-[#E8E4DC] rounded-full" />
-                    </div>
-                    <div className="mt-4 pt-4 border-t border-[#E8E4DC]">
-                       <div className="text-[9px] font-bold text-[#E5E7EB] mb-2 uppercase tracking-wider">Brand Voice</div>
-                       <div className="flex flex-wrap gap-1.5">
-                          <div className="px-2 py-1 bg-[#FAF8F3] rounded text-[9px] text-[#5A5A5A] font-medium border border-[#E8E4DC]">Professional</div>
-                          <div className="px-2 py-1 bg-[#FAF8F3] rounded text-[9px] text-[#5A5A5A] font-medium border border-[#E8E4DC]">Friendly</div>
-                          <div className="px-2 py-1 bg-[#FAF8F3] rounded text-[9px] text-[#5A5A5A] font-medium border border-[#E8E4DC]">Technical</div>
-                          <div className="px-2 py-1 bg-[#FAF8F3] rounded text-[9px] text-[#5A5A5A] font-medium border border-[#E8E4DC]">Premium</div>
-                       </div>
-                    </div>
-                 </div>
-
-                 {/* Floating Pills */}
-                 <div className="absolute top-[35%] left-[8%] px-3.5 py-1.5 bg-white shadow-md border border-[#E8E4DC]/50 rounded-full text-[10px] font-bold text-[#800020] flex items-center gap-1.5 -rotate-[10deg]">
-                   <span className="w-1.5 h-1.5 rounded-full bg-[#800020]"></span>Tone
-                 </div>
-                 <div className="absolute bottom-[25%] right-[12%] px-3.5 py-1.5 bg-white shadow-md border border-[#E8E4DC]/50 rounded-full text-[10px] font-bold text-[#800020] flex items-center gap-1.5 rotate-[15deg]">
-                   <span className="w-1.5 h-1.5 rounded-full bg-[#800020]/40"></span>Style
-                 </div>
-              </div>
-            )}
-            
-            {stepIdx > 1 && stepIdx < 5 && (
-              <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-[#800020]/5 rounded-full blur-3xl"></div>
-            )}
-            
-            {(stepIdx === 2 || stepIdx === 3 || stepIdx === 4) && (
-              <div className="absolute top-[25%] -right-12 w-64 h-64 bg-[#111111]/5 rounded-full blur-3xl pointer-events-none"></div>
-            )}
-            
-            {stepIdx === 2 && (
-              <div className="absolute -bottom-8 -right-8 w-full h-[250px] flex items-center justify-center pointer-events-none">
-                 <div className="relative w-48 h-48 rounded-full border border-[#E8E4DC] flex items-center justify-center">
-                   <div className="absolute w-full h-full animate-[spin_30s_linear_infinite]">
-                     <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full border border-[#E8E4DC] shadow-sm flex items-center justify-center">
-                       <div className="w-2 h-2 bg-[#800020] rounded-full"></div>
-                     </div>
-                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-6 h-6 bg-white rounded-full border border-[#E8E4DC] shadow-sm flex items-center justify-center">
-                       <div className="w-1.5 h-1.5 bg-[#5A5A5A] rounded-full"></div>
-                     </div>
-                   </div>
-                   <div className="w-32 h-32 rounded-full border border-[#E8E4DC]/50 flex items-center justify-center">
-                     <div className="w-16 h-16 bg-[#800020]/10 rounded-full flex items-center justify-center animate-pulse">
-                       <svg className="w-6 h-6 text-[#800020]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                     </div>
-                   </div>
-                 </div>
-              </div>
-            )}
-
-            {stepIdx === 3 && (
-              <div className="absolute -bottom-8 -right-8 w-full h-[250px] flex items-center justify-center pointer-events-none">
-                 <div className="relative w-48 h-48">
-                    {/* Minimal Bar Chart Graphic */}
-                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-end gap-3 h-32 w-40 bg-white/50 backdrop-blur-sm p-4 rounded-xl border border-[#E8E4DC] shadow-sm">
-                       <div className="w-full bg-[#E8E4DC] rounded-t-sm h-[30%]"></div>
-                       <div className="w-full bg-[#E8E4DC] rounded-t-sm h-[50%]"></div>
-                       <div className="w-full bg-[#800020]/60 rounded-t-sm h-[70%]"></div>
-                       <div className="w-full bg-[#800020] rounded-t-sm h-[100%] shadow-[0_0_15px_rgba(128,0,32,0.3)]"></div>
-                    </div>
-                 </div>
-              </div>
-            )}
-
-            {stepIdx === 4 && (
-              <div className="absolute -bottom-8 -right-8 w-full h-[250px] flex items-center justify-center pointer-events-none">
-                 <div className="relative w-56 h-56 flex items-center justify-center">
-                    <div className="absolute top-10 left-4 w-16 h-16 bg-white rounded-xl shadow-md border border-[#E8E4DC] flex items-center justify-center rotate-[-10deg]">
-                       <div className="w-8 h-2 bg-[#E8E4DC] rounded-full"></div>
-                    </div>
-                    <div className="absolute top-8 right-8 w-20 h-20 bg-white rounded-xl shadow-md border border-[#E8E4DC] flex items-center justify-center rotate-[15deg]">
-                       <div className="w-10 h-2 bg-[#E8E4DC] rounded-full"></div>
-                    </div>
-                    <div className="relative z-10 w-24 h-24 bg-white rounded-xl shadow-xl border border-[#800020]/20 flex items-center justify-center flex-col gap-2">
-                       <div className="w-6 h-6 rounded-md bg-[#800020] flex items-center justify-center"><div className="w-2 h-2 rounded-full bg-white"/></div>
-                       <div className="w-12 h-2 bg-[#800020]/20 rounded-full"></div>
-                    </div>
-                 </div>
-              </div>
-            )}
-
-            {stepIdx === 5 && (
-              <div className="absolute -bottom-4 -right-4 w-full h-[280px] flex items-center justify-center pointer-events-none">
-                 <div className="absolute w-[300px] h-[300px] bg-[#800020]/5 rounded-full blur-3xl mix-blend-multiply" />
-                 <div className="relative w-48 h-48">
-                    {/* Center Brain/Hub */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-2xl shadow-lg border border-[#800020]/20 flex items-center justify-center z-20">
-                      <svg className="w-6 h-6 text-[#800020] animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
-                    </div>
-                    {/* Orbiting Nodes */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full border border-dashed border-[#E8E4DC] rounded-full animate-[spin_20s_linear_infinite] z-10">
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-lg border border-[#E8E4DC] shadow-sm flex items-center justify-center text-[10px] font-bold text-[#111111]">A</div>
-                      <div className="absolute bottom-4 left-4 w-8 h-8 bg-white rounded-lg border border-[#E8E4DC] shadow-sm flex items-center justify-center text-[10px] font-bold text-[#111111] rotate-[120deg]">S</div>
-                      <div className="absolute bottom-4 right-4 w-8 h-8 bg-white rounded-lg border border-[#E8E4DC] shadow-sm flex items-center justify-center text-[10px] font-bold text-[#111111] rotate-[240deg]">G</div>
-                    </div>
-                 </div>
-              </div>
-            )}
-
-            {stepIdx === 6 && (
-              <div className="absolute -bottom-8 -right-8 w-full h-[300px] flex items-center justify-center pointer-events-none">
-                 <div className="absolute w-[400px] h-[400px] bg-[#008A2E]/5 rounded-full blur-3xl mix-blend-multiply" />
-                 <div className="relative w-32 h-32 bg-white rounded-full shadow-xl border border-[#008A2E]/20 flex items-center justify-center animate-in zoom-in duration-700">
-                    <svg className="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                 </div>
-              </div>
-            )}
+            <div className="pt-3 border-t border-[#241F1F] flex items-center gap-2 text-[10.5px] text-[#8E8787]">
+              <ShieldCheck className="w-4 h-4 text-[#00A650] shrink-0" />
+              <span>Full Private Brand Vector DNA</span>
+            </div>
           </div>
 
-          {/* Right Side: Interactive Form */}
-          <div className="w-full md:w-3/5 px-8 pb-8 pt-4 sm:px-10 sm:pb-10 sm:pt-6 lg:px-12 lg:pb-12 lg:pt-8 flex flex-col h-full bg-white relative overflow-hidden">
-            <div className="flex-1 flex flex-col justify-start max-w-md mx-auto w-full">
+          {/* CENTER CARD: MAIN SETUP FORM */}
+          <div className="w-full max-w-lg bg-[#161414] border border-[#2B2525] rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-7 relative shrink-0">
+            {/* Corner Tech Brackets */}
+            <div className="absolute top-3 left-3 w-2 h-2 border-t-2 border-l-2 border-[#800020]" />
+            <div className="absolute top-3 right-3 w-2 h-2 border-t-2 border-r-2 border-[#800020]" />
+            <div className="absolute bottom-3 left-3 w-2 h-2 border-b-2 border-l-2 border-[#800020]" />
+            <div className="absolute bottom-3 right-3 w-2 h-2 border-b-2 border-r-2 border-[#800020]" />
+
+            <form onSubmit={handleLaunch} className="space-y-4">
               
-              {stepIdx === 0 && (
-                <div className="animate-in fade-in duration-500 slide-in-from-right-4">
-                  <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">Let's Get Started</div>
-                  <h2 className="text-[32px] font-bold text-[#111111] mb-2 tracking-tight">Tell us about your business</h2>
-                  <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">We'll use this information to build your AI marketing engine.</p>
-                  
-                  <div className="space-y-6">
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Business name <span className="text-red-500">*</span></label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#E5E7EB]">
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
-                        </div>
-                        <Input 
-                          placeholder="e.g. BharatOrganics, VedaSpices, UrbanKicks" 
-                          value={businessName} 
-                          onChange={e => setBusinessName(e.target.value)} 
-                          required 
-                          className="h-11 pl-10 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
-                        />
-                      </div>
-                      <p className="text-[11px] text-[#E5E7EB] mt-1.5">Enter your official Indian business or brand name.</p>
-                    </div>
+              {/* Header with Solid Graphic Emblem */}
+              <div className="text-center mb-4">
+                <div className="w-10 h-10 rounded-xl bg-[#800020] border border-[#9E0028] flex items-center justify-center mx-auto mb-2.5 shadow-md">
+                  <Sparkles className="w-5 h-5 text-white" />
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#201D1D] border border-[#332E2E] text-[10px] font-mono text-[#D1CCCC] mb-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00A650]"></span>
+                  <span>STEP 01 // INSTANT CALIBRATION</span>
+                </div>
+                <h1 className="text-[20px] sm:text-[22px] font-extrabold text-white tracking-tight leading-tight">
+                  Launch your Autonomous Marketing Engine
+                </h1>
+                <p className="text-[12px] text-[#A09898] mt-1 leading-normal">
+                  Configure your brand to generate your autonomous workspace.
+                </p>
+              </div>
 
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Website URL</label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#E5E7EB]">
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
-                        </div>
-                        <Input 
-                          placeholder="https://yourbrand.in" 
-                          value={website} 
-                          onChange={e => setWebsite(e.target.value)} 
-                          className="h-11 pl-10 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
-                        />
-                      </div>
-                      <p className="text-[11px] text-[#E5E7EB] mt-1.5">Your website helps our AI CMO understand your domain, products, and positioning.</p>
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Business description <span className="text-red-500">*</span></label>
-                      <div className="relative">
-                        <div className="absolute top-3 left-3 text-[#E5E7EB] pointer-events-none">
-                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
-                        </div>
-                        <textarea 
-                          className="w-full rounded-xl bg-white border border-[#E8E4DC] pl-10 pr-3 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#800020] placeholder:text-[#E5E7EB] transition-all resize-none shadow-sm" 
-                          rows={3}
-                          placeholder="What does your business do? Who are your customers?"
-                          value={description}
-                          maxLength={500}
-                          onChange={e => setDescription(e.target.value)}
-                        ></textarea>
-                        <div className="absolute bottom-3 right-3 text-[10px] font-bold text-[#E5E7EB]">
-                          {description.length}/500
-                        </div>
-                      </div>
-                      <p className="text-[11px] text-[#E5E7EB] mt-1.5">Share a brief overview of your business, what you do, and who your customers are.</p>
-                    </div>
-                  </div>
+              {/* Error Alert */}
+              {errorMessage && (
+                <div className="p-2.5 bg-[#251216] border border-[#800020] text-white rounded-xl text-[11.5px] flex items-center gap-2 animate-in fade-in">
+                  <span className="w-2 h-2 rounded-full bg-red-500 shrink-0" />
+                  <span>{errorMessage}</span>
                 </div>
               )}
 
-              {stepIdx === 1 && (
-                <div className="animate-in fade-in duration-500 slide-in-from-right-4">
-                  <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">Let's Define Your Brand</div>
-                  <h2 className="text-[32px] font-bold text-[#111111] mb-2 tracking-tight">Build your Brand Brain</h2>
-                  <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">This helps agents write and act exactly like your brand.</p>
-                  
-                  <div className="space-y-6">
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Value proposition <span className="text-red-500">*</span></label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#800020]">
-                          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-                        </div>
-                        <Input 
-                          placeholder="What makes you unique?" 
-                          value={valueProposition}
-                          onChange={e => setValueProposition(e.target.value)}
-                          className="h-11 pl-10 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
-                        />
-                      </div>
-                      <p className="text-[11px] text-[#E5E7EB] mt-1.5">Your one-line reason customers choose you.</p>
-                    </div>
+              {/* Field 1: Business Name */}
+              <div>
+                <label className="block text-[11px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1.5">
+                  Brand or Business Name <span className="text-[#800020]">*</span>
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#807676]">
+                    <Building2 className="w-4 h-4" />
+                  </div>
+                  <Input 
+                    placeholder="e.g. BharatOrganics, VedaSpices, UrbanKicks" 
+                    value={businessName} 
+                    onChange={e => {
+                      setBusinessName(e.target.value)
+                      if (errorMessage) setErrorMessage(null)
+                    }} 
+                    autoFocus
+                    required 
+                    className="h-10 pl-10 bg-[#1F1C1C] border-[#332D2D] text-white focus-visible:ring-1 focus-visible:ring-[#800020] text-[13px] placeholder:text-[#6D6565] rounded-xl font-medium"
+                  />
+                </div>
+              </div>
 
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#111111] mb-3 uppercase tracking-wider">Brand voice</label>
-                      <div className="flex flex-wrap gap-2">
-                        {["Professional", "Friendly", "Desi / Hinglish", "Aspirational Indian", "Culturally Grounded (Bharat)", "Bold", "Technical", "Premium", "Direct & Relatable"].map(v => (
-                          <label key={v} className="cursor-pointer">
-                            <input 
-                              type="checkbox" 
-                              className="peer sr-only" 
-                              checked={brandVoice.includes(v)} 
-                              onChange={(e) => {
-                                if (e.target.checked) {
-                                  setBrandVoice([...brandVoice, v])
-                                } else {
-                                  setBrandVoice(brandVoice.filter(x => x !== v))
-                                }
-                              }}
-                            />
-                            <div className="px-4 py-2 bg-white border border-[#E8E4DC] rounded-full text-xs font-medium text-[#111111] peer-checked:bg-[#800020]/10 peer-checked:text-[#800020] peer-checked:border-[#800020] hover:border-[#800020]/50 transition-colors shadow-sm">
-                              {v}
-                            </div>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
+              {/* Field 2: Website URL */}
+              <div>
+                <label className="block text-[11px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1.5">
+                  Website URL <span className="text-[10px] text-[#807676] lowercase font-normal">(optional)</span>
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#807676]">
+                    <Globe className="w-4 h-4" />
+                  </div>
+                  <Input 
+                    placeholder="https://yourbrand.in" 
+                    value={website} 
+                    onChange={e => setWebsite(e.target.value)} 
+                    className="h-10 pl-10 bg-[#1F1C1C] border-[#332D2D] text-white focus-visible:ring-1 focus-visible:ring-[#800020] text-[13px] placeholder:text-[#6D6565] rounded-xl font-medium"
+                  />
+                </div>
+              </div>
 
-                  </div>
+              {/* Field 3: Industry Presets */}
+              <div>
+                <label className="block text-[11px] font-bold text-[#E5E7EB] uppercase tracking-wider mb-1.5">
+                  Industry
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {INDUSTRY_PRESETS.map(preset => {
+                    const isSelected = selectedIndustry === preset.id
+                    return (
+                      <button
+                        type="button"
+                        key={preset.id}
+                        onClick={() => handleSelectIndustry(preset)}
+                        className={`p-2.5 rounded-xl border text-left transition-all flex items-center gap-2 cursor-pointer active:scale-95 ${
+                          isSelected
+                            ? 'bg-[#2B131A] border-[#800020] text-white shadow-sm'
+                            : 'bg-[#1F1C1C] border-[#312B2B] text-[#D1CCCC] hover:border-[#463E3E] hover:text-white'
+                        }`}
+                      >
+                        <span className="text-base">{preset.icon}</span>
+                        <span className="text-[11.5px] font-bold block truncate">{preset.label}</span>
+                      </button>
+                    )
+                  })}
                 </div>
-              )}
-              {stepIdx === 2 && (
-                <div className="animate-in fade-in duration-500 slide-in-from-right-4">
-                  <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">Let's Define Your Audience</div>
-                  <h2 className="text-[32px] font-bold text-[#111111] mb-2 tracking-tight">Target Audience</h2>
-                  <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">Identify who you want to reach across Metros and Tier-2/3 Bharat.</p>
-                  
-                  <div className="space-y-6">
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Target Demographic <span className="text-red-500">*</span></label>
-                      <Input 
-                        placeholder="e.g. Indian D2C Consumers & Professionals (Mumbai, Bengaluru, Delhi NCR, Tier-2 Bharat)" 
-                        value={targetDemographic}
-                        onChange={e => setTargetDemographic(e.target.value)}
-                        className="h-11 px-4 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#E5E7EB] rounded-xl shadow-sm"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Customer Pain Points</label>
-                      <textarea 
-                        className="w-full rounded-xl bg-white border border-[#E8E4DC] px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#800020] placeholder:text-[#E5E7EB] transition-all resize-none shadow-sm" 
-                        rows={3}
-                        value={customerPainPoints}
-                        onChange={e => setCustomerPainPoints(e.target.value)}
-                        placeholder="What problems are they trying to solve?"
-                      ></textarea>
-                    </div>
-                  </div>
-                </div>
-              )}
+              </div>
 
-              {stepIdx === 3 && (
-                <div className="animate-in fade-in duration-500 slide-in-from-right-4">
-                  <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">Let's Define Your Goals</div>
-                  <h2 className="text-[32px] font-bold text-[#111111] mb-2 tracking-tight">Marketing Goals</h2>
-                  <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">Set the objectives for your AI marketing engine.</p>
-                  
-                  <div className="space-y-6">
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Primary Objective <span className="text-red-500">*</span></label>
-                      <div className="relative">
-                        <select 
-                          value={primaryObjective}
-                          onChange={e => setPrimaryObjective(e.target.value)}
-                          className="w-full h-11 px-4 bg-white border border-[#E8E4DC] focus:outline-none focus:ring-2 focus:ring-[#800020] text-sm font-medium rounded-xl shadow-sm appearance-none"
-                        >
-                           <option>Increase Brand Awareness</option>
-                           <option>Generate Qualified Leads</option>
-                           <option>Boost Sales/Revenue</option>
-                           <option>Improve Customer Retention</option>
-                        </select>
-                        <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-[#5A5A5A]">
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Target Monthly Revenue</label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[#111111] font-bold">₹</div>
-                        <Input 
-                          placeholder="5,00,000 (e.g. ₹5 Lakhs)" 
-                          value={targetRevenue}
-                          onChange={e => setTargetRevenue(e.target.value)}
-                          className="h-11 pl-8 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#888888] rounded-xl shadow-sm"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+              {/* Submit Action */}
+              <div className="pt-1.5">
+                <Button 
+                  type="submit"
+                  disabled={isLaunching || !businessName.trim()}
+                  className="w-full h-11 bg-[#800020] hover:bg-[#990026] text-white font-bold text-[13.5px] rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer group active:scale-[0.99] disabled:opacity-50"
+                >
+                  {isLaunching ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Activating AI Engine ({launchStep}/3)...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Launch Autonomous AI Engine</span>
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </>
+                  )}
+                </Button>
+              </div>
 
-              {stepIdx === 4 && (
-                <div className="animate-in fade-in duration-500 slide-in-from-right-4">
-                  <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">Let's Identify Competitors</div>
-                  <h2 className="text-[32px] font-bold text-[#111111] mb-2 tracking-tight">Competitors</h2>
-                  <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">Tell us who you're up against in the Indian or global market so we can find gaps in their strategy.</p>
-                  
-                  <div className="space-y-4">
-                    {[1, 2, 3].map((num, idx) => (
-                      <div key={num}>
-                        <label className="block text-[11px] font-bold text-[#111111] mb-1.5 uppercase tracking-wider">Competitor {num} {num === 1 && <span className="text-red-500">*</span>}</label>
-                        <Input 
-                          placeholder={idx === 0 ? "e.g. HealthKart or Mamaearth" : idx === 1 ? "e.g. boAt or Nykaa" : "e.g. Practo or Tata 1mg"} 
-                          value={competitors[idx]}
-                          onChange={e => {
-                            const newComps = [...competitors];
-                            newComps[idx] = e.target.value;
-                            setCompetitors(newComps);
-                          }}
-                          className="h-11 px-4 bg-white border-[#E8E4DC] focus-visible:ring-[#800020] text-sm font-medium placeholder:text-[#888888] rounded-xl shadow-sm"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-              
-              {stepIdx === 5 && (
-                <div className="animate-in fade-in duration-500 slide-in-from-right-4">
-                  <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-2 uppercase">System Provisioning</div>
-                  <h2 className="text-[32px] font-bold text-[#111111] mb-2 tracking-tight">Assembling your AI Team</h2>
-                  <p className="text-[#5A5A5A] font-medium text-[15px] mb-8">Provisioning specialized agents for your workspace.</p>
-                  
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {[
-                      { name: "Analytics Agent", color: "#F5E6E8" },
-                      { name: "SEO Agent", color: "#F5E6E8" },
-                      { name: "GEO Agent", color: "#F5E6E8" },
-                      { name: "Writer Agent", color: "#F5E6E8" },
-                      { name: "Growth Agent", color: "#F5E6E8" }
-                    ].map((agent, i) => (
-                      <div key={agent.name} className="p-3 bg-white border border-[#E8E4DC] rounded-xl flex items-center justify-between shadow-sm animate-in fade-in slide-in-from-bottom-2" style={{ animationDelay: `${i * 100}ms`, animationFillMode: 'both' }}>
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg bg-[#F5E6E8] flex items-center justify-center text-[#800020] font-bold text-xs">
-                            {agent.name.charAt(0)}
-                          </div>
-                          <span className="font-bold text-[#111111] text-[13px]">{agent.name}</span>
-                        </div>
-                        <span className="flex items-center gap-1 text-white text-[10px] font-bold uppercase tracking-wider">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#008A2E] animate-pulse" />
-                          Ready
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+            </form>
 
-              {stepIdx === 6 && (
-                <div className="animate-in fade-in duration-500 text-center py-6 slide-in-from-bottom-4 flex flex-col items-center justify-center h-full">
-                  <div className="text-[11px] font-bold text-[#E5E7EB] tracking-wider mb-6 uppercase">System Ready</div>
-                  <div className="w-24 h-24 bg-[#800020] rounded-[28px] flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-[#800020]/30 rotate-3">
-                    <svg className="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
+          </div>
+
+          {/* RIGHT GRAPHIC PANEL: LIVE FLEET READINESS */}
+          <div className="hidden xl:flex w-[270px] 2xl:w-[285px] shrink-0 flex-col justify-between p-5 rounded-2xl bg-[#161414] border border-[#2B2525] shadow-2xl h-[510px] relative">
+            <div className="absolute top-2.5 left-2.5 w-2 h-2 border-t-2 border-l-2 border-[#800020]" />
+            <div className="absolute top-2.5 right-2.5 w-2 h-2 border-t-2 border-r-2 border-[#800020]" />
+            <div className="absolute bottom-2.5 left-2.5 w-2 h-2 border-b-2 border-l-2 border-[#800020]" />
+            <div className="absolute bottom-2.5 right-2.5 w-2 h-2 border-b-2 border-r-2 border-[#800020]" />
+
+            <div>
+              <div className="flex items-center justify-between border-b border-[#282222] pb-2.5 mb-3.5">
+                <span className="text-[10px] font-mono font-bold text-[#E5E7EB] uppercase tracking-wider flex items-center gap-1.5">
+                  <Bot className="w-3.5 h-3.5 text-[#00A650]" />
+                  FLEET PROVISIONING
+                </span>
+                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#201D1D] text-[#00A650] border border-[#352F2F]">READY</span>
+              </div>
+
+              {/* Agent Readiness Graphic Cards */}
+              <div className="space-y-2 mb-3.5">
+                {[
+                  { name: 'Executive CMO Agent', role: 'Strategic Guidance', status: 'ACTIVE' },
+                  { name: 'SEO & GEO Agent', role: 'Search Discovery', status: 'STANDBY' },
+                  { name: 'Content Engine', role: 'Creative Drafts', status: 'STANDBY' },
+                  { name: 'Growth Hacker', role: 'Funnel Optimization', status: 'STANDBY' },
+                  { name: 'Attribution Loop', role: 'ROAS Measurement', status: 'STANDBY' }
+                ].map((agent, i) => (
+                  <div key={i} className="p-2 rounded-xl bg-[#100E0E] border border-[#241F1F] flex items-center justify-between">
+                    <div>
+                      <div className="text-[11px] font-bold text-white leading-tight">{agent.name}</div>
+                      <div className="text-[9.5px] text-[#7E7777]">{agent.role}</div>
+                    </div>
+                    <span className="px-1.5 py-0.5 rounded text-[8.5px] font-mono font-bold bg-[#181515] border border-[#312B2B] text-[#00A650]">
+                      {agent.status}
+                    </span>
                   </div>
-                  <h2 className="text-[32px] font-bold text-[#111111] tracking-tight mb-3">Your AI system is ready</h2>
-                  <p className="text-[15px] text-[#5A5A5A] font-medium max-w-sm mx-auto mb-2">
-                    Brand, Audience, Goals, Competitors, and AI team have been successfully configured.
-                  </p>
-                </div>
-              )}
+                ))}
+              </div>
             </div>
 
+            {/* Performance Bar Graphic */}
+            <div className="pt-3 border-t border-[#241F1F] space-y-1.5">
+              <div className="flex items-center justify-between text-[10px] font-mono">
+                <span className="text-[#8E8787]">ENGINE CAPACITY</span>
+                <span className="text-[#00A650] font-bold">100% ONLINE</span>
+              </div>
+              <div className="w-full h-1.5 bg-[#201D1D] rounded-full overflow-hidden flex gap-0.5">
+                <div className="h-full bg-[#800020] w-1/3 rounded-full"></div>
+                <div className="h-full bg-[#800020] w-1/3 rounded-full"></div>
+                <div className="h-full bg-[#00A650] w-1/3 rounded-full"></div>
+              </div>
+            </div>
           </div>
+
         </div>
       </main>
 
-      {/* Global Continue Button */}
-      <Button 
-        onClick={handleNext} 
-        disabled={loading}
-        className="fixed bottom-8 right-8 h-12 px-8 bg-[#800020] hover:bg-[#5C0017] text-white font-bold text-sm rounded-xl transition-all duration-300 border-none shadow-xl shadow-[#800020]/30 hover:shadow-2xl hover:shadow-[#800020]/40 flex items-center gap-2 z-50 hover:-translate-y-1"
-      >
-        {loading ? "Processing..." : (
-          <>
-             {stepIdx === steps.length - 1 ? 'Enter Dashboard' : 'Continue'}
-             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </>
-        )}
-      </Button>
+      {/* ========================================================= */}
+      {/* LAUNCHING OVERLAY ANIMATION */}
+      {/* ========================================================= */}
+      {isLaunching && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-[#1C1A1A] border border-[#383333] rounded-3xl p-8 max-w-md w-full shadow-2xl space-y-6 text-center animate-in zoom-in-95">
+            
+            <div className="w-16 h-16 rounded-2xl bg-[#800020] border border-[#9E0028] flex items-center justify-center mx-auto shadow-xl shadow-[#800020]/25">
+              <Image src="/logo-icon.png" alt="StandBharat Logo" width={34} height={34} className="object-contain animate-pulse" priority />
+            </div>
+
+            <div>
+              <h2 className="text-[20px] font-bold text-white">Synthesizing AI Workspace</h2>
+              <p className="text-[12px] text-[#A09898] mt-1">Calibrating your brand intelligence for {businessName}...</p>
+            </div>
+
+            {/* Stepper Progress */}
+            <div className="space-y-3 text-left">
+              <div className="p-3 rounded-xl bg-[#242222] border border-[#332E2E] flex items-center gap-3">
+                <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${launchStep >= 1 ? 'bg-[#00A650] text-white' : 'border border-[#443E3E]'}`}>
+                  {launchStep >= 1 ? <Check className="w-3 h-3 stroke-[3]" /> : <div className="w-1.5 h-1.5 rounded-full bg-[#807676]" />}
+                </div>
+                <span className={`text-[12px] font-semibold ${launchStep >= 1 ? 'text-white' : 'text-[#807676]'}`}>
+                  Grounding Brand Brain DNA & domain signals
+                </span>
+              </div>
+
+              <div className="p-3 rounded-xl bg-[#242222] border border-[#332E2E] flex items-center gap-3">
+                <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${launchStep >= 2 ? 'bg-[#00A650] text-white' : 'border border-[#443E3E]'}`}>
+                  {launchStep >= 2 ? <Check className="w-3 h-3 stroke-[3]" /> : <div className="w-1.5 h-1.5 rounded-full bg-[#807676]" />}
+                </div>
+                <span className={`text-[12px] font-semibold ${launchStep >= 2 ? 'text-white' : 'text-[#807676]'}`}>
+                  Assembling 15 specialized marketing agents
+                </span>
+              </div>
+
+              <div className="p-3 rounded-xl bg-[#242222] border border-[#332E2E] flex items-center gap-3">
+                <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${launchStep >= 3 ? 'bg-[#00A650] text-white' : 'border border-[#443E3E]'}`}>
+                  {launchStep >= 3 ? <Check className="w-3 h-3 stroke-[3]" /> : <div className="w-1.5 h-1.5 rounded-full bg-[#807676]" />}
+                </div>
+                <span className={`text-[12px] font-semibold ${launchStep >= 3 ? 'text-white' : 'text-[#807676]'}`}>
+                  Generating 30-day attribution & content playbook
+                </span>
+              </div>
+            </div>
+
+            <div className="pt-2 text-[11px] text-[#A09898] flex items-center justify-center gap-1.5">
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-[#8F0028]" />
+              <span>Redirecting to Command Center...</span>
+            </div>
+
+          </div>
+        </div>
+      )}
+
     </div>
   )
 }

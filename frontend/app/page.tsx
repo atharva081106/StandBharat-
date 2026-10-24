@@ -1,5 +1,4 @@
-import { redirect } from 'next/navigation'
+import LandingPage, { metadata } from './landingpage/page'
 
-export default function RootPage() {
-  redirect('/app')
-}
+export { metadata }
+export default LandingPage

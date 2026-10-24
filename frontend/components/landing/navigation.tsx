@@ -89,7 +89,7 @@ function AgentsDropdown() {
               </div>
               <span className="text-white text-xs font-bold">StandBharat AI CMO</span>
             </div>
-            <Link href="#" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-auth-signup')) }}>
+            <Link href="/app/agents">
               <span className="text-[#800020] text-xs font-bold hover:text-[#F5E6E8] transition-colors">
                 Explore all agents &rarr;
               </span>
@@ -158,11 +158,12 @@ export function MarketingNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [agentsOpen, setAgentsOpen] = useState(false)
   const [integrationsOpen, setIntegrationsOpen] = useState(false)
+  const [mobileSection, setMobileSection] = useState<'all' | 'agents' | 'integrations'>('all')
 
   return (
-    <header className="sticky top-0 z-50 bg-[#FAF8F3]/90 backdrop-blur-md border-b border-[#E8E4DC]">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Link href="/landingpage" className="flex items-center gap-2.5 shrink-0">
+    <header suppressHydrationWarning className="sticky top-0 z-50 bg-[#FAF8F3]/95 backdrop-blur-md border-b border-[#E8E4DC]">
+      <div suppressHydrationWarning className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <Link href="/landingpage" className="flex items-center gap-2.5 shrink-0" onClick={() => setMobileMenuOpen(false)}>
           <Image src="/logo-icon.png" alt="StandBharat Logo" width={28} height={28} className="object-contain" />
           <span className="font-bold text-lg tracking-tight text-[#111111]">StandBharat</span>
         </Link>
@@ -213,31 +214,34 @@ export function MarketingNavbar() {
           </div>
 
           <Link href="#ai-cmo" className="text-sm font-semibold text-[#5A5A5A] hover:text-[#800020] transition-colors">Solutions</Link>
-          <Link href="#pricing" className="text-sm font-semibold text-[#5A5A5A] hover:text-[#800020] transition-colors">Pricing</Link>
+          <Link href="/pricing" className="text-sm font-semibold text-[#5A5A5A] hover:text-[#800020] transition-colors">Pricing</Link>
         </nav>
 
         <div className="hidden lg:flex items-center gap-4 shrink-0">
-          <Link href="#" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-auth-login')) }} className="text-sm font-semibold text-[#111111] hover:text-[#800020] transition-colors">Log in</Link>
-          <Link href="#" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-auth-signup')) }}>
+          <Link href="/login" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-auth-login')) }} className="text-sm font-semibold text-[#111111] hover:text-[#800020] transition-colors">Log in</Link>
+          <Link href="/signup" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-auth-signup')) }}>
             <Button className="bg-[#800020] text-white hover:bg-[#5C0017] font-bold rounded-lg px-5 h-10 border-none shadow-sm shadow-[#800020]/20">
               Get Started
             </Button>
           </Link>
         </div>
 
-        <div className="flex lg:hidden items-center gap-2">
-          <Link href="#" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-auth-signup')) }}>
-            <Button size="sm" className="bg-[#800020] text-white hover:bg-[#5C0017] font-bold rounded-lg px-3.5 h-8 text-xs border-none shadow-sm shadow-[#800020]/20">
-              Get Started
-            </Button>
-          </Link>
-          <button 
-            type="button" 
-            className="text-[#111111] p-1.5 rounded-lg hover:bg-black/5 transition-colors" 
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle navigation"
+        {/* Mobile Header Actions */}
+        <div suppressHydrationWarning className="lg:hidden flex items-center gap-2">
+          <Link 
+            href="/signup" 
+            onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-auth-signup')) }}
+            className="text-xs font-bold text-white bg-[#800020] px-3.5 py-2 rounded-lg shadow-sm"
           >
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+            Get Started
+          </Link>
+          <button
+            type="button"
+            className="w-10 h-10 rounded-xl bg-black/5 hover:bg-black/10 active:scale-95 flex items-center justify-center text-[#111111] transition-all"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth="2.2" stroke="currentColor">
               {mobileMenuOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               ) : (
@@ -248,115 +252,197 @@ export function MarketingNavbar() {
         </div>
       </div>
 
+      {/* Mobile Backdrop & Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-16 left-0 right-0 bg-[#FAF8F3]/95 backdrop-blur-2xl border-b border-[#E8E4DC] p-5 shadow-2xl flex flex-col gap-5 z-40 max-h-[85vh] overflow-y-auto animate-in slide-in-from-top-2 duration-200">
-          {/* Mobile Brand Pitch Card */}
-          <div className="bg-white border border-[#E8E4DC] p-3.5 rounded-2xl shadow-sm flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-[#800020] text-white flex items-center justify-center font-bold text-xs">
-                AI
-              </div>
-              <div>
-                <div className="text-xs font-bold text-[#111111]">Built for Bharat 🇮🇳</div>
-                <div className="text-[10px] text-[#5A5A5A]">Autonomous Marketing System</div>
-              </div>
-            </div>
-            <Link 
-              href="#ai-cmo" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-[11px] font-bold text-[#800020] hover:underline"
-            >
-              Learn More &rarr;
-            </Link>
-          </div>
-
-          <nav className="flex flex-col gap-3">
-            <Link 
-              href="#ai-cmo" 
-              className="flex items-center justify-between p-3 rounded-xl bg-white border border-[#E8E4DC] text-sm font-bold text-[#111111] hover:border-[#800020] transition-colors" 
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <span>AI CMO Strategist</span>
-              <span className="text-[10px] bg-[#F5E6E8] text-[#800020] px-2 py-0.5 rounded-full font-bold">Always On</span>
-            </Link>
-            
-            {/* 15 Agents Preview */}
-            <div className="bg-white border border-[#E8E4DC] p-4 rounded-2xl">
-              <div className="text-xs font-bold text-[#111111] uppercase tracking-wider mb-2.5 flex items-center justify-between">
-                <span>Specialized AI Agents</span>
-                <span className="text-[10px] font-bold text-[#800020]">15 Total</span>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                {AGENTS.map((agent, i) => (
-                  <Link 
-                    key={i} 
-                    href="#product" 
-                    className="flex items-center gap-2 p-2 rounded-xl bg-[#FAF8F3] hover:bg-white border border-[#E8E4DC] transition-colors" 
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <div className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: `${agent.color}20`, color: agent.color }}>
-                      <agent.icon className="w-3.5 h-3.5" />
-                    </div>
-                    <span className="text-xs font-semibold text-[#111111] truncate">{agent.name}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Integrations Preview */}
-            <div className="bg-white border border-[#E8E4DC] p-4 rounded-2xl">
-              <div className="text-xs font-bold text-[#111111] uppercase tracking-wider mb-2.5 flex items-center justify-between">
-                <span>Key Integrations</span>
-                <span className="text-[10px] font-bold text-[#168A5B]">Auto-Publish</span>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                {INTEGRATIONS.slice(0, 6).map((int, i) => (
-                  <Link 
-                    key={i} 
-                    href="#integrations" 
-                    className="flex items-center gap-2 p-2 rounded-xl bg-[#FAF8F3] hover:bg-white border border-[#E8E4DC] transition-colors" 
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <div className="w-6 h-6 shrink-0 flex items-center justify-center">
-                      {int.icon}
-                    </div>
-                    <span className="text-xs font-semibold text-[#111111] truncate">{int.name}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2 pt-1">
-              <Link 
-                href="#pricing" 
-                className="p-3 text-center rounded-xl bg-white border border-[#E8E4DC] text-xs font-bold text-[#111111] hover:border-[#800020]" 
-                onClick={() => setMobileMenuOpen(false)}
+        <>
+          <div 
+            className="lg:hidden fixed inset-0 top-16 bg-black/40 backdrop-blur-sm z-30 transition-opacity"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          <div className="lg:hidden fixed top-16 left-0 right-0 bg-[#FAF8F3] border-b border-[#E8E4DC] p-5 shadow-2xl flex flex-col gap-5 z-40 max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain">
+            {/* Quick Segment Filter */}
+            <div className="flex items-center gap-1.5 bg-[#EFECE6] p-1 rounded-xl">
+              <button
+                type="button"
+                onClick={() => setMobileSection('all')}
+                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                  mobileSection === 'all' ? 'bg-white text-[#111111] shadow-sm' : 'text-[#666666]'
+                }`}
               >
-                Pricing Plans
-              </Link>
-              <Link 
-                href="#faq" 
-                className="p-3 text-center rounded-xl bg-white border border-[#E8E4DC] text-xs font-bold text-[#111111] hover:border-[#800020]" 
-                onClick={() => setMobileMenuOpen(false)}
+                Overview
+              </button>
+              <button
+                type="button"
+                onClick={() => setMobileSection('agents')}
+                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                  mobileSection === 'agents' ? 'bg-white text-[#800020] shadow-sm' : 'text-[#666666]'
+                }`}
               >
-                FAQ & Help
+                Agents (8)
+              </button>
+              <button
+                type="button"
+                onClick={() => setMobileSection('integrations')}
+                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                  mobileSection === 'integrations' ? 'bg-white text-[#168A5B] shadow-sm' : 'text-[#666666]'
+                }`}
+              >
+                Integrations (10)
+              </button>
+            </div>
+
+            {/* Content per Segment */}
+            {mobileSection === 'all' && (
+              <nav className="flex flex-col gap-2">
+                <Link
+                  href="#ai-cmo"
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#E8E4DC] text-sm font-bold text-[#111111] hover:border-[#800020] transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className="flex items-center gap-2.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#800020]"></span>
+                    AI CMO & Autonomous Engine
+                  </span>
+                  <span className="text-xs text-[#800020] font-bold">&rarr;</span>
+                </Link>
+
+                <div 
+                  onClick={() => setMobileSection('agents')}
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#E8E4DC] text-sm font-bold text-[#111111] cursor-pointer hover:border-[#800020] transition-colors"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#34A853]"></span>
+                    8 Autonomous AI Agents
+                  </span>
+                  <span className="text-xs font-bold text-[#666666]">View All &rarr;</span>
+                </div>
+
+                <div 
+                  onClick={() => setMobileSection('integrations')}
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#E8E4DC] text-sm font-bold text-[#111111] cursor-pointer hover:border-[#800020] transition-colors"
+                >
+                  <span className="flex items-center gap-2.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#4285F4]"></span>
+                    10 Growth Integrations (WhatsApp, Shopify...)
+                  </span>
+                  <span className="text-xs font-bold text-[#666666]">View All &rarr;</span>
+                </div>
+
+                <Link
+                  href="/pricing"
+                  className="flex items-center justify-between p-3.5 rounded-xl bg-white border border-[#E8E4DC] text-sm font-bold text-[#111111] hover:border-[#800020] transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className="flex items-center gap-2.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#FBBC04]"></span>
+                    INR Pricing & Free Tier
+                  </span>
+                  <span className="text-xs text-[#800020] font-bold">&rarr;</span>
+                </Link>
+              </nav>
+            )}
+
+            {mobileSection === 'agents' && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between px-1">
+                  <div className="text-xs font-bold uppercase tracking-wider text-[#800020]">Autonomous Agents</div>
+                  <button 
+                    type="button" 
+                    onClick={() => setMobileSection('all')} 
+                    className="text-xs font-bold text-[#666666] hover:text-[#111111]"
+                  >
+                    &larr; Back to Menu
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {AGENTS.map((agent, i) => (
+                    <Link
+                      key={i}
+                      href="#product"
+                      className="flex items-center gap-3 p-3 rounded-xl bg-white border border-[#E8E4DC] hover:border-[#800020] transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div
+                        className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+                        style={{ backgroundColor: `${agent.color}20`, color: agent.color }}
+                      >
+                        <agent.icon className="w-4 h-4" strokeWidth={2} />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-xs font-bold text-[#111111] truncate">{agent.name}</div>
+                        <div className="text-[10px] text-[#666666] truncate">{agent.desc}</div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {mobileSection === 'integrations' && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between px-1">
+                  <div className="text-xs font-bold uppercase tracking-wider text-[#168A5B]">Ecosystem Integrations</div>
+                  <button 
+                    type="button" 
+                    onClick={() => setMobileSection('all')} 
+                    className="text-xs font-bold text-[#666666] hover:text-[#111111]"
+                  >
+                    &larr; Back to Menu
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {INTEGRATIONS.map((int, i) => (
+                    <Link
+                      key={i}
+                      href="#integrations"
+                      className="flex items-center gap-3 p-3 rounded-xl bg-white border border-[#E8E4DC] hover:border-[#800020] transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-white border border-[#E8E4DC] flex items-center justify-center shrink-0 p-1.5">
+                        {int.icon}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-xs font-bold text-[#111111] truncate">{int.name}</div>
+                        <div className="text-[10px] text-[#666666] truncate">{int.desc}</div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Mobile Actions */}
+            <div className="flex flex-col gap-2.5 pt-3 border-t border-[#E8E4DC]">
+              <Link
+                href="/signup"
+                onClick={(e) => {
+                  e.preventDefault()
+                  window.dispatchEvent(new Event('open-auth-signup'))
+                  setMobileMenuOpen(false)
+                }}
+              >
+                <Button className="w-full justify-center h-12 bg-[#800020] hover:bg-[#5C0017] text-white font-bold text-sm rounded-xl border-none shadow-md shadow-[#800020]/25">
+                  Start Free with StandBharat &rarr;
+                </Button>
+              </Link>
+              <Link
+                href="/login"
+                onClick={(e) => {
+                  e.preventDefault()
+                  window.dispatchEvent(new Event('open-auth-login'))
+                  setMobileMenuOpen(false)
+                }}
+              >
+                <Button
+                  variant="outline"
+                  className="w-full justify-center h-11 border-[#E8E4DC] text-[#111111] font-bold text-sm rounded-xl bg-white hover:bg-[#FAF8F3]"
+                >
+                  Log in to Workspace
+                </Button>
               </Link>
             </div>
-          </nav>
-
-          <div className="flex flex-col gap-2.5 pt-3 border-t border-[#E8E4DC]">
-            <Link href="#" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-auth-signup')); setMobileMenuOpen(false); }}>
-              <Button className="w-full justify-center h-12 bg-[#800020] hover:bg-[#5C0017] text-white font-bold text-sm rounded-xl border-none shadow-md shadow-[#800020]/25">
-                Start Building Your System &rarr;
-              </Button>
-            </Link>
-            <Link href="#" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('open-auth-login')); setMobileMenuOpen(false); }}>
-              <Button variant="outline" className="w-full justify-center h-11 border-[#E8E4DC] bg-white text-[#111111] font-bold text-sm rounded-xl hover:bg-black/5">
-                Log in to Workspace
-              </Button>
-            </Link>
           </div>
-        </div>
+        </>
       )}
     </header>
   )
@@ -366,57 +452,59 @@ export function MarketingFooter() {
   return (
     <footer className="bg-white border-t border-[#E8E4DC] pt-12 sm:pt-20 pb-8 sm:pb-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-5 gap-8 sm:gap-12 mb-10 sm:mb-16">
-        <div className="col-span-2 md:col-span-1 space-y-3 sm:space-y-4">
+        <div className="col-span-2 md:col-span-1 space-y-4">
           <Link href="/landingpage" className="flex items-center gap-2.5">
             <Image src="/logo-icon.png" alt="StandBharat Logo" width={28} height={28} className="object-contain" />
             <span className="font-bold text-lg tracking-tight text-[#111111]">StandBharat</span>
           </Link>
-          <p className="text-[#5A5A5A] text-xs sm:text-sm font-medium pr-0 sm:pr-4 leading-relaxed">
+          <p className="text-[#5A5A5A] text-sm font-medium pr-4 leading-relaxed">
             The AI marketing operating system built for Bharat & ambitious global brands. Designed in India 🇮🇳.
           </p>
-          <div className="text-[11px] sm:text-[12px] text-[#800020] font-bold">
+          <div className="text-[12px] text-[#800020] font-bold">
             100% Made for Indian D2C, B2B & Modern Enterprises.
           </div>
         </div>
         <div>
-          <h4 className="font-bold text-[#111111] text-xs sm:text-sm mb-4 sm:mb-6">Product</h4>
-          <ul className="space-y-3 sm:space-y-4 text-xs sm:text-sm font-medium text-[#5A5A5A]">
-            <li><Link href="#ai-cmo" className="hover:text-[#800020] transition-colors">AI CMO</Link></li>
-            <li><Link href="#product" className="hover:text-[#800020] transition-colors">Brand Brain</Link></li>
-            <li><Link href="#product" className="hover:text-[#800020] transition-colors">Agents</Link></li>
-            <li><Link href="#how-it-works" className="hover:text-[#800020] transition-colors">Workflows</Link></li>
-            <li><Link href="#product" className="hover:text-[#800020] transition-colors">Content & WhatsApp</Link></li>
-            <li><Link href="#product" className="hover:text-[#800020] transition-colors">Analytics & INR Attribution</Link></li>
+          <h4 className="font-bold text-[#111111] text-sm mb-6">Product</h4>
+          <ul className="space-y-4 text-sm font-medium text-[#5A5A5A]">
+            <li><Link href="/app/ai-cmo" className="hover:text-[#800020] transition-colors">AI CMO</Link></li>
+            <li><Link href="/app/brand-brain" className="hover:text-[#800020] transition-colors">Brand Brain</Link></li>
+            <li><Link href="/app/agents" className="hover:text-[#800020] transition-colors">15 AI Agents</Link></li>
+            <li><Link href="/app/workflows" className="hover:text-[#800020] transition-colors">Workflows</Link></li>
+            <li><Link href="/app/content" className="hover:text-[#800020] transition-colors">Content Studio</Link></li>
+            <li><Link href="/pricing" className="hover:text-[#800020] transition-colors">Plans & Pricing</Link></li>
           </ul>
         </div>
         <div>
-          <h4 className="font-bold text-[#111111] text-xs sm:text-sm mb-4 sm:mb-6">Company</h4>
-          <ul className="space-y-3 sm:space-y-4 text-xs sm:text-sm font-medium text-[#5A5A5A]">
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">About StandBharat</Link></li>
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">Careers (Bengaluru & Remote)</Link></li>
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">Contact Support</Link></li>
+          <h4 className="font-bold text-[#111111] text-sm mb-6">Platform</h4>
+          <ul className="space-y-4 text-sm font-medium text-[#5A5A5A]">
+            <li><Link href="/app" className="hover:text-[#800020] transition-colors">Command Center</Link></li>
+            <li><Link href="/onboarding" className="hover:text-[#800020] transition-colors">Express Onboarding</Link></li>
+            <li><Link href="/app/campaigns" className="hover:text-[#800020] transition-colors">Campaigns</Link></li>
+            <li><Link href="/app/analytics" className="hover:text-[#800020] transition-colors">Analytics</Link></li>
+            <li><Link href="/app/integrations" className="hover:text-[#800020] transition-colors">Integrations</Link></li>
           </ul>
         </div>
         <div>
-          <h4 className="font-bold text-[#111111] text-xs sm:text-sm mb-4 sm:mb-6">Resources</h4>
-          <ul className="space-y-3 sm:space-y-4 text-xs sm:text-sm font-medium text-[#5A5A5A]">
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">Documentation</Link></li>
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">Bharat Marketing Playbook</Link></li>
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">Help Center</Link></li>
+          <h4 className="font-bold text-[#111111] text-sm mb-6">Resources</h4>
+          <ul className="space-y-4 text-sm font-medium text-[#5A5A5A]">
+            <li><Link href="/app/agent-log" className="hover:text-[#800020] transition-colors">Documentation & Agent Logs</Link></li>
+            <li><Link href="/app/brand-brain" className="hover:text-[#800020] transition-colors">Bharat Marketing Playbook</Link></li>
+            <li><Link href="/app/settings" className="hover:text-[#800020] transition-colors">Help Center & Support</Link></li>
           </ul>
         </div>
         <div>
-          <h4 className="font-bold text-[#111111] text-xs sm:text-sm mb-4 sm:mb-6">Legal & Invoicing</h4>
-          <ul className="space-y-3 sm:space-y-4 text-xs sm:text-sm font-medium text-[#5A5A5A]">
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">Privacy Policy</Link></li>
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">Terms of Service</Link></li>
-            <li><Link href="#" className="hover:text-[#800020] transition-colors">GST Compliance & ITC</Link></li>
+          <h4 className="font-bold text-[#111111] text-sm mb-6">Legal & Invoicing</h4>
+          <ul className="space-y-4 text-sm font-medium text-[#5A5A5A]">
+            <li><Link href="/app/settings/billing" className="hover:text-[#800020] transition-colors">Privacy & Security</Link></li>
+            <li><Link href="/pricing" className="hover:text-[#800020] transition-colors">Terms of Service</Link></li>
+            <li><Link href="/app/settings/billing" className="hover:text-[#800020] transition-colors">GST Compliance & ITC</Link></li>
           </ul>
         </div>
       </div>
-      <div className="max-w-[1400px] mx-auto pt-6 sm:pt-8 border-t border-[#E8E4DC] flex flex-col sm:flex-row justify-between items-center text-xs sm:text-sm font-medium text-[#666666] gap-3 sm:gap-4 text-center sm:text-left">
+      <div className="max-w-[1400px] mx-auto pt-8 border-t border-[#E8E4DC] flex flex-col sm:flex-row justify-between items-center text-sm font-medium text-[#666666] gap-4">
         <div>&copy; 2026 StandBharat Technologies Pvt. Ltd. Proudly Built in India 🇮🇳. All rights reserved.</div>
-        <div className="text-[11px] sm:text-xs text-[#888888]">All pricing in INR (₹) • Instant UPI & RuPay Checkout • GST Invoices with ITC</div>
+        <div className="text-xs text-[#888888]">All pricing in INR (₹) • Instant UPI & RuPay Checkout • GST Invoices with ITC</div>
       </div>
     </footer>
   )

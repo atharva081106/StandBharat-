@@ -34,6 +34,10 @@ import { ExportReportModal } from '@/components/reports/ExportReportModal'
 import { AttributionFunnelVisualizer } from '@/components/analytics/AttributionFunnelVisualizer'
 import { NextBestActionFeed } from '@/components/dashboard/NextBestActionFeed'
 import { MorningBriefingCard } from '@/components/dashboard/MorningBriefingCard'
+import { HoverScrollText } from '@/components/ui/HoverScrollText'
+import { KeyboardShortcutsModal } from '@/components/ui/KeyboardShortcutsModal'
+import { AgentExecutionDrawer, type AgentExecutionState } from '@/components/agents/AgentExecutionDrawer'
+import { DocumentItemSkeleton } from '@/components/ui/SkeletonShimmer'
 
 export default function AIWorkspace() {
   const auth = useAuth()
@@ -53,6 +57,7 @@ export default function AIWorkspace() {
   const [approvalsCount, setApprovalsCount] = useState(0)
   const [isApprovingAll, setIsApprovingAll] = useState(false)
   const [websiteAnalytics, setWebsiteAnalytics] = useState<any>(null)
+  const [campaigns, setCampaigns] = useState<any[]>([])
   
   const [activeNav, setActiveNav] = useState('Analytics')
   const [dataModel, setDataModel] = useState<any>(null)
@@ -65,7 +70,9 @@ export default function AIWorkspace() {
   const [cmoTab, setCmoTab] = useState<'Chat' | 'Research' | 'Strategy' | 'Tasks'>('Chat')
   const [cwvDevice, setCwvDevice] = useState<'desktop' | 'mobile'>('desktop')
   const [onboardingData, setOnboardingData] = useState<any>(null)
-  const [mobilePane, setMobilePane] = useState<'grounding' | 'telemetry' | 'cmo'>('telemetry')
+  const [mobilePane, setMobilePane] = useState<'grounding' | 'telemetry' | 'fleet' | 'cmo'>('telemetry')
+  const [isShortcutsModalOpen, setIsShortcutsModalOpen] = useState(false)
+  const [activeExecution, setActiveExecution] = useState<AgentExecutionState | null>(null)
   
   // Interactive Agent Runner State
   const [selectedAgent, setSelectedAgent] = useState<any>(null)
@@ -76,6 +83,7 @@ export default function AIWorkspace() {
   const [chatInput, setChatInput] = useState('')
   const [isChatLoading, setIsChatLoading] = useState(false)
   const chatScrollRef = useRef<HTMLDivElement>(null)
+  const chatInputRef = useRef<HTMLTextAreaElement>(null)
   
   // Toast notifications
   const [toastMessage, setToastMessage] = useState<{ type: 'success' | 'error' | 'info', text: string } | null>(null)
@@ -103,14 +111,16 @@ export default function AIWorkspace() {
         
         if (isApi) {
           try {
-            const [runs, agents, approvals, webAnalytics] = await Promise.all([
+            const [runs, agents, approvals, webAnalytics, camps] = await Promise.all([
               agentsProvider.getAgentRuns(),
               agentsProvider.getAgents(),
               ApiClient.get<any[]>('/api/approvals?status=PENDING').catch(() => []),
-              ApiClient.get<any>('/api/dashboard/website-analytics').catch(() => null)
+              ApiClient.get<any>('/api/dashboard/website-analytics').catch(() => null),
+              ApiClient.get<any[]>('/api/campaigns/').catch(() => [])
             ])
             setAgentRuns(runs || [])
             setAgentsList(agents || [])
+            setCampaigns(camps || [])
             if (approvals && Array.isArray(approvals)) {
               setPendingApprovals(approvals)
               setApprovalsCount(approvals.length)
@@ -133,6 +143,52 @@ export default function AIWorkspace() {
       chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight
     }
   }, [chatMessages, isChatLoading])
+
+  // Global Keyboard Shortcuts Listener
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const activeEl = document.activeElement
+      const isEditing = activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || activeEl.getAttribute('contenteditable') === 'true')
+
+      // Cmd+J or Ctrl+J to focus AI CMO chat
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'j') {
+        e.preventDefault()
+        setMobilePane('cmo')
+        chatInputRef.current?.focus()
+        return
+      }
+
+      // Ignore single key navigation shortcuts while the user is actively typing in inputs
+      if (isEditing) return
+
+      if (e.key === '?') {
+        e.preventDefault()
+        setIsShortcutsModalOpen(prev => !prev)
+      } else if (e.key === '1') {
+        e.preventDefault()
+        setMobilePane('grounding')
+      } else if (e.key === '2') {
+        e.preventDefault()
+        setMobilePane('telemetry')
+      } else if (e.key === '3') {
+        e.preventDefault()
+        setMobilePane('fleet')
+      } else if (e.key === '4') {
+        e.preventDefault()
+        setMobilePane('cmo')
+        chatInputRef.current?.focus()
+      } else if (e.key.toLowerCase() === 'a') {
+        e.preventDefault()
+        setIsFastApprovalOpen(true)
+      } else if (e.key.toLowerCase() === 's') {
+        e.preventDefault()
+        setIsSprintModalOpen(true)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   const showToast = (text: string, type: 'success' | 'error' | 'info' = 'success') => {
     setToastMessage({ text, type })
@@ -337,42 +393,57 @@ export default function AIWorkspace() {
     <div className="flex flex-col xl:flex-row w-full h-full xl:divide-x divide-[#373333] relative overflow-hidden">
       
       {/* Mobile/Tablet Sub-Pane Switcher (< xl) */}
-      <div className="xl:hidden flex items-center justify-between bg-[#191717] border-b border-[#373333] px-2.5 py-1.5 shrink-0 z-30">
-        <div className="flex items-center gap-1.5 w-full">
+      <div className="xl:hidden flex items-center justify-between bg-[#191717] border-b border-[#373333] px-2 py-1.5 shrink-0 z-30">
+        <div className="grid grid-cols-4 gap-1 w-full">
           <button
             onClick={() => setMobilePane('grounding')}
-            className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 ${
+            className={`py-1.5 px-1 rounded-lg text-[10.5px] font-bold transition-all flex items-center justify-center gap-1 ${
               mobilePane === 'grounding'
                 ? 'bg-[#8F0028] text-white shadow-sm'
                 : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
             }`}
           >
-            <Layers className="w-3.5 h-3.5 shrink-0" />
-            <span className="truncate">1. Grounding</span>
+            <Layers className="w-3 h-3 shrink-0" />
+            <span className="truncate">1. Ground</span>
           </button>
           
           <button
             onClick={() => setMobilePane('telemetry')}
-            className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 ${
+            className={`py-1.5 px-1 rounded-lg text-[10.5px] font-bold transition-all flex items-center justify-center gap-1 ${
               mobilePane === 'telemetry'
                 ? 'bg-[#8F0028] text-white shadow-sm'
                 : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
             }`}
           >
-            <BarChart2 className="w-3.5 h-3.5 shrink-0" />
+            <BarChart2 className="w-3 h-3 shrink-0" />
             <span className="truncate">2. Telemetry</span>
           </button>
 
           <button
+            onClick={() => setMobilePane('fleet')}
+            className={`py-1.5 px-1 rounded-lg text-[10.5px] font-bold transition-all flex items-center justify-center gap-1 relative ${
+              mobilePane === 'fleet'
+                ? 'bg-[#8F0028] text-white shadow-sm'
+                : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
+            }`}
+          >
+            <Bot className="w-3 h-3 shrink-0" />
+            <span className="truncate">3. Fleet</span>
+            {approvalsCount > 0 && (
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0" />
+            )}
+          </button>
+
+          <button
             onClick={() => setMobilePane('cmo')}
-            className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all flex items-center justify-center gap-1.5 ${
+            className={`py-1.5 px-1 rounded-lg text-[10.5px] font-bold transition-all flex items-center justify-center gap-1 ${
               mobilePane === 'cmo'
                 ? 'bg-[#8F0028] text-white shadow-sm'
                 : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5 shrink-0" />
-            <span className="truncate">3. AI CMO</span>
+            <Sparkles className="w-3 h-3 shrink-0" />
+            <span className="truncate">4. AI CMO</span>
           </button>
         </div>
       </div>
@@ -405,12 +476,6 @@ export default function AIWorkspace() {
           <div className="flex items-center gap-2 text-white font-bold text-[13px]">
             <Layers className="w-4 h-4 text-[#E5E7EB]" />
             <span>Context</span>
-            <span 
-              className="text-[9.5px] font-semibold text-white bg-[#262323] border border-[#3E3838] px-2 py-0.5 rounded-full"
-              title="Step 1: Your company knowledge base & brand grounding"
-            >
-              Step 1: Grounding
-            </span>
           </div>
           <button 
             onClick={() => { setActiveNav('Analytics'); setMobilePane('telemetry') }}
@@ -424,6 +489,7 @@ export default function AIWorkspace() {
           {/* Workspace Card */}
           <div 
             onClick={() => setActiveNav('Business Overview')}
+            data-hover-group="true"
             className="bg-[#242222] border border-[#373333] rounded-xl p-3 flex items-center gap-3 relative group hover:border-[#8F0028]/50 transition-colors cursor-pointer"
           >
             <div className="h-10 w-10 bg-white rounded-lg flex items-center justify-center shrink-0 shadow-sm overflow-hidden">
@@ -432,8 +498,14 @@ export default function AIWorkspace() {
                </div>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[14px] font-bold text-white truncate">{activeBrand?.name || 'Workspace Brand'}</p>
-              <p className="text-[11px] text-[#E5E7EB] truncate">{activeBrand?.category || brandBrain?.brand?.category || 'Active Brand'} • {activeBrand?.website_url ? activeBrand.website_url.replace(/^https?:\/\//,'') : 'Configure domain'}</p>
+              <HoverScrollText 
+                text={activeBrand?.name || 'Workspace Brand'} 
+                className="text-[14px] font-bold text-white block" 
+              />
+              <HoverScrollText 
+                text={`${activeBrand?.category || brandBrain?.brand?.category || 'Active Brand'} • ${activeBrand?.website_url ? activeBrand.website_url.replace(/^https?:\/\//,'') : 'Configure domain'}`} 
+                className="text-[11px] text-[#E5E7EB] block" 
+              />
             </div>
             <button className="text-[#E5E7EB] opacity-0 group-hover:opacity-100 hover:text-white transition-all absolute right-2 top-2">
               <Settings className="w-3.5 h-3.5" />
@@ -531,21 +603,28 @@ export default function AIWorkspace() {
               )}
             </div>
             
-            {kbDocuments && kbDocuments.length > 0 ? (
+            {isGeneratingDoc ? (
+              <div className="space-y-1.5 px-2 py-1">
+                <DocumentItemSkeleton />
+                <DocumentItemSkeleton />
+                <DocumentItemSkeleton />
+              </div>
+            ) : kbDocuments && kbDocuments.length > 0 ? (
               kbDocuments.slice(0, 6).map(doc => {
                 const cleanTitle = doc.name.replace(/\.md$/, '').replace(/\.pdf$/, '')
                 const isSelected = activeNav === doc.name || activeNav === cleanTitle
                 return (
                   <div 
                     key={doc.id || doc.name} 
+                    data-hover-group="true"
                     onClick={() => { setActiveNav(doc.name); setMobilePane('telemetry') }}
                     className={`flex items-center justify-between px-3 py-1.5 cursor-pointer transition-colors ${
                       isSelected ? 'text-white bg-[#2A2828] rounded-lg border-l-2 border-[#8F0028]' : 'text-[#E5E7EB] hover:text-white'
                     }`}
                   >
-                    <div className="flex items-center gap-2 truncate">
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
                       <FileText className={`w-3.5 h-3.5 shrink-0 ${isSelected ? 'text-[#8F0028]' : ''}`} />
-                      <span className="text-[13px] font-medium truncate">{cleanTitle}</span>
+                      <HoverScrollText text={cleanTitle} className="text-[13px] font-medium block" />
                     </div>
                   </div>
                 )
@@ -582,14 +661,15 @@ export default function AIWorkspace() {
               competitorsList.map((comp: string, idx: number) => (
                 <div 
                   key={`${comp}-${idx}`} 
+                  data-hover-group="true"
                   onClick={() => { setActiveNav(comp); setMobilePane('telemetry') }}
                   className={`flex items-center justify-between px-3 py-1.5 group cursor-pointer transition-colors ${
                     activeNav === comp ? 'text-white bg-[#2A2828] rounded-lg border-l-2 border-[#8F0028]' : 'text-[#E5E7EB] hover:text-white'
                   }`}
                 >
-                  <div className="flex items-center gap-2 truncate">
+                  <div className="flex items-center gap-2 min-w-0 flex-1">
                     <CompetitorLogo name={comp} className="w-4 h-4 shrink-0 rounded" size={16} />
-                    <span className="text-[13px] font-medium truncate">{comp}</span>
+                    <HoverScrollText text={comp} className="text-[13px] font-medium block" />
                   </div>
                 </div>
               ))
@@ -680,13 +760,7 @@ export default function AIWorkspace() {
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2 text-white font-bold text-[13px]">
                   <BarChart2 className="w-4 h-4 text-[#E5E7EB]" />
-                  <span>Analytics</span>
-                  <span 
-                    className="text-[9.5px] font-semibold text-white bg-[#262323] border border-[#3E3838] px-2 py-0.5 rounded-full"
-                    title="Step 2: Real-time Lighthouse speed & SEO telemetry"
-                  >
-                    Step 2: Live Telemetry
-                  </span>
+                  <span>Telemetry & Overview</span>
                 </div>
                 <div className="h-1.5 w-1.5 rounded-full bg-[#00A650]"></div>
               </div>
@@ -725,7 +799,13 @@ export default function AIWorkspace() {
               
               {/* Daily 8:00 AM IST Executive AI CMO Pulse */}
               <MorningBriefingCard onActionTriggered={(type) => {
-                showToast(`Executive action '${type}' dispatched to autonomous loop`, 'success')
+                setActiveExecution({
+                  agentId: type === 'sprint' ? 'autonomous-sprint' : 'cmo-pulse-agent',
+                  agentName: type === 'sprint' ? 'Autonomous Sprint Agent' : 'Executive AI Pulse Dispatcher',
+                  category: 'EXECUTIVE',
+                  taskDescription: `Autonomous execution for morning pulse directive: ${type}`
+                })
+                showToast(`Executive action '${type}' dispatched to autonomous telemetry drawer`, 'success')
               }} />
 
               {/* TAB 0: REVENUE ATTRIBUTION, FUNNEL & AUTONOMOUS ACTION LOOP */}
@@ -744,11 +824,13 @@ export default function AIWorkspace() {
                       return (
                         <div 
                           key={kpi.label} 
+                          data-hover-group="true"
                           className="bg-[#201D1D] border border-[#332E2E] rounded-xl p-4 hover:border-[#4A4444] transition-all flex flex-col justify-between shadow-sm min-h-[96px]"
                         >
-                          <h3 className="text-[11px] font-semibold text-[#E5E7EB] uppercase tracking-wider mb-2 truncate" title={kpi.label}>
-                            {kpi.label}
-                          </h3>
+                          <HoverScrollText
+                            text={kpi.label}
+                            className="text-[11px] font-semibold text-[#E5E7EB] uppercase tracking-wider block mb-2"
+                          />
                           <div className="space-y-1 mt-auto">
                             <div className={`text-[20px] font-bold leading-tight ${isNotConfigured || isNoData ? 'text-[#E5E7EB]' : 'text-white'}`}>
                               {isNotConfigured ? '—' : isNoData ? '0' : kpi.value}
@@ -778,15 +860,72 @@ export default function AIWorkspace() {
                     })}
                   </div>
 
-                  {/* Interactive Multi-Touch Attribution Funnel Visualizer */}
-                  <AttributionFunnelVisualizer />
+                  {/* Active Campaigns Showcase - ONLY render when real campaigns exist */}
+                  {campaigns && campaigns.length > 0 && (
+                    <div className="bg-[#201D1D] border border-[#332E2E] rounded-xl p-4 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Target className="w-4 h-4 text-[#00A650]" />
+                          <h3 className="text-[13px] font-bold text-white">Active Campaigns</h3>
+                          <span className="px-2 py-0.5 rounded-full bg-[#00A650]/15 text-[#00A650] text-[10px] font-bold border border-[#00A650]/30">
+                            {campaigns.filter(c => c.status === 'ACTIVE' || c.status === 'RUNNING').length} Active
+                          </span>
+                        </div>
+                        <Link 
+                          href="/app/campaigns"
+                          className="text-[11px] font-semibold text-white hover:underline flex items-center gap-1 group"
+                        >
+                          <span>View All</span>
+                          <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+                        </Link>
+                      </div>
 
-                  {/* Dynamic Autonomous Marketing Loop Next Best Actions */}
-                  <NextBestActionFeed 
-                    onExecuteAction={(act) => {
-                      handleSendMessage(`Execute recommendation: ${act.title}. Target impact: ${act.projectedImpact}.`)
-                    }}
-                  />
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+                        {campaigns.slice(0, 3).map((camp: any, idx: number) => (
+                          <Link 
+                            key={camp.id || idx} 
+                            href="/app/campaigns"
+                            className="p-3 rounded-lg bg-[#181616] border border-[#2B2727] hover:border-[#443E3E] transition-all flex flex-col justify-between group"
+                          >
+                            <div className="flex items-start justify-between gap-1 mb-2">
+                              <span className="text-[12px] font-bold text-white group-hover:text-white transition-colors truncate">
+                                {camp.name}
+                              </span>
+                              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded border uppercase shrink-0 text-[#00A650] bg-[#00A650]/10 border-[#00A650]/30">
+                                {camp.status || 'ACTIVE'}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between text-[11px] text-[#A09898] mt-1">
+                              <span className="font-semibold text-white">
+                                {camp.budget ? `₹${camp.budget.toLocaleString()}` : 'Configured'}
+                              </span>
+                              <span className="text-[10px]">{camp.channels?.join(' · ') || camp.type || 'Campaign'}</span>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Multi-Touch Attribution Funnel - ONLY render when real GA4 telemetry is available */}
+                  {websiteAnalytics?.ga4?.status === 'AVAILABLE' && (
+                    <AttributionFunnelVisualizer />
+                  )}
+
+                  {/* Dynamic Autonomous Marketing Loop Next Best Actions - ONLY render when real opportunities exist */}
+                  {dataModel?.opportunities && dataModel.opportunities.length > 0 && (
+                    <NextBestActionFeed 
+                      onExecuteAction={(act) => {
+                        setActiveExecution({
+                          agentId: act.id || 'growth-agent',
+                          agentName: act.agentName || act.title,
+                          category: act.category || 'GROWTH',
+                          taskDescription: `${act.title} - ${act.projectedImpact}`
+                        })
+                        showToast(`Triggered execution telemetry for: ${act.title}`, 'info')
+                      }}
+                    />
+                  )}
                 </>
               )}
 
@@ -1259,19 +1398,13 @@ export default function AIWorkspace() {
       {/* ========================================================= */}
       {/* COLUMN 3: AGENTS FEED */}
       {/* ========================================================= */}
-      <div className="w-[300px] lg:w-[320px] shrink-0 flex flex-col h-full bg-[#1C1A1A] border-r border-[#373333] shadow-[4px_0_24px_rgba(0,0,0,0.5)] z-20 overflow-hidden relative">
+      <div className={`${mobilePane === 'fleet' ? 'flex' : 'hidden'} xl:flex w-full xl:w-[300px] 2xl:w-[320px] shrink-0 flex-col h-full bg-[#1C1A1A] border-r border-[#373333] shadow-[4px_0_24px_rgba(0,0,0,0.5)] z-20 overflow-hidden relative`}>
         
         {/* Header */}
         <div className="px-4 py-3 flex items-center justify-between border-b border-[#373333] shrink-0">
           <div className="flex items-center gap-2 text-white font-bold text-[13px]">
             <Bot className="w-4 h-4 text-[#E5E7EB]" />
             <span>Agents Feed</span>
-            <span 
-              className="text-[9.5px] font-semibold text-white bg-[#262323] border border-[#3E3838] px-2 py-0.5 rounded-full"
-              title="Step 4: Autonomous agents execution & approvals queue"
-            >
-              Step 4: AI Fleet
-            </span>
             <div className="h-1.5 w-1.5 rounded-full bg-[#00A650] ml-0.5"></div>
           </div>
           <div className="flex items-center gap-2">
@@ -1288,14 +1421,6 @@ export default function AIWorkspace() {
               Active
             </div>
           </div>
-        </div>
-
-        {/* Quick Instructions Callout for Column 3 */}
-        <div className="px-3.5 py-2.5 bg-[#242222] border-b border-[#373333] text-[11px] text-[#E5E7EB] flex items-start gap-2 shrink-0">
-          <Sparkles className="w-3.5 h-3.5 text-white shrink-0 mt-0.5" />
-          <span className="leading-tight">
-            15 specialized agents execute marketing tasks. Generated drafts arrive in <strong className="text-white">Needs Your Attention</strong>.
-          </span>
         </div>
 
         <div className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-6">
@@ -1491,7 +1616,14 @@ export default function AIWorkspace() {
                  return (
                  <div 
                    key={agentId || i} 
-                   onClick={() => setSelectedAgent(agent)}
+                   onClick={() => {
+                     setActiveExecution({
+                       agentId: agentId || 'agent',
+                       agentName: agent.name,
+                       category: agentCategoryFilter === 'ALL' ? 'MARKETING FLEET' : agentCategoryFilter,
+                       taskDescription: agent.status || `Autonomous specialized execution for ${agent.name}`
+                     })
+                   }}
                    className={`flex items-center gap-3 p-3 rounded-xl hover:bg-[#242222] transition-colors border cursor-pointer group ${
                      isExecuting ? 'bg-[#29171C] border-[#8F0028] shadow-md shadow-[#8F0028]/20' : 'border-transparent hover:border-[#373333]'
                    }`}
@@ -1508,9 +1640,10 @@ export default function AIWorkspace() {
                        <h4 className="text-[13px] font-bold text-white group-hover:text-white transition-colors">{agent.name}</h4>
                        <span className="text-[10px] text-[#E5E7EB]">{displayTime}</span>
                      </div>
-                     <p className={`text-[11px] truncate font-medium mt-0.5 ${isExecuting ? 'text-white font-bold' : 'text-[#E5E7EB]'}`}>
-                       {isExecuting ? 'Executing autonomous task...' : displayStatus}
-                     </p>
+                     <HoverScrollText 
+                       text={isExecuting ? 'Executing autonomous task...' : displayStatus}
+                       className={`text-[11px] font-medium mt-0.5 block ${isExecuting ? 'text-white font-bold' : 'text-[#E5E7EB]'}`}
+                     />
                    </div>
                    <div className="hidden group-hover:flex items-center gap-1 shrink-0 bg-[#8F0028]/20 border border-[#8F0028] rounded px-1.5 py-0.5 text-[9px] font-bold text-white">
                      {isExecuting ? 'Running...' : <>Run <Play className="w-2.5 h-2.5 ml-0.5" /></>}
@@ -1619,14 +1752,8 @@ export default function AIWorkspace() {
         {/* Header */}
         <div className="px-4 py-3 flex items-center justify-between border-b border-[#373333] shrink-0 bg-[#1C1A1A]">
           <div className="flex items-center gap-2 text-white font-bold text-[13px]">
-            <Sparkles className="w-4 h-4 text-[#8F0028]" />
+            <Sparkles className="w-4 h-4 text-[#800020]" />
             <span>AI CMO</span>
-            <span 
-              className="text-[9.5px] font-semibold text-white bg-[#262323] border border-[#3E3838] px-2 py-0.5 rounded-full"
-              title="Step 3: Strategic guidance & 30-day playbooks"
-            >
-              Step 3: Strategic Advisor
-            </span>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5">
@@ -1679,36 +1806,50 @@ export default function AIWorkspace() {
               {/* Initial AI Insights Message */}
               <div className="bg-[#242222] border border-[#373333] rounded-2xl rounded-tl-sm p-4 text-[13px] text-white leading-relaxed shadow-sm max-w-[95%]">
                 <p className="mb-2">Hi, I'm your AI CMO.</p>
-                <p className="mb-3 text-[#E5E7EB]">I've analyzed <span className="font-bold text-white">{activeBrand?.website_url ? activeBrand.website_url.replace(/^https?:\/\//,'') : (activeBrand?.name || 'your business')}</span> and configured your Brand Brain.</p>
+                <p className="mb-3 text-[#E5E7EB]">
+                  {activeBrand?.website_url ? (
+                    <>I've initialized your workspace for <span className="font-bold text-white">{activeBrand.name || 'your business'}</span> with domain <span className="text-white font-semibold">{activeBrand.website_url.replace(/^https?:\/\//,'')}</span>.</>
+                  ) : (
+                    <>I've initialized your workspace for <span className="font-bold text-white">{activeBrand?.name || 'your business'}</span>.</>
+                  )}
+                </p>
                 
-                <p className="font-bold mb-2 text-[12px] uppercase text-[#E5E7EB]">3 Key Intelligence Insights:</p>
-                
-                <div className="space-y-2.5 mb-4">
-                   <div className="flex items-start gap-2.5">
-                     <div className="w-5 h-5 rounded-full bg-[#8F0028]/20 text-white flex items-center justify-center shrink-0 text-[10px] font-bold mt-0.5">1</div>
-                     <p className="text-[12px] font-medium">SEO & positioning signals indexed for {activeBrand?.name || 'your brand'}.</p>
-                   </div>
-                   <div className="flex items-start gap-2.5">
-                     <div className="w-5 h-5 rounded-full bg-[#8F0028]/20 text-white flex items-center justify-center shrink-0 text-[10px] font-bold mt-0.5">2</div>
-                     <p className="text-[12px] font-medium">
-                       {brandBrain?.competitors && brandBrain.competitors.length > 0 
-                         ? `Competitors (${brandBrain.competitors.slice(0, 2).map((c: any) => c.name).join(', ')}) monitored for positioning gaps.`
-                         : `Add competitors in Brand Brain to benchmark against direct alternatives.`
-                       }
-                     </p>
-                   </div>
-                   <div className="flex items-start gap-2.5">
-                     <div className="w-5 h-5 rounded-full bg-[#8F0028]/20 text-white flex items-center justify-center shrink-0 text-[10px] font-bold mt-0.5">3</div>
-                     <p className="text-[12px] font-medium">
-                       {brandBrain?.audiences?.[0]?.pain_points 
-                         ? `Top audience pain point identified: "${brandBrain.audiences[0].pain_points.slice(0, 60)}..."`
-                         : `Audience & ICP targeting primed for ${brandBrain?.audiences?.[0]?.name || activeBrand?.name || 'your market'}.`
-                       }
-                     </p>
-                   </div>
-                </div>
+                {/* Only show real signals that actually exist - no hallucinations */}
+                {((brandBrain?.competitors && brandBrain.competitors.length > 0) || 
+                  (brandBrain?.audiences?.[0]?.pain_points) || 
+                  (activeBrand?.website_url && analysis?.status === 'COMPLETED')) && (
+                  <>
+                    <p className="font-bold mb-2 text-[12px] uppercase text-[#E5E7EB]">Configured Signals:</p>
+                    <div className="space-y-2.5 mb-4">
+                      {activeBrand?.website_url && analysis?.status === 'COMPLETED' && (
+                        <div className="flex items-start gap-2.5">
+                          <div className="w-5 h-5 rounded-full bg-[#8F0028]/20 text-white flex items-center justify-center shrink-0 text-[10px] font-bold mt-0.5">•</div>
+                          <p className="text-[12px] font-medium">Domain SEO and architectural signals analyzed.</p>
+                        </div>
+                      )}
+                      {brandBrain?.competitors && brandBrain.competitors.length > 0 && (
+                        <div className="flex items-start gap-2.5">
+                          <div className="w-5 h-5 rounded-full bg-[#8F0028]/20 text-white flex items-center justify-center shrink-0 text-[10px] font-bold mt-0.5">•</div>
+                          <p className="text-[12px] font-medium">
+                            Monitoring competitors: {brandBrain.competitors.map((c: any) => c.name).join(', ')}.
+                          </p>
+                        </div>
+                      )}
+                      {brandBrain?.audiences?.[0]?.pain_points && (
+                        <div className="flex items-start gap-2.5">
+                          <div className="w-5 h-5 rounded-full bg-[#8F0028]/20 text-white flex items-center justify-center shrink-0 text-[10px] font-bold mt-0.5">•</div>
+                          <p className="text-[12px] font-medium">
+                            Target audience pain point: "{brandBrain.audiences[0].pain_points}".
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
 
-                <p className="text-[#E5E7EB] text-[12px] mb-3">I recommend we review your 30-day growth strategy and approve generated drafts.</p>
+                <p className="text-[#E5E7EB] text-[12px] mb-3">
+                  Ask me any strategic question or trigger specialized agents to write content, audit positioning, or draft campaigns.
+                </p>
                 
                 <button 
                   onClick={() => setIsRecommendationModalOpen(true)}
@@ -1750,14 +1891,15 @@ export default function AIWorkspace() {
                    ].map((s, i) => (
                      <div 
                        key={i} 
+                       data-hover-group="true"
                        onClick={() => handleSendMessage(s.text)}
                        className="flex items-center justify-between p-2 rounded-xl border border-[#373333] bg-[#1C1A1A] hover:bg-[#242222] transition-colors cursor-pointer group"
                      >
-                       <div className="flex items-center gap-2 min-w-0">
+                       <div className="flex items-center gap-2 min-w-0 flex-1">
                          <s.icon className="w-3.5 h-3.5 text-[#E5E7EB] shrink-0 group-hover:text-[#8F0028]" />
-                         <span className="text-[11.5px] font-medium text-white truncate">{s.text}</span>
+                         <HoverScrollText text={s.text} className="text-[11.5px] font-medium text-white block" />
                        </div>
-                       <ArrowRight className="w-3 h-3 text-[#E5E7EB] opacity-0 group-hover:opacity-100 shrink-0 transition-opacity" />
+                       <ArrowRight className="w-3 h-3 text-[#E5E7EB] opacity-0 group-hover:opacity-100 shrink-0 transition-opacity ml-1.5" />
                      </div>
                    ))}
                 </div>
@@ -1769,6 +1911,7 @@ export default function AIWorkspace() {
             <div className="p-3 border-t border-[#373333] bg-[#1C1A1A] shrink-0">
               <div className="relative bg-[#242222] border border-[#373333] rounded-2xl p-2 pb-9 transition-colors focus-within:border-[#8F0028]">
                 <textarea 
+                  ref={chatInputRef}
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
                   onKeyDown={(e) => {
@@ -1777,7 +1920,7 @@ export default function AIWorkspace() {
                       handleSendMessage()
                     }
                   }}
-                  placeholder="Ask me anything..." 
+                  placeholder="Ask AI CMO anything... (⌘J / Ctrl+J to focus)" 
                   className="w-full bg-transparent resize-none outline-none text-[12.5px] text-white placeholder:text-[#E5E7EB] p-1.5 h-[38px] custom-scrollbar"
                 />
                 
@@ -1929,6 +2072,93 @@ export default function AIWorkspace() {
         })()}
 
       </div>
+
+      {/* Live Real-time Autonomous Agent Execution Telemetry Drawer */}
+      <AgentExecutionDrawer 
+        execution={activeExecution} 
+        onClose={() => setActiveExecution(null)}
+        onOpenApprovals={() => setIsFastApprovalOpen(true)}
+      />
+
+      {/* Global Keyboard Shortcuts Cheatsheet Modal */}
+      <KeyboardShortcutsModal 
+        isOpen={isShortcutsModalOpen} 
+        onClose={() => setIsShortcutsModalOpen(false)} 
+      />
+
+      {/* ========================================================= */}
+      {/* MOBILE ERGONOMIC FLOATING BOTTOM DOCK */}
+      {/* ========================================================= */}
+      <nav 
+        aria-label="Mobile Ergonomic Bottom Dock"
+        className="fixed bottom-3 inset-x-3 z-40 xl:hidden bg-[#1C1A1A]/95 backdrop-blur-lg border border-[#373333] rounded-2xl shadow-2xl p-1.5 flex items-center justify-between"
+      >
+        <button
+          onClick={() => setMobilePane('grounding')}
+          className={`flex-1 py-2 px-1 rounded-xl text-[11px] font-bold transition-all flex flex-col items-center justify-center gap-1 active:scale-95 ${
+            mobilePane === 'grounding'
+              ? 'bg-[#8F0028] text-white shadow-md shadow-[#8F0028]/30'
+              : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
+          }`}
+        >
+          <Layers className="w-4 h-4 shrink-0" />
+          <span className="truncate text-[10px]">Context</span>
+        </button>
+
+        <button
+          onClick={() => setMobilePane('telemetry')}
+          className={`flex-1 py-2 px-1 rounded-xl text-[11px] font-bold transition-all flex flex-col items-center justify-center gap-1 active:scale-95 ${
+            mobilePane === 'telemetry'
+              ? 'bg-[#8F0028] text-white shadow-md shadow-[#8F0028]/30'
+              : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
+          }`}
+        >
+          <BarChart2 className="w-4 h-4 shrink-0" />
+          <span className="truncate text-[10px]">Telemetry</span>
+        </button>
+
+        <button
+          onClick={() => setMobilePane('fleet')}
+          className={`flex-1 py-2 px-1 rounded-xl text-[11px] font-bold transition-all flex flex-col items-center justify-center gap-1 relative active:scale-95 ${
+            mobilePane === 'fleet'
+              ? 'bg-[#8F0028] text-white shadow-md shadow-[#8F0028]/30'
+              : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
+          }`}
+        >
+          <div className="relative">
+            <Bot className="w-4 h-4 shrink-0" />
+            {approvalsCount > 0 && (
+              <span className="absolute -top-1 -right-2 px-1 py-0.2 bg-red-500 text-white text-[9px] font-extrabold rounded-full">
+                {approvalsCount}
+              </span>
+            )}
+          </div>
+          <span className="truncate text-[10px]">Fleet</span>
+        </button>
+
+        <button
+          onClick={() => {
+            setMobilePane('cmo')
+            setTimeout(() => chatInputRef.current?.focus(), 100)
+          }}
+          className={`flex-1 py-2 px-1 rounded-xl text-[11px] font-bold transition-all flex flex-col items-center justify-center gap-1 active:scale-95 ${
+            mobilePane === 'cmo'
+              ? 'bg-[#8F0028] text-white shadow-md shadow-[#8F0028]/30'
+              : 'text-[#E5E7EB] hover:text-white hover:bg-[#242222]'
+          }`}
+        >
+          <Sparkles className="w-4 h-4 shrink-0" />
+          <span className="truncate text-[10px]">AI CMO</span>
+        </button>
+
+        <button
+          onClick={() => setIsShortcutsModalOpen(true)}
+          className="p-2 text-[#E5E7EB] hover:text-white hover:bg-[#242222] rounded-xl transition-all active:scale-95 shrink-0"
+          title="Keyboard Shortcuts & Cheatsheet (?)"
+        >
+          <span className="text-[11px] font-mono px-1.5 py-0.5 rounded border border-[#373333] bg-[#242222] text-[#E5E7EB] font-bold">?</span>
+        </button>
+      </nav>
 
     </div>
   )

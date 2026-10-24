@@ -16,6 +16,7 @@ import {
   ShieldCheck,
   RefreshCw
 } from 'lucide-react'
+import { HoverScrollText } from '@/components/ui/HoverScrollText'
 
 interface RoiBudgetSimulatorProps {
   initialMonthlyBudget?: number
@@ -185,11 +186,11 @@ export function RoiBudgetSimulator({
             </h4>
 
             {/* SEO & GEO Content */}
-            <div className="space-y-1.5">
+            <div className="space-y-1.5" data-hover-group="true">
               <div className="flex items-center justify-between text-xs gap-2">
-                <span className="text-white font-medium flex items-center gap-1.5 min-w-0 truncate">
+                <span className="text-white font-medium flex items-center gap-1.5 min-w-0 flex-1">
                   <span className="w-2 h-2 rounded-full bg-white shrink-0" />
-                  <span className="truncate">SEO & AI Generative Engine Optimization (GEO)</span>
+                  <HoverScrollText text="SEO & AI Generative Engine Optimization (GEO)" className="text-white font-medium block" />
                 </span>
                 <span className="font-mono text-white font-bold shrink-0">{allocations.seo}% (₹{(metrics.seoBudget).toLocaleString('en-IN')})</span>
               </div>
@@ -204,11 +205,11 @@ export function RoiBudgetSimulator({
             </div>
 
             {/* Google Search Ads */}
-            <div className="space-y-1.5">
+            <div className="space-y-1.5" data-hover-group="true">
               <div className="flex items-center justify-between text-xs gap-2">
-                <span className="text-white font-medium flex items-center gap-1.5 min-w-0 truncate">
+                <span className="text-white font-medium flex items-center gap-1.5 min-w-0 flex-1">
                   <span className="w-2 h-2 rounded-full bg-white shrink-0" />
-                  <span className="truncate">High-Intent Google Search Ads</span>
+                  <HoverScrollText text="High-Intent Google Search Ads" className="text-white font-medium block" />
                 </span>
                 <span className="font-mono text-white font-bold shrink-0">{allocations.googleAds}% (₹{(metrics.googleBudget).toLocaleString('en-IN')})</span>
               </div>
@@ -223,11 +224,11 @@ export function RoiBudgetSimulator({
             </div>
 
             {/* Meta & LinkedIn Paid */}
-            <div className="space-y-1.5">
+            <div className="space-y-1.5" data-hover-group="true">
               <div className="flex items-center justify-between text-xs gap-2">
-                <span className="text-white font-medium flex items-center gap-1.5 min-w-0 truncate">
+                <span className="text-white font-medium flex items-center gap-1.5 min-w-0 flex-1">
                   <span className="w-2 h-2 rounded-full bg-[#8F0028] shrink-0" />
-                  <span className="truncate">Paid Social (LinkedIn & Meta B2B)</span>
+                  <HoverScrollText text="Paid Social (LinkedIn & Meta B2B)" className="text-white font-medium block" />
                 </span>
                 <span className="font-mono text-white font-bold shrink-0">{allocations.paidSocial}% (₹{(metrics.socialBudget).toLocaleString('en-IN')})</span>
               </div>
@@ -242,11 +243,11 @@ export function RoiBudgetSimulator({
             </div>
 
             {/* Community & Thought Leadership */}
-            <div className="space-y-1.5">
+            <div className="space-y-1.5" data-hover-group="true">
               <div className="flex items-center justify-between text-xs gap-2">
-                <span className="text-white font-medium flex items-center gap-1.5 min-w-0 truncate">
+                <span className="text-white font-medium flex items-center gap-1.5 min-w-0 flex-1">
                   <span className="w-2 h-2 rounded-full bg-[#8F0028] shrink-0" />
-                  <span className="truncate">Community & Founder Thought Leadership</span>
+                  <HoverScrollText text="Community & Founder Thought Leadership" className="text-white font-medium block" />
                 </span>
                 <span className="font-mono text-white font-bold shrink-0">{allocations.community}% (₹{(metrics.communityBudget).toLocaleString('en-IN')})</span>
               </div>

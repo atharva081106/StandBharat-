@@ -20,45 +20,43 @@ const CHAOS_TOOLS = [
 function ChaosOrb() {
   const r = 160
   return (
-    <div className="scale-[0.72] xs:scale-[0.82] sm:scale-95 md:scale-100 origin-center my-[-45px] sm:my-0">
-      <div className="relative w-[420px] h-[420px] flex items-center justify-center mx-auto">
+    <div className="relative w-[420px] h-[420px] flex items-center justify-center mx-auto">
+      {CHAOS_TOOLS.map((tool) => {
+        const rad = (tool.angle * Math.PI) / 180
+        const x = 50 + (r / 420) * 100 * Math.cos(rad)
+        const y = 50 - (r / 420) * 100 * Math.sin(rad)
+        return (
+          <div
+            key={tool.label}
+            className="absolute bg-white border border-[#E8E4DC] px-3 py-1.5 rounded-lg text-[11px] font-bold text-[#5A5A5A] shadow-sm select-none z-10"
+            style={{ left: `${x}%`, top: `${y}%`, transform: 'translate(-50%,-50%)' }}
+          >
+            {tool.label}
+          </div>
+        )
+      })}
+
+      <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
         {CHAOS_TOOLS.map((tool) => {
           const rad = (tool.angle * Math.PI) / 180
-          const x = 50 + (r / 420) * 100 * Math.cos(rad)
-          const y = 50 - (r / 420) * 100 * Math.sin(rad)
+          const ex = 50 + (r / 420) * 100 * Math.cos(rad)
+          const ey = 50 - (r / 420) * 100 * Math.sin(rad)
           return (
-            <div
+            <line
               key={tool.label}
-              className="absolute bg-white border border-[#E8E4DC] px-3 py-1.5 rounded-lg text-[11px] font-bold text-[#5A5A5A] shadow-sm select-none z-10"
-              style={{ left: `${x}%`, top: `${y}%`, transform: 'translate(-50%,-50%)' }}
-            >
-              {tool.label}
-            </div>
+              x1="50%" y1="50%"
+              x2={`${ex}%`} y2={`${ey}%`}
+              stroke="#D0CCC3" strokeWidth="1.5" strokeDasharray="5 4"
+            />
           )
         })}
+      </svg>
 
-        <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
-          {CHAOS_TOOLS.map((tool) => {
-            const rad = (tool.angle * Math.PI) / 180
-            const ex = 50 + (r / 420) * 100 * Math.cos(rad)
-            const ey = 50 - (r / 420) * 100 * Math.sin(rad)
-            return (
-              <line
-                key={tool.label}
-                x1="50%" y1="50%"
-                x2={`${ex}%`} y2={`${ey}%`}
-                stroke="#D0CCC3" strokeWidth="1.5" strokeDasharray="5 4"
-              />
-            )
-          })}
-        </svg>
-
-        <div className="relative z-20 bg-[#111111] text-white rounded-2xl px-6 sm:px-7 py-4 sm:py-5 text-center shadow-2xl max-w-[180px]">
-          <div className="text-xs font-extrabold uppercase tracking-wider leading-relaxed">
-            YOUR TEAM<br />
-            <span className="text-[#800020]">BECOMES THE</span><br />
-            INTEGRATION LAYER.
-          </div>
+      <div className="relative z-20 bg-[#111111] text-white rounded-2xl px-7 py-5 text-center shadow-2xl max-w-[180px]">
+        <div className="text-xs font-extrabold uppercase tracking-wider leading-relaxed">
+          YOUR TEAM<br />
+          <span className="text-[#800020]">BECOMES THE</span><br />
+          INTEGRATION LAYER.
         </div>
       </div>
     </div>
@@ -67,48 +65,48 @@ function ChaosOrb() {
 
 export function ProblemSection() {
   return (
-    <section className="py-16 sm:py-28 px-4 sm:px-6 lg:px-8 bg-transparent border-t border-[#E8E4DC] overflow-hidden" id="problem">
+    <section className="py-28 px-6 lg:px-8 bg-transparent border-t border-[#E8E4DC]" id="problem">
       <div className="max-w-[1400px] mx-auto">
         <div>
-          <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.22em] text-[#800020] mb-4 sm:mb-8">
+          <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#E5E7EB] mb-8">
             THE PROBLEM
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-24 items-center">
-          <div className="w-full lg:w-[42%] space-y-6 sm:space-y-10">
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+          <div className="w-full lg:w-[42%] space-y-10">
             <div>
-              <h2 className="text-[30px] xs:text-[38px] md:text-[58px] font-extrabold tracking-tight text-[#111111] leading-[1.05]">
+              <h2 className="text-[44px] md:text-[58px] font-extrabold tracking-tight text-[#111111] leading-[1.05]">
                 Marketing wasn&apos;t built<br/>to work this way.
               </h2>
             </div>
             <div>
-              <p className="text-base sm:text-lg text-[#5A5A5A] leading-relaxed max-w-md font-medium">
+              <p className="text-lg text-[#5A5A5A] leading-relaxed max-w-md font-medium">
                 Businesses rely on multiple disconnected tools, manual processes and scattered data. Teams spend more time coordinating marketing than driving growth.
               </p>
             </div>
             <div>
-              <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-6 sm:pt-8 border-t border-[#E8E4DC]">
+              <div className="grid grid-cols-3 gap-6 pt-8 border-t border-[#E8E4DC]">
                 <div>
-                  <div className="text-[26px] sm:text-[36px] font-extrabold text-[#111111] leading-none mb-1 sm:mb-2">10+</div>
-                  <div className="text-[10px] sm:text-xs font-bold text-[#858585] uppercase tracking-wider">Tools to manage</div>
+                  <div className="text-[36px] font-extrabold text-[#111111] leading-none mb-2">10+</div>
+                  <div className="text-xs font-bold text-[#E5E7EB] uppercase tracking-wider">Tools to manage</div>
                 </div>
                 <div>
-                  <div className="text-[26px] sm:text-[36px] font-extrabold text-[#111111] leading-none mb-1 sm:mb-2">60%</div>
-                  <div className="text-[10px] sm:text-xs font-bold text-[#858585] uppercase tracking-wider">Time coordinating</div>
+                  <div className="text-[36px] font-extrabold text-[#111111] leading-none mb-2">60%</div>
+                  <div className="text-xs font-bold text-[#E5E7EB] uppercase tracking-wider">Time on coordination</div>
                 </div>
                 <div>
-                  <div className="text-[26px] sm:text-[36px] font-extrabold text-[#800020] leading-none mb-1 sm:mb-2">LOWER</div>
-                  <div className="text-[10px] sm:text-xs font-bold text-[#858585] uppercase tracking-wider">Impact</div>
+                  <div className="text-[36px] font-extrabold text-[#800020] leading-none mb-2">LOWER</div>
+                  <div className="text-xs font-bold text-[#E5E7EB] uppercase tracking-wider">Marketing impact</div>
                 </div>
               </div>
-              <p className="text-[10px] text-[#858585] uppercase tracking-widest font-bold mt-6 sm:mt-10">
+              <p className="text-[10px] text-[#E5E7EB] uppercase tracking-widest font-bold mt-10">
                 * Typical marketing workflow
               </p>
             </div>
           </div>
-          <div className="w-full lg:w-[58%] flex justify-center overflow-hidden">
-            <div className="w-full">
-              <div className="bg-white border border-[#E8E4DC] rounded-[24px] sm:rounded-[28px] p-4 sm:p-10 shadow-xl shadow-black/5 w-full flex items-center justify-center min-h-[340px] sm:min-h-[460px] overflow-hidden">
+          <div className="w-full lg:w-[58%] flex justify-center">
+            <div>
+              <div className="bg-white border border-[#E8E4DC] rounded-[28px] p-10 shadow-xl shadow-black/5 w-full flex items-center justify-center min-h-[460px]">
                 <ChaosOrb />
               </div>
             </div>
@@ -136,21 +134,21 @@ export function MarketingLoop() {
   const r = 200
 
   return (
-    <section className="py-16 sm:py-28 px-4 sm:px-6 lg:px-8 bg-white/60 backdrop-blur-sm border-y border-[#E8E4DC] overflow-hidden" id="how-it-works">
-      <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-10 lg:gap-24 items-center">
-        <div className="w-full lg:w-[40%] space-y-6 sm:space-y-8">
+    <section className="py-28 px-6 lg:px-8 bg-white/60 backdrop-blur-sm border-y border-[#E8E4DC]" id="how-it-works">
+      <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+        <div className="w-full lg:w-[40%] space-y-8">
           <div>
-            <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.22em] text-[#800020]">
+            <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#E5E7EB]">
               THE SOLUTION
             </div>
           </div>
           <div>
-            <h2 className="text-[30px] xs:text-[38px] md:text-[58px] font-extrabold tracking-tight text-[#111111] leading-[1.05]">
+            <h2 className="text-[44px] md:text-[58px] font-extrabold tracking-tight text-[#111111] leading-[1.05]">
               One continuous<br/>marketing loop.
             </h2>
           </div>
           <div>
-            <p className="text-base sm:text-lg text-[#5A5A5A] leading-relaxed font-medium">
+            <p className="text-lg text-[#5A5A5A] leading-relaxed font-medium">
               StandBharat connects the entire marketing lifecycle from insight to execution, with an AI CMO orchestrating specialized agents, strategy and decisions.
             </p>
           </div>
@@ -161,25 +159,25 @@ export function MarketingLoop() {
                   key={i}
                   onMouseEnter={() => setActive(i)}
                   onMouseLeave={() => setActive(null)}
-                  className={`flex items-center gap-3 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 cursor-default transition-all duration-200 ${active === i ? 'bg-[#FAF8F3] border border-[#E8E4DC]' : 'border border-transparent'}`}
+                  className={`flex items-center gap-3 rounded-xl px-4 py-2.5 cursor-default transition-all duration-200 ${active === i ? 'bg-[#FAF8F3] border border-[#E8E4DC]' : 'border border-transparent'}`}
                 >
                   <div className={`w-2 h-2 rounded-full shrink-0 transition-colors duration-200 ${active === i ? 'bg-[#800020]' : 'bg-[#D0CCC3]'}`}></div>
-                  <span className={`text-xs sm:text-sm font-semibold transition-colors duration-200 ${active === i ? 'text-[#111111]' : 'text-[#858585]'}`}>
+                  <span className={`text-sm font-semibold transition-colors duration-200 ${active === i ? 'text-[#111111]' : 'text-[#E5E7EB]'}`}>
                     {step.label.replace('\n', ' ')}
                   </span>
                 </div>
               ))}
             </div>
-            <Link href="#product" className="inline-block w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto h-12 px-8 text-base bg-[#111111] text-white hover:bg-[#171717] rounded-xl font-semibold mt-4">
+            <Link href="#product">
+              <Button size="lg" className="h-12 px-8 text-base bg-[#111111] text-white hover:bg-[#171717] rounded-xl font-semibold mt-2">
                 See How It Works →
               </Button>
             </Link>
           </div>
         </div>
 
-        <div className="w-full lg:w-[60%] flex justify-center overflow-hidden py-4">
-          <div className="scale-[0.62] xs:scale-[0.72] sm:scale-[0.88] md:scale-100 origin-center my-[-85px] xs:my-[-60px] sm:my-[-25px] md:my-0">
+        <div className="w-full lg:w-[60%] flex justify-center">
+          <div>
             <div className="relative w-[480px] h-[480px] flex items-center justify-center">
               <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 480 480">
                 <circle cx="240" cy="240" r={r} fill="none" stroke="#E8E4DC" strokeWidth="1.5" strokeDasharray="8 6" />
@@ -204,10 +202,10 @@ export function MarketingLoop() {
                   </div>
                 )
               })}
-              <div className="relative z-20 w-28 sm:w-32 h-28 sm:h-32 rounded-full bg-white border-2 border-[#800020] shadow-xl shadow-[#800020]/10 flex flex-col items-center justify-center text-center gap-1 hover:scale-105 transition-transform duration-300 cursor-default">
+              <div className="relative z-20 w-32 h-32 rounded-full bg-white border-2 border-[#800020] shadow-xl shadow-[#800020]/10 flex flex-col items-center justify-center text-center gap-1 hover:scale-105 transition-transform duration-300 cursor-default">
                 <Image src="/logo-icon.png" alt="StandBharat Logo" width={28} height={28} className="object-contain" />
                 <span className="text-xs font-extrabold text-[#111111] tracking-tight leading-tight">StandBharat</span>
-                <span className="text-[9px] text-[#800020] font-semibold uppercase tracking-wider">AI CMO</span>
+                <span className="text-[9px] text-[#E5E7EB] font-semibold uppercase tracking-wider">AI CMO</span>
               </div>
             </div>
           </div>
@@ -260,36 +258,36 @@ const DIFF_CARDS = [
 
 export function DifferentiationSection() {
   return (
-    <section className="py-16 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#111111] text-white">
-      <div className="max-w-[1400px] mx-auto space-y-10 sm:space-y-16">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-8">
-          <div className="space-y-3 sm:space-y-4 max-w-xl">
+    <section className="py-28 px-6 lg:px-8 bg-[#111111] text-white">
+      <div className="max-w-[1400px] mx-auto space-y-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div className="space-y-4 max-w-xl">
             <div>
-              <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.22em] text-[#800020]">
+              <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#E5E7EB]">
                 WHY STANDBHARAT
               </div>
             </div>
             <div>
-              <h2 className="text-[28px] xs:text-[36px] md:text-[52px] font-extrabold tracking-tight leading-[1.05]">
+              <h2 className="text-[40px] md:text-[52px] font-extrabold tracking-tight leading-[1.05]">
                 More than tools.<br/>A smarter way to market.
               </h2>
             </div>
           </div>
           <div>
-            <p className="text-[#A1A1A1] text-base sm:text-lg font-medium max-w-sm leading-relaxed">
+            <p className="text-[#E5E7EB] text-lg font-medium max-w-sm leading-relaxed">
               An AI-native system that thinks, acts, and learns — so your team can focus on what matters.
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {DIFF_CARDS.map((card, i) => (
-            <div key={card.title}>
-              <div className="group p-5 sm:p-8 rounded-[20px] bg-[#181818] border border-white/[0.08] hover:border-[#800020]/60 hover:bg-[#1C1214] transition-all duration-300 cursor-default h-full">
-                <div className="w-10 sm:w-11 h-10 sm:h-11 rounded-xl bg-[#800020]/15 flex items-center justify-center text-[#F5E6E8] mb-5 sm:mb-7 group-hover:bg-[#800020]/25 transition-colors duration-300">
+            <div>
+              <div className="group p-8 rounded-[20px] bg-[#181818] border border-white/[0.08] hover:border-[#800020]/60 hover:bg-[#1C1214] transition-all duration-300 cursor-default h-full">
+                <div className="w-11 h-11 rounded-xl bg-[#800020]/15 flex items-center justify-center text-[#F5E6E8] mb-7 group-hover:bg-[#800020]/25 transition-colors duration-300">
                   {card.icon}
                 </div>
-                <h3 className="text-base font-bold mb-2 sm:mb-3 text-white">{card.title}</h3>
-                <p className="text-xs sm:text-sm text-[#A1A1A1] leading-relaxed font-medium">{card.desc}</p>
+                <h3 className="text-base font-bold mb-3 text-white">{card.title}</h3>
+                <p className="text-sm text-[#E5E7EB] leading-relaxed font-medium">{card.desc}</p>
               </div>
             </div>
           ))}

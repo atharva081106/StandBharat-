@@ -13,6 +13,7 @@ import {
   Gauge
 } from 'lucide-react'
 import { ApiClient } from '@/lib/api/client'
+import { HoverScrollText } from '@/components/ui/HoverScrollText'
 
 interface CWVMetrics {
   lcp: string
@@ -328,10 +329,10 @@ Generated via StandBharat Autonomous Growth Intelligence.`
             <div className="space-y-2">
               <div className="text-[11px] font-bold text-[#E5E7EB] uppercase tracking-wider">Top Optimization Actions</div>
               {auditData.opportunities.map((opp, idx) => (
-                <div key={idx} className="flex flex-wrap items-center justify-between gap-2 p-3 bg-[#1F1C1C] rounded-lg border border-[#302B2B]">
-                  <div className="flex items-center gap-2.5 min-w-0">
+                <div key={idx} data-hover-group="true" className="flex flex-wrap items-center justify-between gap-2 p-3 bg-[#1F1C1C] rounded-lg border border-[#302B2B]">
+                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
                     <div className={`w-2 h-2 rounded-full shrink-0 ${opp.impact === 'HIGH' ? 'bg-red-500' : opp.impact === 'MEDIUM' ? 'bg-amber-500' : 'bg-emerald-500'}`}></div>
-                    <span className="text-[12px] text-white font-medium truncate">{opp.title}</span>
+                    <HoverScrollText text={opp.title} className="text-[12px] text-white font-medium block" />
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
                     <span className="text-[11px] font-bold text-white bg-[#00A650]/10 px-2 py-0.5 rounded">

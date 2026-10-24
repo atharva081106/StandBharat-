@@ -6,9 +6,10 @@ import {
   Search, X, Zap, ArrowRight, LayoutDashboard, 
   Activity, CheckCircle2, FileText, Megaphone, 
   Sparkles, Layers, DollarSign, BarChart2, ShieldCheck, 
-  Users, Command
+  Users, Command, Calendar, Settings, Target, Brain
 } from 'lucide-react'
 import { AgentLogo } from '@/components/agents/AgentLogo'
+import { HoverScrollText } from '@/components/ui/HoverScrollText'
 
 interface CommandPaletteProps {
   isOpen: boolean
@@ -38,14 +39,23 @@ const AGENTS = [
 
 const PAGES = [
   { name: 'Command Center', path: '/app', icon: LayoutDashboard },
+  { name: 'AI CMO Strategist', path: '/app/ai-cmo', icon: Sparkles },
   { name: 'Marketing Agent Fleet (15)', path: '/app/agents', icon: Users },
   { name: 'Agent Execution & Audit Log', path: '/app/agent-log', icon: Activity },
+  { name: 'Marketing Campaigns', path: '/app/campaigns', icon: Megaphone },
+  { name: 'Content Studio & Generator', path: '/app/content', icon: FileText },
   { name: 'Approvals Queue', path: '/app/approvals', icon: CheckCircle2 },
+  { name: 'Autonomous Growth Opportunities', path: '/app/opportunities', icon: Target },
+  { name: 'Brand Brain Knowledge Base', path: '/app/brand-brain', icon: Brain },
+  { name: 'Competitor Radar & Gaps', path: '/app/competitors', icon: Zap },
+  { name: 'Editorial & Marketing Calendar', path: '/app/calendar', icon: Calendar },
+  { name: 'Multi-Agent Autonomous Workflows', path: '/app/workflows', icon: Layers },
+  { name: 'Revenue Attribution & ROI', path: '/app/revenue', icon: DollarSign },
   { name: 'Dedicated Website Analytics', path: '/app/analytics', icon: BarChart2 },
   { name: 'Connected Platforms & Integrations', path: '/app/integrations', icon: Layers },
-  { name: 'Campaigns & Playbooks', path: '/app/campaigns', icon: Megaphone },
-  { name: 'Competitor Radar & Gaps', path: '/app/competitors', icon: Zap },
-  { name: 'Brand Brain Knowledge Base', path: '/app/brand-brain', icon: Sparkles },
+  { name: 'System & Workspace Settings', path: '/app/settings', icon: Settings },
+  { name: 'Subscription, Plan & Invoices', path: '/app/settings/billing', icon: DollarSign },
+  { name: 'Team Members & Permissions', path: '/app/settings/team', icon: Users },
 ]
 
 export function CommandPalette({
@@ -109,21 +119,21 @@ export function CommandPalette({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-6 sm:pt-24 px-2.5 sm:px-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-2xl bg-[#1C1A1A] border border-[#373333] rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 text-white flex flex-col max-h-[80vh]"
+        className="relative w-full max-w-2xl bg-[#1C1A1A] border border-[#373333] rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200 text-white flex flex-col max-h-[85vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Search Bar */}
-        <div className="p-4 border-b border-[#373333] flex items-center gap-3 bg-[#201D1D]">
-          <Search className="w-5 h-5 text-[#E5E7EB] shrink-0" />
+        <div className="p-3 sm:p-4 border-b border-[#373333] flex items-center gap-2.5 sm:gap-3 bg-[#201D1D]">
+          <Search className="w-4 sm:w-5 h-4 sm:h-5 text-[#E5E7EB] shrink-0" />
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search agents, deliverables, pages, or actions... (Cmd+K)"
-            className="flex-1 bg-transparent text-[15px] font-medium text-white placeholder:text-[#E5E7EB] focus:outline-none"
+            placeholder="Search agents, pages, or actions... (⌘K)"
+            className="flex-1 bg-transparent text-xs sm:text-[15px] font-medium text-white placeholder:text-[#E5E7EB] focus:outline-none"
           />
           <div className="flex items-center gap-1.5 shrink-0">
             <span className="text-[10px] font-mono text-[#E5E7EB] bg-[#2A2727] border border-[#3E3838] px-2 py-0.5 rounded">
@@ -228,15 +238,14 @@ export function CommandPalette({
                 {filteredAgents.map((agent) => (
                   <div
                     key={agent.id}
+                    data-hover-group="true"
                     onClick={() => handleSelectAgent(agent.path)}
                     className="px-3 py-2 rounded-xl hover:bg-[#262323] cursor-pointer flex items-center justify-between group transition-colors border border-transparent hover:border-[#373333]"
                   >
-                    <div className="flex items-center gap-3 min-w-0">
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
                       <AgentLogo id={agent.id} name={agent.name} size="sm" showRing={false} />
-                      <div className="min-w-0">
-                        <div className="text-[13px] font-bold text-white group-hover:text-white transition-colors truncate">
-                          {agent.name}
-                        </div>
+                      <div className="min-w-0 flex-1">
+                        <HoverScrollText text={agent.name} className="text-[13px] font-bold text-white group-hover:text-white transition-colors block" />
                         <div className="text-[11px] text-[#E5E7EB] truncate">
                           {agent.category}
                         </div>
@@ -265,13 +274,15 @@ export function CommandPalette({
                   return (
                     <div
                       key={page.path}
+                      data-hover-group="true"
                       onClick={() => handleSelectPage(page.path)}
-                      className="px-3 py-2 rounded-xl hover:bg-[#262323] cursor-pointer flex items-center gap-2.5 group transition-colors border border-transparent hover:border-[#373333]"
+                      className="px-3 py-2 rounded-xl hover:bg-[#262323] cursor-pointer flex items-center gap-2.5 group transition-colors border border-transparent hover:border-[#373333] min-w-0"
                     >
-                      <Icon className="w-4 h-4 text-white group-hover:text-white transition-colors" />
-                      <span className="text-[12px] font-semibold text-white group-hover:text-white transition-colors truncate">
-                        {page.name}
-                      </span>
+                      <Icon className="w-4 h-4 text-white group-hover:text-white transition-colors shrink-0" />
+                      <HoverScrollText 
+                        text={page.name} 
+                        className="text-[12px] font-semibold text-white group-hover:text-white transition-colors block" 
+                      />
                     </div>
                   )
                 })}

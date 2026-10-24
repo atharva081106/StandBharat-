@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -8,7 +9,7 @@ import { ApiClient } from '@/lib/api/client'
 import { useAuth } from '@/lib/providers/MockProvider'
 import { 
   Briefcase, Plus, RefreshCw, AlertCircle, Calendar, 
-  DollarSign, TrendingUp, CheckCircle2, Clock, Play, Pause, BarChart3
+  DollarSign, TrendingUp, CheckCircle2, Clock, Play, Pause, BarChart3, ArrowRight
 } from 'lucide-react'
 import { RoiBudgetSimulator } from '@/components/analytics/RoiBudgetSimulator'
 import { FestiveCampaignEngine } from '@/components/campaigns/FestiveCampaignEngine'
@@ -313,6 +314,16 @@ export default function CampaignsPage() {
                           />
                         </div>
                       ) : null}
+                    </div>
+
+                    <div className="pt-3 border-t border-[#373333] flex justify-end">
+                      <Link 
+                        href={`/app/campaigns/${camp.id}`} 
+                        className="text-xs font-semibold text-white hover:underline inline-flex items-center gap-1 group"
+                      >
+                        <span>View Details</span>
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>

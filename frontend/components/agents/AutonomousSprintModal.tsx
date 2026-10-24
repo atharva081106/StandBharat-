@@ -7,6 +7,7 @@ import {
   ExternalLink, FileText
 } from 'lucide-react'
 import { AgentLogo } from '@/components/agents/AgentLogo'
+import { HoverScrollText } from '@/components/ui/HoverScrollText'
 
 interface AutonomousSprintModalProps {
   isOpen: boolean
@@ -140,20 +141,20 @@ export function AutonomousSprintModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-2xl bg-[#1C1A1A] border border-[#373333] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[88vh] text-white animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-2xl bg-[#1C1A1A] border border-[#373333] rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] sm:max-h-[88vh] text-white animate-in zoom-in-95 duration-200"
         onClick={e => e.stopPropagation()}
       >
         {/* Header Bar */}
-        <div className="px-6 py-4 border-b border-[#373333] flex items-center justify-between bg-[#201D1D] shrink-0">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-black uppercase tracking-wider px-3 py-1 bg-[#8F0028] text-white rounded-full flex items-center gap-1.5">
+        <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-[#373333] flex items-center justify-between bg-[#201D1D] shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+            <span className="text-xs font-black uppercase tracking-wider px-2.5 sm:px-3 py-1 bg-[#8F0028] text-white rounded-full flex items-center gap-1.5">
               <Zap className="w-3.5 h-3.5 fill-current" />
-              Autonomous Marketing Sprint
+              Autonomous Sprint
             </span>
-            <span className="text-xs font-bold text-white bg-[#282424] px-2.5 py-0.5 rounded-full border border-[#3A3535]">
-              {isRunning ? 'Sprint In Progress' : isCompleted ? 'Sprint Completed' : 'Select Campaign Playbook'}
+            <span className="text-[11px] sm:text-xs font-bold text-white bg-[#282424] px-2 sm:px-2.5 py-0.5 rounded-full border border-[#3A3535]">
+              {isRunning ? 'In Progress' : isCompleted ? 'Completed' : 'Select Playbook'}
             </span>
           </div>
 
@@ -166,7 +167,7 @@ export function AutonomousSprintModal({
         </div>
 
         {/* Content Body */}
-        <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-6">
+        <div className="flex-1 overflow-y-auto custom-scrollbar p-3.5 sm:p-6 space-y-4 sm:space-y-6">
           
           {!isRunning && !isCompleted ? (
             <>
@@ -254,6 +255,7 @@ export function AutonomousSprintModal({
                   return (
                     <div
                       key={step.agentId + idx}
+                      data-hover-group="true"
                       className={`p-4 rounded-2xl border transition-all flex items-start gap-3.5 ${
                         isCurrent
                           ? 'bg-[#242222] border-[#8F0028] shadow-md shadow-[#8F0028]/20'
@@ -272,7 +274,7 @@ export function AutonomousSprintModal({
 
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between gap-2">
-                          <h4 className="text-xs font-bold text-white truncate">{step.name}</h4>
+                          <HoverScrollText text={step.name} className="text-xs font-bold text-white block" />
                           <span className="shrink-0 text-[10px] font-bold">
                             {isDone ? (
                               <span className="text-white bg-[#1C1A1A] border border-[#373333] px-2 py-0.5 rounded-full flex items-center gap-1">
@@ -313,19 +315,19 @@ export function AutonomousSprintModal({
         </div>
 
         {/* Footer Bar */}
-        <div className="px-6 py-4 border-t border-[#373333] bg-[#201D1D] flex items-center justify-between gap-4 shrink-0">
+        <div className="px-4 sm:px-6 py-3 sm:py-4 border-t border-[#373333] bg-[#201D1D] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-4 shrink-0 safe-area-pb">
           {!isRunning && !isCompleted ? (
             <>
               <button
                 onClick={onClose}
-                className="px-4 py-2.5 rounded-xl bg-[#282424] hover:bg-[#332E2E] text-white text-xs font-semibold border border-[#3E3838] transition-colors"
+                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#282424] hover:bg-[#332E2E] text-white text-xs font-semibold border border-[#3E3838] transition-colors order-2 sm:order-1"
               >
                 Cancel
               </button>
 
               <button
                 onClick={handleStartSprint}
-                className="px-6 py-2.5 rounded-xl bg-[#8F0028] hover:bg-[#A8002F] text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-[#8F0028]/25 transition-all transform active:scale-95 cursor-pointer"
+                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#8F0028] hover:bg-[#A8002F] text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#8F0028]/25 transition-all transform active:scale-95 cursor-pointer order-1 sm:order-2"
               >
                 <span>Launch Autonomous Sprint</span>
                 <Play className="w-3.5 h-3.5 fill-current" />
@@ -335,16 +337,16 @@ export function AutonomousSprintModal({
             <>
               <button
                 onClick={handleReset}
-                className="px-4 py-2.5 rounded-xl bg-[#282424] hover:bg-[#332E2E] text-white text-xs font-semibold border border-[#3E3838] transition-colors"
+                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#282424] hover:bg-[#332E2E] text-white text-xs font-semibold border border-[#3E3838] transition-colors order-2 sm:order-1"
               >
                 Configure Another Sprint
               </button>
 
               <button
                 onClick={() => { onClose(); onOpenApprovals?.(); }}
-                className="px-6 py-2.5 rounded-xl bg-[#8F0028] hover:bg-[#A8002F] text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-[#8F0028]/30 transition-all cursor-pointer"
+                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#8F0028] hover:bg-[#A8002F] text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#8F0028]/30 transition-all cursor-pointer order-1 sm:order-2"
               >
-                <span>Review Generated Drafts in Queue</span>
+                <span>Review Generated Drafts</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </>
@@ -354,7 +356,7 @@ export function AutonomousSprintModal({
                 <RefreshCw className="w-3.5 h-3.5 text-white animate-spin" />
                 Executing step {currentStepIndex + 1} of {currentPlaybook.steps.length}...
               </span>
-              <span className="font-mono text-white">Autonomous Engine Active</span>
+              <span className="font-mono text-white text-[11px]">Engine Active</span>
             </div>
           )}
         </div>

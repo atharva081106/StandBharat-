@@ -13,6 +13,7 @@ import {
 import { useWorkflowStatus } from '@/lib/providers/WorkflowStatusProvider'
 import { WebsiteLoadingMotion } from '@/components/ui/website-loading-motion'
 import { CommandPalette } from '@/components/ui/CommandPalette'
+import { HoverScrollText } from '@/components/ui/HoverScrollText'
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
@@ -153,10 +154,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-2 text-[12px] sm:text-[13px] min-w-0">
             <div 
               onClick={() => setMobileMenuOpen(true)}
+              data-hover-group="true"
               className="flex items-center gap-1.5 px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-lg bg-[#242222] border border-[#373333] hover:bg-[#2A2828] cursor-pointer transition-colors max-w-[140px] sm:max-w-[200px]"
             >
               <div className="w-2 h-2 rounded-full bg-[#00A650] animate-pulse shrink-0" />
-              <span className="font-medium text-white truncate text-[11px] sm:text-[13px]">{activeBrand?.name || activeWorkspace?.name || 'Workspace'}</span>
+              <HoverScrollText 
+                text={activeBrand?.name || activeWorkspace?.name || 'Workspace'} 
+                className="font-medium text-white text-[11px] sm:text-[13px] block" 
+              />
               <ChevronDown className="w-3 h-3 text-[#E5E7EB] shrink-0" />
             </div>
           </div>
@@ -226,7 +231,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               )}
             </button>
             {showNotifications && (
-              <div className="absolute right-0 top-full mt-2 w-72 sm:w-80 bg-[#1C1A1A] border border-[#373333] rounded-xl shadow-2xl overflow-hidden z-50 flex flex-col max-h-[400px]">
+              <div className="fixed sm:absolute right-2 sm:right-0 top-14 sm:top-full mt-0 sm:mt-2 w-[calc(100vw-1rem)] sm:w-80 max-w-sm bg-[#1C1A1A] border border-[#373333] rounded-2xl shadow-2xl overflow-hidden z-50 flex flex-col max-h-[400px]">
                 <div className="px-4 py-2 border-b border-[#373333] flex justify-between items-center bg-[#242222]">
                   <span className="text-[13px] font-semibold text-white">Notifications</span>
                   <button onClick={() => notifications.markAllAsRead()} className="text-[11px] text-[#E5E7EB] hover:text-white">Mark all read</button>
@@ -256,12 +261,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           <div 
             className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity" 
             onClick={() => setMobileMenuOpen(true)}
+            data-hover-group="true"
           >
             <div className="h-7 w-7 rounded-full bg-[#800020] flex items-center justify-center text-[11px] font-bold text-white shrink-0 border border-[#8F0028]/60 shadow-sm">
               {user?.name?.[0]?.toUpperCase() || 'U'}
             </div>
-            <div className="hidden lg:flex flex-col">
-              <span className="text-[12px] font-semibold text-white leading-none max-w-[120px] truncate">{user?.name || 'User'}</span>
+            <div className="hidden lg:flex flex-col min-w-0 max-w-[120px]">
+              <HoverScrollText 
+                text={user?.name || 'User'} 
+                className="text-[12px] font-semibold text-white leading-none block" 
+              />
               <span className="text-[10px] text-[#E5E7EB] leading-none mt-1">Growth Plan</span>
             </div>
           </div>
@@ -284,6 +293,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           { label: 'Brand Brain', href: '/app/brand-brain', icon: Brain },
           { label: 'Competitors', href: '/app/competitors', icon: Users },
           { label: 'Calendar', href: '/app/calendar', icon: Calendar },
+          { label: 'Workflows', href: '/app/workflows', icon: Layers },
           { label: 'Revenue ROI', href: '/app/revenue', icon: DollarSign },
           { label: 'Analytics', href: '/app/analytics', icon: BarChart2 },
           { label: 'Integrations', href: '/app/integrations', icon: Link2 },
@@ -311,7 +321,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       {/* ========================================================= */}
       {/* MAIN VIEWPORT (With bottom-safe padding on mobile) */}
       {/* ========================================================= */}
-      <main className="flex-1 flex min-h-0 overflow-hidden bg-[#171515] pb-16 lg:pb-0">
+      <main className="flex-1 flex min-h-0 overflow-hidden bg-[#171515] pb-[calc(4.5rem+env(safe-area-inset-bottom,0px))] lg:pb-0">
         {children}
       </main>
 
@@ -396,7 +406,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           />
 
           {/* Sheet Body */}
-          <div className="relative w-full bg-[#1C1A1A] border-t border-[#373333] rounded-t-3xl p-5 shadow-2xl z-10 animate-in slide-in-from-bottom duration-200 max-h-[85vh] overflow-y-auto custom-scrollbar">
+          <div className="relative w-full bg-[#1C1A1A] border-t border-[#373333] rounded-t-3xl p-5 pb-8 shadow-2xl z-10 animate-in slide-in-from-bottom duration-200 max-h-[85vh] overflow-y-auto custom-scrollbar safe-area-pb">
             {/* Grab handle */}
             <div className="w-12 h-1 bg-[#443F3F] rounded-full mx-auto mb-4" />
 
@@ -563,7 +573,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   {activeBrand?.name?.[0]?.toUpperCase() || 'B'}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-xs font-bold text-white truncate">{activeBrand?.name || 'Workspace Brand'}</div>
+                  <HoverScrollText 
+                    text={activeBrand?.name || 'Workspace Brand'} 
+                    className="text-xs font-bold text-white block" 
+                  />
                   <div className="text-[10px] text-[#00A650] flex items-center gap-1.5 font-medium">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#00A650] animate-pulse" />
                     Brand Brain Synced
@@ -685,8 +698,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   {[
                     { label: 'AI Agents (15 Active)', href: '/app/agents', icon: Activity },
                     { label: 'Agent Audit Log', href: '/app/agent-log', icon: Activity },
+                    { label: 'Multi-Agent Workflows', href: '/app/workflows', icon: Layers },
                     { label: 'Integrations & Sync', href: '/app/integrations', icon: Link2 },
                     { label: 'Billing & Invoices', href: '/app/settings/billing', icon: DollarSign },
+                    { label: 'Team & Permissions', href: '/app/settings/team', icon: Users },
                     { label: 'Settings', href: '/app/settings', icon: Settings },
                   ].map(item => {
                     const isActive = pathname === item.href || pathname?.startsWith(item.href + '/')

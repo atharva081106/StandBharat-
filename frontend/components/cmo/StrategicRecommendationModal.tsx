@@ -7,6 +7,7 @@ import {
   Target, ChevronRight, Check
 } from 'lucide-react'
 import { AgentLogo } from '@/components/agents/AgentLogo'
+import { HoverScrollText } from '@/components/ui/HoverScrollText'
 
 interface StrategicRecommendationModalProps {
   isOpen: boolean
@@ -73,19 +74,19 @@ export function StrategicRecommendationModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-2xl bg-[#1C1A1A] border border-[#373333] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[88vh] text-white animate-in zoom-in-95 duration-200"
+        className="relative w-full max-w-2xl bg-[#1C1A1A] border border-[#373333] rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] sm:max-h-[88vh] text-white animate-in zoom-in-95 duration-200"
         onClick={e => e.stopPropagation()}
       >
         {/* Header Bar */}
-        <div className="px-6 py-4 border-b border-[#373333] flex items-center justify-between bg-[#201D1D] shrink-0">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-black uppercase tracking-wider px-3 py-1 bg-[#8F0028] text-white rounded-full flex items-center gap-1.5">
+        <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-[#373333] flex items-center justify-between bg-[#201D1D] shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+            <span className="text-xs font-black uppercase tracking-wider px-2.5 sm:px-3 py-1 bg-[#8F0028] text-white rounded-full flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5" />
-              Strategic AI CMO Recommendation
+              Strategic Recommendation
             </span>
-            <span className="text-xs font-bold text-[#E5E7EB] bg-[#282424] px-2.5 py-0.5 rounded-full border border-[#3A3535]">
+            <span className="text-[11px] sm:text-xs font-bold text-[#E5E7EB] bg-[#282424] px-2 sm:px-2.5 py-0.5 rounded-full border border-[#3A3535] truncate max-w-[140px] sm:max-w-none">
               {brandName}
             </span>
           </div>
@@ -99,7 +100,7 @@ export function StrategicRecommendationModal({
         </div>
 
         {/* Content Body */}
-        <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-6">
+        <div className="flex-1 overflow-y-auto custom-scrollbar p-3.5 sm:p-6 space-y-4 sm:space-y-6">
           
           {/* Executive Thesis Box */}
           <div className="p-5 rounded-2xl bg-[#241F21] border border-[#8F0028]/40 shadow-inner space-y-2">
@@ -126,16 +127,17 @@ export function StrategicRecommendationModal({
               {pillars.map((pillar, idx) => (
                 <div
                   key={pillar.id}
+                  data-hover-group="true"
                   className="p-4 rounded-2xl bg-[#201D1D] border border-[#332F2F] hover:border-[#443F3F] transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4"
                 >
                   <div className="flex items-start gap-3.5 min-w-0">
                     <AgentLogo id={pillar.agentId} name={pillar.agentName} size="md" showRing={false} />
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[10px] font-bold text-[#E5E7EB] bg-[#2A2727] px-2 py-0.5 rounded">
+                        <span className="text-[10px] font-bold text-[#E5E7EB] bg-[#2A2727] px-2 py-0.5 rounded shrink-0">
                           Priority 0{idx + 1}
                         </span>
-                        <span className="text-xs font-bold text-white truncate">{pillar.agentName}</span>
+                        <HoverScrollText text={pillar.agentName} className="text-xs font-bold text-white block" wrapperClassName="min-w-0 max-w-[160px]" />
                       </div>
                       <h4 className="text-sm font-bold text-white mb-1 leading-snug">{pillar.title}</h4>
                       <p className="text-xs text-[#E5E7EB] leading-relaxed">{pillar.rationale}</p>
@@ -173,18 +175,18 @@ export function StrategicRecommendationModal({
         </div>
 
         {/* Footer Bar */}
-        <div className="px-6 py-4 border-t border-[#373333] bg-[#201D1D] flex items-center justify-between gap-4 shrink-0">
+        <div className="px-4 sm:px-6 py-3 sm:py-4 border-t border-[#373333] bg-[#201D1D] flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-4 shrink-0 safe-area-pb">
           <button
             onClick={() => { onClose(); onExportReport?.(); }}
-            className="px-4 py-2.5 rounded-xl bg-[#282424] hover:bg-[#332E2E] text-white text-xs font-bold border border-[#3E3838] flex items-center gap-2 transition-colors cursor-pointer"
+            className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-[#282424] hover:bg-[#332E2E] text-white text-xs font-bold border border-[#3E3838] flex items-center justify-center gap-2 transition-colors cursor-pointer"
           >
             <Download className="w-3.5 h-3.5 text-white" />
-            <span>Export Strategy Report (PDF / MD)</span>
+            <span>Export Report (PDF / MD)</span>
           </button>
 
           <button
             onClick={onClose}
-            className="px-6 py-2.5 rounded-xl bg-[#8F0028] hover:bg-[#A8002F] text-white text-xs font-bold transition-all shadow-md shadow-[#8F0028]/20 cursor-pointer"
+            className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#8F0028] hover:bg-[#A8002F] text-white text-xs font-bold transition-all shadow-md shadow-[#8F0028]/20 cursor-pointer"
           >
             Done
           </button>

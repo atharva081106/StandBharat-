@@ -36,22 +36,37 @@ class SEOAgent(BaseAgent):
             else:
                 website_analysis = getattr(context.brand_context, "website_analysis", {})
         
-        if not website_analysis:
-            brand_obj = getattr(context.brand_context, "brand", None) if context.brand_context else None
-            brand_name = getattr(brand_obj, "name", "StandBharat") if brand_obj else "StandBharat"
-            website_url = getattr(brand_obj, "website_url", "https://standbharat.ai") if brand_obj else "https://standbharat.ai"
-            website_analysis = {
-                "url": website_url,
-                "result_metadata": {
-                    "title": f"{brand_name} - Autonomous AI CMO Marketing Platform",
-                    "description": "Continuous marketing automation across SEO, content, approvals, and revenue attribution.",
-                    "h1": [f"{brand_name} Growth Platform"]
+        # Verify actual domain from context or DB
+        brand_obj = getattr(context.brand_context, "brand", None) if context.brand_context else None
+        brand_name = getattr(brand_obj, "name", "") if brand_obj else ""
+        website_url = getattr(brand_obj, "website_url", "") if brand_obj else ""
+
+        if not brand_name and context.brand_id:
+            try:
+                from app.db.session import SessionLocal
+                from app.models.all_models import Brand
+                db_lookup = SessionLocal()
+                b_row = db_lookup.query(Brand).filter(Brand.id == context.brand_id).first()
+                if b_row:
+                    brand_name = b_row.name
+                    website_url = b_row.website_url or ""
+                db_lookup.close()
+            except Exception:
+                pass
+
+        if not website_url and not website_analysis.get("url"):
+            return AgentResult(
+                agent_id=self.agent_id,
+                run_id=context.run_id,
+                status="COMPLETED",
+                result_data={
+                    "status": "STANDBY_NO_DOMAIN",
+                    "findings": [f"No website domain is configured for {brand_name or 'this workspace'}."],
+                    "opportunities": [],
+                    "technical_tasks": ["Configure your domain in Settings to execute automated technical SEO audits."]
                 },
-                "analysis_results": {
-                    "technical_score": 90,
-                    "seo_health": 85
-                }
-            }
+                requires_approval=False
+            )
             
         system_prompt = (
             "You are an expert SEO Agent. Analyze the following website structure, metadata, "

@@ -15,7 +15,7 @@ export function AiCmoSection() {
   const [inputText, setInputText] = useState('')
 
   return (
-    <section className="py-12 px-6 lg:px-8 bg-[#111111] relative overflow-hidden" id="ai-cmo">
+    <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#111111] relative overflow-hidden" id="ai-cmo">
       {/* Abstract Line Art */}
       <div className="absolute inset-0 pointer-events-none opacity-30 flex items-center justify-center">
         <svg width="100%" height="100%" viewBox="0 0 1440 800" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,7 +24,7 @@ export function AiCmoSection() {
         </svg>
       </div>
 
-      <div className="max-w-[1300px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center relative z-10">
+      <div className="max-w-[1300px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center relative z-10">
         
         {/* Left Side */}
         <div className="space-y-6 sm:space-y-8">
@@ -32,14 +32,14 @@ export function AiCmoSection() {
             <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.15em] text-[#800020]">
               AI CMO
             </div>
-            <h2 className="text-[30px] xs:text-[38px] md:text-[56px] font-extrabold tracking-tight text-white leading-[1.05]">
+            <h2 className="text-3xl sm:text-4xl md:text-[56px] font-extrabold tracking-tight text-white leading-[1.08]">
               Meet your <span className="text-white">AI CMO.</span>
             </h2>
-            <p className="text-lg sm:text-[24px] text-white font-bold leading-tight">
+            <p className="text-lg sm:text-xl md:text-[24px] text-white font-bold leading-tight">
               Strategic. Contextual. Actionable.<br/>
               Always on your side.
             </p>
-            <p className="text-[#A1A1A1] text-sm sm:text-base md:text-lg max-w-lg font-medium leading-relaxed">
+            <p className="text-[#E5E7EB] text-sm sm:text-base md:text-lg max-w-lg font-medium leading-relaxed">
               Your AI marketing strategist that understands your business, finds opportunities, creates content, and helps you grow — all from one connected brain.
             </p>
           </div>
@@ -47,41 +47,41 @@ export function AiCmoSection() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
              {/* Card 1 */}
              <div className="bg-[#171717] border border-white/5 p-4 sm:p-5 rounded-xl space-y-3 sm:space-y-4 hover:border-[#800020]/30 transition-colors cursor-pointer group shadow-sm">
-               <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-lg bg-[#800020]/10 flex items-center justify-center group-hover:bg-[#800020] transition-colors">
-                 <Brain className="w-4 sm:w-5 h-4 sm:h-5 text-[#800020] group-hover:text-white transition-colors" />
+               <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-[#800020]/10 flex items-center justify-center group-hover:bg-[#800020] transition-colors">
+                 <Brain className="w-5 h-5 text-[#800020] group-hover:text-white transition-colors" />
                </div>
                <div>
-                 <h4 className="text-white font-bold text-sm mb-1">Understands<br className="hidden sm:inline" /> your business</h4>
-                 <p className="text-[#A1A1A1] text-xs leading-relaxed">Uses your Brand Brain, data and real-time insights.</p>
+                 <h4 className="text-white font-bold text-sm mb-1">Understands<br className="hidden sm:block"/>your business</h4>
+                 <p className="text-[#E5E7EB] text-xs leading-relaxed">Uses your Brand Brain, data and real-time insights.</p>
                </div>
              </div>
              
              {/* Card 2 */}
              <div className="bg-[#171717] border border-white/5 p-4 sm:p-5 rounded-xl space-y-3 sm:space-y-4 hover:border-[#800020]/30 transition-colors cursor-pointer group shadow-sm">
-               <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-lg bg-[#800020]/10 flex items-center justify-center group-hover:bg-[#800020] transition-colors">
-                 <Target className="w-4 sm:w-5 h-4 sm:h-5 text-[#800020] group-hover:text-white transition-colors" />
+               <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-[#800020]/10 flex items-center justify-center group-hover:bg-[#800020] transition-colors">
+                 <Target className="w-5 h-5 text-[#800020] group-hover:text-white transition-colors" />
                </div>
                <div>
-                 <h4 className="text-white font-bold text-sm mb-1">Finds<br className="hidden sm:inline" /> what matters</h4>
-                 <p className="text-[#A1A1A1] text-xs leading-relaxed">Identifies the highest-value opportunities across channels.</p>
+                 <h4 className="text-white font-bold text-sm mb-1">Finds<br className="hidden sm:block"/>what matters</h4>
+                 <p className="text-[#E5E7EB] text-xs leading-relaxed">Identifies the highest-value opportunities across channels.</p>
                </div>
              </div>
              
              {/* Card 3 */}
              <div className="bg-[#171717] border border-white/5 p-4 sm:p-5 rounded-xl space-y-3 sm:space-y-4 hover:border-[#800020]/30 transition-colors cursor-pointer group shadow-sm">
-               <div className="w-9 sm:w-10 h-9 sm:h-10 rounded-lg bg-[#800020]/10 flex items-center justify-center group-hover:bg-[#800020] transition-colors">
-                 <Zap className="w-4 sm:w-5 h-4 sm:h-5 text-[#800020] group-hover:text-white transition-colors" />
+               <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-[#800020]/10 flex items-center justify-center group-hover:bg-[#800020] transition-colors">
+                 <Zap className="w-5 h-5 text-[#800020] group-hover:text-white transition-colors" />
                </div>
                <div>
-                 <h4 className="text-white font-bold text-sm mb-1">Coordinates<br className="hidden sm:inline" /> execution</h4>
-                 <p className="text-[#A1A1A1] text-xs leading-relaxed">Works with specialized agents to get things done.</p>
+                 <h4 className="text-white font-bold text-sm mb-1">Coordinates<br className="hidden sm:block"/>execution</h4>
+                 <p className="text-[#E5E7EB] text-xs leading-relaxed">Works with specialized agents to get things done.</p>
                </div>
              </div>
           </div>
           
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pt-2">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pt-1">
              <Link href="#product" className="w-full sm:w-auto">
-               <Button size="lg" className="w-full sm:w-auto h-[48px] sm:h-[52px] px-6 bg-[#800020] text-white hover:bg-[#6A001A] rounded-xl font-bold border-none flex items-center justify-center gap-2 text-sm sm:text-base transition-colors shadow-lg shadow-[#800020]/20">
+               <Button size="lg" className="w-full sm:w-auto h-[50px] sm:h-[52px] px-6 bg-[#800020] text-white hover:bg-[#6A001A] rounded-xl font-bold border-none flex items-center justify-center gap-2 text-sm sm:text-base transition-colors shadow-lg shadow-[#800020]/20">
                  <MessageSquare className="w-4 h-4" />
                  Talk to the AI CMO &rarr;
                </Button>
@@ -89,50 +89,50 @@ export function AiCmoSection() {
              
              <div className="flex items-center gap-3">
                <div className="flex -space-x-2">
-                 <div className="w-7 sm:w-8 h-7 sm:h-8 rounded-full border-2 border-[#111111] bg-gray-200 overflow-hidden"><img src="https://i.pravatar.cc/100?img=68" alt="Avatar"/></div>
-                 <div className="w-7 sm:w-8 h-7 sm:h-8 rounded-full border-2 border-[#111111] bg-gray-300 overflow-hidden"><img src="https://i.pravatar.cc/100?img=47" alt="Avatar"/></div>
-                 <div className="w-7 sm:w-8 h-7 sm:h-8 rounded-full border-2 border-[#111111] bg-gray-400 overflow-hidden"><img src="https://i.pravatar.cc/100?img=32" alt="Avatar"/></div>
-                 <div className="w-7 sm:w-8 h-7 sm:h-8 rounded-full border-2 border-[#111111] bg-gray-500 overflow-hidden"><img src="https://i.pravatar.cc/100?img=12" alt="Avatar"/></div>
+                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-[#111111] bg-gray-200 overflow-hidden"><img src="https://i.pravatar.cc/100?img=68" alt="Avatar"/></div>
+                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-[#111111] bg-gray-300 overflow-hidden"><img src="https://i.pravatar.cc/100?img=47" alt="Avatar"/></div>
+                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-[#111111] bg-gray-400 overflow-hidden"><img src="https://i.pravatar.cc/100?img=32" alt="Avatar"/></div>
+                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-[#111111] bg-gray-500 overflow-hidden"><img src="https://i.pravatar.cc/100?img=12" alt="Avatar"/></div>
                </div>
-               <span className="text-[#A1A1A1] text-xs font-medium tracking-wide">Trusted by 500+ Bharat brands</span>
+               <span className="text-[#E5E7EB] text-xs font-medium tracking-wide">Trusted by growing businesses</span>
              </div>
           </div>
         </div>
         
         {/* Right Side - Chat Mockup */}
-        <div className="w-full relative max-w-[650px] mx-auto lg:mx-0">
-          <div className="bg-[#1A1A1A] rounded-2xl border border-white/5 shadow-2xl overflow-hidden flex flex-col h-[500px] sm:h-[540px] relative z-20">
+        <div className="w-full relative max-w-[650px] mx-auto lg:mx-0 mt-2 lg:mt-0">
+          <div className="bg-[#1A1A1A] rounded-2xl border border-white/5 shadow-2xl overflow-hidden flex flex-col h-[480px] sm:h-[540px] relative z-20">
              
              {/* Header */}
-             <div className="h-[58px] sm:h-[64px] border-b border-white/5 flex items-center justify-between px-3.5 sm:px-5 shrink-0">
-                <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
-                  <div className="w-9 sm:w-11 h-9 sm:h-11 rounded-lg bg-[#800020] flex items-center justify-center shrink-0">
-                    <Sparkles className="w-4 sm:w-5 h-4 sm:h-5 text-white" />
+             <div className="h-[56px] sm:h-[64px] border-b border-white/5 flex items-center justify-between px-4 sm:px-5 shrink-0">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg bg-[#800020] flex items-center justify-center shrink-0">
+                    <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
-                  <div className="min-w-0">
-                    <h3 className="font-bold text-white text-sm sm:text-base leading-tight truncate">AI CMO</h3>
-                    <p className="text-[#A1A1A1] text-[11px] sm:text-xs font-medium truncate">Your always-on marketing strategist</p>
+                  <div>
+                    <h3 className="font-bold text-white text-sm sm:text-base leading-tight">AI CMO</h3>
+                    <p className="text-[#E5E7EB] text-[11px] sm:text-xs font-medium">Your always-on marketing strategist</p>
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+                <div className="flex items-center gap-2 sm:gap-4">
                   <div className="bg-[#111111] border border-white/5 rounded-full px-2.5 sm:px-3 py-1 sm:py-1.5 flex items-center gap-1.5 sm:gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#168A5B]"></div>
                     <span className="text-white text-[11px] sm:text-xs font-semibold">Online</span>
                   </div>
-                  <button className="w-8 sm:w-9 h-8 sm:h-9 flex items-center justify-center rounded-lg hover:bg-white/5 text-[#A1A1A1] hover:text-white transition-colors border border-white/5">
-                    <Settings className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
+                  <button className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg hover:bg-white/5 text-[#E5E7EB] hover:text-white transition-colors border border-white/5">
+                    <Settings className="w-4 h-4" />
                   </button>
                 </div>
              </div>
              
-             {/* Tabs */}
-             <div className="flex px-2 sm:px-4 border-b border-white/5 shrink-0 overflow-x-auto">
+             {/* Tabs - Scrollable on mobile */}
+             <div className="flex px-3 sm:px-4 border-b border-white/5 shrink-0 overflow-x-auto [&::-webkit-scrollbar]:hidden">
                 {['Chat', 'Research', 'Strategy', 'Tasks'].map((tab) => (
                   <button 
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-3 sm:px-5 py-3 sm:py-4 text-xs sm:text-sm font-semibold border-b-2 transition-colors whitespace-nowrap ${activeTab === tab ? 'text-white border-[#800020]' : 'text-[#858585] border-transparent hover:text-white'}`}
+                    className={`px-3.5 sm:px-5 py-3 sm:py-4 text-xs sm:text-sm font-semibold border-b-2 whitespace-nowrap transition-colors ${activeTab === tab ? 'text-white border-[#800020]' : 'text-[#E5E7EB] border-transparent hover:text-white'}`}
                   >
                     {tab}
                   </button>
@@ -361,24 +361,24 @@ export function AiCmoSection() {
              </div>
              
              {/* Input Area */}
-             <div className="p-4 bg-[#1A1A1A] border-t border-white/5 shrink-0">
-               <div className="bg-[#222222] border border-white/10 rounded-xl pl-4 pr-1.5 py-1.5 flex items-center gap-3 focus-within:border-[#800020] transition-colors group">
+             <div className="p-3 sm:p-4 bg-[#1A1A1A] border-t border-white/5 shrink-0">
+               <div className="bg-[#222222] border border-white/10 rounded-xl pl-3 sm:pl-4 pr-1.5 py-1.5 flex items-center gap-2 sm:gap-3 focus-within:border-[#800020] transition-colors group">
                   <input 
                     type="text" 
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                     placeholder="Ask the AI CMO anything..." 
-                    className="bg-transparent border-none outline-none text-sm font-medium text-white w-full placeholder-[#666]"
+                    className="bg-transparent border-none outline-none text-xs sm:text-sm font-medium text-white w-full placeholder-[#666]"
                   />
                   <div className="flex items-center gap-1 sm:gap-1.5 text-[#666] shrink-0">
-                     <button className="hidden sm:flex w-8 h-8 items-center justify-center rounded-lg hover:bg-white/5 hover:text-white transition-colors"><Paperclip className="w-4 h-4" /></button>
+                     <button className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg hover:bg-white/5 hover:text-white transition-colors"><Paperclip className="w-3.5 h-3.5 sm:w-4 sm:h-4" /></button>
                      <button className="hidden sm:flex w-8 h-8 items-center justify-center rounded-lg hover:bg-white/5 hover:text-white transition-colors"><AtSign className="w-4 h-4" /></button>
-                     <button className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-white/5 hover:text-white transition-colors"><Globe className="w-3.5 sm:w-4 h-3.5 sm:h-4" /></button>
+                     <button className="hidden sm:flex w-8 h-8 items-center justify-center rounded-lg hover:bg-white/5 hover:text-white transition-colors"><Globe className="w-4 h-4" /></button>
                      <button 
-                       className={`w-8 sm:w-9 h-8 sm:h-9 ml-0.5 sm:ml-1 flex items-center justify-center rounded-lg transition-colors shadow-sm ${inputText.length > 0 ? 'bg-[#800020] text-white hover:bg-[#6A001A]' : 'bg-[#800020] text-white opacity-80'}`}
+                       className={`w-8 h-8 sm:w-9 sm:h-9 ml-0.5 sm:ml-1 flex items-center justify-center rounded-lg transition-colors shadow-sm ${inputText.length > 0 ? 'bg-[#800020] text-white hover:bg-[#6A001A]' : 'bg-[#800020] text-white opacity-80'}`}
                        onClick={() => setInputText('')}
                      >
-                       <Send className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
+                       <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                      </button>
                   </div>
                </div>
@@ -394,8 +394,8 @@ export function AiCmoSection() {
 
 export function FeaturesThreeColumns() {
   return (
-    <section className="py-16 sm:py-32 px-4 sm:px-6 lg:px-8 bg-white/60 backdrop-blur-sm" id="product">
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+    <section className="py-32 px-6 lg:px-8 bg-white/60 backdrop-blur-sm" id="product">
+      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* Brand Brain */}
         <div>
@@ -550,37 +550,37 @@ export function FeaturesThreeColumns() {
 
 export function ExecutionSection() {
   return (
-    <section className="py-16 sm:py-32 px-4 sm:px-6 lg:px-8 bg-transparent border-t border-[#E8E4DC]">
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16">
+    <section className="py-32 px-6 lg:px-8 bg-transparent border-t border-[#E8E4DC]">
+      <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
         
         {/* Content & Approval */}
-        <div className="space-y-6 sm:space-y-12">
-          <div className="space-y-3 sm:space-y-4">
+        <div className="space-y-12">
+          <div className="space-y-4">
             <div>
-              <h2 className="text-[26px] xs:text-[32px] md:text-[40px] font-bold tracking-tight text-[#111111] leading-[1.1]">
+              <h2 className="text-[32px] md:text-[40px] font-bold tracking-tight text-[#111111] leading-[1.1]">
                 AI MOVES FAST.<br/>YOU STAY IN CONTROL.
               </h2>
             </div>
             <div>
-              <p className="text-base sm:text-lg text-[#5A5A5A] font-medium">
+              <p className="text-lg text-[#5A5A5A] font-medium">
                 From idea to published content, with a clear approval workflow.
               </p>
             </div>
           </div>
           
-          <div className="overflow-x-auto pb-2">
-            <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#5A5A5A] whitespace-nowrap min-w-max">
-               <span className="bg-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded border border-[#E8E4DC]">Idea</span>
+          <div>
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#5A5A5A] flex-wrap">
+               <span className="bg-white px-3 py-1.5 rounded border border-[#E8E4DC]">Idea</span>
                <span>&rarr;</span>
-               <span className="bg-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded border border-[#E8E4DC]">Brief</span>
+               <span className="bg-white px-3 py-1.5 rounded border border-[#E8E4DC]">Brief</span>
                <span>&rarr;</span>
-               <span className="bg-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded border border-[#E8E4DC]">Draft</span>
+               <span className="bg-white px-3 py-1.5 rounded border border-[#E8E4DC]">Draft</span>
                <span>&rarr;</span>
-               <span className="bg-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded border border-[#E8E4DC]">Review</span>
+               <span className="bg-white px-3 py-1.5 rounded border border-[#E8E4DC]">Review</span>
                <span>&rarr;</span>
-               <span className="bg-[#111111] text-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded shadow-sm">Approval</span>
+               <span className="bg-[#111111] text-white px-3 py-1.5 rounded shadow-sm">Approval</span>
                <span>&rarr;</span>
-               <span className="bg-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded border border-[#E8E4DC]">Publish</span>
+               <span className="bg-white px-3 py-1.5 rounded border border-[#E8E4DC]">Publish</span>
             </div>
           </div>
 
