@@ -15,7 +15,7 @@ from ..config import ai_config
 
 class GeminiProvider(BaseAIProvider):
     provider_name = "gemini"
-    default_model = "gemini-3.8-flash"
+    default_model = "gemini-1.5-flash"
 
     def __init__(self):
         key = ai_config.GEMINI_API_KEY
@@ -36,8 +36,8 @@ class GeminiProvider(BaseAIProvider):
         start_time = time.time()
         _ = metadata
 
-        # Adapt model name if alien model or deprecated version passed
-        if not model or model.startswith("gpt-") or model.startswith("mistral-") or model.startswith("llama-") or "1.5" in model or "2.5" in model:
+        # Adapt model name if alien model passed
+        if not model or model.startswith("gpt-") or model.startswith("mistral-") or model.startswith("llama-"):
             model = self.default_model
 
         system_instruction = None

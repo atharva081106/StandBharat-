@@ -56,6 +56,24 @@ class AIGateway:
         metadata: Optional[Dict[str, Any]] = None
     ) -> AIResponse:
         
+        # Resilient message normalization to handle strings, dicts, and AIRequestMessage objects
+        normalized_messages: List[AIRequestMessage] = []
+        if isinstance(messages, str):
+            normalized_messages = [AIRequestMessage(role="user", content=messages)]
+        elif isinstance(messages, list):
+            for m in messages:
+                if isinstance(m, AIRequestMessage):
+                    normalized_messages.append(m)
+                elif isinstance(m, dict):
+                    normalized_messages.append(AIRequestMessage(**m))
+                elif isinstance(m, str):
+                    normalized_messages.append(AIRequestMessage(role="user", content=m))
+                else:
+                    normalized_messages.append(AIRequestMessage(role="user", content=str(m)))
+        else:
+            normalized_messages = [AIRequestMessage(role="user", content=str(messages))]
+        messages = normalized_messages
+
         provider_impl = self._get_provider(provider)
         if not model:
             model = getattr(provider_impl, "default_model", ai_config.DEFAULT_MODEL)

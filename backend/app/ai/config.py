@@ -14,7 +14,7 @@ class AIConfig(BaseSettings):
     GROQ_API_KEY: str | None = os.getenv("GROQ_API_KEY", None)
     
     DEFAULT_PROVIDER: str = os.getenv("DEFAULT_PROVIDER", "gemini")
-    DEFAULT_MODEL: str = os.getenv("DEFAULT_MODEL", "gemini-3.8-flash")
+    DEFAULT_MODEL: str = os.getenv("DEFAULT_MODEL", "gemini-1.5-flash")
     
     model_config = SettingsConfigDict(env_file=(".env", "../.env"), env_file_encoding="utf-8", extra="ignore")
 

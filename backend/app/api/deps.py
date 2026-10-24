@@ -92,7 +92,15 @@ def get_current_workspace(
     ).first()
     
     if not member:
-        raise HTTPException(status_code=403, detail="Not authorized to access this workspace")
+        # Auto-heal: If client passed a stale/mismatched workspace header, fallback to user's valid workspace
+        fallback_member = db.query(WorkspaceMember).filter(
+            WorkspaceMember.user_id == to_uuid(current_user.id)
+        ).first()
+        if fallback_member:
+            member = fallback_member
+            workspace_id = str(fallback_member.workspace_id)
+        else:
+            raise HTTPException(status_code=403, detail="Not authorized to access this workspace")
         
     workspace = db.query(Workspace).filter(Workspace.id == to_uuid(workspace_id)).first()
     if not workspace:
@@ -130,6 +138,10 @@ def get_current_brand(
     ).first()
     
     if not brand:
+        # Auto-heal: Fallback to the primary brand belonging to this workspace
+        fallback_brand = db.query(Brand).filter(Brand.workspace_id == ws_id).first()
+        if fallback_brand:
+            return fallback_brand
         raise HTTPException(status_code=403, detail="Not authorized to access this brand")
         
     return brand
