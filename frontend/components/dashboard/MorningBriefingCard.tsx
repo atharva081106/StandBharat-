@@ -238,7 +238,7 @@ export function MorningBriefingCard({ onActionTriggered }: { onActionTriggered?:
               Today's 3 Crucial Action Items (High-Impact ROI Levers)
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-3.5">
+            <div className="grid grid-cols-1 md:grid-cols-2 min-[1650px]:grid-cols-3 gap-3.5">
               {briefing.critical_actions.map((act) => (
                 <div
                   key={act.id}
@@ -268,13 +268,13 @@ export function MorningBriefingCard({ onActionTriggered }: { onActionTriggered?:
                     </p>
                   </div>
 
-                  <div className="pt-2.5 border-t border-[#332E2E] shrink-0">
+                  <div className="pt-2.5 border-t border-[#332E2E] shrink-0 w-full">
                     {act.type === 'COMPETITOR_DEFENSE' ? (
                       <Button
                         size="sm"
                         onClick={() => handleExecuteAction(act)}
                         disabled={executingActionId === act.id}
-                        className="w-full bg-[#8F0028] hover:bg-[#A8002F] text-white text-xs font-bold h-8.5 px-3 rounded-lg flex items-center justify-center gap-1.5 shadow-sm min-w-0"
+                        className="w-full bg-[#8F0028] hover:bg-[#A8002F] text-white text-xs font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 shadow-sm whitespace-normal text-center h-auto min-h-[38px] leading-tight overflow-hidden transition-all"
                       >
                         {executingActionId === act.id ? (
                           <>
@@ -283,8 +283,8 @@ export function MorningBriefingCard({ onActionTriggered }: { onActionTriggered?:
                           </>
                         ) : (
                           <>
-                            <Swords className="w-3.5 h-3.5 shrink-0" />
-                            <span>Launch Counter-Attack</span>
+                            <Swords className="w-4 h-4 shrink-0 text-white" />
+                            <span className="leading-tight text-center">Launch Counter-Attack</span>
                           </>
                         )}
                       </Button>
@@ -292,10 +292,10 @@ export function MorningBriefingCard({ onActionTriggered }: { onActionTriggered?:
                       <Link href="/app/campaigns" className="block w-full">
                         <Button
                           size="sm"
-                          className="w-full bg-[#00A650] hover:bg-[#008f45] text-white text-xs font-bold h-8.5 px-3 rounded-lg flex items-center justify-center gap-1.5 shadow-sm min-w-0"
+                          className="w-full bg-[#00A650] hover:bg-[#008f45] text-white text-xs font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 shadow-sm whitespace-normal text-center h-auto min-h-[38px] leading-tight overflow-hidden transition-all"
                         >
-                          <Sparkles className="w-3.5 h-3.5 shrink-0" />
-                          <span>Open WhatsApp Studio</span>
+                          <Sparkles className="w-4 h-4 shrink-0 text-white" />
+                          <span className="leading-tight text-center">Open WhatsApp Studio</span>
                         </Button>
                       </Link>
                     ) : (
@@ -303,10 +303,10 @@ export function MorningBriefingCard({ onActionTriggered }: { onActionTriggered?:
                         <Button
                           size="sm"
                           variant="outline"
-                          className="w-full border-[#373333] bg-[#181616] text-white hover:text-white text-xs font-bold h-8.5 px-3 rounded-lg flex items-center justify-center gap-1.5 min-w-0"
+                          className="w-full border border-[#373333] bg-[#181616] hover:bg-[#252222] text-white text-xs font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2 shadow-sm whitespace-normal text-center h-auto min-h-[38px] leading-tight overflow-hidden transition-all"
                         >
-                          <span className="shrink-0">🎨</span>
-                          <span>Open Carousel Studio</span>
+                          <span className="shrink-0 text-sm">🎨</span>
+                          <span className="leading-tight text-center">Open Carousel Studio</span>
                         </Button>
                       </Link>
                     )}
