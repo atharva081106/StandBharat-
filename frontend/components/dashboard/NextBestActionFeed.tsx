@@ -140,11 +140,9 @@ export function NextBestActionFeed({
                     <span className="text-[9.5px] uppercase font-bold px-2 py-0.5 rounded bg-[#1C1A1A] border border-[#332E2E] text-white shrink-0">
                       {item.category}
                     </span>
-                    <HoverScrollText 
-                      text={item.title} 
-                      className="text-xs font-bold text-white block" 
-                      wrapperClassName="min-w-0 max-w-[260px]" 
-                    />
+                    <h4 className="text-xs font-bold text-white leading-snug break-words">
+                      {item.title}
+                    </h4>
                     <span className="text-[10px] text-[#E5E7EB] font-mono shrink-0">
                       ({item.convictionScore}% Conviction)
                     </span>

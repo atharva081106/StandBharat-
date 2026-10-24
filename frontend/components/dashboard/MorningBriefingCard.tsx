@@ -184,30 +184,29 @@ export function MorningBriefingCard({ onActionTriggered }: { onActionTriggered?:
         <div className="p-4 sm:p-5 space-y-4">
           {/* Sentiment & Score Bar */}
           <div className="space-y-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {/* Score Card */}
-              <div className="bg-[#242222] border border-[#373333] rounded-xl p-3.5 flex items-center justify-between gap-3 shadow-sm min-w-0">
-                <div className="min-w-0">
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-[#A39E9E] truncate">Growth Health Score</div>
-                  <div className="text-2xl font-black text-white mt-0.5">{briefing.growth_health_score}/100</div>
+              <div className="bg-[#242222] border border-[#373333] rounded-xl p-4 flex flex-col justify-between gap-3 shadow-sm min-w-0">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#A39E9E]">Growth Health Score</span>
+                  <Badge className="bg-[#00A650]/20 text-[#00A650] border border-[#00A650]/30 text-[10.5px] font-bold px-2 py-0.5 whitespace-nowrap">
+                    {briefing.health_score_delta}
+                  </Badge>
                 </div>
-                <Badge className="bg-[#00A650]/20 text-[#00A650] border border-[#00A650]/30 text-[10px] font-bold px-2 py-0.5 whitespace-nowrap shrink-0">
-                  {briefing.health_score_delta}
-                </Badge>
+                <div className="text-2xl sm:text-3xl font-black text-white">{briefing.growth_health_score}/100</div>
               </div>
 
               {/* Indic Search CPC Trend Card */}
-              <div className="bg-[#242222] border border-[#373333] rounded-xl p-3.5 flex items-center justify-between gap-3 shadow-sm min-w-0">
-                <div className="min-w-0 flex-1">
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-[#A39E9E] truncate">Indic Search CPC Trend</div>
-                  <HoverScrollText
-                    text={briefing.market_sentiment.average_cpc_trend}
-                    className="text-xs font-bold text-white mt-0.5"
-                  />
+              <div className="bg-[#242222] border border-[#373333] rounded-xl p-4 flex flex-col justify-between gap-3 shadow-sm min-w-0">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#A39E9E]">Indic Search CPC Trend</span>
+                  <span className="text-[10.5px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2.5 py-0.5 rounded-full whitespace-nowrap">
+                    -8% CPC
+                  </span>
                 </div>
-                <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">
-                  -8% CPC
-                </span>
+                <div className="text-sm sm:text-base font-bold text-white leading-snug break-words">
+                  {briefing.market_sentiment.average_cpc_trend}
+                </div>
               </div>
             </div>
 
@@ -239,54 +238,53 @@ export function MorningBriefingCard({ onActionTriggered }: { onActionTriggered?:
               Today's 3 Crucial Action Items (High-Impact ROI Levers)
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-3.5">
               {briefing.critical_actions.map((act) => (
                 <div
                   key={act.id}
-                  className="bg-[#242222] border border-[#373333] rounded-xl p-3.5 flex flex-col justify-between hover:border-[#4A4545] transition-all space-y-3 min-w-0 overflow-hidden"
+                  className="bg-[#242222] border border-[#373333] rounded-xl p-4 flex flex-col justify-between hover:border-[#4A4545] transition-all space-y-3.5 min-w-0"
                 >
-                  <div className="space-y-1.5 min-w-0">
-                    <div className="flex items-center justify-between gap-1.5 min-w-0">
+                  <div className="space-y-2 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <Badge className={
                         act.priority === 'HIGH' 
-                          ? 'bg-[#8F0028] text-white text-[9px] py-0.5 px-2 font-bold shrink-0'
+                          ? 'bg-[#8F0028] text-white text-[9.5px] py-0.5 px-2 font-bold shrink-0'
                           : act.priority === 'URGENT'
-                          ? 'bg-amber-600 text-white text-[9px] py-0.5 px-2 font-bold shrink-0'
-                          : 'bg-[#1C1A1A] text-[#00A650] border border-[#332E2E] text-[9px] py-0.5 px-2 font-bold shrink-0'
+                          ? 'bg-amber-600 text-white text-[9.5px] py-0.5 px-2 font-bold shrink-0'
+                          : 'bg-[#1C1A1A] text-[#00A650] border border-[#332E2E] text-[9.5px] py-0.5 px-2 font-bold shrink-0'
                       }>
                         {act.priority}
                       </Badge>
-                      <span className="text-[9.5px] text-[#A39E9E] font-mono uppercase tracking-wider truncate" title={act.type.replace('_', ' ')}>
-                        {act.type.replace('_', ' ')}
+                      <span className="text-[10px] text-[#A39E9E] font-mono uppercase tracking-wider">
+                        {act.type.replace(/_/g, ' ')}
                       </span>
                     </div>
 
-                    <h4 className="text-xs font-bold text-white leading-snug line-clamp-2" title={act.title}>
+                    <h4 className="text-[13px] font-bold text-white leading-snug break-words">
                       {act.title}
                     </h4>
-                    <p className="text-[11px] text-[#E5E7EB] leading-relaxed line-clamp-2" title={act.detail}>
+                    <p className="text-[12px] text-[#E5E7EB] leading-relaxed break-words">
                       {act.detail}
                     </p>
                   </div>
 
-                  <div className="pt-2 border-t border-[#332E2E] shrink-0">
+                  <div className="pt-2.5 border-t border-[#332E2E] shrink-0">
                     {act.type === 'COMPETITOR_DEFENSE' ? (
                       <Button
                         size="sm"
                         onClick={() => handleExecuteAction(act)}
                         disabled={executingActionId === act.id}
-                        className="w-full bg-[#8F0028] hover:bg-[#A8002F] text-white text-[11px] font-bold h-7.5 px-2 rounded-lg flex items-center justify-center gap-1.5 shadow-sm min-w-0 overflow-hidden"
-                        title={act.title}
+                        className="w-full bg-[#8F0028] hover:bg-[#A8002F] text-white text-xs font-bold h-8.5 px-3 rounded-lg flex items-center justify-center gap-1.5 shadow-sm min-w-0"
                       >
                         {executingActionId === act.id ? (
                           <>
-                            <RefreshCw className="w-3 h-3 animate-spin shrink-0" />
-                            <span className="truncate">Launching...</span>
+                            <RefreshCw className="w-3.5 h-3.5 animate-spin shrink-0" />
+                            <span>Launching...</span>
                           </>
                         ) : (
                           <>
-                            <Swords className="w-3 h-3 shrink-0" />
-                            <HoverScrollText text="Launch Counter-Attack" />
+                            <Swords className="w-3.5 h-3.5 shrink-0" />
+                            <span>Launch Counter-Attack</span>
                           </>
                         )}
                       </Button>
@@ -294,11 +292,10 @@ export function MorningBriefingCard({ onActionTriggered }: { onActionTriggered?:
                       <Link href="/app/campaigns" className="block w-full">
                         <Button
                           size="sm"
-                          className="w-full bg-[#00A650] hover:bg-[#008f45] text-white text-[11px] font-bold h-7.5 px-2 rounded-lg flex items-center justify-center gap-1.5 shadow-sm min-w-0 overflow-hidden"
-                          title="Open WhatsApp Recovery Studio"
+                          className="w-full bg-[#00A650] hover:bg-[#008f45] text-white text-xs font-bold h-8.5 px-3 rounded-lg flex items-center justify-center gap-1.5 shadow-sm min-w-0"
                         >
-                          <Sparkles className="w-3 h-3 shrink-0" />
-                          <HoverScrollText text="Open WhatsApp Studio" />
+                          <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                          <span>Open WhatsApp Studio</span>
                         </Button>
                       </Link>
                     ) : (
@@ -306,11 +303,10 @@ export function MorningBriefingCard({ onActionTriggered }: { onActionTriggered?:
                         <Button
                           size="sm"
                           variant="outline"
-                          className="w-full border-[#373333] bg-[#181616] text-white hover:text-white text-[11px] font-bold h-7.5 px-2 rounded-lg flex items-center justify-center gap-1.5 min-w-0 overflow-hidden"
-                          title="Open Carousel Studio"
+                          className="w-full border-[#373333] bg-[#181616] text-white hover:text-white text-xs font-bold h-8.5 px-3 rounded-lg flex items-center justify-center gap-1.5 min-w-0"
                         >
                           <span className="shrink-0">🎨</span>
-                          <HoverScrollText text="Open Carousel Studio" />
+                          <span>Open Carousel Studio</span>
                         </Button>
                       </Link>
                     )}
