@@ -193,8 +193,9 @@ def create_festive_sprint(
         project = ContentProject(
             workspace_id=brand.workspace_id,
             brand_id=brand.id,
-            name=f"{festival_name} Deliverables",
-            description=f"Festive creative assets for {festival_name}"
+            title=f"{festival_name} Deliverables",
+            objective=f"Festive creative assets for {festival_name}",
+            content_type="campaign"
         )
         db.add(project)
         db.commit()
@@ -202,7 +203,9 @@ def create_festive_sprint(
 
     # Draft 1: WhatsApp Broadcast
     d1 = ContentDraft(
-        project_id=project.id,
+        workspace_id=brand.workspace_id,
+        brand_id=brand.id,
+        content_project_id=project.id,
         title=f"WhatsApp Blast: {festival_name} Exclusive VIP Access ({discount})",
         body=(
             f"✨ Namaste {{{{name}}}}! Stand with {brand.name} this festive season! ✨\n\n"
@@ -214,12 +217,14 @@ def create_festive_sprint(
         ),
         content_type="whatsapp",
         status="PENDING",
-        seo_metadata={"festival": festival_id, "channel": "WhatsApp", "campaign_id": str(c.id)}
+        generation_metadata={"festival": festival_id, "channel": "WhatsApp", "campaign_id": str(c.id)}
     )
 
     # Draft 2: Instagram / LinkedIn Carousel
     d2 = ContentDraft(
-        project_id=project.id,
+        workspace_id=brand.workspace_id,
+        brand_id=brand.id,
+        content_project_id=project.id,
         title=f"Social Carousel: 5 Ways {brand.name} Celebrates {festival_name}",
         body=(
             f"Slide 1: This {festival_name}, don't settle for ordinary.\n"
@@ -230,7 +235,7 @@ def create_festive_sprint(
         ),
         content_type="social",
         status="PENDING",
-        seo_metadata={"festival": festival_id, "channel": "Instagram / LinkedIn", "campaign_id": str(c.id)}
+        generation_metadata={"festival": festival_id, "channel": "Instagram / LinkedIn", "campaign_id": str(c.id)}
     )
 
     db.add(d1)
